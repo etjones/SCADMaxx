@@ -10,8 +10,10 @@
   "ui-visual-polish-local": {
     "repository": "E:/Dropbox/bare_repos/scadmaxx.git",
     "ref": "refs/heads/codex/ui-visual-polish",
-    "ready": false,
-    "pendingReason": "Selected UI work is uncommitted; its development task must commit and push a usable revision locally first."
+    "ready": true,
+    "pendingReason": "",
+    "validatedHead": "8f5b3ae4707a8718db28722deb2fd723fd9415ab",
+    "handoff": ".plans/2_in-progress/2026-10-01_ui-preferences-dialog-polish/5_post-implementation-notes.md"
   },
   "annotations-local": {
     "repository": "E:/Dropbox/bare_repos/scadmaxx.git",

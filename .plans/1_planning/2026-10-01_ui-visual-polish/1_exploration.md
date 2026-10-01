@@ -1,6 +1,8 @@
 # OpenSCAD UI visual polish
 
-Status: foundation and icon system done; Customizer implemented through `b22167be9`. Dialog polish remains planning.
+Status: all four UI features implemented. Preferences/dialog polish awaits the user's completion review.
+The final [audit and cumulative handoff](../../2_in-progress/2026-10-01_ui-preferences-dialog-polish/5_post-implementation-notes.md)
+records the authoritative implementation state; design investigations below retain their historical context.
 Direction constrained to native Qt styling after user review.
 
 Prerequisite update: original upstream PR #6776, head `aab4aed030dd61b80c5f850177f2af93e067eb7d`,
@@ -38,10 +40,11 @@ Four focused briefs own the work. This file retains the shared evidence and hist
 2. [Icon system](../../3_done/2026-10-01_ui-icon-system/1_exploration.md)
    (done): Tabler, custom CAD gaps, size and state-aware coloring; three status treatments with native Qt
    status icons as the default. Four sequential commits and Windows evidence are recorded in that feature.
-3. [Customizer polish](../../2_in-progress/2026-10-01_ui-customizer-polish/1_exploration.md)
-   (implemented): quiet native headers, default hover-only help, conservative display casing and native metrics.
-4. [Preferences and dialog polish](../2026-10-01_ui-preferences-dialog-polish/1_exploration.md): extend its hierarchy,
-   spacing and control-state principles to secondary windows.
+3. [Customizer polish](../../3_done/2026-10-01_ui-customizer-polish/1_exploration.md)
+   (done): quiet native headers, default hover-only help, conservative display casing and native metrics.
+4. [Preferences and dialog polish](../../2_in-progress/2026-10-01_ui-preferences-dialog-polish/1_exploration.md)
+   (implemented, awaiting completion review): native Preferences tabs, native dialog spacing/palette/font treatment,
+   residual stylesheet removal and a complete application-owned surface audit.
 
 User-confirmed delivery: implement all four parts sequentially in the existing `codex/ui-visual-polish` branch and
 `D:/openscad/wt-openscad-ui-visual-polish` worktree. Do not create separate branches or worktrees for these parts.

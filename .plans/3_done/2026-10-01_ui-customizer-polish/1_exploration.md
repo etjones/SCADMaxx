@@ -1,6 +1,6 @@
 # Quiet Customizer
 
-Status: all four phases implemented and committed on 2026-10-01; retained in the current lane.
+Status: done; all four phases implemented and committed, moved to done at the user's request on 2026-10-01.
 See [results and limits](5_post-implementation-notes.md). The accepted Customizer preview is the visual reference.
 Delivery: part 3 of 4, after the icon system, on `codex/ui-visual-polish` in
 `D:/openscad/wt-openscad-ui-visual-polish`. No separate branch or worktree for this part.

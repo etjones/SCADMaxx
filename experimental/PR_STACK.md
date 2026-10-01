@@ -28,7 +28,7 @@ there does not select it; only an enabled row does.
 | 1 | pr-6878 | pr | https://github.com/openscad/openscad/pull/6878 | latest | auto-merge-base | none declared | Customize keyboard shortcuts through the GUI |
 | 2 | pr-6776 | pr | https://github.com/openscad/openscad/pull/6776 | latest | auto-merge-base | none declared | Correct switching to and from dark mode while OpenSCAD is running |
 | 3 | navigation-cube | feature | navigation-cube-local | latest | auto-merge-base | none declared | Native viewport navigation cube |
-| 4 | ui-visual-polish | feature | ui-visual-polish-local | latest | auto-merge-base | none declared | Improved OpenSCAD UI from our UI work branch |
+| 4 | ui-visual-polish | feature | ui-visual-polish-local | latest | be352f27972d570d61c9224a927079fa21055ac0 | pr-6776 | Improved OpenSCAD UI from our UI work branch |
 | 5 | annotations | feature | annotations-local | latest | auto-merge-base | none declared | Native Blender-style annotation tool |
 | 6 | http-agent-server | feature | http-agent-server-local | latest | 85829fa71870c4aa6945d3cd4abbc932faeab392 | navigation-cube, annotations | HTTP endpoint / agent server for OpenSCAD automation |
 
@@ -36,17 +36,16 @@ Selected by the user on 2026-09-30. Both PRs were open and unmerged when checked
 PR #6878 is the updated version of the older Shortcuts GUI PR #3338. Resolve fresh heads and validate dependencies
 at run start; this selection does not pin today's commits or include uncommitted local fixes.
 
-The three local features were selected by the user on 2026-10-01. They are required members of the intended
-SCADMaxx build, but are currently **pending committed feature revisions**: navigation is at its starting commit;
-UI work is staged but uncommitted; annotations have uncommitted files and a dirty submodule. Their source definitions
-set `ready: false`, so run preparation stops before fetching or creating a build. Do not silently omit them or
-integrate their unchanged starting commits as if the features were present. Their development tasks must commit
-usable feature revisions, push them to the local origin, then set `ready: true` after reviewing change boundaries
-and dependencies. Build runs must not commit another task's unfinished work.
+The local features were selected by the user on 2026-10-01. Their current readiness and exact validated heads live
+in `SOURCES.json` and their linked handoffs. Pending entries stop preparation; do not omit them or integrate their
+starting commits as if the features were present. Development tasks must commit and privately retain usable source
+before marking it ready. Build runs must not commit another task's unfinished work.
 
-The UI branch currently incorporates PR #6776 as its foundation. Before marking it ready, identify the committed
-foundation and declare/review the UI-only delta after the separately selected dark-mode PR. Do not integrate the
-same PR twice or silently switch the selected upstream PR to a local variant.
+The UI source is verified at `8f5b3ae4707a8718db28722deb2fd723fd9415ab`. Apply only its explicit UI delta after
+`be352f27972d570d61c9224a927079fa21055ac0`, which excludes the already-incorporated #6776 and four Windows baseline
+repairs. It depends on the selected `pr-6776`; review newer dependency revisions during composition and apply
+applicable baseline repairs separately. See the [complete audit and handoff](../.plans/2_in-progress/2026-10-01_ui-preferences-dialog-polish/5_post-implementation-notes.md).
+Do not replay the full branch or silently substitute a local variant for the selected upstream PR.
 
 ## HTTP agent-server feature handoff
 
