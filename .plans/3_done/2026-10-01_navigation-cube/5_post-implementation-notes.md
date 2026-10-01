@@ -2,6 +2,10 @@
 
 Status: all six source phases committed; local delivery verified. See final handoff and coverage below.
 
+Latest correction: [arrow scaling](rework/03/0_restart.md), commit `8fbde4053f6d721e6fd745690bb26a7fde054d70`.
+Latest application: `D:/openscad/artifacts/openscad-navigation-cube-arrow-scaling-win64/openscad.exe`.
+It retains the dockable tuning panel and both prior click corrections.
+
 Latest UI refinement: **Window > Navigation tuning** is now a standard dock, initially floating and hidden.
 It participates in the Window menu, dock keyboard navigation and saved window layout. Experimental values remain
 session-only. Commit `6e8e2f37fc7f988b228a9c907556bfaf591a0fc6` (menu move first committed as `cea9a66ae`).
