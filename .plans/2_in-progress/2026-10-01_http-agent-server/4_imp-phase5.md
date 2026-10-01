@@ -1,6 +1,6 @@
 # Phase 5 — Evidence, camera control and fresh capture
 
-Status: planned, not executed. Depends on phases 1–4. Covers R13–R20. Navigation is not an entry prerequisite.
+Status: implemented and committed as b6461b511. Depends on phases 1–4. Covers R13–R20.
 
 ## Implementation
 

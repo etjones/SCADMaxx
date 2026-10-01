@@ -82,3 +82,18 @@ Windows Release build passed. Native suite 10/10, `runs/http-agent-server/phase3
 loop expansion/repeated spans, effective ! roots, disabled calls, retained tree after recompile, empty success,
 stale Customizer definitions, and all preceding source/parser/legacy evidence/reload tests. Model property completeness
 is deliberately false even with a typed adapter; geometry arrays and tessellation fields are not silently invented.
+
+## Phase 5 — source commit b6461b511
+
+Added v2 evidence reads/search/paging and native camera set/standard/projection/fit/restore, guarded by displayed
+result and view revision at worker admission and GUI dispatch. Identical receipt replay precedes current-state checks.
+Post-paint capture binds camera/result/owner/size/DPR, then encodes detached pixels through QtConcurrent. Stop invalidates
+pending callbacks; modal/hidden/minimized targets fail honestly. Legacy request fields remain compatible.
+Windows build passed, native tests 11/11 and protocol suites 2/2. Native evidence:
+`runs/http-agent-server/phase3/native-20261001T170600`. Visually inspected `agent-v2-capture.png`: correct cutout cube
+at the requested oblique orthographic camera, no annotation controls/strokes, native guides retained as advertised.
+Tests include all seven standard views, receipt replay, user camera race, invalid camera, current capture hash/identity,
+draft rejection, and historical reads during interaction, plus unchanged legacy client and reload coverage.
+
+Workspace evidence commit 9718358 also included concurrent staged UI plan moves. Their file contents were preserved;
+no source implementation was mixed. Subsequent workspace commits use explicit path-scoped commit arguments.
