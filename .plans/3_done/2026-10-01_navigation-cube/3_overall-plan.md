@@ -1,6 +1,6 @@
 # Navigation cube — overall implementation plan
 
-Status: implementation in progress; implements [2_requirements.md](2_requirements.md).
+Status: six implementation phases complete; implements [2_requirements.md](2_requirements.md).
 The user requested all six phases in sequence, with a commit after each phase. Product questions are resolved.
 
 ## Checkout, evidence and constraints

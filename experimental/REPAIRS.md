@@ -6,6 +6,7 @@ Existing dirty PR worktrees are not a repair library. Only the individually reco
 | ID | Applies after | Source repository / full commit SHA | Applicability | Verification | State |
 | --- | --- | --- | --- | --- | --- |
 | settings-stream-declarations | baseline | openscad-master / `c577f934adade4b762fba095abbad79a3b13df30` | Missing stream declarations before SettingsEntryList instantiation on MSVC | [Build/test passed](repairs/settings-stream-declarations.md) | reusable |
+| windows-gui-test-sleep | baseline | openscad-master / `67884e65f4565c1215a88ecdcd0a2daa122e53d7` | POSIX sleep prevents MSVC GUI-test compilation | [Build/native tests passed](repairs/windows-gui-test-sleep.md) | reusable |
 | windows-argument-storage | baseline | openscad-master / `e1a798257aeaabb0f82898e477ef8f5e6fd3558d` | Runtime-sized arrays in wmain rejected by MSVC | [Build/test passed](repairs/windows-argument-storage.md) | reusable |
 | cairo-link-target | baseline | openscad-master / `b5ef9f6cedaab8bb5087f82bc223dcbe18328c14` | MSVC Cairo pkg-config branch loses its library path | [Build/test/PDF passed](repairs/cairo-link-target.md) | reusable |
 | windows-manifest | baseline | openscad-master / `74168dda7953ebd994e81dab6d22574ed24aef4c` | Resource and MSVC linker both embed manifest ID 1 | [Build/test/manifest passed](repairs/windows-manifest.md) | reusable |

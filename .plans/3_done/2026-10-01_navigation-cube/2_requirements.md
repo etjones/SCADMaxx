@@ -1,6 +1,6 @@
 # Navigation cube — requirements
 
-Status: planned, not implemented. Derived from the settled [exploration](1_exploration.md) and eight answered questions.
+Status: implemented and validated on Windows Qt6; platform limitations are recorded in post-implementation notes. Derived from the settled [exploration](1_exploration.md) and eight answered questions.
 This document defines required behavior; [3_overall-plan.md](3_overall-plan.md) defines mechanisms and phase ownership.
 The [approved preview](assets/viewport-popup-approved-v4.png) establishes appearance, not exact dimensions or defaults.
 It predates the accepted Center / View All / Reset row and dev drag-orbit toggle; the requirements below include both.
@@ -280,4 +280,4 @@ values and platform/integration limits in post-implementation notes. Do not clai
 runtime verification. Production source remains compatible with the repository's existing GUI/headless build choices.
 
 Acceptance: every requirement has passing evidence or an explicit unresolved limitation; the feature is not declared
-fully complete while required checks are missing. No implementation tests or builds have been run by this planning task.
+fully complete while required checks are missing. Validation outcomes and remaining platform limits are recorded in the implementation evidence.

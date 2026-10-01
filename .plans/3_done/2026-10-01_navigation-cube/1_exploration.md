@@ -7,7 +7,9 @@ orientation and make common views easy to reach without memorizing mouse gesture
 The user requested this feature, its own worktree, a pinned chat, and research into appearance, trade-offs and
 related functionality. Product choices were supplied on 2026-10-01 and are recorded below. Exploration is settled;
 [requirements](2_requirements.md), an [overall plan](3_overall-plan.md) and six linked implementation-phase plans are
-now prepared at the user's request. Implementation and a build are not yet requested.
+were prepared at the user's request. The user subsequently requested sequential implementation and a commit after
+each phase. All six source phases are complete; see [implementation evidence](5_post-implementation-notes.md)
+for the runnable local delivery, exact revisions and validation limits.
 
 - Source: `D:/openscad/wt-openscad-navigation-cube`, branch `feature/navigation-cube`.
 - Repository: shared `D:/openscad/openscad-master` clone; push remote `origin` (roel-v/openscad).

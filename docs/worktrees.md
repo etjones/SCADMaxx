@@ -16,7 +16,7 @@ for resulting commits, conflict resolutions, recovery refs, and verification lim
 | `openscad-master` | Main checkout, `master`, updated HEAD `612e684c2cbbcdcb9a7a8307973f33fd910f9c17` | Clean; matched upstream master at final verification |
 | `wt-openscad-fix-windows-unicode` | `fix/windows-unicode-filenames`, base `31b1430530c295c4b24662b2d5a4b989bbbabc7d` | Focused Unicode CLI filename repair based on the existing experimental composition; shared vcpkg; evidence in `runs/20261001-unicode-filename-fix/` |
 | `wt-openscad-ui-visual-polish` | `codex/ui-visual-polish`, HEAD `67101788f`, base `464e25dad0c01af5488375c15aa6734190531eb5` | Foundation including #6776 and Windows repairs, then four icon-system phase commits; source/submodules clean; private-origin head verified; results in `.plans/2_in-progress/2026-10-01_ui-icon-system/5_post-implementation-notes.md`; Customizer/dialog features remain planning; all UI parts stay sequential in this branch |
-| `wt-openscad-navigation-cube` | `feature/navigation-cube`, base `464e25dad0c01af5488375c15aa6734190531eb5`, freshly fetched upstream on 2026-10-01 | New clean feature checkout with initialized submodules; push remote `origin`; exploration at `.plans/1_planning/2026-10-01_navigation-cube/1_exploration.md`; no implementation/build/push |
+| `wt-openscad-navigation-cube` | `feature/navigation-cube`, head `c54886b822ed39ff91369c335472788f106e2c50` | Six phases committed; private origin verified; runnable local dev build. [Evidence](../.plans/3_done/2026-10-01_navigation-cube/5_post-implementation-notes.md). Preserve checkout and build. |
 | `wt-openscad-experimental-20260930-profile` | `experimental/20260930-profile`, HEAD `31b1430530c295c4b24662b2d5a4b989bbbabc7d` | Four baseline repair commits, then #6878 and #6776; shared-dependency rebuild/package passed; current evidence and limits in `runs/20261001-shared-rebuild/` |
 | `wt-openscad-annotations` | `feature/annotations`, created from upstream master `612e684c2cbbcdcb9a7a8307973f33fd910f9c17` on 2026-09-30 | Dedicated annotations checkout; push remote `origin`; not pushed |
 | `wt-openscad-pr-6642-dynamic-parameter-changes` | `codex/pr6642` | Modified ParameterObject.cc and surface_node_test.cc |
@@ -39,3 +39,7 @@ For new worktrees, follow the [standard clone and worktree workflow](../README.m
 Use `openscad-master` as the shared repository and create the separate checkout alongside it under `D:/openscad`.
 Inspect existing worktrees first and reuse only an available, suitable checkout. Record the actual path here.
 Preserve existing independent clones and worktrees; do not rename or migrate them merely to match this convention.
+
+- Navigation/annotations verification: `wt-openscad-navigation-annotations-check`, branch
+  `codex/navigation-annotations-check`, merge `d16b00019` (navigation `c54886b82`, annotations `d670fad09`).
+  Native annotation tests pass. Separate verification checkout, not a selected distribution. Preserve it.
