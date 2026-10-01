@@ -1,0 +1,11 @@
+{
+  "visualStudio": "C:/Program Files/Microsoft Visual Studio/18/Community",
+  "toolset": "REPLACE_WITH_INSTALLED_TOOLSET_VERSION",
+  "sdk": "REPLACE_WITH_INSTALLED_WINDOWS_SDK_VERSION",
+  "vcpkg": "D:/vcpkg",
+  "vcpkgInstalled": "D:/openscad/openscad-6991/build/vcpkg_installed",
+  "vcpkgCommit": "REPLACE_WITH_FULL_COMMIT_SHA",
+  "cmake": "C:/Program Files/CMake/bin/cmake.exe",
+  "flex": "REPLACE_WITH_PATH_TO_WIN_FLEX_EXE",
+  "bison": "REPLACE_WITH_PATH_TO_WIN_BISON_EXE"
+}

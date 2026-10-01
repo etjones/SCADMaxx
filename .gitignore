@@ -1,0 +1,24 @@
+# This repository owns workspace controls only. Source checkouts remain independent.
+/*
+!/.gitignore
+!/AGENTS.md
+!/README.md
+!/docs/
+!/workflows/
+!/experimental/
+!/.plans/
+
+# Generated or machine-private files within the admitted control directories.
+**/__pycache__/
+**/*.log
+**/CMakeFiles/
+**/CMakeCache.txt
+**/build/
+**/staging/
+**/vcpkg_installed/
+**/*.zip
+**/*.exe
+**/*.dll
+**/*.pdb
+**/.env
+**/*.local.json

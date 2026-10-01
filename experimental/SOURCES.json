@@ -1,0 +1,20 @@
+{
+  "navigation-cube-local": {
+    "repository": "E:/Dropbox/bare_repos/scadmaxx.git",
+    "ref": "refs/heads/feature/navigation-cube",
+    "ready": false,
+    "pendingReason": "Selected feature is still at its starting commit; commit and push a usable implementation locally first."
+  },
+  "ui-visual-polish-local": {
+    "repository": "E:/Dropbox/bare_repos/scadmaxx.git",
+    "ref": "refs/heads/codex/ui-visual-polish",
+    "ready": false,
+    "pendingReason": "Selected UI work is uncommitted; its development task must commit and push a usable revision locally first."
+  },
+  "annotations-local": {
+    "repository": "E:/Dropbox/bare_repos/scadmaxx.git",
+    "ref": "refs/heads/feature/annotations",
+    "ready": false,
+    "pendingReason": "Selected annotations work is uncommitted, including dirty submodule state; commit and push a usable revision locally first."
+  }
+}
