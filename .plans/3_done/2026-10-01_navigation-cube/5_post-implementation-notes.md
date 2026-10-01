@@ -2,6 +2,21 @@
 
 Status: all six source phases committed; local delivery verified. See final handoff and coverage below.
 
+Latest correction: hover highlights only the arrow glyph, without a rectangular button panel.
+Commit `8a78288af1719c7e6ba05384dd85dd24364d7fe4`; application
+`D:/openscad/artifacts/openscad-navigation-cube-hover-fix-win64/openscad.exe`.
+Removed the midlight hover fill and native button-panel paint. Hover/focus now use the palette highlight colour.
+All six normal/hover pixel checks verify a visible glyph change with unchanged corner pixels; native screenshot
+`runs/navigation-cube/phase6/arrow-hover-pixels/arrow-hover.png` was inspected and all 15 cases pass.
+The initial desktop-pointer-driven test run (`arrow-hover-fixed`) aborted later with a Qt dock teardown crash.
+Hover rendering is now tested with explicit Qt hover state to avoid dependence on the shared desktop pointer;
+the crash did not recur in the subsequent full run. Its log remains retained rather than claiming a diagnosed cause.
+The staged executable passes all 15 cases at 100% (`hover-staged100`). Both dark-background 150% runs
+(`hover-staged-dark150` and `hover-staged-dark150-repeat`) pass the six hover pixel checks and show the expected
+transparent controls in the screenshot, but fail the pre-existing window-routed 250 ms Front-click assertion:
+the camera remains at its original pose. This repeated click-test failure remains unresolved; it is not
+counted as a clean full-suite pass or attributed to desktop interference without evidence.
+
 Latest correction: [arrow scaling](rework/03/0_restart.md), commit `8fbde4053f6d721e6fd745690bb26a7fde054d70`.
 Latest application: `D:/openscad/artifacts/openscad-navigation-cube-arrow-scaling-win64/openscad.exe`.
 It retains the dockable tuning panel and both prior click corrections.
