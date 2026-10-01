@@ -6,7 +6,8 @@ All six phases are complete. Native drawing/review, companion persistence, edito
 and the bundled Python client are implemented in wt-openscad-annotations on feature/annotations.
 The full Windows x64 Release application builds and passes the focused tests and runtime checks below.
 Source changes are committed in six reconstructed phases as of 2026-10-01; see the commit map below.
-No push, PR, publication or experimental PR-stack change was made by this task.
+Private source push verified on 2026-10-01; the source registry now marks annotations ready.
+No GitHub publication or combined SCADMaxx build was performed.
 
 Initial delivery (see the palette correction below for the latest build):
 
@@ -122,8 +123,8 @@ or environmental failure has been simulated.
 - New UI strings are present; new translation catalogs were not authored.
 
 Optional rework routes: fix forward (bounded correction), replan (different implementation), restart (revisit
-requirements), or supersede (replace objective). Pushing/publishing and integrating annotations into the experimental
-build are separate follow-up actions.
+requirements), or supersede (replace objective). GitHub publication and a combined experimental build remain
+separate follow-up actions.
 
 ## Bounded correction: fixed palette
 
@@ -166,3 +167,41 @@ preserved outside the commits; no submodule revision changed. No pushes were mad
 
 Evidence: `runs/annotations-implementation/commit-reconstruction/` retains the original hashes, base, tracked diff
 and per-phase staged patches. The one-off `reconstruct-commits.py` staged index variants without rewriting sources.
+
+## Verified private-source handoff (2026-10-01)
+
+- Repository: `E:/Dropbox/bare_repos/scadmaxx.git`, ref `refs/heads/feature/annotations`.
+- Committed and remotely verified head: `d670fad09dba45526487e958b90fd553c6e1ace0`.
+- Reviewed delta: `612e684c2cbbcdcb9a7a8307973f33fd910f9c17..d670fad09dba45526487e958b90fd553c6e1ace0`.
+  This independent feature has no prerequisite feature branches. The selected `auto-merge-base` policy remains
+  valid; a fresh run records its actual boundary against that run's upstream master.
+- The delta includes phase-1 Windows repairs in `4af4fe511`. Compare these with the separately applied Settings,
+  GUI-test sleep, argument-storage, Cairo and manifest repairs; retain only missing changes during integration.
+  Do not blindly duplicate or discard repairs. The HTTP feature depends on annotations, not the reverse.
+- Private origin was at the base SHA before the explicit non-force branch push and matched the full head afterward.
+  No tags or other source branches were pushed, and no GitHub destination was used.
+- All 34 source files still match the recorded tested implementation; the base-to-head diff check passes.
+  Existing evidence was rechecked: store 10/10, transport 4/4, native 5/5 (including setup/cleanup), and the
+  57,080,529-byte palette-fixed ZIP remains available. No code changed or rebuild was needed for this handoff.
+
+The selected submodule commits are unchanged from the upstream baseline and all commit objects are available in
+the shared clone's existing submodule repositories (verified with `cat-file`). Their upstream URLs are retained in
+`.gitmodules`; no private submodule changes are required:
+
+| Submodule | Commit |
+| --- | --- |
+| MCAD | `1ea402208c3127ffb443931e9bb1681c191dacca` |
+| Clipper2 | `c7f820f6a03fa91f189b866d27bf40dfe47abaa6` |
+| OpenCSG | `9bf122715213dca05e70993dd8672fe3aa36c518` |
+| manifold | `0edd9d54876f3135e431575214dd6d8a72866fee` |
+| mimalloc | `30b2d9d89099bee08e9f67a1ffb3e12e7ba45227` |
+| sanitizers-cmake | `bcb1fc68616e9645ca5acea2992412606373ab04` |
+
+Clipper2's generated version-header dirtiness was preserved and excluded; its Git content diff is empty.
+`annotations-local` now records `ready: true`, the full validated head and this handoff. Other features' source
+metadata and the manually selected stack/order were preserved. Readiness means eligible input for a new build;
+the combined composition still needs its own integration and behavior checks. Dropbox cloud synchronization was
+not verified by the local Git push.
+
+`New-ExperimentalRun.ps1 -ValidateOnly` passes and reports annotations ready. Output is retained at
+`runs/annotations-implementation/commit-reconstruction/readiness-validation.json`; no build run was created.

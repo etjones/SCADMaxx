@@ -44,7 +44,7 @@ Use a separate `experimental/<run-id>` source branch for every fresh composition
 own `feature/annotations` branch, and each PR investigation should retain its own branch and checkout.
 The annotations branch is now prepared in `wt-openscad-annotations`, based on freshly fetched upstream master
 at `612e684c2cbbcdcb9a7a8307973f33fd910f9c17`. The six implementation phases and full Windows Release build are complete;
-changes remain uncommitted in that checkout. The local runnable build and ZIP are under
+six commits end at `d670fad09`, verified in the private origin and marked ready for integration. The build and ZIP are under
 `artifacts/openscad-annotations-palette-fixed-win64` and `artifacts/openscad-annotations-palette-fixed-win64.zip`.
 See the linked verification notes for test evidence, build commands and limitations.
 
@@ -95,9 +95,9 @@ Example requests:
 - "Test and fix PR #6642 in its existing worktree."
 
 The stack selects PR #6878 (customizable keyboard shortcuts), PR #6776 (dynamic dark-mode switching), navigation
-cube, UI visual polish and annotations. The three local features are pending usable committed revisions in the
-Dropbox source origin; run preparation stops until they are ready. An HTTP endpoint / agent server is planned
-without a branch yet. Other existing PR worktrees remain candidates for manual selection; see the selection list.
+cube, UI visual polish, annotations and the HTTP endpoint / agent server. Current feature readiness, validated
+heads and handoffs are recorded in `experimental/SOURCES.json`; run preparation stops for any pending entry.
+Other existing PR worktrees remain candidates for manual selection; see the selection list.
 The [build tools](experimental/scripts/README.md) implement the recorded build steps; the agent still reviews
 integrations and diagnoses repairs. The first local run completed automated build, test, staging and extracted-ZIP
 checks on 2026-10-01. It includes #6878 and #6776, preceded by four separately committed Windows baseline repairs.

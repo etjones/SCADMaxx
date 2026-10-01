@@ -18,8 +18,10 @@
   "annotations-local": {
     "repository": "E:/Dropbox/bare_repos/scadmaxx.git",
     "ref": "refs/heads/feature/annotations",
-    "ready": false,
-    "pendingReason": "Selected annotations work is uncommitted, including dirty submodule state; commit and push a usable revision locally first."
+    "ready": true,
+    "pendingReason": "",
+    "validatedHead": "d670fad09dba45526487e958b90fd553c6e1ace0",
+    "handoff": ".plans/3_done/2026-09-30_openscad-annotations/5_post-implementation-notes.md"
   },
   "http-agent-server-local": {
     "repository": "E:/Dropbox/bare_repos/scadmaxx.git",
