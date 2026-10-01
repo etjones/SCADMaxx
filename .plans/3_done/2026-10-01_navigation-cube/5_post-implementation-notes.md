@@ -2,6 +2,11 @@
 
 Status: all six source phases committed; local delivery verified. See final handoff and coverage below.
 
+Follow-up: [click-jitter correction](rework/01/0_restart.md), source `0ff82ec81d46e06c1e15047233c3b2e488d4cc92`.
+Latest runnable build: `D:/openscad/artifacts/openscad-navigation-cube-click-fix-win64/openscad.exe`.
+The original phase evidence and provisional defaults below are retained as history; the drag threshold now uses
+the platform default (10 logical pixels on this Windows profile).
+
 ## Final handoff (2026-10-01)
 
 Runnable standalone application:

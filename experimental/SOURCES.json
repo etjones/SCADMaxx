@@ -4,7 +4,7 @@
     "ref": "refs/heads/feature/navigation-cube",
     "ready": true,
     "pendingReason": "",
-    "validatedHead": "c54886b822ed39ff91369c335472788f106e2c50",
+    "validatedHead": "0ff82ec81d46e06c1e15047233c3b2e488d4cc92",
     "handoff": ".plans/3_done/2026-10-01_navigation-cube/5_post-implementation-notes.md"
   },
   "ui-visual-polish-local": {
