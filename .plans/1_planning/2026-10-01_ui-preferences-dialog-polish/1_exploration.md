@@ -5,8 +5,11 @@ Delivery: part 4 of 4, after Customizer validation, on `codex/ui-visual-polish` 
 `D:/openscad/wt-openscad-ui-visual-polish`. No separate branch or worktree for this part.
 Shared evidence: [UI visual polish](../2026-10-01_ui-visual-polish/1_exploration.md).
 Dependencies: [Qt/font foundation](../../3_done/2026-10-01_ui-qt-foundation-typography/1_exploration.md), including #6776,
-and [shared icon treatment](../../2_in-progress/2026-10-01_ui-icon-system/1_exploration.md).
+and [shared icon treatment](../../3_done/2026-10-01_ui-icon-system/1_exploration.md).
 Icon implementation is complete at `67101788f`; reuse `Icons` and `StatusMessageBox` without another renderer.
+Quiet Customizer is implemented through `b22167be9`; see its
+[results](../../2_in-progress/2026-10-01_ui-customizer-polish/5_post-implementation-notes.md) for native styling,
+font/spacing and palette evidence. Review this feature's own scope before implementation.
 
 ## Outcome
 

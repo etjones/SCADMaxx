@@ -1,6 +1,6 @@
 # OpenSCAD UI visual polish
 
-Status: foundation and icon system implemented on 2026-10-01. Customizer and dialog polish remain planning.
+Status: foundation and icon system done; Customizer implemented through `b22167be9`. Dialog polish remains planning.
 Direction constrained to native Qt styling after user review.
 
 Prerequisite update: original upstream PR #6776, head `aab4aed030dd61b80c5f850177f2af93e067eb7d`,
@@ -35,10 +35,11 @@ Four focused briefs own the work. This file retains the shared evidence and hist
 1. [Qt foundation and typography](../../3_done/2026-10-01_ui-qt-foundation-typography/1_exploration.md)
    (done): #6776 applied; font inheritance, Segoe UI 10 pt Windows default and native Customizer spacing implemented.
    Native Windows light/dark captures and regression results are recorded in its implementation notes.
-2. [Icon system](../../2_in-progress/2026-10-01_ui-icon-system/1_exploration.md)
-   (implemented): Tabler, custom CAD gaps, size and state-aware coloring; three status treatments with native Qt
+2. [Icon system](../../3_done/2026-10-01_ui-icon-system/1_exploration.md)
+   (done): Tabler, custom CAD gaps, size and state-aware coloring; three status treatments with native Qt
    status icons as the default. Four sequential commits and Windows evidence are recorded in that feature.
-3. [Customizer polish](../2026-10-01_ui-customizer-polish/1_exploration.md): implement the accepted reference.
+3. [Customizer polish](../../2_in-progress/2026-10-01_ui-customizer-polish/1_exploration.md)
+   (implemented): quiet native headers, default hover-only help, conservative display casing and native metrics.
 4. [Preferences and dialog polish](../2026-10-01_ui-preferences-dialog-polish/1_exploration.md): extend its hierarchy,
    spacing and control-state principles to secondary windows.
 
@@ -54,7 +55,8 @@ Improve OpenSCAD's visual coherence: toolbar icon scale, Customizer headers, lig
 Windows Qt style integration, and the appearance of secondary windows. Begin with evidence and patterns.
 Keep button order, pane arrangement, menus, parameter order, keyboard behavior and workflows intact.
 User-approved scope extension: replace inline Customizer explanatory text with a discreet help icon and tooltip,
-and capitalize displayed labels. Preserve access to the explanations for keyboard and assistive-technology users.
+and capitalize displayed labels. The later confirmed help interaction is mouse-hover-only, with no focus or keyboard
+activation; existing parameter-control navigation remains unchanged. Visible-description modes remain available.
 Improve typography, hierarchy, whitespace, consistent icons and correct use of existing theme colors and widget states.
 Keep Qt's selected platform style and native chrome. No custom window/dock chrome, global reskin, replacement style,
 fixed light/dark palette, or bespoke control borders/radii. Navigation redesign is excluded.
@@ -271,8 +273,10 @@ Confirmed design requirements:
 - Move each option's explanatory text out of the persistent row into a discreet question-mark help icon beside its
   label. Show the full explanation in a native tooltip on hover. Only show the icon when an explanation exists.
 - Use a small Tabler help symbol with theme-aware contrast and a usable interaction target; avoid an accent-filled
-  button. Make the help available through keyboard focus/activation and accessible description as well as hover.
+  button. The user confirmed hover-only help: no Tab stop, click action or keyboard activation.
   Preserve full explanatory content, units and examples; long descriptions must remain readable.
+- Rename Hide Details to Help Icons and make it the initial default. Keep Show Details, Inline Details and
+  Description Only available with their existing meanings, without redundant help icons.
 - Capitalize displayed Customizer text in sentence case: `show doorframe` becomes `Show doorframe`, `swap boards`
   becomes `Swap boards`. Preserve existing acronyms, proper names and intentional casing beyond the initial letter;
   do not apply title case to every word. This is presentation formatting, not renaming SCAD variables, preset keys,

@@ -1,6 +1,6 @@
 # Consistent icon system
 
-Status: all four implementation phases completed and committed on 2026-10-01; retained in the current lane.
+Status: done; all four implementation phases completed and committed, moved to done at the user's request on 2026-10-01.
 User chose Tabler plus matching custom icons for gaps. See [results](5_post-implementation-notes.md).
 Delivery: part 2 of 4, after foundation/typography, on `codex/ui-visual-polish` in
 `D:/openscad/wt-openscad-ui-visual-polish`. No separate branch or worktree for this part.
