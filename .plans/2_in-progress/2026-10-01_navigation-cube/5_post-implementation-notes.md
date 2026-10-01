@@ -73,3 +73,13 @@ effective values, units, baselines, overrides, resolved geometry and DPR. Native
 Production configuration omits tuning sources/menu. Corrected saved-list size hints keep buttons visible.
 Final process-restart and broader visual calibration remain phase 6. Evidence: runs/navigation-cube/phase3.
 
+
+## Phase 4
+
+Per-document model.scad.views.json stores UUID, name, full camera pose and document provenance, version 1.
+Bounds: 4 MiB, 1000 entries, 256 UTF-16 name units. Add/Remove/Rename remain memory-only until document Save.
+Normal metadata-only Save avoids SCAD rewrite; Copy preserves original dirty state. Source refresh preserves views.
+Companion locks and SHA-256 fingerprints reject competing writes; recovery uses a new Save As destination.
+Existing backup source files receive matching view snapshots and can be reopened without touching the original.
+Build/native transaction and lifecycle tests pass; screenshot inspected. Evidence: runs/navigation-cube/phase4/complete.
+
