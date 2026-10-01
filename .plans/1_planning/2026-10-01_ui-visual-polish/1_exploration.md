@@ -1,12 +1,13 @@
 # OpenSCAD UI visual polish
 
-Status: visual exploration, 2026-10-01. Direction constrained to native Qt styling after user review.
+Status: foundation done; icon system in progress from 2026-10-01. Customizer and dialog polish remain planning.
+Direction constrained to native Qt styling after user review.
 
 Prerequisite update: original upstream PR #6776, head `aab4aed030dd61b80c5f850177f2af93e067eb7d`,
-is applied and staged in the existing UI worktree. Four integration conflicts were resolved while preserving newer
-upstream changes. HEAD is unchanged; no commit or push. The four visual polish parts remain unimplemented.
+is committed in the existing UI worktree. Four integration conflicts were resolved while preserving newer
+upstream changes. Foundation is committed through `1d498d864`; no push. Icon-system preparation is in progress.
 The existing MSVC Settings stream-declaration repair `c577f934adade4b762fba095abbad79a3b13df30`
-is also applied and staged at the user's request.
+is also applied and committed at the user's request, alongside the other recorded Windows baseline repairs.
 See [integration evidence](../../../artifacts/ui-visual-polish/2026-10-01/pr-6776-integration.md).
 
 ## Accepted reference and focused follow-up parts
@@ -15,19 +16,27 @@ The user accepted the quiet Customizer preview, including its improved typograph
 Use the compact geometry, normal/medium type hierarchy, neutral open/closed headers, sentence case and discreet
 help icons as the target. The earlier AI-generated full-window concepts remain superseded.
 
-Reference fragment:
-`C:/Users/Roel/.codex/visualizations/2026/10/01/01a0f66f-c274-7d71-997b-8744f6e24858/customizer-quiet-preview.html`.
+Reference fragment: [preserved HTML](../../../artifacts/ui-visual-polish/2026-10-01/customizer-quiet-preview.html),
+copied byte-for-byte from the original Codex visualization during the readiness review.
 Rendered evidence: `artifacts/ui-visual-polish/2026-10-01/customizer-preview-light-qa.png` and
 `customizer-preview-dark-qa.png`. These are mockup renders, not OpenSCAD screenshots.
 Segoe UI at 13 CSS pixels with normal/medium weights is the accepted Windows visual starting point. Calibrate its
 Qt equivalent under display scaling, respecting explicit user font settings and other platforms' font conventions.
 Do not silently discard the accepted typography by simply retaining the current defaults.
 
-Four focused planning briefs now own future work. This file retains the shared evidence and historical discussion.
+Foundation scope confirmed: apply shared font defaults to the UI and dialogs, with Customizer as the first
+label-weight/spacing implementation. Customizer inherits the application font unless separately overridden.
+Console and editor content keep independent defaults and settings. Foundation acceptance targets Windows only;
+Linux/macOS runtime checks are optional future work. Detailed requirements and the implementation sequence live
+in the foundation plan; the later Customizer/dialog parts reuse its result.
 
-1. [Qt foundation and typography](../2026-10-01_ui-qt-foundation-typography/1_exploration.md): apply #6776 first;
-   establish stylesheet-free font inheritance and the accepted type/spacing defaults.
-2. [Icon system](../2026-10-01_ui-icon-system/1_exploration.md): Tabler, custom CAD gaps, size and state-aware coloring.
+Four focused briefs own the work. This file retains the shared evidence and historical discussion.
+
+1. [Qt foundation and typography](../../3_done/2026-10-01_ui-qt-foundation-typography/1_exploration.md)
+   (done): #6776 applied; font inheritance, Segoe UI 10 pt Windows default and native Customizer spacing implemented.
+   Native Windows light/dark captures and regression results are recorded in its implementation notes.
+2. [Icon system](../../2_in-progress/2026-10-01_ui-icon-system/1_exploration.md)
+   (in progress): Tabler, custom CAD gaps, size and state-aware coloring.
 3. [Customizer polish](../2026-10-01_ui-customizer-polish/1_exploration.md): implement the accepted reference.
 4. [Preferences and dialog polish](../2026-10-01_ui-preferences-dialog-polish/1_exploration.md): extend its hierarchy,
    spacing and control-state principles to secondary windows.
@@ -224,10 +233,10 @@ palettes, native size hints and style metrics. Moving a custom skin into C++ pai
 experimental build already includes #6776. Its committed local integration is
 `8e4a30f86716c8a7cd93bcbff1cd33249bd110fa` on `codex/pr-6776-dynamic-dark-mode-switching`.
 That integration still has the original checked GroupWidget implementation. Its worktree contains unrelated local
-edits; do not incorporate those silently. The visual-polish worktree remains at its original clean upstream base.
-User-confirmed prerequisite: apply #6776 to `wt-openscad-ui-visual-polish` before any UI implementation or prototype
-source changes in that tree. Record the exact integrated revision and resolve integration issues first. This has
-not yet been applied; the current work remains visual exploration.
+edits; do not incorporate those silently. In the visual-polish worktree, original upstream #6776 head
+`aab4aed030dd61b80c5f850177f2af93e067eb7d` and the saved MSVC stream-declaration repair are now applied and staged.
+All 13 changed C++ files plus InitConfigurator compile successfully. Full executable and runtime GUI verification
+remain pending; see the integration evidence above. Typography implementation has not started.
 
 The PR is not complete stylesheet eradication. A source search of the committed local integration still finds uses
 in ColorLabel/ColorList, LaunchingScreen, QWordSearchField, input configuration widgets, ParameterCheckBox and AI UI.

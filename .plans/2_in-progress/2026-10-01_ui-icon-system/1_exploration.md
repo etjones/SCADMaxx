@@ -1,10 +1,11 @@
 # Consistent icon system
 
-Status: planning. User chose Tabler plus matching custom icons for gaps.
+Status: in progress, moved at the user's request on 2026-10-01. User chose Tabler plus matching custom icons for gaps.
 Delivery: part 2 of 4, after foundation/typography, on `codex/ui-visual-polish` in
 `D:/openscad/wt-openscad-ui-visual-polish`. No separate branch or worktree for this part.
-Shared evidence: [UI visual polish](../2026-10-01_ui-visual-polish/1_exploration.md).
-Prerequisite: [Qt foundation](../2026-10-01_ui-qt-foundation-typography/1_exploration.md), including #6776.
+Shared evidence: [UI visual polish](../../1_planning/2026-10-01_ui-visual-polish/1_exploration.md).
+Prerequisite: [Qt foundation](../../3_done/2026-10-01_ui-qt-foundation-typography/1_exploration.md), including #6776.
+Foundation is implemented and Windows-verified; use its 10 pt UI baseline for icon calibration.
 
 ## Outcome
 

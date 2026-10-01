@@ -4,13 +4,18 @@ Status: planning. Apply the accepted Customizer's restrained hierarchy to other 
 Delivery: part 4 of 4, after Customizer validation, on `codex/ui-visual-polish` in
 `D:/openscad/wt-openscad-ui-visual-polish`. No separate branch or worktree for this part.
 Shared evidence: [UI visual polish](../2026-10-01_ui-visual-polish/1_exploration.md).
-Dependencies: [Qt/font foundation](../2026-10-01_ui-qt-foundation-typography/1_exploration.md), including #6776,
-and [shared icon treatment](../2026-10-01_ui-icon-system/1_exploration.md).
+Dependencies: [Qt/font foundation](../../3_done/2026-10-01_ui-qt-foundation-typography/1_exploration.md), including #6776,
+and [shared icon treatment](../../2_in-progress/2026-10-01_ui-icon-system/1_exploration.md).
 
 ## Outcome
 
 Make Preferences and secondary windows coherent through typography, spacing, artwork and appropriate Qt states,
 while preserving native chrome, control order and existing workflows.
+
+The foundation part supplies the shared application font and dialog font inheritance first. This part reuses that
+foundation for per-dialog hierarchy and layout corrections; Console and editor content fonts remain independent.
+Foundation is now implemented and Windows-verified, including removing fixed sizes from axis/update-status labels
+and preserving experimental-feature emphasis without fixing its font family/size. Avoid duplicating these changes.
 
 ## Targeted improvements
 
