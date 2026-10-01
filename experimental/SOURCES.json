@@ -18,5 +18,13 @@
     "ref": "refs/heads/feature/annotations",
     "ready": false,
     "pendingReason": "Selected annotations work is uncommitted, including dirty submodule state; commit and push a usable revision locally first."
+  },
+  "http-agent-server-local": {
+    "repository": "E:/Dropbox/bare_repos/scadmaxx.git",
+    "ref": "refs/heads/codex/http-agent-server",
+    "ready": true,
+    "pendingReason": "",
+    "validatedHead": "498c4774d26e7235fbc4cbb9b34f56afb39ca645",
+    "handoff": ".plans/3_done/2026-10-01_http-agent-server/5_post-implementation-notes.md"
   }
 }

@@ -30,6 +30,7 @@ there does not select it; only an enabled row does.
 | 3 | navigation-cube | feature | navigation-cube-local | latest | auto-merge-base | none declared | Native viewport navigation cube |
 | 4 | ui-visual-polish | feature | ui-visual-polish-local | latest | auto-merge-base | none declared | Improved OpenSCAD UI from our UI work branch |
 | 5 | annotations | feature | annotations-local | latest | auto-merge-base | none declared | Native Blender-style annotation tool |
+| 6 | http-agent-server | feature | http-agent-server-local | latest | 85829fa71870c4aa6945d3cd4abbc932faeab392 | navigation-cube, annotations | HTTP endpoint / agent server for OpenSCAD automation |
 
 Selected by the user on 2026-09-30. Both PRs were open and unmerged when checked against GitHub on that date.
 PR #6878 is the updated version of the older Shortcuts GUI PR #3338. Resolve fresh heads and validate dependencies
@@ -47,12 +48,14 @@ The UI branch currently incorporates PR #6776 as its foundation. Before marking 
 foundation and declare/review the UI-only delta after the separately selected dark-mode PR. Do not integrate the
 same PR twice or silently switch the selected upstream PR to a local variant.
 
-## Planned feature without a branch
+## HTTP agent-server feature handoff
 
-- **HTTP endpoint / agent server**: requested for SCADMaxx on 2026-10-01. There is no dedicated branch or selected
-  source yet. Track it as planned work; do not invent a ref or count it as included. Once a branch exists and its
-  scope/dependencies are defined, add its explicit source and an enabled row. Any server code inside annotations
-  does not automatically satisfy this separate feature request.
+- Dedicated `codex/http-agent-server` head `498c4774d26e7235fbc4cbb9b34f56afb39ca645` is committed and verified in the declared private origin.
+  See [completed implementation and evidence](../.plans/3_done/2026-10-01_http-agent-server/5_post-implementation-notes.md).
+- Apply its explicit HTTP-only delta after the selected navigation and annotations entries. The base is the
+  retained dependency-only composition, an ancestor of the source head; compare newer selected prerequisite revisions
+  with the exact reviewed inputs in the handoff. Do not replay the complete branch as an independent feature.
+- HTTP readiness does not change other selected features' readiness or start an experimental build.
 
 ## Required Windows repairs
 
