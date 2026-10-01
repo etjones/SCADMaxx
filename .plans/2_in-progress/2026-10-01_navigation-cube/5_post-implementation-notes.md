@@ -83,3 +83,14 @@ Companion locks and SHA-256 fingerprints reject competing writes; recovery uses 
 Existing backup source files receive matching view snapshots and can be reopened without touching the original.
 Build/native transaction and lifecycle tests pass; screenshot inspected. Evidence: runs/navigation-cube/phase4/complete.
 
+
+## Phase 5
+
+Implemented cached typed preview/final triangle data, bounded viewport cadence sampling and single-shot idle expiry.
+Preview counts each CSG leaf instance once across all products/highlights/backgrounds. Counts follow VBOBuilder's
+triangle/quad/center-fan tessellation. PolySet final rendering is supported; CGAL Nef reports unavailable.
+Capture cancels camera transitions, renders without guides, excludes widget overlays, preserves edges and restores
+state via scope guard. Optional annotation composition runs once; ModelOnly bypasses it. Existing PNG, clipboard,
+animation and AI routes all call this shared boundary. Native pixel comparisons, idle check and exception restore
+pass; clean/full-window images inspected. 123 unit cases pass. Evidence: runs/navigation-cube/phase5/complete.
+

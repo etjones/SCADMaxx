@@ -1,6 +1,6 @@
 # Phase 5 — Viewport statistics and clean captures
 
-Status: not started. Depends on [phase 4](4_imp-phase4.md).
+Status: complete. Depends on [phase 4](4_imp-phase4.md).
 Primary requirements: R20–R23, R26 in [requirements](2_requirements.md).
 
 ## Outcome
@@ -10,28 +10,28 @@ route exclude navigation and guides while retaining the model and applicable ann
 
 ## Work
 
-- [ ] Publish typed cached triangle statistics at model preparation/result boundaries. Count preview tessellated model
+- [x] Publish typed cached triangle statistics at model preparation/result boundaries. Count preview tessellated model
   instances once each, excluding repeated rendering passes and helpers. Use final triangulated geometry only when
   available; do not reinterpret arbitrary facet counts, parse logs or trigger a render just to obtain statistics.
-- [ ] Associate values with document/result generation and render mode. Label preview/final, unavailable and retained
+- [x] Associate values with document/result generation and render mode. Label preview/final, unavailable and retained
   stale results accurately. Clear previous-document values when ownership changes; handle empty models as valid zero
   where the backend supplies a meaningful count. Invalidate caches when geometry or instance transforms change.
-- [ ] Measure elapsed intervals between completed viewport paints, keeping a bounded rolling sample window. Derive
+- [x] Measure elapsed intervals between completed viewport paints, keeping a bounded rolling sample window. Derive
   FPS and frame-time milliseconds from the same samples; label this as viewport cadence, not GPU execution time.
   Exclude capture paints, reset after inactivity and show Idle instead of a misleading retained active FPS.
-- [ ] Bind the existing popup master/individual choices to the real stats overlay. Refresh text at a bounded rate;
+- [x] Bind the existing popup master/individual choices to the real stats overlay. Refresh text at a bounded rate;
   statistics must not force continuous repainting. Stop hidden-overlay timers. Keep its visibility independent of
   navigation visibility and expose refresh/averaging/idle calibration values through the dev settings/export model.
-- [ ] Introduce a scoped clean-render policy at the shared framebuffer capture boundary. Suppress GL world axes,
+- [x] Introduce a scoped clean-render policy at the shared framebuffer capture boundary. Suppress GL world axes,
   scale markers and crosshairs as well as widget navigation, triangle, popup, dev window and statistics. Preserve
   model edge shading, model/background appearance, camera pose and the ordinary visible preference state.
-- [ ] Route PNG export, Copy Viewport, animation-frame dumping and the existing AI ViewportGrabber through the clean
+- [x] Route PNG export, Copy Viewport, animation-frame dumping and the existing AI ViewportGrabber through the clean
   capture policy. Audit caching so no caller receives a stale or guide-bearing frame. Do not redesign independent
   command-line rendering options or introduce a new agent endpoint.
-- [ ] Stop a camera transition at its currently displayed pose for capture, invalidating queued callbacks; use the
+- [x] Stop a camera transition at its currently displayed pose for capture, invalidating queued callbacks; use the
   same pose for readback and applicable annotation composition. Restore scoped rendering state on every return/error
   path, without emitting preference changes or restarting the cancelled transition.
-- [ ] Define the annotation policy/composition boundary so clean images omit strokes and annotated evidence adds them
+- [x] Define the annotation policy/composition boundary so clean images omit strokes and annotated evidence adds them
   exactly once. Accommodate camera-lock and redo-invalidation hooks without linking the standalone feature to the
   annotation branch. Existing stored images are never retroactively changed.
 
@@ -56,3 +56,15 @@ route exclude navigation and guides while retaining the model and applicable ann
 Record exact count semantics/backend availability, timing behavior, all capture callers and representative clean image
 comparisons. Include failure-path restoration evidence and idle activity observations. The feature remains independently
 buildable; document the remaining real annotation-composition check explicitly.
+
+## Phase result
+
+Typed cached counts cover preview instances (deduplicated CSG leaves) and prepared PolySet final rendering.
+Counts match VBOBuilder triangle/quad/center-fan tessellation; CGAL Nef renderer reports unavailable.
+Cadence uses bounded paint intervals and a one-shot idle timer. Native no-idle-loop checks pass.
+Framebuffer, clipboard and existing AI capture pixels match a guide-free reference with edges preserved.
+Capture state restores after an injected compositor exception; model-only skips and annotated calls invoke the hook once.
+Build, 123 unit cases and 11 native cases (including setup/cleanup) pass. Evidence: runs/navigation-cube/phase5/complete.
+PNG and animation callers are audited at their shared grabFrame boundary; native animation dumping remains phase 6 QA.
+Real annotation integration is not inferred from the injected composition tests.
+
