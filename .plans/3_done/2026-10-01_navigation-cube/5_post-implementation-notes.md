@@ -2,6 +2,11 @@
 
 Status: all six source phases committed; local delivery verified. See final handoff and coverage below.
 
+Default roll step: `bfd009ef0047452c09e3629d0af25efd6af34700` changes roll to 15 degrees, matching the
+directional arrow step. Fresh sessions and Reset overrides use the new default; parameter help agrees.
+Build and all 15 native cases pass (`runs/navigation-cube/phase6/roll15`); private origin verified.
+Application: `D:/openscad/artifacts/openscad-navigation-cube-roll15-win64/openscad.exe`.
+
 Tuning parameter help: `c58c620ee68250720dc93e5d86d58f184311e690` adds a native question-mark icon
 beside every parameter. Hover displays a tooltip; clicking opens a Qt What's This help popup. Controls also
 expose the descriptions through tooltips, What's This and accessibility. Text covers purpose, units,
