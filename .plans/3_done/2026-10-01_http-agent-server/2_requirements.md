@@ -1,6 +1,6 @@
 # HTTP agent server — requirements
 
-Status: core requirements implemented and validated; navigation adapter in progress. See implementation notes for evidence.
+Status: implemented and validated, including the native navigation adapter. See implementation notes for evidence and platform limits.
 Core requirements R01–R24 define the first delivery. N01–N03 apply only to the later navigation adapter.
 
 ## Scope and service

@@ -1,6 +1,6 @@
 # HTTP agent server — overall implementation plan
 
-Status: core phases 1–6 committed; phase 7 navigation integration in progress. Implements [2_requirements.md](2_requirements.md).
+Status: all seven phases implemented, committed and retained in the private origin. Implements [2_requirements.md](2_requirements.md).
 Core phases 1–6 precede independent phase 7. See [execution evidence](5_post-implementation-notes.md).
 
 ## Checkout and prerequisites
@@ -15,8 +15,8 @@ Core phases 1–6 precede independent phase 7. See [execution evidence](5_post-i
 - Choose the smallest reviewed prerequisite delta. Record ancestry and stack overlap so annotations are integrated
   once. Reuse the existing clone/worktree; do not base this branch on a composed experimental build.
 - Navigation is required only for phase 7. No root dependency graph existed at planning time; keep sequencing here.
-  Its current plan is [navigation](../../2_in-progress/2026-10-01_navigation-cube/3_overall-plan.md); implementation
-  began in that separately owned chat during this planning pass. Recheck its actual committed state when needed.
+  Its completed plan is [navigation](../../3_done/2026-10-01_navigation-cube/3_overall-plan.md); the integrated
+  revision is 0947b9e3a840209153d0ad791df27f38ec86858c. Exact retained boundaries are in the implementation notes.
 - Proposed build directory: `build-http-agent-server` within the dedicated checkout; verify it is available first.
   Evidence: `D:/openscad/runs/http-agent-server/<attempt>/`; local staging, when requested/needed for validation:
   `D:/openscad/artifacts/http-agent-server/<attempt>/`. Use fresh attempt directories.

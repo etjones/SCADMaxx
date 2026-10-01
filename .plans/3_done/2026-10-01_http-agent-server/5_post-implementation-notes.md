@@ -1,6 +1,6 @@
 # HTTP agent server — implementation evidence
 
-Status: phases 1–3 committed; phase 4 in progress. User requested sequential implementation and phase commits.
+Status: all seven phases implemented and committed sequentially; final source retained and verified in the private origin.
 
 ## Checkout and prerequisites
 
@@ -10,8 +10,8 @@ Status: phases 1–3 committed; phase 4 in progress. User requested sequential i
   feature's verified palette-fixed implementation. The other worktree's dirty Clipper2 state was not copied.
 - Prerequisite merge: `a2a79091342630611c874abfadd9b5bc928aa03a`. Preserves original annotation ancestry, including
   its separately identified Windows compilation/link repairs. No conflict or submodule revision change.
-- Future composition must use the HTTP-only delta after the annotations prerequisite, not reapply annotation content.
-  Navigation is separately in progress and remains required only for phase 7.
+- Future composition must use the explicit prerequisite boundary below, not reapply annotations/navigation content.
+  Navigation was required only for phase 7; the independent core checkpoint remains 9bb62939f.
 
 ## Phase 1 working record
 
@@ -28,8 +28,8 @@ commands and logs. Configuration succeeded with MSVC 19.51/Qt 6.11.1 and the exi
 were installed or upgraded. Separate protocol tests passed after the initial implementation; rerun after final edits.
 Full Windows GUI build and incremental rebuild passed. Protocol tests: 2/2. Native tests: 6/6, including unchanged Python client; evidence native-20261001T153059 and visually inspected annotation-window.png. Unit test executable exited 0; JUnit retained. Source commit: a638ae7d3.
 
-Source schemas/route adapters will be extended in their implementation phases. No API or requirement completion is
-claimed for phases 4–7. Workspace planning moved to `2_in-progress`; unrelated control edits are preserved.
+Later phase records below supersede this initial checkpoint. Workspace planning moved to `2_in-progress` during
+implementation and to `3_done` at completion; unrelated control edits are preserved.
 
 ## Phase 2 — source commit 195a3be74
 
@@ -126,3 +126,56 @@ Coverage limits: physical mixed-DPI monitor movement, other OS/Qt5/headless and 
 claimed. The staged run is on this development machine. Optional geometry metrics and full parameter metadata remain
 unadvertised. Core source and staged evidence are independent of navigation; phase 7 uses only its reviewed committed
 revision. Private-origin retention/readiness is finalized after phase 7; no GitHub publication or stack build ran.
+
+## Phase 7 — native navigation integration
+
+Source implementation: 0ec17f2a2; final composition/handoff: 498c4774d26e7235fbc4cbb9b34f56afb39ca645.
+Navigation prerequisite: 0947b9e3a840209153d0ad791df27f38ec86858c, including its click-jitter and unchanged-reload
+transition fixes. Native saved records, dirty flags, naming and companion persistence remain owned by SavedViews.
+Added opaque document-scoped library revisions, list paging and guarded add/rename/remove/recall. Camera operations
+use CameraNavigation; add/capture freezes the displayed transition pose. Native Save handles persistence; HTTP never
+saves. Integrated captures omit guides/controls/statistics and preserve live preferences. Normal native exports retain
+annotation composition; ModelOnly captures bypass it. This hook and exact annotated-pixel comparisons are retained
+from the independently tested annotations/navigation composition d16b0001993cddfe7c020e67eca3f71996dee6fa.
+
+Windows Release builds pass. Final native HTTP/annotation run: 13/13, zero skips,
+`runs/http-agent-server/phase7/native-20261001T182715`. It includes 23 actual packaged CLI commands, unchanged legacy
+client, real F6 result/capture, native save/reopen, duplicate mutations, concurrent native edits, wrong displayed owner,
+draft locking, mid-transition add and complete orthographic recall after aspect change. Simulated 150% run:
+`native-20261001T182401`, 13/13 (before restoring the export-composition hook); final combined navigation suite at
+150%: `navigation-final-scale150`, 15/15. Native clean and F6 PNGs were visually inspected; model-only output has no
+guides, cube, statistics or annotation strokes. Native navigation persistence/lifecycle tests cover Save As/copy,
+untitled/metadata-only saves, external conflicts and companion behavior.
+
+The first combined click probe failed twice, then passed with tracing. Navigation concurrently delivered its committed
+reload-cancellation repair with stronger window-routed click tests. Integrated that exact fix, removed tracing and
+passed both expanded navigation runs. No separate speculative click repair was added to HTTP.
+Protocol suites: 2/2; Python client regressions: 5/5; unit JUnit: zero failures/errors. Earlier parser-stack limitation
+and physical monitor/OS/clean-machine coverage limits remain as recorded above. No tests are claimed beyond evidence.
+
+## Retained source and build-input handoff
+
+Private repository: `E:/Dropbox/bare_repos/scadmaxx.git`. Verified with `git ls-remote` after ordinary pushes:
+
+- `refs/heads/codex/http-agent-server`: `498c4774d26e7235fbc4cbb9b34f56afb39ca645`.
+- `refs/heads/codex/http-agent-prerequisites`: `85829fa71870c4aa6945d3cd4abbc932faeab392`.
+
+The latter is an ancestor of the delivered head, containing only the reviewed native annotations/navigation
+composition plus navigation fixes. The build delta is exactly `85829fa7..498c4774`, with earlier selected dependencies
+`navigation-cube` and `annotations`. Do not use auto-merge-base or squash-merge the complete feature head onto earlier
+squashed dependencies. Preserve the binary-capable patch in `runs/http-agent-server/phase7/http-only.patch` and compare
+the selected prerequisite heads before integration. Review the small CMake optional-Cairo correction and Windows GUI
+test plumbing in this delta against separately applied repairs; they are not additional selected features. QGLView
+and TabManager contain no residual changes against the prerequisite boundary. No submodule gitlink was changed.
+Generated Clipper2 build text, Serena metadata and Python caches are excluded from commits. Dependency commits are the
+original native feature inputs; source origin retains their ancestry. Detailed submodule identities and build recipe
+are in the phase-7 run material.
+
+Core-only and integrated staging remain separate under `artifacts/http-agent-server`. Their manifests identify source,
+runtime provenance and executable hashes; integrated executable About metadata can show the pre-commit build hash,
+while `matchingSourceCommit` records the exact committed code it was built from. This is a developer-machine validation
+package, not a claim of a clean-machine release or an experimental full-stack composition.
+
+Workspace handoff sets HTTP readiness true only after verified retention. Other selected features keep their own
+readiness; this does not imply the entire SCADMaxx stack is ready. All subsequent workspace commits scope paths or use
+a temporary index for owned changes within shared metadata files, preserving concurrent staged plans.

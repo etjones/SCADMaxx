@@ -1,6 +1,6 @@
 # Phase 7 — Later saved-view integration
 
-Status: separately scheduled follow-on, not part of the first core delivery. Covers N01–N03 plus integrated
+Status: completed after the independent core delivery; commits 0ec17f2a2 and 498c4774d. Covers N01–N03 plus integrated
 R05, R14–R16 and R20. Depends on phases 1–6 and a reviewed committed navigation implementation.
 
 ## Entry conditions
