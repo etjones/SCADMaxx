@@ -1,6 +1,6 @@
 # HTTP agent server — implementation evidence
 
-Status: phases 1–2 committed; phase 3 in progress. User requested sequential implementation and phase commits.
+Status: phases 1–3 committed; phase 4 in progress. User requested sequential implementation and phase commits.
 
 ## Checkout and prerequisites
 
@@ -29,7 +29,7 @@ were installed or upgraded. Separate protocol tests passed after the initial imp
 Full Windows GUI build and incremental rebuild passed. Protocol tests: 2/2. Native tests: 6/6, including unchanged Python client; evidence native-20261001T153059 and visually inspected annotation-window.png. Unit test executable exited 0; JUnit retained. Source commit: a638ae7d3.
 
 Source schemas/route adapters will be extended in their implementation phases. No API or requirement completion is
-claimed for phases 2–7. Workspace planning moved to `2_in-progress`; unrelated control edits are preserved.
+claimed for phases 4–7. Workspace planning moved to `2_in-progress`; unrelated control edits are preserved.
 
 ## Phase 2 — source commit 195a3be74
 
@@ -46,3 +46,24 @@ failed compile without a new successful result, two windows sharing a path, acti
 closed-window handle invalidation, and the unchanged legacy client/reload tests.
 The two-window test exposed live-list iteration in the GUI test runner; copying its initial window list fixed the
 test-harness lifetime failure. Source dependency records remain explicitly unknown until phase 3 captures them.
+
+## Phase 3 — source commit 8fa5edcbf
+
+Added isolated native parsing with bounded captured include/use inputs, typed syntax DTOs, ordered statement retention,
+disabled/overwritten syntax, dependency handles, pagination, tree retention and worker-side expiry. Native parser
+semantic-value destructors repair malformed-input cleanup; scoped output preserves native handler/suppression state.
+Expressions expose const inspection via one observer friendship, avoiding a Qt dependency in core expression types.
+In addition to planned budgets, inspection has an 8,192-token admission bound, 64-deep includes and a cooperative
+two-second token-boundary deadline. No filesystem call or executing native operation is claimed interruptible.
+
+Windows full/incremental builds passed. Native tests 9/9 in `runs/http-agent-server/phase3/native-20261001T164112`:
+120 malformed parses, injected dependency-read exception/restoration, 500/100 child-page boundary, Unicode byte
+columns, limits, include/use/missing/cycle cases, unchanged native roots/renderer/camera/output state and later preview.
+Protocol tests 2/2 including expired cached inspection while heartbeat remains live. Unit executable exited 0.
+
+Broader parser/echo regression selection: 27/28 executed tests passed; two existing tests are disabled. The infinite
+recursion fixture `echo_recursion-test-function3` overflows the Windows native stack (0xc00000fd). Reproduced against
+the pre-feature annotations artifact with the same exit code; see `baseline-recursion-exit.txt` and output under
+phase3. This is a pre-existing native evaluation limitation, not exposed by the parse-only operation. Initial CTest
+attempt lacked the adjacent `.com` launcher; staged the already-built winconsole launcher beside openscad.exe and
+reran. One attempted relink overlapped CLI execution and hit a Windows executable lock; rebuilt after tests exited.

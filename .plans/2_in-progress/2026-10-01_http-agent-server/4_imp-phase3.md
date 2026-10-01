@@ -1,6 +1,6 @@
 # Phase 3 — Parse isolation and structured syntax inspection
 
-Status: planned, not executed. Depends on phases 1–2. Covers R06–R09, R11, R17–R18, R20.
+Status: implemented and validated; source commit `8fa5edcbf`. See implementation evidence and baseline test limitation.
 
 ## Prototype before expansion
 

@@ -1,6 +1,6 @@
 # HTTP agent server — overall implementation plan
 
-Status: implementation requested; phase 1 in progress. Implements [2_requirements.md](2_requirements.md).
+Status: phases 1–3 committed; phase 4 in progress. Implements [2_requirements.md](2_requirements.md).
 Core phases 1–6 precede independent phase 7. See [execution evidence](5_post-implementation-notes.md).
 
 ## Checkout and prerequisites
