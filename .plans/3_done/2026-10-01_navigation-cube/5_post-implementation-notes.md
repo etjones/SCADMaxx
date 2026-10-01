@@ -2,6 +2,14 @@
 
 Status: all six source phases committed; local delivery verified. See final handoff and coverage below.
 
+Tuning parameter help: `c58c620ee68250720dc93e5d86d58f184311e690` adds a native question-mark icon
+beside every parameter. Hover displays a tooltip; clicking opens a Qt What's This help popup. Controls also
+expose the descriptions through tooltips, What's This and accessibility. Text covers purpose, units,
+direction of adjustment, relevant dependencies and selected defaults. Native coverage checks that every
+parameter has an icon and nonempty matching help. All 15 cases and the build pass; the tuning screenshot
+was inspected (`runs/navigation-cube/phase6/tuning-help`). Private origin verified. Application:
+`D:/openscad/artifacts/openscad-navigation-cube-tuning-help-win64/openscad.exe`.
+
 Viewport information hierarchy: `9506eca8159cb5c7b895760b4cf27d0dc88d15b1` indents Triangles, FPS and
 Frame time by 20 logical pixels beneath Show information. Enable/disable behavior is unchanged. Build passed
 and the popup screenshot was inspected (`runs/navigation-cube/phase6/info-indent/viewport-popup.png`).
