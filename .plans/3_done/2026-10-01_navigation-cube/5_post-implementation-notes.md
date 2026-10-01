@@ -2,6 +2,15 @@
 
 Status: all six source phases committed; local delivery verified. See final handoff and coverage below.
 
+Configurable button spacing: `21e7c8f30a08de196119c14ffba926f794d13708` adds independent Arrow inset and
+Roll inset session controls (0–25 logical px, scaled with the cube). Higher values move those buttons toward
+the cube; default 0 retains existing positions. Copy settings and Reset overrides include both values.
+Native checks verify independent movement, fixed cube position and copied values; the closer layout screenshot
+was inspected. All 15 cases pass in `runs/navigation-cube/phase6/arrow-insets-repeat`. The first run's spacing
+checks passed, but camera click/transition assertions failed; both runs are retained without claiming a cause.
+Build passed and private origin was verified. Application:
+`D:/openscad/artifacts/openscad-navigation-cube-spacing-win64/openscad.exe`.
+
 Default cube scale is now **1.1**, including fresh sessions and Reset overrides. Source commit `6a5ffc6e8`,
 updated existing test expectations in `a8a61bf042000a46bfa153aa85d470e3d5b30a30`; private origin verified.
 Build and all 15 native cases pass at 100% (`runs/navigation-cube/phase6/default-scale110`).
