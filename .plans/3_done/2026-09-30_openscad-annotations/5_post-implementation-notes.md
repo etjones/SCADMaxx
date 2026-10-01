@@ -5,7 +5,8 @@
 All six phases are complete. Native drawing/review, companion persistence, editor lifecycle/undo, opt-in agent access
 and the bundled Python client are implemented in wt-openscad-annotations on feature/annotations.
 The full Windows x64 Release application builds and passes the focused tests and runtime checks below.
-Source changes are uncommitted; no push, PR, publication or experimental PR-stack change was made by this task.
+Source changes are committed in six reconstructed phases as of 2026-10-01; see the commit map below.
+No push, PR, publication or experimental PR-stack change was made by this task.
 
 Initial delivery (see the palette correction below for the latest build):
 
@@ -18,7 +19,7 @@ Initial delivery (see the palette correction below for the latest build):
 
 ## Build inputs and reproduction
 
-- Baseline: 612e684c2cbbcdcb9a7a8307973f33fd910f9c17 plus this uncommitted implementation.
+- Baseline: 612e684c2cbbcdcb9a7a8307973f33fd910f9c17 plus the implementation now committed through d670fad09.
 - Visual Studio 17 2022 x64, MSVC 19.44.35228, SDK 10.0.26100.0, CMake 4.3.2.
 - Qt 6.11.1, QScintilla 2.14.1, libzip 1.11.4, CGAL 6.2, built-in Manifold 3.5.3/OpenCSG 1.8.2.
 - Explicitly reused classic vcpkg binaries: D:/openscad/openscad-6991/build/vcpkg_installed/x64-windows.
@@ -84,7 +85,7 @@ or environmental failure has been simulated.
 | Requirements | Evidence |
 | --- | --- |
 | R01 | Native preview annotation and F6 capture; controller binds displayed result |
-| R02 | Twelve-color/movable palette inspected; shared painter tests and PNG inspection |
+| R02 | Twelve-color fixed palette and arrow cursor inspected; shared painter tests and PNG inspection |
 | R03–R04 | Tiny click, exiting rectangle, undo/redo/navigation tests; native camera lock, Escape/right cancel |
 | R05 | Native Unicode Add, Back, Cancel and empty annotation dialog tests |
 | R06 | Real GL capture/shared compositor, image inspection and DPR runs |
@@ -108,7 +109,7 @@ or environmental failure has been simulated.
 
 ## Limits and follow-up context
 
-- Catch2 3 is absent from the reused dependency tree; the upstream Catch2 suite was not built/run.
+- Catch2 3 was absent during this build; the upstream Catch2 suite was not built/run for annotations.
   The full upstream GUI regression suite was not run; native annotation tests were selected explicitly.
 - Physical mixed-monitor transitions, other GPUs, clean Windows VM, Linux and macOS remain unverified.
 - Full dependency/source snapshots are outside annotation scope; metadata reports unknown dependency provenance.
@@ -121,8 +122,8 @@ or environmental failure has been simulated.
 - New UI strings are present; new translation catalogs were not authored.
 
 Optional rework routes: fix forward (bounded correction), replan (different implementation), restart (revisit
-requirements), or supersede (replace objective). Commits/PRs and selecting annotations for the experimental stack
-are separate follow-up actions.
+requirements), or supersede (replace objective). Pushing/publishing and integrating annotations into the experimental
+build are separate follow-up actions.
 
 ## Bounded correction: fixed palette
 
@@ -139,3 +140,29 @@ handlers, fixed placement and explicit cursor/inheritance were inspected; no new
 Latest application: D:/openscad/artifacts/openscad-annotations-palette-fixed-win64/openscad.exe.
 Latest ZIP: D:/openscad/artifacts/openscad-annotations-palette-fixed-win64.zip, with adjacent SHA-256 file.
 The previous delivery remains available; this update does not stop a running application or alter open documents.
+
+## Reconstructed phase commits (2026-10-01)
+
+At the user's request, the completed implementation was split into logical commits after development. These are
+reconstructed boundaries, not historical snapshots of each phase. The palette correction is included in phase 4;
+the drawing primitives are introduced with the store tests in phase 2. Phase 4 adds document-context action routing
+when its controller becomes available, and phase 5 attaches the agent bridge to that controller.
+
+| Phase | Commit | Contents |
+| --- | --- | --- |
+| 1 | `4af4fe511` | Windows baseline compilation/link repairs |
+| 2 | `a229de86f` | Record/store, companion persistence, drawing primitives and storage tests |
+| 3 | `267e1f313` | Editor lifecycle, save/backup and unified undo |
+| 4 | `964a739d1` | Drawing/capture/review UI, fixed palette and document targeting |
+| 5 | `37e68728a` | Local agent transport/bridge, Python client and companion guide/skill |
+| 6 | `d670fad09` | Native workflow and protocol tests, isolated test settings |
+
+All 34 changed/new source files were hashed before staging. After committing, their working bytes were unchanged
+and their normalized content matched HEAD. All staged diffs and the complete base-to-HEAD diff passed `--check`.
+Index-only staging preserved the existing build tree and source timestamps. The final source is unchanged from the
+tested palette-fixed implementation; no rebuild or test rerun was needed for this history-only operation.
+Intermediate reconstructed commits were not separately built. Clipper2's existing generated-header dirtiness is
+preserved outside the commits; no submodule revision changed. No pushes were made.
+
+Evidence: `runs/annotations-implementation/commit-reconstruction/` retains the original hashes, base, tracked diff
+and per-phase staged patches. The one-off `reconstruct-commits.py` staged index variants without rewriting sources.

@@ -1,12 +1,13 @@
 # OpenSCAD annotations
 
 Read `../.plans/3_done/2026-09-30_openscad-annotations/1_exploration.md` and its post-implementation notes before
-continuing this feature. The initial implementation and Windows build are complete; source changes are uncommitted.
+continuing this feature. The implementation and Windows build are complete; six reconstructed phase commits end at
+`d670fad09` (2026-10-01). Their final source matches the tested palette-fixed delivery.
 Keep annotations on a dedicated feature branch and checkout, independent of the experimental composition branch.
 Use `D:/openscad/wt-openscad-annotations`, branch `feature/annotations`, prepared from upstream master at
 `612e684c2cbbcdcb9a7a8307973f33fd910f9c17` on 2026-09-30. The branch's push remote is now local `origin`
-(`E:/Dropbox/bare_repos/scadmaxx.git`); its committed starting point is retained there, while implementation edits
-remain in the worktree. GitHub publication requires an explicit user decision. Recheck checkout status before work.
+(`E:/Dropbox/bare_repos/scadmaxx.git`); the new implementation commits have not been pushed there yet.
+GitHub publication requires an explicit user decision. Recheck checkout status before work.
 Use the existing Blender implementation as the behavioral reference, and adapt it to OpenSCAD's document and
 rendering model. It is not a request to install the Blender plugin or operate a running Blender instance.
 
