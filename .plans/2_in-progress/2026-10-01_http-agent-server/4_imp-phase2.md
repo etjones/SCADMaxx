@@ -1,6 +1,6 @@
 # Phase 2 — Live targets, source snapshots and diagnostics
 
-Status: planned, not executed. Depends on phase 1. Covers R04, R06, R08, R11–R12, R19–R20.
+Status: implemented; source commit `195a3be74`. Dependency enrichment continues in phases 3–4.
 
 ## Implementation
 

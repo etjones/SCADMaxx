@@ -1,6 +1,6 @@
 # HTTP agent server — implementation evidence
 
-Status: phase 1 committed; phase 2 in progress. User requested sequential implementation and phase commits.
+Status: phases 1–2 committed; phase 3 in progress. User requested sequential implementation and phase commits.
 
 ## Checkout and prerequisites
 
@@ -30,3 +30,19 @@ Full Windows GUI build and incremental rebuild passed. Protocol tests: 2/2. Nati
 
 Source schemas/route adapters will be extended in their implementation phases. No API or requirement completion is
 claimed for phases 2–7. Workspace planning moved to `2_in-progress`; unrelated control edits are preserved.
+
+## Phase 2 — source commit 195a3be74
+
+Added live document/editor revisions, bounded immutable disk/editor source snapshots with cached Unicode-safe pages,
+bounded evaluation attempts/successful results, and typed diagnostics whose context is captured before GUI delivery.
+Disk reads detect available metadata changes without claiming filesystem transactions. Snapshot read/hash is bounded
+and synchronous on the GUI thread; no widget or file access happens on the HTTP worker. No background hashing is
+needed for the 4 MiB root budget. Retained source pages have a separate estimated 32 MiB budget.
+
+Windows incremental build passed. Protocol suites: 2/2; native suite: 8/8 in
+`runs/http-agent-server/phase1/native-20261001T160437` (shared runner retained in phase1).
+Checks cover Unicode filename/BOM/CRLF, distinct disk/editor data, stale revision, read-only state preservation,
+failed compile without a new successful result, two windows sharing a path, active untitled vs displayed owner,
+closed-window handle invalidation, and the unchanged legacy client/reload tests.
+The two-window test exposed live-list iteration in the GUI test runner; copying its initial window list fixed the
+test-harness lifetime failure. Source dependency records remain explicitly unknown until phase 3 captures them.
