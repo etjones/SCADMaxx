@@ -1,6 +1,6 @@
 # HTTP agent server — requirements
 
-Status: planned from the accepted [exploration](1_exploration.md). No implementation or build has started.
+Status: core requirements implemented and validated; navigation adapter in progress. See implementation notes for evidence.
 Core requirements R01–R24 define the first delivery. N01–N03 apply only to the later navigation adapter.
 
 ## Scope and service

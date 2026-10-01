@@ -1,6 +1,7 @@
 # Phase 6 — Agent client, regression verification and core delivery
 
-Status: planned, not executed. Depends on phases 1–5. Covers all R01–R24, especially R22–R24.
+Status: core implemented and validated; source commits 7aee39c7e plus final capture verification follow-up.
+Depends on phases 1–5. Covers all R01–R24, especially R22–R24.
 Phase 7 and navigation availability do not block core completion.
 
 ## Implementation and documentation

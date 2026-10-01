@@ -97,3 +97,32 @@ draft rejection, and historical reads during interaction, plus unchanged legacy 
 
 Workspace evidence commit 9718358 also included concurrent staged UI plan moves. Their file contents were preserved;
 no source implementation was mixed. Subsequent workspace commits use explicit path-scoped commit arguments.
+
+## Phase 6 — core delivery 7aee39c7e and capture-verification follow-up
+
+Delivered stdlib client, skill, contract/schema and explicit identity/capability/request handling. CLI stderr retains
+request IDs before sending; no implicit retry, instance replacement or redirect. PNG output validates SHA-256, chunks,
+CRCs and dimensions and exclusively creates the explicit path. Redirected output is UTF-8 on Windows.
+Native attempts include duration; status exposes busy reasons/capture availability. Global diagnostics are separate;
+histories, Customizer context, dependency manifests and v2 JSON output have additional byte caps.
+
+Windows GUI Release builds passed using shared vcpkg. Staged GUI uses copied existing runtime dependencies plus
+Qt6Concurrent.dll; PATH restricted to that runtime and Windows. New and unchanged legacy clients run outside the
+checkout. Native suite 12/12, no skips, in `runs/http-agent-server/phase6/native-20261001T173208`; packaged CLI executes
+18 real commands covering disk capture, explicit parsing, syntax/model traversal, diagnostics, camera and checked PNG.
+Native F6 capture passes identity and nonblank-pixel checks. Both top-view images inspected at full resolution.
+An inline preview initially appeared blank; direct file hashes prove original and updated F6 images are identical
+and valid. Removed redundant GL_FRONT selection but do not claim it repaired a reproduced image defect.
+First staged attempt found and fixed Windows code-page output; the following full run passes both clients.
+
+Protocol suites 2/2, including queue capacity, immutable evidence while busy, strict v2 guards and receipt replay.
+Python client suite 5/5, including two live mock instances, stale discovery, redirects, uncertainty/deadline and PNG
+failures. Unit executable exits 0 (JUnit has zero errors/failures). A 13,000-node fixture verifies the 12,000-node
+admission bound and absence of dangling child edges. Earlier parser regression baseline limitation remains above.
+Skill-validator invocation is unavailable because PyYAML is absent in both Python runtimes; reviewed required plain
+frontmatter, naming, length, placeholders and linked files directly. No Python/runtime packages were installed.
+
+Coverage limits: physical mixed-DPI monitor movement, other OS/Qt5/headless and a clean-machine installation are not
+claimed. The staged run is on this development machine. Optional geometry metrics and full parameter metadata remain
+unadvertised. Core source and staged evidence are independent of navigation; phase 7 uses only its reviewed committed
+revision. Private-origin retention/readiness is finalized after phase 7; no GitHub publication or stack build ran.
