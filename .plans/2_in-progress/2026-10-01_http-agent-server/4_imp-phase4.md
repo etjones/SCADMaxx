@@ -1,6 +1,6 @@
 # Phase 4 — Evaluated model tree and available summaries
 
-Status: planned, not executed. Depends on phases 2–3. Covers R08, R10–R12, R18, R21.
+Status: implemented and committed as 42aacf037. Depends on phases 2–3. Covers R08, R10–R12, R18, R21.
 
 ## Implementation
 

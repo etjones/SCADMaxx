@@ -67,3 +67,18 @@ the pre-feature annotations artifact with the same exit code; see `baseline-recu
 phase3. This is a pre-existing native evaluation limitation, not exposed by the parse-only operation. Initial CTest
 attempt lacked the adjacent `.com` launcher; staged the already-built winconsole launcher beside openscad.exe and
 reran. One attempted relink overlapped CLI execution and hit a Windows executable lock; rebuilt after tests exited.
+
+## Phase 4 — source commit 42aacf037
+
+Successful native publication now detaches instantiated hierarchies, typed common properties, source mappings,
+effective roots, modifiers and observed dependency paths before native source lifetimes end. Result identity remains
+separate from legacy generations. Current Customizer values include definition revision and stale-source status.
+Geometry metrics and complete parameter metadata are explicitly omitted; HTTP.md freezes supported fields.
+Inspection admits at most 12,000 evaluated nodes and shares the bounded tree cache. Serialization exceptions do not
+turn successful native compilation into failure. Capturing bounded DTOs with access disabled allows first Enable to
+inspect an existing displayed model; Stop still invalidates previously issued handles.
+
+Windows Release build passed. Native suite 10/10, `runs/http-agent-server/phase3/native-20261001T165551`:
+loop expansion/repeated spans, effective ! roots, disabled calls, retained tree after recompile, empty success,
+stale Customizer definitions, and all preceding source/parser/legacy evidence/reload tests. Model property completeness
+is deliberately false even with a typed adapter; geometry arrays and tessellation fields are not silently invented.
