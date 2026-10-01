@@ -65,3 +65,11 @@ cancellation and external camera mutation. Geometry tests verify planar facets, 
 and true isometric axis lengths. Evidence: `runs/navigation-cube/phase2/complete`, `native-final`, `scale150`, `dark`.
 The 26-target contact sheet and native screenshots were inspected. Final default-size/font/opacity calibration,
 expanded accessibility and physical mixed-monitor checks remain in phase 6, as planned.
+
+## Phase 3
+
+Implemented popup, persistent normal settings, session-only overrides and dev-only tuning. Clipboard includes all
+effective values, units, baselines, overrides, resolved geometry and DPR. Native tests and 123 unit cases pass.
+Production configuration omits tuning sources/menu. Corrected saved-list size hints keep buttons visible.
+Final process-restart and broader visual calibration remain phase 6. Evidence: runs/navigation-cube/phase3.
+
