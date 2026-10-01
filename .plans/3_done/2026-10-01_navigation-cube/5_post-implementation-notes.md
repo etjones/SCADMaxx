@@ -2,6 +2,13 @@
 
 Status: all six source phases committed; local delivery verified. See final handoff and coverage below.
 
+Menu triangle sizing: `63a5d7d8d6cccf9d02217c0b93277bdd78300e36` replaces the small font glyph with the
+same vector-painted down triangle used by the navigation arrows. The visible shape now fills 60% of its
+24×scale logical-pixel button width, independently of font metrics; anchor, click area and popup behavior
+are unchanged. Build and all 15 native cases pass (`runs/navigation-cube/phase6/menu-triangle`), including
+popup interaction. The viewport screenshot was inspected; private origin verified. Application:
+`D:/openscad/artifacts/openscad-navigation-cube-menu-triangle-win64/openscad.exe`.
+
 Configurable button spacing: `21e7c8f30a08de196119c14ffba926f794d13708` adds independent Arrow inset and
 Roll inset session controls (0–25 logical px, scaled with the cube). Higher values move those buttons toward
 the cube; default 0 retains existing positions. Copy settings and Reset overrides include both values.
