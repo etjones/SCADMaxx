@@ -2,6 +2,11 @@
 
 Status: all six source phases committed; local delivery verified. See final handoff and coverage below.
 
+Default cube scale is now **1.1**, including fresh sessions and Reset overrides. Source commit `6a5ffc6e8`,
+updated existing test expectations in `a8a61bf042000a46bfa153aa85d470e3d5b30a30`; private origin verified.
+Build and all 15 native cases pass at 100% (`runs/navigation-cube/phase6/default-scale110`).
+Updated application: `D:/openscad/artifacts/openscad-navigation-cube-scale110-win64/openscad.exe`.
+
 Development-only notice: commit `0dc4e5d5257b762ae520b860bb673eca4ae2a14c` adds a wrapping label above the
 tuning controls explaining that the panel is solely for fine-tuning software parameters and will not appear
 in any production release. Release build passed; private feature origin matches the commit.
