@@ -2,6 +2,11 @@
 
 Status: all six source phases committed; local delivery verified. See final handoff and coverage below.
 
+Latest correction: [unchanged reload polling](rework/02/0_restart.md), source `0947b9e3a840209153d0ad791df27f38ec86858c`.
+Latest runnable build: `D:/openscad/artifacts/openscad-navigation-cube-reload-fix-win64/openscad.exe`.
+Cycle 01 alone did not resolve the user's report; the earlier test matrix disabled automatic reload and missed
+its unconditional cancellation every 200 ms. The new regression runs transitions through unchanged reload polls.
+
 Follow-up: [click-jitter correction](rework/01/0_restart.md), source `0ff82ec81d46e06c1e15047233c3b2e488d4cc92`.
 Latest runnable build: `D:/openscad/artifacts/openscad-navigation-cube-click-fix-win64/openscad.exe`.
 The original phase evidence and provisional defaults below are retained as history; the drag threshold now uses
