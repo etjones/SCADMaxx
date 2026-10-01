@@ -1,6 +1,6 @@
 # Navigation cube — implementation evidence
 
-Status: phase 1 completed (`3a60e69bb`); phase 2 in progress.
+Status: phases 1 (`3a60e69bb`) and 2 (`ea9427744`) completed; phase 3 in progress.
 
 ## Source and build
 
@@ -49,3 +49,19 @@ The native probes establish composition and the metadata lifetime approach; full
 ownership scenarios, physical mixed-monitor DPI, OS dark controls and final visual calibration are tested in their
 later phases. The dark probe changes the model viewport scheme, not the Windows desktop theme. No performance claim
 or combined annotation-runtime pass is inferred from these probes.
+
+## Phase 2
+
+Implemented a shared 26-facet chamfered cube geometry for painting/hit testing, face-plane labels, axis letters,
+single-click directional/roll actions, keyboard access and virtual-trackball drag. Only front-facing polygons hit.
+Quaternion transitions use generation cancellation, exact endpoints and one final operation notification;
+pan/FOV interpolate linearly, positive distance geometrically, projection switches once at the start.
+Settings are session values until phase 3 adds baselines/overrides and their UI. The triangle is intentionally only
+an entry-point placeholder at this checkpoint; the actual popup is phase 3.
+
+Build and 123 unit cases pass. Native tests pass for all 26 target poses, preserved camera fields, four-roll cycle,
+enabled/disabled orbit, release outside, unchanged widget placement, exact transition endpoints, retargeting,
+cancellation and external camera mutation. Geometry tests verify planar facets, hidden-face culling, center hits,
+and true isometric axis lengths. Evidence: `runs/navigation-cube/phase2/complete`, `native-final`, `scale150`, `dark`.
+The 26-target contact sheet and native screenshots were inspected. Final default-size/font/opacity calibration,
+expanded accessibility and physical mixed-monitor checks remain in phase 6, as planned.

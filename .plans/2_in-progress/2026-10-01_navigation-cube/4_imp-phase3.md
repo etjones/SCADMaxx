@@ -1,6 +1,6 @@
 # Phase 3 — Viewport popup, preferences and live tuning
 
-Status: not started. Depends on [phase 2](4_imp-phase2.md).
+Status: in progress. Depends on completed [phase 2](4_imp-phase2.md).
 Primary requirements: R10–R11, R17–R19, R21, R25 in [requirements](2_requirements.md).
 
 ## Outcome
