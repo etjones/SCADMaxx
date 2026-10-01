@@ -2,6 +2,13 @@
 
 Status: all six source phases committed; local delivery verified. See final handoff and coverage below.
 
+Latest UI refinement: **Window > Navigation tuning** is now a standard dock, initially floating and hidden.
+It participates in the Window menu, dock keyboard navigation and saved window layout. Experimental values remain
+session-only. Commit `6e8e2f37fc7f988b228a9c907556bfaf591a0fc6` (menu move first committed as `cea9a66ae`).
+Latest application: `D:/openscad/artifacts/openscad-navigation-cube-dockable-tuning-win64/openscad.exe`.
+Native tests cover menu ownership, docking/floating, close/reopen and Copy settings; all 15 cases pass in
+`runs/navigation-cube/phase6/dockable-tuning`. The normal Reorder windows setting governs dock title-bar handles.
+
 Latest correction: [unchanged reload polling](rework/02/0_restart.md), source `0947b9e3a840209153d0ad791df27f38ec86858c`.
 Latest runnable build: `D:/openscad/artifacts/openscad-navigation-cube-reload-fix-win64/openscad.exe`.
 Cycle 01 alone did not resolve the user's report; the earlier test matrix disabled automatic reload and missed
