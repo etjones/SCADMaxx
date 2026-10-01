@@ -2,6 +2,13 @@
 
 Status: all six source phases committed; local delivery verified. See final handoff and coverage below.
 
+Development-only notice: commit `0dc4e5d5257b762ae520b860bb673eca4ae2a14c` adds a wrapping label above the
+tuning controls explaining that the panel is solely for fine-tuning software parameters and will not appear
+in any production release. Release build passed; private feature origin matches the commit.
+All 15 native cases pass at 100% in `runs/navigation-cube/phase6/tuning-dev-notice`; the tuning screenshot
+was inspected to confirm the full notice is visible above the controls.
+Updated application: `D:/openscad/artifacts/openscad-navigation-cube-dev-notice-win64/openscad.exe`.
+
 Latest correction: hover highlights only the arrow glyph, without a rectangular button panel.
 Commit `8a78288af1719c7e6ba05384dd85dd24364d7fe4`; application
 `D:/openscad/artifacts/openscad-navigation-cube-hover-fix-win64/openscad.exe`.
