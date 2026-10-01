@@ -1,11 +1,11 @@
 # OpenSCAD UI visual polish
 
-Status: foundation done; icon system in progress from 2026-10-01. Customizer and dialog polish remain planning.
+Status: foundation and icon system implemented on 2026-10-01. Customizer and dialog polish remain planning.
 Direction constrained to native Qt styling after user review.
 
 Prerequisite update: original upstream PR #6776, head `aab4aed030dd61b80c5f850177f2af93e067eb7d`,
 is committed in the existing UI worktree. Four integration conflicts were resolved while preserving newer
-upstream changes. Foundation is committed through `1d498d864`; no push. Icon-system preparation is in progress.
+upstream changes. Foundation is committed through `1d498d864`; icons through `67101788f`, verified at private origin.
 The existing MSVC Settings stream-declaration repair `c577f934adade4b762fba095abbad79a3b13df30`
 is also applied and committed at the user's request, alongside the other recorded Windows baseline repairs.
 See [integration evidence](../../../artifacts/ui-visual-polish/2026-10-01/pr-6776-integration.md).
@@ -36,7 +36,8 @@ Four focused briefs own the work. This file retains the shared evidence and hist
    (done): #6776 applied; font inheritance, Segoe UI 10 pt Windows default and native Customizer spacing implemented.
    Native Windows light/dark captures and regression results are recorded in its implementation notes.
 2. [Icon system](../../2_in-progress/2026-10-01_ui-icon-system/1_exploration.md)
-   (in progress): Tabler, custom CAD gaps, size and state-aware coloring.
+   (implemented): Tabler, custom CAD gaps, size and state-aware coloring; three status treatments with native Qt
+   status icons as the default. Four sequential commits and Windows evidence are recorded in that feature.
 3. [Customizer polish](../2026-10-01_ui-customizer-polish/1_exploration.md): implement the accepted reference.
 4. [Preferences and dialog polish](../2026-10-01_ui-preferences-dialog-polish/1_exploration.md): extend its hierarchy,
    spacing and control-state principles to secondary windows.
@@ -234,9 +235,9 @@ experimental build already includes #6776. Its committed local integration is
 `8e4a30f86716c8a7cd93bcbff1cd33249bd110fa` on `codex/pr-6776-dynamic-dark-mode-switching`.
 That integration still has the original checked GroupWidget implementation. Its worktree contains unrelated local
 edits; do not incorporate those silently. In the visual-polish worktree, original upstream #6776 head
-`aab4aed030dd61b80c5f850177f2af93e067eb7d` and the saved MSVC stream-declaration repair are now applied and staged.
-All 13 changed C++ files plus InitConfigurator compile successfully. Full executable and runtime GUI verification
-remain pending; see the integration evidence above. Typography implementation has not started.
+`aab4aed030dd61b80c5f850177f2af93e067eb7d` and the saved MSVC stream-declaration repair are committed with the other
+Windows repairs. Foundation/typography is complete through `1d498d864`; the full Windows executable, regression
+suite and native Qt GUI checks passed. See the foundation's post-implementation notes for evidence and limits.
 
 The PR is not complete stylesheet eradication. A source search of the committed local integration still finds uses
 in ColorLabel/ColorList, LaunchingScreen, QWordSearchField, input configuration widgets, ParameterCheckBox and AI UI.

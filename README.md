@@ -13,7 +13,7 @@ This workspace supports three kinds of work:
 | --- | --- | --- |
 | Native OpenSCAD annotations, based on the Blender feature | [Annotations](workflows/annotations.md) | [Implementation and verification](.plans/3_done/2026-09-30_openscad-annotations/5_post-implementation-notes.md) |
 | Native viewport navigation cube | Dedicated `wt-openscad-navigation-cube`, branch `feature/navigation-cube` | [CAD comparisons and feature exploration](.plans/1_planning/2026-10-01_navigation-cube/1_exploration.md) |
-| UI visual polish (design exploration) | Dedicated `wt-openscad-ui-visual-polish`, branch `codex/ui-visual-polish` | [Screenshot audit and visual directions](.plans/1_planning/2026-10-01_ui-visual-polish/1_exploration.md) |
+| UI visual polish (foundation and icons implemented) | Dedicated `wt-openscad-ui-visual-polish`, branch `codex/ui-visual-polish` | [Evidence and remaining Customizer/dialog work](.plans/1_planning/2026-10-01_ui-visual-polish/1_exploration.md) |
 | Experimental Windows builds of current upstream master plus selected PRs | [Build workflow](workflows/experimental-builds.md) | [Manually maintained PR stack](experimental/PR_STACK.md) |
 | Testing and improving an individual upstream PR or issue | [PR development](workflows/pr-development.md) | The relevant checkout and feature plan |
 

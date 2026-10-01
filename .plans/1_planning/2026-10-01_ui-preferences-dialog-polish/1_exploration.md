@@ -6,6 +6,7 @@ Delivery: part 4 of 4, after Customizer validation, on `codex/ui-visual-polish` 
 Shared evidence: [UI visual polish](../2026-10-01_ui-visual-polish/1_exploration.md).
 Dependencies: [Qt/font foundation](../../3_done/2026-10-01_ui-qt-foundation-typography/1_exploration.md), including #6776,
 and [shared icon treatment](../../2_in-progress/2026-10-01_ui-icon-system/1_exploration.md).
+Icon implementation is complete at `67101788f`; reuse `Icons` and `StatusMessageBox` without another renderer.
 
 ## Outcome
 

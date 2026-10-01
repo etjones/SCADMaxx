@@ -6,6 +6,7 @@ Delivery: part 3 of 4, after the icon system, on `codex/ui-visual-polish` in
 Reference and historical evidence: [UI visual polish](../2026-10-01_ui-visual-polish/1_exploration.md).
 Prerequisite: [Qt foundation](../../3_done/2026-10-01_ui-qt-foundation-typography/1_exploration.md), including #6776;
 reuse [icon-system](../../2_in-progress/2026-10-01_ui-icon-system/1_exploration.md) help artwork and color handling.
+Icon implementation is complete at `67101788f`: use `Icons::icon("help", widget)` and its palette/state handling.
 
 ## Outcome
 
