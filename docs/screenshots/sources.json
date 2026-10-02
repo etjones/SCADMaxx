@@ -118,6 +118,29 @@
       "binarySha256": "FFD45105799330DC81F1A86D9244244286121D49FC3B65BD25E8A93376206B20",
       "modelSha256": "704CC89912B08EE23C4279D6FE4A9705FE206CEF75A069F377422D3916A2F27C",
       "captureProvenance": "D:/openscad/runs/readme-captures/baseline-final/provenance.json"
+    },
+    {
+      "image": "launcher.png",
+      "source": "D:/openscad/runs/readme-launcher-capture/launcher.png",
+      "sha256": "1F41F3CD2278754381CFF5D904F9185410E77501434A8041F08D88DD9D79074A",
+      "build": "launcher",
+      "binarySha256": "1164920F1FEA9873DC81843AE8DD3F50B1778C4A797E20C74D5788BF1700CD25",
+      "sourceSnapshot": "D:/openscad/runs/readme-launcher-capture/source",
+      "sourceHashes": [
+        {
+          "Path": "D:\\openscad\\runs\\readme-launcher-capture\\source\\main.cpp",
+          "Hash": "C64D6EA622A7A0BEABAB3B9FFD49DBADA368F897F3FF148EC4515F2B39E0D8A6"
+        },
+        {
+          "Path": "D:\\openscad\\runs\\readme-launcher-capture\\source\\core.cpp",
+          "Hash": "36DA503FAC3B4EACB6341A4782C3A173F63ACF6C3F6C54AC6EF4821E5F30BC89"
+        },
+        {
+          "Path": "D:\\openscad\\runs\\readme-launcher-capture\\source\\core.h",
+          "Hash": "61C594C0B9D466095BCFE946C22AC5225455BBE389836D441C8282DC2BCD1A8E"
+        }
+      ],
+      "notes": "Actual Manager widget from launcher source, Windows Qt at scale 1. Isolated demonstration mappings reference existing local binaries. No Windows associations or normal launcher settings were changed."
     }
   ]
 }

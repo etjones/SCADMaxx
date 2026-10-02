@@ -87,11 +87,25 @@ the UI comparisons also show regular OpenSCAD with the same model and layout.
 
 </details>
 
+### SCADMaxx Launcher
+
+<a href="docs/screenshots/launcher.png"><img align="left" hspace="16" width="320" src="docs/screenshots/launcher.png" alt="SCADMaxx Launcher with regular OpenSCAD selected for .scad files and SCADMaxx selected for .scadmax files"></a>
+
+- Manage multiple installed OpenSCAD and SCADMaxx builds in one place.
+- Choose which build opens files for each configured extension.
+- Discover builds in selected folders and review which ones to include.
+- Switch builds from the system tray, with optional startup at sign-in.
+- Set up file associations through Windows Default Apps.
+
+*A separate Windows companion utility: choose which installed build opens each file type.*
+
+<br clear="both">
+
 ## Included upstream PRs
 
 ### Customizable keyboard shortcuts — [#6878](https://github.com/openscad/openscad/pull/6878)
 
-<a href="docs/screenshots/shortcuts.png"><img align="left" hspace="16" width="320" src="docs/screenshots/shortcuts.png" alt="Keyboard shortcut preferences listing real file and editing actions and their assigned keys"></a>
+<a href="docs/screenshots/shortcuts.png"><img align="right" hspace="16" width="320" src="docs/screenshots/shortcuts.png" alt="Keyboard shortcut preferences listing real file and editing actions and their assigned keys"></a>
 
 - Search actions and assign keyboard shortcuts through the GUI.
 - Handle shortcut conflicts and restore defaults.
@@ -103,7 +117,7 @@ the UI comparisons also show regular OpenSCAD with the same model and layout.
 
 ### Dynamic dark-mode switching — [#6776](https://github.com/openscad/openscad/pull/6776)
 
-<a href="docs/screenshots/dark-mode.png"><img align="right" hspace="16" width="320" src="docs/screenshots/dark-mode.png" alt="Bracket and Customizer in dark mode"></a>
+<a href="docs/screenshots/dark-mode.png"><img align="left" hspace="16" width="320" src="docs/screenshots/dark-mode.png" alt="Bracket and Customizer in dark mode"></a>
 
 - Respond to light/dark theme changes while OpenSCAD remains open.
 - Update widget palettes without restarting the application.
@@ -122,7 +136,7 @@ the UI comparisons also show regular OpenSCAD with the same model and layout.
 
 ## Build status and documentation
 
-The first integrated Windows x64 build includes all four feature groups above and PRs #6878/#6776.
+The first integrated Windows x64 editor build includes annotations, navigation, agent access, UI improvements and PRs #6878/#6776.
 Its source is branch `scadmaxx-20261001`, revision `bcf48145d`.
 Screenshots use that integrated source with a documentation-only capture harness.
 
