@@ -1,4 +1,13 @@
 {
+  "pr-6642-oep8-local": {
+    "repository": "E:/Dropbox/bare_repos/openscad.git",
+    "ref": "refs/heads/codex/pr6642",
+    "prUrl": "https://github.com/openscad/openscad/pull/6642",
+    "ready": true,
+    "pendingReason": "",
+    "validatedHead": "8ea44273775f3c7720f2ff607e6d4ea5215422a6",
+    "handoff": ".plans/1_planning/2026-10-02_oep8-customizer-syntax/5_post-implementation-notes.md"
+  },
   "navigation-cube-local": {
     "repository": "E:/Dropbox/bare_repos/openscad.git",
     "ref": "refs/heads/feature/navigation-cube",

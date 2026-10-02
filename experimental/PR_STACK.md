@@ -34,6 +34,8 @@ It defines source synchronization and the handoff required when each feature bec
 | 4 | ui-visual-polish | feature | ui-visual-polish-local | latest | be352f27972d570d61c9224a927079fa21055ac0 | pr-6776 | Improved OpenSCAD UI from our UI work branch |
 | 5 | annotations | feature | annotations-local | latest | auto-merge-base | none declared | Native Blender-style annotation tool |
 | 6 | http-agent-server | feature | http-agent-server-local | latest | 85829fa71870c4aa6945d3cd4abbc932faeab392 | navigation-cube, annotations | HTTP endpoint / agent server for OpenSCAD automation |
+| 7 | pr-6081 | pr | https://github.com/openscad/openscad/pull/6081 | latest | auto-merge-base | none declared | OEP8a object literals and object comprehensions |
+| 8 | pr-6642-oep8 | pr-variant | pr-6642-oep8-local | latest | 612e684c2cbbcdcb9a7a8307973f33fd910f9c17 | pr-6081 | Native Customizer attributes using fixed OEP8-style key: value entries |
 
 Selected by the user on 2026-09-30. Both PRs were open and unmerged when checked against GitHub on that date.
 PR #6878 is the updated version of the older Shortcuts GUI PR #3338. Resolve fresh heads and validate dependencies
@@ -59,6 +61,16 @@ Do not replay the full branch or silently substitute a local variant for the sel
   with the exact reviewed inputs in the handoff. Do not replay the complete branch as an independent feature.
 - HTTP readiness does not change other selected features' readiness or start an experimental build.
 
+## OEP8 and Customizer syntax
+
+Selected by the user on 2026-10-02. Use OEP8a #6081; the broader #4478 geometry and module-reference
+prototype is not selected. Apply the #6642 variant after OEP8a and preserve both expression classes.
+Annotations use `@{ key: expression, ... }` with fixed identifier keys and optional trailing commas;
+computed keys, quoted keys, `each`, and comprehensions are not annotation syntax. Ordinary OEP8 objects
+retain their own full syntax. Existing reactive `hidden`/`locked` values remain supported.
+Follow the source readiness record and
+[implementation evidence](../.plans/1_planning/2026-10-02_oep8-customizer-syntax/5_post-implementation-notes.md).
+
 ## Required Windows repairs
 
 The user explicitly selected the Unicode filename fix for the enhanced build on 2026-10-01. Include
@@ -81,6 +93,10 @@ Do not deliver a build that silently omits this behavior. Keep repair commits se
 - `navigation-cube`: verify orientation, view selection and viewport interaction against its feature acceptance checks.
 - `ui-visual-polish`: verify the approved UI changes, readability and interactions in light and dark modes.
 - `annotations`: verify creation/editing, persistence and export against the annotations feature acceptance checks.
+- `pr-6081`: exercise literal construction, object(), lookup, computed keys, comprehensions and object merging;
+  run object/JSON/text-metrics echo regressions because OEP8 changes object serialization.
+- `pr-6642-oep8`: run the native-attribute parser and Customizer tests, including rejected dynamic-key syntax,
+  printer round trips, numeric widget configuration and reactive included parameters using special variables.
 
 ## Candidates from existing local work
 
@@ -88,7 +104,7 @@ These labels come from local checkout names, not a fresh check of GitHub state o
 
 | PR | Local topic | Selection |
 | --- | --- | --- |
-| https://github.com/openscad/openscad/pull/6642 | Dynamic parameter changes | Not selected |
+| https://github.com/openscad/openscad/pull/6642 | Dynamic parameter changes | OEP8 syntax variant enabled above |
 | https://github.com/openscad/openscad/pull/6776 | Dynamic dark-mode switching | Enabled above |
 | https://github.com/openscad/openscad/pull/6871 | MSVC build and compilation fixes | Not selected |
 | https://github.com/openscad/openscad/pull/6999 | Customizer header text contrast | Not selected |
