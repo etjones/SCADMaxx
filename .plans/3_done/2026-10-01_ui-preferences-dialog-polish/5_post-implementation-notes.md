@@ -86,3 +86,31 @@ native scrolling/overflow instead of moving settings. Export/print rendering and
 not exercised by the dialog fixtures. Translation catalogs retain existing untranslated/fuzzy entries.
 The shared build emits an existing Fontconfig configuration warning; tests pass. Its configured version suffix
 still references an earlier UI development step; source commit identity in these notes is authoritative.
+
+## Follow-up — selected measurement icon refresh
+
+User reproduced a selected measurement icon keeping the wrong color until window reactivation. A focused shared
+action/button regression failed on all three selection transitions before the fix. Qt's QToolButton action handler
+overwrites the icon after event filters run. The working-tree fix defers the button-context refresh until that
+handler completes and prevents a button from writing its local icon back to the shared action.
+
+`measurement-full-tests.xml`: 77,586 assertions passed. `measurement-native/light-1` and `dark-1` passed; selected
+distance/angle toolbar captures verify the correct contrasting palette colors without reactivation. These are
+uncommitted follow-up changes in `Icons.cc` and `Icons_test.cc`, not part of the validated source head above.
+After the preview closed, `ui-followups-build.log` records a successful relink of the same `pr-6776-build/openscad.exe`
+with both the measurement refresh and subsequent help-interaction fixes. Combined suite: 77,593 assertions passed.
+
+## Closure — 2026-10-02
+
+The user accepted this UI pass as done and deferred further work to a larger fixup pass. The umbrella and final
+Preferences/dialog feature moved to done; the chat was unpinned. The source checkout and evidence are retained.
+
+The integration-ready committed head remains `8f5b3ae4707a8718db28722deb2fd723fd9415ab`. Later measurement refresh,
+help alignment/hover/click, and familiar Preview/Render SVG fixes remain uncommitted in the source checkout.
+Their verification is recorded here and in the completed Customizer/icon feature notes. Measurement/help fixes
+were linked into the preview executable; the newest Preview/Render SVG changes still await a GUI relink.
+Closing this pass does not promote those working-tree changes into the validated registry head.
+
+The optional document-tab placement proposal remains recorded separately for later implementation. Preferences
+window ownership was discussed only: its parentless application-wide singleton is unchanged. Any future ownership
+change must handle multiple document windows and their lifetimes without deleting the shared Preferences object.

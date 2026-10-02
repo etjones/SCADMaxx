@@ -2,6 +2,9 @@
 
 Status: all seven phases implemented and committed sequentially; final source retained and verified in the private origin.
 
+Accepted as done by the user on 2026-10-02. This feature stays in the done lane; any future work belongs to a
+separate fixup pass.
+
 ## Checkout and prerequisites
 
 - Dedicated source: `D:/openscad/wt-openscad-http-agent-server`, `codex/http-agent-server`.

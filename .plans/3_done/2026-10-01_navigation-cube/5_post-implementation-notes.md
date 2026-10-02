@@ -2,6 +2,10 @@
 
 Status: all six source phases committed; local delivery verified. See final handoff and coverage below.
 
+User closeout, 2026-10-02: accepted as done for now. The plan remains in `3_done`, with no active rework.
+Future changes will be a larger fixup pass, to be scoped separately when requested. Existing verification
+limitations remain recorded below. The chat was unpinned; source, builds and historical evidence are retained.
+
 Default roll step: `bfd009ef0047452c09e3629d0af25efd6af34700` changes roll to 15 degrees, matching the
 directional arrow step. Fresh sessions and Reset overrides use the new default; parameter help agrees.
 Build and all 15 native cases pass (`runs/navigation-cube/phase6/roll15`); private origin verified.

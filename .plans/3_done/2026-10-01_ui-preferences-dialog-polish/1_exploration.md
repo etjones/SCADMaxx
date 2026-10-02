@@ -1,11 +1,11 @@
 # Preferences and secondary-dialog polish
 
 Status: implemented and verified; final handoff is in [implementation results](5_post-implementation-notes.md).
-The feature remains in-progress pending the user's completion review. Final feature in the four-part UI plan.
+Accepted and moved to done by the user on 2026-10-02. Final feature in the four-part UI plan.
 Apply the accepted Customizer's restrained hierarchy to other existing surfaces.
 Delivery: part 4 of 4, after Customizer validation, on `codex/ui-visual-polish` in
 `D:/openscad/wt-openscad-ui-visual-polish`. No separate branch or worktree for this part.
-Shared evidence: [UI visual polish](../../1_planning/2026-10-01_ui-visual-polish/1_exploration.md).
+Shared evidence: [UI visual polish](../../3_done/2026-10-01_ui-visual-polish/1_exploration.md).
 Dependencies: [Qt/font foundation](../../3_done/2026-10-01_ui-qt-foundation-typography/1_exploration.md), including #6776,
 and [shared icon treatment](../../3_done/2026-10-01_ui-icon-system/1_exploration.md).
 Icon implementation is complete at `67101788f`; reuse `Icons` and `StatusMessageBox` without another renderer.

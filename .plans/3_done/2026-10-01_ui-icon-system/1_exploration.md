@@ -4,7 +4,7 @@ Status: done; all four implementation phases completed and committed, moved to d
 User chose Tabler plus matching custom icons for gaps. See [results](5_post-implementation-notes.md).
 Delivery: part 2 of 4, after foundation/typography, on `codex/ui-visual-polish` in
 `D:/openscad/wt-openscad-ui-visual-polish`. No separate branch or worktree for this part.
-Shared evidence: [UI visual polish](../../1_planning/2026-10-01_ui-visual-polish/1_exploration.md).
+Shared evidence: [UI visual polish](../../3_done/2026-10-01_ui-visual-polish/1_exploration.md).
 Prerequisite: [Qt foundation](../../3_done/2026-10-01_ui-qt-foundation-typography/1_exploration.md), including #6776.
 Foundation is implemented and Windows-verified; use its 10 pt UI baseline for icon calibration.
 

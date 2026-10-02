@@ -60,3 +60,16 @@ introduced. The developer binary retains its earlier configured version suffix; 
 
 No source implementation of the next Preferences/dialog feature was started. Reuse this feature's native controls,
 shared font/spacing, icon provider and display-only casing rules where applicable.
+
+## Follow-up — help alignment and activation
+
+The user revised the original hover-only requirement: vertically align help icons with their labels, shorten the
+hover delay, and display help immediately on left click. No Tab stops or keyboard activation are added.
+The working-tree implementation centers the icon, uses a 250 ms hover timer, and opens the same native tooltip on
+left press. Leaving/hiding cancels pending hover help. Text escaping, parameter values and focus behavior remain.
+
+`help-interaction-full-tests.xml`: 77,593 assertions passed, including the pending measurement-icon fix.
+`help-interaction-native/<light|dark>-<1|2>`: all four native runs passed, with tooltip capture via the click path.
+The native fixture allows Qt's tooltip appearance animation; tooltip text is supplied immediately on click.
+These follow-up changes are uncommitted and are not part of the original phase commits above.
+The same preview executable was rebuilt successfully with both follow-ups; see `ui-followups-build.log`.

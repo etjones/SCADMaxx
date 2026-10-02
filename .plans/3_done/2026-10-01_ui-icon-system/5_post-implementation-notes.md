@@ -63,3 +63,16 @@ Artifact root: `D:/openscad/artifacts/ui-visual-polish/2026-10-01/`.
   The branch includes #6776 and Windows baseline repairs already; future composition must avoid applying them twice.
 - Downstream work should use `Icons::icon`, `Icons::setLabelIcon`, and `StatusMessageBox`; it must not add another
   icon renderer or restore direct status PNGs. `help` supplies the Customizer's question-mark artwork.
+
+## Follow-up — familiar Preview and Render silhouettes
+
+The user found the overlapping-solids replacements too different from the originals and approved restoring their
+recognizable shapes. Preview now uses the original dashed cube / fast-forward chevrons; Render uses the solid cube
+/ hourglass. Both are redrawn on the 24-unit grid with round 2-unit strokes (1.5 for the hourglass detail), using
+the existing palette-aware renderer. No action, shortcut or toolbar placement changed.
+
+Evidence: `preview-render-light.png` and `preview-render-dark.png` compare original and redrawn assets at enlarged
+and actual toolbar sizes. `familiar-action-icons-tests.xml` passed; all four native runs under
+`familiar-action-icons-native/<light|dark>-<1|2>` passed. The resource library and test executable are rebuilt.
+These artwork changes are uncommitted, alongside the previously tested measurement/help follow-ups. The GUI
+executable remains open (process 80948 at this checkpoint), so its final relink is pending the user closing it.

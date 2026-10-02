@@ -2,6 +2,10 @@
 
 ## Result
 
+Accepted as done by the user on 2026-10-02. This feature already resides in the done lane.
+Any future annotation work belongs to a separate fixup pass; the validation limits below are retained as context,
+not as outstanding work for this completed feature. The OpenSCAD annotations chat was unpinned in Codex.
+
 All six phases are complete. Native drawing/review, companion persistence, editor lifecycle/undo, opt-in agent access
 and the bundled Python client are implemented in wt-openscad-annotations on feature/annotations.
 The full Windows x64 Release application builds and passes the focused tests and runtime checks below.

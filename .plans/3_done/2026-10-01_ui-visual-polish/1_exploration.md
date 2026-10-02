@@ -1,7 +1,8 @@
 # OpenSCAD UI visual polish
 
-Status: all four UI features implemented. Preferences/dialog polish awaits the user's completion review.
-The final [audit and cumulative handoff](../../2_in-progress/2026-10-01_ui-preferences-dialog-polish/5_post-implementation-notes.md)
+Status: done for this pass, accepted by the user on 2026-10-02. All four UI features are in done.
+Future UI work will be a larger fixup pass; no further implementation is requested here.
+The final [audit and cumulative handoff](../../3_done/2026-10-01_ui-preferences-dialog-polish/5_post-implementation-notes.md)
 records the authoritative implementation state; design investigations below retain their historical context.
 Direction constrained to native Qt styling after user review.
 
@@ -42,7 +43,7 @@ Four focused briefs own the work. This file retains the shared evidence and hist
    status icons as the default. Four sequential commits and Windows evidence are recorded in that feature.
 3. [Customizer polish](../../3_done/2026-10-01_ui-customizer-polish/1_exploration.md)
    (done): quiet native headers, default hover-only help, conservative display casing and native metrics.
-4. [Preferences and dialog polish](../../2_in-progress/2026-10-01_ui-preferences-dialog-polish/1_exploration.md)
+4. [Preferences and dialog polish](../../3_done/2026-10-01_ui-preferences-dialog-polish/1_exploration.md)
    (implemented, awaiting completion review): native Preferences tabs, native dialog spacing/palette/font treatment,
    residual stylesheet removal and a complete application-owned surface audit.
 
@@ -59,7 +60,9 @@ Windows Qt style integration, and the appearance of secondary windows. Begin wit
 Keep button order, pane arrangement, menus, parameter order, keyboard behavior and workflows intact.
 User-approved scope extension: replace inline Customizer explanatory text with a discreet help icon and tooltip,
 and capitalize displayed labels. The later confirmed help interaction is mouse-hover-only, with no focus or keyboard
-activation; existing parameter-control navigation remains unchanged. Visible-description modes remain available.
+activation; existing parameter-control navigation remains unchanged. Follow-up user revision now permits immediate
+tooltip display on left click and requests faster hover help; the no-focus/no-Tab rule remains. Visible-description
+modes remain available.
 Improve typography, hierarchy, whitespace, consistent icons and correct use of existing theme colors and widget states.
 Keep Qt's selected platform style and native chrome. No custom window/dock chrome, global reskin, replacement style,
 fixed light/dark palette, or bespoke control borders/radii. Navigation redesign is excluded.

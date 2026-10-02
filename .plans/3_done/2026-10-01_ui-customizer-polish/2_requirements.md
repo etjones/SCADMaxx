@@ -11,8 +11,9 @@ Status: implemented and Windows-verified; see [results](5_post-implementation-no
 - Rename Hide Details to Help Icons, retaining its selector position and making it the initial default. Retain
   Show Details, Inline Details and Description Only unchanged. No new mode persistence or migration is required.
 - Help Icons mode hides persistent explanations and shows the shared monochrome question-mark glyph beside labels
-  only when a description exists. Full author-provided text appears in a native tooltip on mouse hover only.
-  No focus, Tab stop, click action, Enter/Space activation or F1 behavior. Other modes omit redundant help icons.
+  only when a description exists. User revision after completion: align the glyph vertically with its label, show
+  the native tooltip after a short hover (250 ms), and open it immediately on left click. This supersedes the original
+  hover-only decision. No focus, Tab stop, Enter/Space activation or F1 behavior. Other modes omit redundant icons.
 - Keep parameter controls' existing keyboard behavior and focus order. Help glyphs use native compact icon sizing
   and palette-aware rendering, with enough hover area to target comfortably without enlarging every row.
 - Capitalize displayed parameter labels and section headers conservatively. Preserve acronyms/internal casing,
@@ -38,4 +39,4 @@ Additional acceptance details: mode changes must preserve edited values and expa
 preview solely from presentation changes. Native tooltips must preserve literal punctuation, units, line breaks and
 angle brackets rather than accidentally interpreting author text as HTML. Whitespace-only descriptions get no icon.
 Help icons sit beside the label, not at the far edge of the panel; they must not displace the checkbox or control.
-Keep passive descriptive metadata available without introducing any help action or keyboard interaction.
+Keep descriptive metadata available without introducing keyboard interaction; clicking help must not alter values.
