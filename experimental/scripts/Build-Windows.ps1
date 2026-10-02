@@ -207,14 +207,14 @@ try {
                 if (!(Test-Path (Join-Path $Staging $requiredResource))) { throw "Missing packaged resource: $requiredResource" }
             }
             Copy-Item (Join-Path $Source 'COPYING') $Staging
-            # Selected agent features ship their clients, contracts and usage guides with the GUI.
-            # Copy tracked files only; local Python caches and other development files are excluded.
+            # Selected agent features ship direct-HTTP skills and contracts with the GUI.
+            # Copy tracked documentation only; test drivers and caches are not product tools.
             $agentBundles = @{ 'http-agent-server'='openscad-agent-server' }
             foreach ($featureId in $agentBundles.Keys) {
                 if ($featureId -notin $runInfo.entries.id) { continue }
                 $bundle = $agentBundles[$featureId]
-                $tracked = @(& git -C $Source ls-files -- "contrib/$bundle/")
-                if ($LASTEXITCODE -ne 0 -or !$tracked.Count) { throw "Missing tracked client bundle for $featureId" }
+                $tracked = @(& git -C $Source ls-files -- "contrib/$bundle/*.md" "contrib/$bundle/*.json")
+                if ($LASTEXITCODE -ne 0 -or !$tracked.Count) { throw "Missing tracked agent skill bundle for $featureId" }
                 foreach ($relative in $tracked) {
                     $destination = Join-Path $Staging $relative.Substring('contrib/'.Length)
                     New-Item -ItemType Directory -Force (Split-Path $destination) | Out-Null
