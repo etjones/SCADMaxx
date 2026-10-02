@@ -7,10 +7,13 @@ Use the [input contract](integration-inputs.md) to interpret sources, revisions,
 Named repositories/refs for local features and PR variants belong in [SOURCES.json](SOURCES.json). Defining a source
 there does not select it; only an enabled row does.
 
+For fresh-chat update/build requests, use [the update-and-build runbook](../workflows/update-and-build-scadmaxx.md).
+It defines source synchronization and the handoff required when each feature becomes ready.
+
 ## Build policy
 
 - Upstream: `https://github.com/openscad/openscad.git`, branch `master`.
-- Local source origin: `E:/Dropbox/bare_repos/scadmaxx.git`.
+- Local source origin: `E:/Dropbox/bare_repos/openscad.git`.
 - Optional future feature publication: `https://github.com/roel-v/openscad.git` (remote `publish`).
 - Keep all SCADMaxx compositions and workspace controls local; publish a feature only by explicit user choice.
 - Initial target: Windows x64 GUI, Release configuration, portable ZIP.
@@ -44,7 +47,7 @@ before marking it ready. Build runs must not commit another task's unfinished wo
 The UI source is verified at `8f5b3ae4707a8718db28722deb2fd723fd9415ab`. Apply only its explicit UI delta after
 `be352f27972d570d61c9224a927079fa21055ac0`, which excludes the already-incorporated #6776 and four Windows baseline
 repairs. It depends on the selected `pr-6776`; review newer dependency revisions during composition and apply
-applicable baseline repairs separately. See the [complete audit and handoff](../.plans/2_in-progress/2026-10-01_ui-preferences-dialog-polish/5_post-implementation-notes.md).
+applicable baseline repairs separately. See the [complete audit and handoff](../.plans/3_done/2026-10-01_ui-preferences-dialog-polish/5_post-implementation-notes.md).
 Do not replay the full branch or silently substitute a local variant for the selected upstream PR.
 
 ## HTTP agent-server feature handoff

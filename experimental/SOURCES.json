@@ -1,22 +1,22 @@
 {
   "navigation-cube-local": {
-    "repository": "E:/Dropbox/bare_repos/scadmaxx.git",
+    "repository": "E:/Dropbox/bare_repos/openscad.git",
     "ref": "refs/heads/feature/navigation-cube",
     "ready": true,
     "pendingReason": "",
-    "validatedHead": "0947b9e3a840209153d0ad791df27f38ec86858c",
+    "validatedHead": "bfd009ef0047452c09e3629d0af25efd6af34700",
     "handoff": ".plans/3_done/2026-10-01_navigation-cube/5_post-implementation-notes.md"
   },
   "ui-visual-polish-local": {
-    "repository": "E:/Dropbox/bare_repos/scadmaxx.git",
+    "repository": "E:/Dropbox/bare_repos/openscad.git",
     "ref": "refs/heads/codex/ui-visual-polish",
     "ready": true,
     "pendingReason": "",
     "validatedHead": "8f5b3ae4707a8718db28722deb2fd723fd9415ab",
-    "handoff": ".plans/2_in-progress/2026-10-01_ui-preferences-dialog-polish/5_post-implementation-notes.md"
+    "handoff": ".plans/3_done/2026-10-01_ui-preferences-dialog-polish/5_post-implementation-notes.md"
   },
   "annotations-local": {
-    "repository": "E:/Dropbox/bare_repos/scadmaxx.git",
+    "repository": "E:/Dropbox/bare_repos/openscad.git",
     "ref": "refs/heads/feature/annotations",
     "ready": true,
     "pendingReason": "",
@@ -24,7 +24,7 @@
     "handoff": ".plans/3_done/2026-09-30_openscad-annotations/5_post-implementation-notes.md"
   },
   "http-agent-server-local": {
-    "repository": "E:/Dropbox/bare_repos/scadmaxx.git",
+    "repository": "E:/Dropbox/bare_repos/openscad.git",
     "ref": "refs/heads/codex/http-agent-server",
     "ready": true,
     "pendingReason": "",

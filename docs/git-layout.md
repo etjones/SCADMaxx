@@ -6,7 +6,8 @@ Decision recorded on 2026-10-01: SCADMaxx experiments, composed builds, and the 
 remain private and local. Individual features may be published later by explicit user choice. A usable feature
 can be shared as a branch/patch before becoming an upstream PR. Readiness alone does not authorize publication.
 
-Status: installed on 2026-10-01. The existing source clone and worktrees remain intact. Both origins are private
+Status: installed on 2026-10-01 and renamed on 2026-10-02; see [migration details](layout-migration.md).
+The source clone and all worktree contents are preserved. Both origins are private
 bare repositories in the user's existing Dropbox repository folder. GitHub is retained only as the explicit
 source `publish` remote. No GitHub push was made. Migration evidence is in `runs/20261001-dropbox-git-setup/`.
 
@@ -14,23 +15,25 @@ source `publish` remote. No GitHub push was made. Migration evidence is in `runs
 
 | Bare repository | Working checkout | Contents |
 | --- | --- | --- |
-| `E:/Dropbox/bare_repos/scadmaxx-workspace.git` | `D:/openscad` | README, agent instructions, PR selection, build scripts, plans and documentation |
-| `E:/Dropbox/bare_repos/scadmaxx.git` | Existing `D:/openscad/openscad-master` and its linked worktrees | OpenSCAD history, private feature branches, repairs, composed build branches and tags |
+| `E:/Dropbox/bare_repos/scadmaxx.git` | `D:/openscad/scadmaxx` | README, agent instructions, PR selection, build scripts, plans and documentation |
+| `E:/Dropbox/bare_repos/openscad.git` | Existing `D:/openscad/openscad-master` and its linked worktrees | OpenSCAD history, private feature branches, repairs, composed build branches and tags |
 
-The workspace repository is the project root and build recipe. The source repository holds the application.
+`D:/openscad` is a plain container. Its `scadmaxx` repository holds build recipes, tools, prompts and documentation.
+The sibling `openscad-master` contains the shared source repository and its clean upstream checkout.
 Keeping these histories separate lets a feature become an upstream-facing patch without taking private workspace
 instructions or unrelated experiments along. Neither local bare repository needs a GitHub counterpart.
 
 Keep existing worktrees attached to `openscad-master`; configure that clone to push to the local bare source
 repository. The bare repository is the authoritative local remote, while `openscad-master` remains the working
-clone that owns the worktrees. No worktree relocation or conversion is required. Bare repositories contain Git
+clone that owns the worktrees. All `wt-*` source checkouts, including SCADMaxx integrations, share that repository.
+Bare repositories contain Git
 history and refs, not checked-out source or build directories.
 
 ## Source remotes
 
 | Remote | Destination | Use |
 | --- | --- | --- |
-| `origin` | `E:/Dropbox/bare_repos/scadmaxx.git` | Store private feature, repair and integration history locally |
+| `origin` | `E:/Dropbox/bare_repos/openscad.git` | Store private feature, repair and integration history locally |
 | `upstream` | `https://github.com/openscad/openscad.git` | Fetch master and explicitly selected PR heads; no pushes |
 | `publish` | `https://github.com/roel-v/openscad.git` | Fetch published features; push only explicitly approved feature branches |
 
@@ -44,10 +47,14 @@ The workspace checkout has only its local origin.
 
 ## Build composition
 
+For the full fresh-chat procedure, source synchronization decisions and replay semantics, follow
+[Update everything and build a new SCADMaxx](../workflows/update-and-build-scadmaxx.md).
+
 `experimental/PR_STACK.md` remains the manually maintained selection; `experimental/SOURCES.json` maps feature
 IDs to repositories and full refs. A feature's source can be the local bare repository or a GitHub branch.
 
-1. Fetch OpenSCAD master and lock its SHA. Create a fresh local `experimental/<run-id>` branch from that commit.
+1. Fetch OpenSCAD master and lock its SHA. Create a fresh local `scadmaxx-YYYYMMDD` branch from that commit,
+   following the naming rule below.
 2. Resolve the two selected upstream PR heads (#6878 and #6776), local feature heads, and any selected published
    feature heads. Lock all SHAs and intended delta bases before integrating.
 3. Apply applicable Windows baseline repairs, then each selected feature/PR as its own integration commit,
@@ -61,7 +68,7 @@ Example of the selected annotations source (the real definition also records rea
 ```json
 {
   "annotations-local": {
-    "repository": "E:/Dropbox/bare_repos/scadmaxx.git",
+    "repository": "E:/Dropbox/bare_repos/openscad.git",
     "ref": "refs/heads/feature/annotations"
   }
 }
@@ -70,6 +77,28 @@ Example of the selected annotations source (the real definition also records rea
 Commit and push selected local feature work to the local origin before locking a build that reads from it.
 Uncommitted working-tree edits are not build inputs and are not stored by a bare remote. Publishing a feature
 later can change its declared source to GitHub; do not enable both copies of the same feature.
+
+## Integration branch and worktree names
+
+For new SCADMaxx compositions, name the branch `scadmaxx-YYYYMMDD` and its directory
+`D:/openscad/wt-scadmaxx-YYYYMMDD`. Use the date the branch/worktree is created in the workspace's local timezone
+(Europe/Amsterdam), not the upstream commit date or the eventual build completion date.
+For example, a composition created on 2026-10-01 uses branch `scadmaxx-20261001` and worktree
+`wt-scadmaxx-20261001`. Do not add `experimental/`, `openscad`, or descriptive feature suffixes to these names.
+
+If another fresh composition is created on the same date, use the first available matching numeric suffix,
+starting at `scadmaxx-YYYYMMDD-2` and `wt-scadmaxx-YYYYMMDD-2`. Check both existing refs and directories;
+never overwrite or repurpose an existing composition. Resuming a run retains its original names and creation date.
+Record the exact branch, worktree path, and unique run ID together in the run evidence. Run IDs, retained input
+refs, artifact names, and release tags keep their existing conventions; they need not match the branch name.
+
+The two existing integration worktrees were migrated with user authorization on 2026-10-02.
+Feature and PR worktrees retain `wt-openscad-*` names. Integration branches push to
+`E:/Dropbox/bare_repos/openscad.git`. Historical run snapshots retain their original names; use the
+[migration mapping](layout-migration.md) when resuming them.
+
+The preparation script implements the creation-date naming rule and checks directory, local-branch and known
+origin-branch collisions. A new branch name is separate from the unique evidence/run ID.
 
 ## Publishing one feature later
 

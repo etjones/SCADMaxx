@@ -1,6 +1,8 @@
 # Experimental Windows build workflow
 
-Use this workflow only when a build run is requested. Read `../experimental/PR_STACK.md` as the authoritative input.
+Use this workflow only when a build run is requested. First follow
+[the fresh-chat update/build runbook](update-and-build-scadmaxx.md) for control and source synchronization.
+Read `../experimental/PR_STACK.md` as the authoritative input.
 Use the shared git-workflow skill for commits. Use the [executable tools](../experimental/scripts/README.md) for
 preparation and build steps. Integration review and repairs remain agent-operated; record actual commands and
 results. Tool availability alone does not imply that the full Windows distribution profile is verified.
@@ -30,8 +32,10 @@ Read the [input and integration contract](../experimental/integration-inputs.md)
    including selected variants and partially integrated upstream changes. Document any reviewed residual patch.
    If an entry cannot be applied as selected, record the reason and stop rather than silently omitting it.
    An entry proven to be contained in the locked upstream base is recorded as already present and needs no replay.
-5. Create an isolated worktree from the shared `openscad-master` clone, following the README's standard workflow,
-   with an `experimental/<run-id>` branch at the locked upstream master SHA. Record the
+5. Create an isolated worktree from the shared `openscad-master` clone, following the workspace guide's standard workflow,
+   with a `scadmaxx-YYYYMMDD` branch and `wt-scadmaxx-YYYYMMDD` directory at the locked upstream master SHA.
+   Follow the [creation-date and collision naming rule](../docs/git-layout.md#integration-branch-and-worktree-names).
+   Record the
    worktree path and branch. Do not reset, clean, rebase, or repurpose existing PR-development worktrees.
 6. Record the Windows toolchain and dependency revisions: Visual Studio/MSVC, Windows SDK, CMake, generator,
    architecture, Qt, QScintilla, vcpkg toolchain revision/triplet, shared installed path/status hash, submodules,
@@ -92,10 +96,12 @@ applicable. Include required runtime libraries, Qt plugins, resources, fonts, ex
 redistribution requirements from OpenSCAD and its dependencies. A successful executable build alone is insufficient.
 Do not claim portability if testing depends on developer-only PATH entries or installed build tools.
 
-Create `OpenSCAD-experimental-<run-id>-windows-x64.zip`. Extract it into a separate test directory and repeat the
+Create `OpenSCAD-experimental-<run-id>-windows-x64.zip` from the contents of the staging directory.
+Put `openscad.exe`, DLLs and resource folders directly at the ZIP root, without a `staging/` or other wrapper folder.
+After extraction, launch `openscad.exe` directly in the extraction directory. Extract into a separate test directory and repeat the
 smoke checks with a controlled runtime PATH. Prefer a clean Windows test environment for a distribution release.
 Record the exact environment and limitations if only the development machine was available.
-Verify the run identifier in the application's About/version information. Include release notes and a build-info
+Verify the run identifier in the application's About/version information. Do not create or bundle release notes. Include a build-info
 file identifying upstream, ordered source heads and delta bases, integration/repair commits, final source SHA,
 control snapshot, and toolchain. Follow the release rules to create the retained source tag after validation.
 Provide corresponding source and build/repair material needed by the distribution's licenses; retain a source
@@ -118,7 +124,7 @@ Before resuming, verify the branch HEAD, submodules, frozen inputs, profile, and
 Do not overwrite intervening edits or resume from a presumed last successful step. Preserve all delivered runs,
 matching source, and evidence until an explicit retention policy exists.
 
-Retain completed source work in local `origin` (`E:/Dropbox/bare_repos/scadmaxx.git`): explicitly push the run's
+Retain completed source work in local `origin` (`E:/Dropbox/bare_repos/openscad.git`): explicitly push the run's
 integration branch, repair/run refs, and any verified release tag. Ordinary branch pushes do not include custom
 refs. Workspace control commits belong in the separate workspace origin. GitHub publication is a separate user
 decision; use the [local Git layout](../docs/git-layout.md).

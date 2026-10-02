@@ -3,7 +3,7 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 $PSNativeCommandUseErrorActionPreference = $false
 . "$PSScriptRoot/Common.ps1"
-$root = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../../runs/tool-tests'))
+$root = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../../../runs/tool-tests'))
 New-Item -ItemType Directory -Force $root | Out-Null
 $case = Join-Path $root ([Guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory $case | Out-Null
@@ -43,7 +43,7 @@ $count++
 Expect-Failure { & "$PSScriptRoot/New-ExperimentalRun.ps1" -RunId '../invalid' } 'Run ID must contain'
 $count++
 New-Item -ItemType Directory -Force (Join-Path $case 'runs/existing') | Out-Null
-Expect-Failure { & "$PSScriptRoot/New-ExperimentalRun.ps1" -Workspace $case -RunId 'existing' } 'Run or worktree already exists'
+Expect-Failure { & "$PSScriptRoot/New-ExperimentalRun.ps1" -Workspace $case -ControlRoot $case -RunId 'existing' } 'Run or worktree already exists'
 $count++
 $fixtureRepo = Join-Path $case 'openscad-master'
 Invoke-Logged 'git' @('init','-b','main',$fixtureRepo)
@@ -61,7 +61,7 @@ New-Item -ItemType Directory (Join-Path $case 'experimental') | Out-Null
 ## Candidates
 | 3 | unselected | pr | https://github.com/openscad/openscad/pull/6871 | latest | auto-merge-base | none declared | Must stay unselected |
 '@ | Set-Content (Join-Path $case 'experimental/PR_STACK.md')
-$selected = & "$PSScriptRoot/New-ExperimentalRun.ps1" -Workspace $case -RunId 'validation' -ValidateOnly | ConvertFrom-Json
+$selected = & "$PSScriptRoot/New-ExperimentalRun.ps1" -Workspace $case -ControlRoot $case -RunId 'validation' -ValidateOnly | ConvertFrom-Json
 if ($selected.Count -ne 2 -or $selected[0].id -ne 'first' -or $selected[1].dependencies.Count -ne 0) {
     throw 'Enabled selection parsing failed or included an unselected candidate.'
 }
@@ -76,19 +76,19 @@ $count++
 $featureDefinition = @{'local-feature'=@{repository='D:/nonexistent-selected-feature.git';
     ref='refs/heads/feature/example'; ready=$false; pendingReason='Implementation is not committed yet.'}}
 Save-Json (Join-Path $case 'experimental/SOURCES.json') $featureDefinition
-$selected = & "$PSScriptRoot/New-ExperimentalRun.ps1" -Workspace $case -RunId 'pending-feature' -ValidateOnly | ConvertFrom-Json
+$selected = & "$PSScriptRoot/New-ExperimentalRun.ps1" -Workspace $case -ControlRoot $case -RunId 'pending-feature' -ValidateOnly | ConvertFrom-Json
 if ($selected.ready -ne $false -or !$selected.pendingReason) { throw 'Validation lost pending feature state.' }
-Expect-Failure { & "$PSScriptRoot/New-ExperimentalRun.ps1" -Workspace $case -RunId 'pending-feature' } 'Selected features are not ready'
+Expect-Failure { & "$PSScriptRoot/New-ExperimentalRun.ps1" -Workspace $case -ControlRoot $case -RunId 'pending-feature' } 'Selected features are not ready'
 if (Test-Path (Join-Path $case 'runs/pending-feature')) { throw 'Pending feature created a run.' }
 if (Read-Git $fixtureRepo @('for-each-ref','--format=%(refname)')) { throw 'Pending feature changed Git refs.' }
 $count++
 $featureDefinition['local-feature'].ready = 'false'
 Save-Json (Join-Path $case 'experimental/SOURCES.json') $featureDefinition
-Expect-Failure { & "$PSScriptRoot/New-ExperimentalRun.ps1" -Workspace $case -RunId 'invalid-ready' -ValidateOnly } 'JSON boolean'
+Expect-Failure { & "$PSScriptRoot/New-ExperimentalRun.ps1" -Workspace $case -ControlRoot $case -RunId 'invalid-ready' -ValidateOnly } 'JSON boolean'
 $count++
 $featureDefinition['local-feature'].ready = $true
 Save-Json (Join-Path $case 'experimental/SOURCES.json') $featureDefinition
-$selected = & "$PSScriptRoot/New-ExperimentalRun.ps1" -Workspace $case -RunId 'ready-feature' -ValidateOnly | ConvertFrom-Json
+$selected = & "$PSScriptRoot/New-ExperimentalRun.ps1" -Workspace $case -ControlRoot $case -RunId 'ready-feature' -ValidateOnly | ConvertFrom-Json
 if (!$selected.ready) { throw 'Ready feature remained pending.' }
 $count++
 $testSource = Join-Path $case 'generated-header-fixture'
@@ -116,6 +116,59 @@ $originalIndex = Read-Git $clipper @('rev-parse',":$relative")
 Expect-Failure { Refresh-ClipperGeneratedHeader $testSource } 'real source change'
 if ((Read-Git $clipper @('rev-parse',":$relative")) -ne $originalIndex -or
     (Get-Content $header -Raw) -ne "real content change`n") { throw 'A real change was staged or overwritten.' }
+$count++
+$workspace = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../..'))
+$names = Get-IntegrationNames $case $clipper '20261002'
+if ($names.branch -ne 'scadmaxx-20261002' -or
+    $names.source -ne (Join-Path $case 'wt-scadmaxx-20261002')) { throw 'Date-based naming failed.' }
+New-Item -ItemType Directory $names.source | Out-Null
+Invoke-Logged 'git' @('-C',$clipper,'update-ref','refs/heads/scadmaxx-20261002-2','HEAD')
+Invoke-Logged 'git' @('-C',$clipper,'update-ref','refs/remotes/origin/scadmaxx-20261002-3','HEAD')
+$names = Get-IntegrationNames $case $clipper '20261002'
+if ($names.branch -ne 'scadmaxx-20261002-4' -or
+    $names.source -ne (Join-Path $case 'wt-scadmaxx-20261002-4')) {
+    throw 'Directory/local/remote naming collision was not preserved.'
+}
+$count++
+$container = Split-Path $workspace -Parent
+Assert-ChildPath $case (Join-Path $container 'runs')
+if (!(Test-Path (Join-Path $workspace 'experimental/PR_STACK.md')) -or
+    !(Test-Path (Join-Path $container 'openscad-master/.git'))) { throw 'Separated control/container layout failed.' }
+$count++
+$snapshotRun = Join-Path $case 'snapshot-run'
+New-Item -ItemType Directory $snapshotRun | Out-Null
+Save-Json (Join-Path $snapshotRun 'inputs.json') @{source='D:/old-checkout'; branch='experimental/old'; upstream='fixed'}
+$inputHash = (Get-FileHash (Join-Path $snapshotRun 'inputs.json')).Hash
+$overlay = @{inputsSha256=$inputHash; oldSource='D:/old-checkout'; oldBranch='experimental/old';
+    source=(Join-Path $case 'wt-scadmaxx-20261002'); branch='scadmaxx-20261002'}
+Save-Json (Join-Path $snapshotRun 'layout-migration.json') $overlay
+$resolved = Read-RunInputs $snapshotRun
+if ($resolved.branch -ne 'scadmaxx-20261002' -or $resolved.upstream -ne 'fixed' -or
+    (Get-FileHash (Join-Path $snapshotRun 'inputs.json')).Hash -ne $inputHash) { throw 'Migration altered frozen inputs.' }
+$overlay.inputsSha256 = 'wrong'
+Save-Json (Join-Path $snapshotRun 'layout-migration.json') $overlay
+Expect-Failure { Read-RunInputs $snapshotRun } 'does not match frozen'
+$count++
+'# Frozen test selection' | Set-Content (Join-Path $snapshotRun 'PR_STACK.md')
+'{"frozenTestSource":true}' | Set-Content (Join-Path $snapshotRun 'source-definitions.json')
+$snapshot = Save-ControlSnapshot $workspace $snapshotRun 'test' ''
+$snapshotInfo = Get-Content (Join-Path $snapshot 'snapshot.json') -Raw | ConvertFrom-Json
+foreach ($relative in @('workflows/update-and-build-scadmaxx.md','docs/git-layout.md','docs/worktrees.md',
+    'experimental/templates/run-report.md')) {
+    $copiedPath = Join-Path $snapshot $relative
+    if (!(Test-Path -LiteralPath $copiedPath) -or
+        (Get-FileHash $copiedPath).Hash -ne (Get-FileHash (Join-Path $workspace $relative)).Hash) {
+        throw "Build snapshot omitted or changed an instruction input: $relative"
+    }
+    $record = @($snapshotInfo.files | Where-Object { $_.path.Replace('\','/') -eq $relative })
+    if ($record.Count -ne 1 -or $record[0].sha256 -ne (Get-FileHash $copiedPath).Hash) {
+        throw "Instruction input hash missing from snapshot inventory: $relative"
+    }
+}
+if ((Get-Content (Join-Path $snapshot 'experimental/PR_STACK.md') -Raw).Trim() -ne '# Frozen test selection' -or
+    !(Get-Content (Join-Path $snapshot 'experimental/SOURCES.json') -Raw | ConvertFrom-Json).frozenTestSource) {
+    throw 'Build snapshot used live selection files instead of frozen inputs.'
+}
 $count++
 Save-Json (Join-Path $case 'evidence.json') @{commands=@($script:CommandRecords.ToArray()); casesPassed=$count}
 "Passed $count build-tool checks. Evidence: $case"

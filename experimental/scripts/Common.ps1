@@ -1,5 +1,41 @@
 Set-StrictMode -Version Latest
 
+function Get-IntegrationNames([string]$Workspace, [string]$Repository, [string]$CreationDate) {
+    if ($CreationDate -notmatch '^\d{8}$') { throw 'Creation date must be YYYYMMDD.' }
+    $refs = @(Read-Git $Repository @('for-each-ref','--format=%(refname)',
+        "refs/heads/scadmaxx-$CreationDate*", "refs/remotes/origin/scadmaxx-$CreationDate*")) -split '\r?\n'
+    $number = 1
+    do {
+        $suffix = if ($number -eq 1) { '' } else { "-$number" }
+        $branch = "scadmaxx-$CreationDate$suffix"
+        $source = Join-Path $Workspace "wt-$branch"
+        $occupied = (Test-Path -LiteralPath $source) -or
+            "refs/heads/$branch" -in $refs -or "refs/remotes/origin/$branch" -in $refs
+        $number++
+    } while ($occupied)
+    return @{branch=$branch; source=$source}
+}
+
+function Read-RunInputs([string]$RunDirectory) {
+    $path = Join-Path $RunDirectory 'inputs.json'
+    $info = Get-Content -LiteralPath $path -Raw | ConvertFrom-Json -AsHashtable
+    $overlayPath = Join-Path $RunDirectory 'layout-migration.json'
+    if (Test-Path -LiteralPath $overlayPath) {
+        $overlay = Get-Content -LiteralPath $overlayPath -Raw | ConvertFrom-Json -AsHashtable
+        if ($overlay.inputsSha256 -ne (Get-FileHash -LiteralPath $path).Hash -or
+            $overlay.oldSource -ne $info.source -or $overlay.oldBranch -ne $info.branch) {
+            throw 'Layout migration does not match frozen run inputs.'
+        }
+        if (![IO.Path]::IsPathFullyQualified($overlay.source) -or $overlay.branch -notmatch '^scadmaxx-\d{8}(-\d+)?$') {
+            throw 'Invalid migrated source path or branch.'
+        }
+        $info.source = $overlay.source
+        $info.branch = $overlay.branch
+        $info.layoutMigration = $overlay
+    }
+    return $info
+}
+
 function Get-SharedVcpkgConfiguration([hashtable]$Profile) {
     if (!$Profile.vcpkgInstalled -or ![IO.Path]::IsPathFullyQualified($Profile.vcpkgInstalled)) {
         throw 'Set vcpkgInstalled to the absolute path of the existing shared installed tree.'
@@ -90,9 +126,11 @@ function Copy-QtRuntime([string]$Triplet, [string]$Destination) {
 function Save-ControlSnapshot([string]$Workspace, [string]$RunDirectory, [string]$Attempt, [string]$ProfilePath) {
     $destination = Join-Path $RunDirectory "control/$Attempt"
     New-Item -ItemType Directory $destination | Out-Null
-    $files = @('AGENTS.md','README.md','workflows/experimental-builds.md','experimental/PR_STACK.md',
+    $files = @('AGENTS.md','README.md','docs/git-layout.md','docs/worktrees.md',
+        'docs/workspace.md','docs/layout-migration.md',
+        'workflows/update-and-build-scadmaxx.md','workflows/experimental-builds.md','experimental/PR_STACK.md',
         'experimental/SOURCES.json','experimental/integration-inputs.md','experimental/REPAIRS.md','experimental/versioning-and-releases.md',
-        'experimental/profiles/windows-x64.md')
+        'experimental/profiles/windows-x64.md','experimental/templates/run-report.md')
     $files += @(Get-ChildItem (Join-Path $Workspace 'experimental/scripts') -File | ForEach-Object {
         [IO.Path]::GetRelativePath($Workspace,$_.FullName)
     })

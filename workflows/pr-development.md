@@ -5,7 +5,7 @@
    state when starting actual PR work; names and old run records are not current evidence.
 2. Reuse the existing checkout when it is the intended work and is not owned by another active process/task.
    Preserve local modifications. Compare overlapping Customizer work before moving changes between checkouts.
-   When a new checkout is needed, create a worktree from `openscad-master` following the README's standard workflow,
+   When a new checkout is needed, create a worktree from `openscad-master` following the workspace guide's standard workflow,
    using the selected PR branch or commit as its base.
 3. Reproduce the reported behavior and record the base/head revision, toolchain, commands, and observations.
    Keep feature-specific evidence and plans outside the patch sent upstream.

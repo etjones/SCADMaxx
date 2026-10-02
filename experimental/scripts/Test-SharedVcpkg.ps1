@@ -6,7 +6,7 @@ $PSNativeCommandUseErrorActionPreference = $false
 . "$PSScriptRoot/Common.ps1"
 $p = Get-Content -LiteralPath $BuildProfile -Raw | ConvertFrom-Json -AsHashtable
 $dependencies = Get-SharedVcpkgConfiguration $p
-$root = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../../runs/tool-tests'))
+$root = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../../../runs/tool-tests'))
 $case = Join-Path $root ("shared-vcpkg-" + [Guid]::NewGuid().ToString('N'))
 $source = Join-Path $case 'source'
 $build = Join-Path $case 'build'

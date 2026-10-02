@@ -6,7 +6,7 @@ continuing this feature. The implementation and Windows build are complete; six 
 Keep annotations on a dedicated feature branch and checkout, independent of the experimental composition branch.
 Use `D:/openscad/wt-openscad-annotations`, branch `feature/annotations`, prepared from upstream master at
 `612e684c2cbbcdcb9a7a8307973f33fd910f9c17` on 2026-09-30. The branch's push remote is now local `origin`
-(`E:/Dropbox/bare_repos/scadmaxx.git`); head `d670fad09dba45526487e958b90fd553c6e1ace0` was pushed and verified
+(`E:/Dropbox/bare_repos/openscad.git`); head `d670fad09dba45526487e958b90fd553c6e1ace0` was pushed and verified
 on 2026-10-01. The source registry marks this tested revision ready for SCADMaxx integration.
 GitHub publication requires an explicit user decision. Recheck checkout status before work.
 Use the existing Blender implementation as the behavioral reference, and adapt it to OpenSCAD's document and

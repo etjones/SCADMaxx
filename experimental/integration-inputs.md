@@ -25,7 +25,7 @@ After the feature's development task commits and pushes a usable revision to its
 delta base/dependencies and set `ready: true`. Omitted `ready` defaults to true for existing definitions. This flag
 records readiness; it does not replace revision, diff, build or behavior verification.
 
-For example, the selected annotations source uses repository `E:/Dropbox/bare_repos/scadmaxx.git` and ref
+For example, the selected annotations source uses repository `E:/Dropbox/bare_repos/openscad.git` and ref
 `refs/heads/feature/annotations`. Resolve only committed history. Dirty source worktrees may remain occupied:
 record their state and exclude their edits, index contents, untracked files, and dirty submodule working files.
 Do not commit those edits as part of an integration run. A selected submodule commit must also be obtainable.

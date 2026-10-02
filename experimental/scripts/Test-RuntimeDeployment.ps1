@@ -5,7 +5,7 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 $PSNativeCommandUseErrorActionPreference = $false
 . "$PSScriptRoot/Common.ps1"
-$workspace = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../..'))
+$workspace = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../../..'))
 $directory = Join-Path $workspace "runs/tool-tests/runtime-$([guid]::NewGuid().ToString('N'))"
 $dependencyBin = Join-Path $directory 'dependency-bin'
 $staging = Join-Path $directory 'staging'

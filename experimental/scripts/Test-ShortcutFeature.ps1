@@ -11,7 +11,7 @@ $PSNativeCommandUseErrorActionPreference = $false
 . "$PSScriptRoot/Common.ps1"
 $Source = [IO.Path]::GetFullPath($Source)
 $DependencyPrefix = [IO.Path]::GetFullPath($DependencyPrefix)
-$directory = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot "../../runs/tool-tests/shortcuts-$([guid]::NewGuid().ToString('N'))"))
+$directory = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot "../../../runs/tool-tests/shortcuts-$([guid]::NewGuid().ToString('N'))"))
 New-Item -ItemType Directory $directory | Out-Null
 $script:LogPath = Join-Path $directory 'test.log'
 $script:CommandRecords = [Collections.Generic.List[object]]::new()

@@ -9,6 +9,10 @@ Profile status: establishing | previously verified (reference) | verified this r
 
 ## Locked inputs
 
+- Workspace origin fetch / control reconciliation decision:
+- Per selected feature: declared repository/ref, local committed head if present, remote head before/after sync,
+  ahead/behind/divergence result, readiness, excluded dirty state, synchronization command/result:
+
 - PR stack snapshot path and SHA-256:
 - Control repository commit (or not initialized) / dirty state / complete control snapshot and hashes:
 - Repair catalog and record snapshot / profile and script snapshot:
@@ -62,5 +66,6 @@ Never leave an omitted entry unexplained. Record the checks made before resuming
 - Build-info and notices:
 - Release notes / control snapshot included with evidence:
 - Retained source tag / tag object SHA / target commit (only after validation):
+- Local source origin retention: branch/run/repair/tag refspecs and verified remote object IDs:
 - Upload verification:
 - Remaining blockers / recommended next action:

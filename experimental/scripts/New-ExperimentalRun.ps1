@@ -1,7 +1,8 @@
 #requires -Version 7.2
 [CmdletBinding()]
 param(
-    [string]$Workspace = ([IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../..'))),
+    [string]$Workspace = ([IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../../..'))),
+    [string]$ControlRoot = ([IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../..'))),
     [string]$RunId = (Get-Date -AsUTC -Format yyyyMMddTHHmmssZ),
     [string]$SourceDefinitions,
     [switch]$ValidateOnly
@@ -12,22 +13,24 @@ $PSNativeCommandUseErrorActionPreference = $false
 . "$PSScriptRoot/Common.ps1"
 if ($RunId -notmatch '^[A-Za-z0-9][A-Za-z0-9-]*$') { throw 'Run ID must contain only letters, digits, and hyphens.' }
 $Workspace = [IO.Path]::GetFullPath($Workspace)
+$ControlRoot = [IO.Path]::GetFullPath($ControlRoot)
 $repo = Join-Path $Workspace 'openscad-master'
 $run = Join-Path $Workspace "runs/$RunId"
-$source = Join-Path $Workspace "wt-openscad-experimental-$RunId"
-$branch = "experimental/$RunId"
-if ((Test-Path $run) -or (Test-Path $source)) { throw 'Run or worktree already exists. Resume its frozen inputs instead.' }
+if (Test-Path $run) { throw 'Run or worktree already exists. Resume its frozen inputs instead.' }
+$names = Get-IntegrationNames $Workspace $repo ([TimeZoneInfo]::ConvertTimeBySystemTimeZoneId([DateTimeOffset]::UtcNow, 'Europe/Amsterdam').ToString('yyyyMMdd'))
+$source = $names.source
+$branch = $names.branch
 if ((Read-Git $repo @('remote','get-url','upstream')) -ne 'https://github.com/openscad/openscad.git') {
     throw 'Unexpected upstream remote; verify it before fetching.'
 }
 if (Read-Git $repo @('for-each-ref','--format=%(refname)',"refs/experimental-runs/$RunId/","refs/heads/$branch")) {
     throw 'This run ID already owns retained refs or a branch. Resume it or choose a new ID.'
 }
-$stack = Get-Content (Join-Path $Workspace 'experimental/PR_STACK.md') -Raw
+$stack = Get-Content (Join-Path $ControlRoot 'experimental/PR_STACK.md') -Raw
 $section = [regex]::Match($stack,'(?ms)^## Enabled stack[^\r\n]*\r?\n(.*?)(?=^## |\z)').Groups[1].Value
 $rows = @($section -split '\r?\n' | Where-Object { $_ -match '^\|\s*\d+\s*\|' })
 if (!$rows.Count) { throw 'No entries enabled; an enhanced build requires an explicit selection.' }
-if (!$SourceDefinitions) { $SourceDefinitions = Join-Path $Workspace 'experimental/SOURCES.json' }
+if (!$SourceDefinitions) { $SourceDefinitions = Join-Path $ControlRoot 'experimental/SOURCES.json' }
 $definitions = Get-Content $SourceDefinitions -Raw | ConvertFrom-Json -AsHashtable
 $ids = @()
 $orders = @()
@@ -85,12 +88,12 @@ if ($pending.Count) {
 New-Item -ItemType Directory -Path $run,(Join-Path $run 'logs') | Out-Null
 $script:LogPath = Join-Path $run 'logs/prepare.log'
 $script:CommandRecords = [Collections.Generic.List[object]]::new()
-$info = [ordered]@{runId=$RunId; versionDate=(Get-Date -AsUTC -Format yyyy.MM.dd); status='preparing'; source=$source; branch=$branch; entries=@($entries)}
+$info = [ordered]@{runId=$RunId; versionDate=(Get-Date -AsUTC -Format yyyy.MM.dd); status='preparing'; source=$source; branch=$branch; controlRoot=$ControlRoot; entries=@($entries)}
 try {
-    Copy-Item (Join-Path $Workspace 'experimental/PR_STACK.md') (Join-Path $run 'PR_STACK.md')
-    Copy-Item (Join-Path $Workspace 'experimental/templates/run-report.md') (Join-Path $run 'report.md')
+    Copy-Item (Join-Path $ControlRoot 'experimental/PR_STACK.md') (Join-Path $run 'PR_STACK.md')
+    Copy-Item (Join-Path $ControlRoot 'experimental/templates/run-report.md') (Join-Path $run 'report.md')
     if ($SourceDefinitions) { Copy-Item $SourceDefinitions (Join-Path $run 'source-definitions.json') }
-    $info.controlSnapshot = Save-ControlSnapshot $Workspace $run 'prepare' ''
+    $info.controlSnapshot = Save-ControlSnapshot $ControlRoot $run 'prepare' ''
     Invoke-Logged 'git' @('-C',$repo,'fetch','upstream',"refs/heads/master:refs/experimental-runs/$RunId/upstream")
     $info.upstream = Read-Git $repo @('rev-parse',"refs/experimental-runs/$RunId/upstream")
     foreach ($entry in $entries) {
