@@ -7,6 +7,8 @@ the parent container `D:/openscad`. See `docs/layout-migration.md` when resuming
 - Whenever you ask the user a question, stop and end your turn. Resume only after an explicit answer.
   Do not use a timeout, choose a default, or interpret silence as permission.
 - `README.md` is hand-maintained by the user. Do not regenerate or update it unless the user explicitly requests an edit.
+- Do not add or retain backward-compatibility code, aliases, shims, fallbacks or migrations unless the user explicitly
+  authorizes that compatibility. When replacing behavior, remove its obsolete paths and update the affected consumers.
 - For README screenshots, follow `docs/readme-screenshots.md`; replacement captures are deferred until the integrated build works.
 - Read `docs/workspace.md` for the workspace layout and `docs/worktrees.md` before selecting a checkout.
 - Create new OpenSCAD worktrees from the sibling `openscad-master` clone; follow `docs/workspace.md`.

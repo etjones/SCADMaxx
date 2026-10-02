@@ -42,6 +42,12 @@ The existing Customizer investigation is at
 Read it when advancing the Customizer work. Preserve its local-only planning scope and distinguish its historical
 repository references from current state. Do not merge its changes with the similar worktree without comparison.
 
+The HTTP agent-server checkout now contains the validated, privately retained
+[v1-only follow-up](../.plans/2_in-progress/2026-10-02_agent-api-v1-only/5_post-implementation-notes.md).
+Its committed head is `991bb09aee1c5d3f432b4e4352ff96254821b4b5`; the table above records the previous baseline.
+The concurrent direct-HTTP follow-up remains uncommitted, and selected-source readiness stays false for that work.
+Preserve its edits and validation outputs.
+
 The `OpenSCAD-*` directories and `PythonSCAD` contain installed/extracted applications, not registered worktrees of
 `openscad-master`. Dependency and application directories are not available scratch space.
 

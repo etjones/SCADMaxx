@@ -35,9 +35,9 @@
   "http-agent-server-local": {
     "repository": "E:/Dropbox/bare_repos/openscad.git",
     "ref": "refs/heads/codex/http-agent-server",
-    "ready": true,
-    "pendingReason": "",
-    "validatedHead": "498c4774d26e7235fbc4cbb9b34f56afb39ca645",
-    "handoff": ".plans/3_done/2026-10-01_http-agent-server/5_post-implementation-notes.md"
+    "ready": false,
+    "pendingReason": "Agent API v1-only revision is validated and retained privately; the concurrent direct-HTTP follow-up remains in progress and must complete its own validation and retention before integration.",
+    "validatedHead": "991bb09aee1c5d3f432b4e4352ff96254821b4b5",
+    "handoff": ".plans/2_in-progress/2026-10-02_agent-api-v1-only/5_post-implementation-notes.md"
   }
 }

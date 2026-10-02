@@ -209,7 +209,7 @@ try {
             Copy-Item (Join-Path $Source 'COPYING') $Staging
             # Selected agent features ship their clients, contracts and usage guides with the GUI.
             # Copy tracked files only; local Python caches and other development files are excluded.
-            $agentBundles = @{ annotations='openscad-agent-annotations'; 'http-agent-server'='openscad-agent-server' }
+            $agentBundles = @{ 'http-agent-server'='openscad-agent-server' }
             foreach ($featureId in $agentBundles.Keys) {
                 if ($featureId -notin $runInfo.entries.id) { continue }
                 $bundle = $agentBundles[$featureId]
