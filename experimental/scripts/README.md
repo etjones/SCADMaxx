@@ -1,10 +1,25 @@
 # Windows experimental build tools
 
+For repeatable documentation images, see [the native README capture harness](../../docs/readme-capture-tool.md)
+and `Capture-Readme.ps1`. It uses a separate test-enabled checkout and preserves published build artifacts.
+
 Run with PowerShell 7.2 or newer. These scripts never push, publish, tag a release, or modify the enabled selection.
 The first real Windows run passed automated build, staging and extracted-ZIP checks; see the profile and run report
 for the remaining Windows desktop and clean-machine verification limits.
 
 ## Prepare a fresh run
+
+First complete the control/source synchronization in [the update/build runbook](../../workflows/update-and-build-scadmaxx.md).
+The preparation script reads the declared repositories; it does not push newer feature-worktree commits to their
+bare origins, pull/rebase development checkouts, or switch a local source to GitHub automatically.
+
+New integration branches/worktrees must follow the
+[SCADMaxx naming rule](../../docs/git-layout.md#integration-branch-and-worktree-names):
+`scadmaxx-YYYYMMDD` / `wt-scadmaxx-YYYYMMDD`, using their creation date.
+The script selects the creation date in Europe/Amsterdam and adds `-2`, `-3`, etc. for same-day collisions.
+Run commands below from `D:/openscad/scadmaxx`. `-ControlRoot` defaults to this control repository;
+`-Workspace` defaults to its parent container holding `openscad-master`, worktrees, runs and artifacts.
+For migrated runs, follow [the migration notes](../../docs/layout-migration.md); their frozen inputs keep old paths.
 
 ```powershell
 pwsh -NoProfile -File experimental/scripts/New-ExperimentalRun.ps1
@@ -26,7 +41,7 @@ For example (not selected by this example):
 ```json
 {
   "local-annotations": {
-    "repository": "E:/Dropbox/bare_repos/scadmaxx.git",
+    "repository": "E:/Dropbox/bare_repos/openscad.git",
     "ref": "refs/heads/feature/annotations"
   }
 }
@@ -37,6 +52,51 @@ Dependency and partially-upstream changes still require the agent review describ
 
 ## Configure, build, test, stage, package
 
+SCADMaxx enables `ENABLE_NAVIGATION_CUBE_TUNING` when the frozen selection includes
+`navigation-cube`. Open **Window > Navigation tuning** for its session-only controls.
+The window starts hidden. This flag is recorded in the build fingerprint; when enabling it
+for an existing run, use a fresh application build directory and reuse the shared vcpkg tree.
+SCADMaxx also explicitly enables `EXPERIMENTAL=ON` and `USE_MANIFOLD_MINKOWSKI=ON`.
+These are recorded in the same fingerprint and package metadata. Individual experimental
+features remain runtime opt-ins. Other optional feature flags retain their existing defaults.
+
+When reconfiguring an existing **validation** tree from tuning OFF to ON, Qt AUTOMOC may
+retain an old `mocs_compilation.cpp`, causing unresolved `NavigationTuning::staticMetaObject`
+and related linker symbols. Verify that `AutogenInfo.json` lists `NavigationTuning.h` but
+`OpenSCADLibInternal_autogen/mocs_compilation.cpp` lacks `moc_NavigationTuning.cpp`.
+Run `cmake -E cmake_autogen <build>/CMakeFiles/OpenSCADLibInternal_autogen.dir/AutogenInfo.json Release`,
+then rebuild. This repaired the 2026-10-02 validation tree on its first focused attempt;
+the fresh delivery tree generated the file correctly without intervention. No source patch
+or dependency rebuild is needed for this stale generated-file case.
+
+For additional upstream CTest checks on Windows, the runner expects `<build>/openscad.com`.
+If it reports that executable missing before any tests run, copy the matching launcher from
+the successful Test step's installed runtime into that build root, then rerun the same tests.
+Do not substitute an older build's launcher or change expected test results. This resolved
+the six experimental/Minkowski checks on 2026-10-02 on the first repair attempt.
+
+Compile-time feature audit for the 2026-10-01 integration source (`bcf48145d`), with current
+SCADMaxx recipe settings. Attempt-5 includes experimental features and Manifold Minkowski;
+the older attempt-4 ZIP predates those two settings.
+
+| Switch | Windows recipe setting | Effect |
+| --- | --- | --- |
+| `ENABLE_NAVIGATION_CUBE_TUNING` | ON when navigation cube is selected | Session-only tuning dock under Window. |
+| `EXPERIMENTAL` | ON | Gates runtime experimental preferences: roof, lazy unions, renderer indexing, text/font metrics, data import function, object function, predictable output, vector swizzling, `$fe` error-based segmentation, unfinished AI interface, Unicode identifiers, DBus input. Enabling the build flag makes these available; individual features still need enabling. |
+| `ENABLE_PYTHON` | OFF | Embedded experimental Python interpreter; independent of the external HTTP/annotations Python clients. |
+| `USE_MANIFOLD_MINKOWSKI` | ON | Enables the Manifold Minkowski implementation. |
+| `ENABLE_CGAL`, `ENABLE_MANIFOLD` | ON | Both geometry backends are available. |
+| `USE_MANIFOLD_TRIANGULATOR` | ON | Uses Manifold triangulation. |
+| `USE_POLYSET_FOR_CGAL` | OFF | Alternative rendering path for CGAL results. |
+| `ENABLE_HIDAPI`, `ENABLE_SPNAV` | AUTO, dependencies not found | Optional 3D input-device drivers are absent. Qt5 gamepad is unavailable with Qt6; Linux joystick code is platform-specific. |
+| `OFFLINE_DOCS` | OFF | Bundled offline documentation. |
+| `ENABLE_GUI_TESTS` | OFF in delivery | Automated GUI harness; ON only in the separate validation build. |
+
+`ENABLE_TESTS` builds the separate unit-test executable. Other switches cover headless/OpenGL
+platforms, snapshot branding, memory allocation, profiling and dependency/build tooling.
+Annotations, the HTTP agent server, keyboard shortcuts and dark-mode integration have no
+additional opt-in compile switch in this GUI build. Re-audit when changing the frozen sources.
+
 Create a machine profile from `../profiles/windows-x64.example.json`. Save local tool paths in a `*.local.json`
 file, which control Git ignores. Set exact installed MSVC/SDK versions, the vcpkg toolchain commit and
 `vcpkgInstalled` to the existing shared package tree. On this machine that is
@@ -44,15 +104,18 @@ file, which control Git ignores. Set exact installed MSVC/SDK versions, the vcpk
 Manifest mode and automatic installation are disabled; missing dependencies are reported without installing or
 rebuilding them. Catch2 and Boost.Nowide were added to the shared tree at the user's request on 2026-10-01;
 the full-test profile checks that both are present.
+The script adds the shared `tools/gettext/bin` and `bin` directories to PATH for the
+translation post-build step. A `msgfmt: command not found` failure after linking requires
+this existing tool path, not a dependency rebuild; rerun Build after correcting PATH.
 Each build attempt
 copies this profile and the consumed controls into its evidence, so local configuration is not lost.
 
 ```powershell
 $buildArgs = @{
-    Source = 'D:/openscad/wt-openscad-experimental-<run-id>'
+    Source = 'D:/openscad/wt-scadmaxx-YYYYMMDD' # Actual recorded path, including any same-day numeric suffix
     Build = 'D:/openscad/runs/<run-id>/baseline-build'
     Run = 'D:/openscad/runs/<run-id>'
-    BuildProfile = 'D:/openscad/experimental/profiles/this-machine.local.json'
+    BuildProfile = 'D:/openscad/scadmaxx/experimental/profiles/this-machine.local.json'
     Jobs = 4
 }
 ./experimental/scripts/Build-Windows.ps1 @buildArgs -Step Configure
@@ -70,7 +133,7 @@ Before staging, write `integrations.json` as an array of records with `id`, `sou
 `already-present`), `commit` (passing checkpoint), and `verificationLog` (a passing `logs/*-test.json` record for that
 exact commit, relative to the run). Record conflicts,
 repairs, attribution, and behavior evidence in the run report. Every selected entry needs evidence, even if already
-upstream. Write `release-notes.md` with features and known limitations. Then:
+upstream. Record verification and limitations in the run report. Do not create or bundle release notes. Then:
 
 ```powershell
 $buildArgs.Build = 'D:/openscad/runs/<run-id>/integration-build'
@@ -82,7 +145,9 @@ $staging = 'D:/openscad/artifacts/<run-id>/attempt-1/staging'
 Stage installs upstream resources, copies the locked Release DLL set and Qt plugins with an app-local `qt.conf`,
 checks runtime dependencies, and copies license notices. It does not require Qt's optional `windeployqt` tool.
 The runtime bundle deliberately includes the installed Release libraries, including indirect plugin dependencies.
-Package verifies staging has not changed, creates/checks the ZIP, and exports matching source including submodules.
+Package verifies staging has not changed, archives its contents directly at the ZIP root, checks the ZIP,
+and exports matching source including submodules. After extraction, run `openscad.exe` directly in the
+extraction directory; `staging` is only an internal build directory. See the [packaging contract](../../workflows/experimental-builds.md#package-and-verify).
 Both perform CLI geometry/PNG checks with a controlled PATH and reject error diagnostics even with exit code zero.
 The Test step requires the Catch2 unit test binary, supplies the locked Qt plugins, and installs a separate test
 bundle so rendering exercises the actual shaders and resources.

@@ -16,7 +16,8 @@ $PSNativeCommandUseErrorActionPreference = $false
 $Source = [IO.Path]::GetFullPath($Source)
 $Build = [IO.Path]::GetFullPath($Build)
 $Run = [IO.Path]::GetFullPath($Run)
-$workspace = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../..'))
+$controlRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../..'))
+$workspace = Split-Path $controlRoot -Parent
 Assert-ChildPath $Run (Join-Path $workspace 'runs')
 Assert-ChildPath $Build $Run
 if ($Staging) {
@@ -37,7 +38,7 @@ $record.testEnvironment = @{osVersion=[Environment]::OSVersion.VersionString;
 $runLock = $null
 try {
     $runLock = [IO.File]::Open((Join-Path $Run 'build.lock'),[IO.FileMode]::OpenOrCreate,[IO.FileAccess]::ReadWrite,[IO.FileShare]::None)
-    $record.controlSnapshot = Save-ControlSnapshot $workspace $Run $attemptId $BuildProfile
+    $record.controlSnapshot = Save-ControlSnapshot $controlRoot $Run $attemptId $BuildProfile
     $head = Read-Git $Source @('rev-parse','HEAD')
     $record.sourceSha = $head
     $record.sourceStatus = Read-Git $Source @('status','--porcelain')
@@ -50,6 +51,8 @@ try {
     $dependencies = Get-SharedVcpkgConfiguration $p
     $installed = $dependencies.installed
     $triplet = Join-Path $installed 'x64-windows'
+    # translation-make.sh invokes msgfmt by name during the application post-build step.
+    $env:PATH = "$(Join-Path $triplet 'tools/gettext/bin');$(Join-Path $triplet 'bin');$env:PATH"
     $record.dependencies = $dependencies
     $missing = @('include/boost/nowide/args.hpp','share/catch2/Catch2Config.cmake') | Where-Object {
         !(Test-Path -LiteralPath (Join-Path $triplet $_))
@@ -73,7 +76,7 @@ try {
         $toolHashes[$tool] = (Get-FileHash -LiteralPath $tool).Hash
     }
     $record.toolHashes = $toolHashes
-    $runInfo = Get-Content (Join-Path $Run 'inputs.json') -Raw | ConvertFrom-Json -AsHashtable
+    $runInfo = Read-RunInputs $Run
     if ($runInfo.runId -notmatch '^[A-Za-z0-9][A-Za-z0-9-]*$') { throw 'Invalid frozen run ID.' }
     if ((Get-FileHash (Join-Path $Run 'PR_STACK.md')).Hash -ne $runInfo.stackSha256) {
         throw 'The frozen selection was modified after preparation.'
@@ -84,9 +87,15 @@ try {
     if ((Read-Git $Source @('branch','--show-current')) -ne $runInfo.branch) { throw 'Unexpected integration branch.' }
     Invoke-Logged 'git' @('-C',$Source,'merge-base','--is-ancestor',$runInfo.upstream,$head)
     $version = "$($runInfo.versionDate)-experimental-$($runInfo.runId)"
+    $navigationTuning = if (@($runInfo.entries | Where-Object { $_.id -eq 'navigation-cube' }).Count) { 'ON' } else { 'OFF' }
+    $record.featureFlags = [ordered]@{
+        ENABLE_NAVIGATION_CUBE_TUNING=$navigationTuning
+        EXPERIMENTAL='ON'
+        USE_MANIFOLD_MINKOWSKI='ON'
+    }
     $identity = [ordered]@{source=$Source; build=$Build; profile=$p; dependencies=$dependencies; submodules=$record.submodules; toolHashes=$toolHashes;
         cmakeVersion=(& $cmake --version | Select-Object -First 1); flags='Ninja;Release;GUI;Qt6;tests;builtin OpenCSG;app-local MSVC runtime';
-        toolset=$env:VCToolsVersion; sdk=$env:WindowsSDKVersion}
+        featureFlags=$record.featureFlags; toolset=$env:VCToolsVersion; sdk=$env:WindowsSDKVersion}
     $fingerprint = Get-TextHash ($identity | ConvertTo-Json -Depth 20 -Compress)
     $record.fingerprint = $fingerprint
     $statePath = Join-Path $Build 'experimental-state.json'
@@ -120,6 +129,9 @@ try {
                 "-DCMAKE_C_COMPILER=$compiler","-DCMAKE_CXX_COMPILER=$compiler",
                 "-DCMAKE_TOOLCHAIN_FILE=$($p.vcpkg)/scripts/buildsystems/vcpkg.cmake") + $dependencies.cmakeArguments + @(
                 '-DHEADLESS=OFF','-DUSE_QT6=ON','-DUSE_BUILTIN_OPENCSG=ON','-DENABLE_TESTS=ON',
+                "-DENABLE_NAVIGATION_CUBE_TUNING=$navigationTuning",
+                "-DEXPERIMENTAL=$($record.featureFlags.EXPERIMENTAL)",
+                "-DUSE_MANIFOLD_MINKOWSKI=$($record.featureFlags.USE_MANIFOLD_MINKOWSKI)",
                 '-DCMAKE_INSTALL_SYSTEM_RUNTIME_DESTINATION=.',
                 "-DFLEX_EXECUTABLE=$($p.flex)","-DBISON_EXECUTABLE=$($p.bison)",
                 "-DQT6QSCINTILLA_INCLUDE_DIR=$triplet/include/Qt6/Qsci",
@@ -195,6 +207,20 @@ try {
                 if (!(Test-Path (Join-Path $Staging $requiredResource))) { throw "Missing packaged resource: $requiredResource" }
             }
             Copy-Item (Join-Path $Source 'COPYING') $Staging
+            # Selected agent features ship their clients, contracts and usage guides with the GUI.
+            # Copy tracked files only; local Python caches and other development files are excluded.
+            $agentBundles = @{ annotations='openscad-agent-annotations'; 'http-agent-server'='openscad-agent-server' }
+            foreach ($featureId in $agentBundles.Keys) {
+                if ($featureId -notin $runInfo.entries.id) { continue }
+                $bundle = $agentBundles[$featureId]
+                $tracked = @(& git -C $Source ls-files -- "contrib/$bundle/")
+                if ($LASTEXITCODE -ne 0 -or !$tracked.Count) { throw "Missing tracked client bundle for $featureId" }
+                foreach ($relative in $tracked) {
+                    $destination = Join-Path $Staging $relative.Substring('contrib/'.Length)
+                    New-Item -ItemType Directory -Force (Split-Path $destination) | Out-Null
+                    Copy-Item -LiteralPath (Join-Path $Source $relative) -Destination $destination
+                }
+            }
             $licenses = Join-Path $Staging 'licenses'
             New-Item -ItemType Directory $licenses | Out-Null
             Get-ChildItem (Join-Path $triplet 'share') -Directory | ForEach-Object {
@@ -204,7 +230,7 @@ try {
             foreach ($relative in @('submodules/Clipper2/LICENSE','submodules/manifold/LICENSE',
                 'submodules/mimalloc/LICENSE','submodules/OpenCSG/copying.txt',
                 'submodules/OpenCSG/doc/license/gpl-2.0.txt','submodules/OpenCSG/doc/license/gpl-3.0.txt',
-                'libraries/MCAD/lgpl-2.1.txt','resources/icons/license.txt')) {
+                'libraries/MCAD/lgpl-2.1.txt','resources/icons/license.txt','resources/icons/tabler/LICENSE')) {
                 if (Test-Path (Join-Path $Source $relative)) {
                     Copy-Item (Join-Path $Source $relative) (Join-Path $licenses ($relative.Replace('/','-')))
                 }
@@ -213,12 +239,11 @@ try {
             $sourceHistory | Set-Content (Join-Path $Run 'final-source-commits.txt') -Encoding utf8NoBOM
             $info = @{inputs=$runInfo; finalSource=$head; sourceHistory=$sourceHistory; version=$version; submodules=$record.submodules;
                 testEnvironment=$record.testEnvironment;
-                profile=$p; fingerprint=$fingerprint; controlSnapshot=$record.controlSnapshot;
+                profile=$p; featureFlags=$record.featureFlags; fingerprint=$fingerprint; controlSnapshot=$record.controlSnapshot;
                 dependencyStatusHash=$state.dependencyStatusHash;
                 qtDeployment='locked Release DLLs and Qt plugin directories with app-local qt.conf';
                 integrations=$ledger; verification='automated checks only; see GUI evidence'}
             Save-Json (Join-Path $Staging 'build-info.json') $info
-            Copy-Item (Join-Path $Run 'release-notes.md') $Staging
             Invoke-Smoke (Join-Path $Staging 'openscad.exe') (Join-Path $Run "$attemptId-smoke") $version -CleanPath
             $state.stagedSha = $head
             $state.staging = $Staging
@@ -235,9 +260,10 @@ try {
             $zip = Join-Path (Split-Path $Staging) "OpenSCAD-experimental-$($runInfo.runId)-windows-x64.zip"
             $extract = Join-Path (Split-Path $Staging) 'extracted-check'
             if ((Test-Path $zip) -or (Test-Path $extract)) { throw 'Existing package/extraction is preserved; use a new delivery attempt.' }
-            Compress-Archive -LiteralPath $Staging -DestinationPath $zip
+            $archiveContents = @(Get-ChildItem -LiteralPath $Staging | Select-Object -ExpandProperty FullName)
+            Compress-Archive -LiteralPath $archiveContents -DestinationPath $zip
             Expand-Archive -LiteralPath $zip -DestinationPath $extract
-            Invoke-Smoke (Join-Path $extract "$(Split-Path $Staging -Leaf)/openscad.exe") (Join-Path $Run "$attemptId-smoke") $version -CleanPath
+            Invoke-Smoke (Join-Path $extract 'openscad.exe') (Join-Path $Run "$attemptId-smoke") $version -CleanPath
             $hash = Get-FileHash $zip -Algorithm SHA256
             Set-Content "$zip.sha256" "$($hash.Hash.ToLower())  $(Split-Path $zip -Leaf)" -Encoding ascii
             $record.zip = $zip

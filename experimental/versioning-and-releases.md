@@ -7,7 +7,7 @@ local bare origins and per-feature publication workflow are recorded in [the Git
 Publishing a usable feature is a separate user decision; it does not publish the composed build or workspace.
 
 Version workspace instructions and build tooling independently of the OpenSCAD source repository. The
-control repository is `D:/openscad`, on `main`, with origin `E:/Dropbox/bare_repos/scadmaxx-workspace.git`.
+control repository is `D:/openscad/scadmaxx`, on `main`, with origin `E:/Dropbox/bare_repos/scadmaxx.git`.
 Initial control history was established on 2026-10-01. Source checkouts remain independent
 repositories/worktrees, not submodules of this control repository.
 
@@ -27,16 +27,18 @@ identify the revision used to produce and verify the delivered package.
 
 ## Build and release identity
 
-- Use the unique run ID throughout branch, logs, package, and application identity. The application should display
+- Name integration branches/worktrees using the
+  [creation-date naming rule](../docs/git-layout.md#integration-branch-and-worktree-names), and record their mapping
+  to the unique run ID. Use the unique run ID throughout logs, package, and application identity. The application should display
   `experimental-<run-id>` alongside its OpenSCAD version and source revision in About/version information.
 - Implement this through the locked source's supported version mechanism where possible. Any needed source change
   is a separate packaging-metadata commit before the final build; do not put a self-referential commit SHA into a
   source commit. Generate final-SHA metadata at build time.
 - Include a build-info file with upstream SHA, every entry's source/base/head and integration SHA, repairs, final
-  source SHA, submodules, control snapshot identity, profile, and toolchain. Include release notes listing behaviors,
-  already-present entries, validation results, and known limitations.
+  source SHA, submodules, control snapshot identity, profile, and toolchain. Keep validation results and limitations
+  in the run report; do not create or bundle release notes.
 - After final validation, create an annotated, never-moved source tag `experimental/<run-id>` at the exact final
-  commit. The same name may identify both a branch and tag; tools must use full `refs/heads/` and `refs/tags/` names.
+  commit. This tag convention is separate from the branch naming rule; tools must use full `refs/heads/` and `refs/tags/` names.
   Record the tag object and target commit. A failed attempt gets no success tag.
 - Retain referenced feature, repair, and submodule objects along with matching source/build material. A local tag
   alone is not an accessible source-delivery mechanism; provide a matching source archive or verified hosted refs
