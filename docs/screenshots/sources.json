@@ -1,0 +1,123 @@
+{
+  "captured": "2026-10-02",
+  "notes": [
+    "Actual Qt widgets from test-enabled builds; not byte-identical release binaries.",
+    "Integrated source bcf48145d; baseline 8bef263eb = upstream 03da906b4 plus four Windows build repairs.",
+    "Window 1280x820, scale 1, same model and camera; baseline and SCADMaxx use their default Customizer presentation.",
+    "Light and dark use Tomorrow and Tomorrow Night viewport backgrounds; the harness selects these explicitly.",
+    "Separate top-level popup/dialog pixels are composed at their actual positions; navigation cube is cropped from the viewport.",
+    "Superseded README screenshots were removed from docs/screenshots. Original run evidence remains outside the repository."
+  ],
+  "images": [
+    {
+      "image": "annotations.png",
+      "source": "D:/openscad/runs/readme-captures/annotation-smooth-20261002/annotations.png",
+      "sha256": "2F6A6BF847F9EB8D0C69A218444B4AFDEFCDFFA1FA8E24DDEC5177A222A363DC",
+      "build": "integrated",
+      "sourceHead": "bcf48145d9ebc7ffdcde0414ddde38ceb62f0b6a",
+      "binarySha256": "B1E32F6C57E29F5233FECEBC63F3D7712945AAD5492197E2FA4FABD26991EC08",
+      "modelSha256": "704CC89912B08EE23C4279D6FE4A9705FE206CEF75A069F377422D3916A2F27C",
+      "captureProvenance": "D:/openscad/runs/readme-captures/annotation-smooth-20261002/provenance.json"
+    },
+    {
+      "image": "navigation-cube.png",
+      "source": "D:/openscad/runs/readme-captures/integrated-final/navigation-cube.png",
+      "sha256": "2CCF9F4B61B188B366B095349E77E76D045C76BF65D024599B7E5D0DF328A9B4",
+      "build": "integrated",
+      "sourceHead": "bcf48145d9ebc7ffdcde0414ddde38ceb62f0b6a",
+      "binarySha256": "B1E32F6C57E29F5233FECEBC63F3D7712945AAD5492197E2FA4FABD26991EC08",
+      "modelSha256": "704CC89912B08EE23C4279D6FE4A9705FE206CEF75A069F377422D3916A2F27C",
+      "captureProvenance": "D:/openscad/runs/readme-captures/integrated-final/provenance.json"
+    },
+    {
+      "image": "navigation-menu.png",
+      "source": "D:/openscad/runs/readme-captures/integrated-final/navigation-menu.png",
+      "sha256": "D98A0A873973CD6CD6BB573E6F6621497E1129DC01F16DE451534565780EA9EE",
+      "build": "integrated",
+      "sourceHead": "bcf48145d9ebc7ffdcde0414ddde38ceb62f0b6a",
+      "binarySha256": "B1E32F6C57E29F5233FECEBC63F3D7712945AAD5492197E2FA4FABD26991EC08",
+      "modelSha256": "704CC89912B08EE23C4279D6FE4A9705FE206CEF75A069F377422D3916A2F27C",
+      "captureProvenance": "D:/openscad/runs/readme-captures/integrated-final/provenance.json"
+    },
+    {
+      "image": "agent-access.png",
+      "source": "D:/openscad/runs/readme-captures/integrated-final/agent-access.png",
+      "sha256": "4611C1E97D3752D0227620FF89CCFC1A4A2A2A24117A8E9A4C4D86273FDC4579",
+      "build": "integrated",
+      "sourceHead": "bcf48145d9ebc7ffdcde0414ddde38ceb62f0b6a",
+      "binarySha256": "B1E32F6C57E29F5233FECEBC63F3D7712945AAD5492197E2FA4FABD26991EC08",
+      "modelSha256": "704CC89912B08EE23C4279D6FE4A9705FE206CEF75A069F377422D3916A2F27C",
+      "captureProvenance": "D:/openscad/runs/readme-captures/integrated-final/provenance.json"
+    },
+    {
+      "image": "ui-after.png",
+      "source": "D:/openscad/runs/readme-captures/integrated-final/ui-after.png",
+      "sha256": "65B0A45AA44E49421380A48FB25F11AC8EA617FED9801E153E6F64849A0CF701",
+      "build": "integrated",
+      "sourceHead": "bcf48145d9ebc7ffdcde0414ddde38ceb62f0b6a",
+      "binarySha256": "B1E32F6C57E29F5233FECEBC63F3D7712945AAD5492197E2FA4FABD26991EC08",
+      "modelSha256": "704CC89912B08EE23C4279D6FE4A9705FE206CEF75A069F377422D3916A2F27C",
+      "captureProvenance": "D:/openscad/runs/readme-captures/integrated-final/provenance.json"
+    },
+    {
+      "image": "preferences-after.png",
+      "source": "D:/openscad/runs/readme-captures/integrated-final/preferences-after.png",
+      "sha256": "35AD7F1F15BDA5D63BA8084A9D606A64EAA0D42E3DDF7CF0F1B7E123D56962E7",
+      "build": "integrated",
+      "sourceHead": "bcf48145d9ebc7ffdcde0414ddde38ceb62f0b6a",
+      "binarySha256": "B1E32F6C57E29F5233FECEBC63F3D7712945AAD5492197E2FA4FABD26991EC08",
+      "modelSha256": "704CC89912B08EE23C4279D6FE4A9705FE206CEF75A069F377422D3916A2F27C",
+      "captureProvenance": "D:/openscad/runs/readme-captures/integrated-final/provenance.json"
+    },
+    {
+      "image": "shortcuts.png",
+      "source": "D:/openscad/runs/readme-captures/integrated-final/shortcuts.png",
+      "sha256": "004EC7E4D6587B47BE3FE3C6DA9CF8CED32A6BABF926E3A0A3156733B1A49B30",
+      "build": "integrated",
+      "sourceHead": "bcf48145d9ebc7ffdcde0414ddde38ceb62f0b6a",
+      "binarySha256": "B1E32F6C57E29F5233FECEBC63F3D7712945AAD5492197E2FA4FABD26991EC08",
+      "modelSha256": "704CC89912B08EE23C4279D6FE4A9705FE206CEF75A069F377422D3916A2F27C",
+      "captureProvenance": "D:/openscad/runs/readme-captures/integrated-final/provenance.json"
+    },
+    {
+      "image": "dark-mode.png",
+      "source": "D:/openscad/runs/readme-captures/integrated-final/dark-mode.png",
+      "sha256": "860A9430C2EA21DA38D4127E3793D6C4985152C4F6BF19DDDB7097C3FB07BB14",
+      "build": "integrated",
+      "sourceHead": "bcf48145d9ebc7ffdcde0414ddde38ceb62f0b6a",
+      "binarySha256": "B1E32F6C57E29F5233FECEBC63F3D7712945AAD5492197E2FA4FABD26991EC08",
+      "modelSha256": "704CC89912B08EE23C4279D6FE4A9705FE206CEF75A069F377422D3916A2F27C",
+      "captureProvenance": "D:/openscad/runs/readme-captures/integrated-final/provenance.json"
+    },
+    {
+      "image": "light-mode.png",
+      "source": "D:/openscad/runs/readme-captures/integrated-final/light-mode.png",
+      "sha256": "2E3268617ACB307E7EE78F19EA9916808C93AF4F60E5138ADF6DFF89A452090D",
+      "build": "integrated",
+      "sourceHead": "bcf48145d9ebc7ffdcde0414ddde38ceb62f0b6a",
+      "binarySha256": "B1E32F6C57E29F5233FECEBC63F3D7712945AAD5492197E2FA4FABD26991EC08",
+      "modelSha256": "704CC89912B08EE23C4279D6FE4A9705FE206CEF75A069F377422D3916A2F27C",
+      "captureProvenance": "D:/openscad/runs/readme-captures/integrated-final/provenance.json"
+    },
+    {
+      "image": "ui-before.png",
+      "source": "D:/openscad/runs/readme-captures/baseline-final/ui-before.png",
+      "sha256": "14807ADDB6EBECAFA9556273E90090DB571F8CA4B4DB8BA03B5285D196369F6F",
+      "build": "baseline",
+      "sourceHead": "8bef263eb39f8c66448a03282d64446665d4c443",
+      "binarySha256": "FFD45105799330DC81F1A86D9244244286121D49FC3B65BD25E8A93376206B20",
+      "modelSha256": "704CC89912B08EE23C4279D6FE4A9705FE206CEF75A069F377422D3916A2F27C",
+      "captureProvenance": "D:/openscad/runs/readme-captures/baseline-final/provenance.json"
+    },
+    {
+      "image": "preferences-before.png",
+      "source": "D:/openscad/runs/readme-captures/baseline-final/preferences-before.png",
+      "sha256": "FBDC2CFC5830774617C6D83006B2EF3F427653E94830D817567D5E419B0FEF3F",
+      "build": "baseline",
+      "sourceHead": "8bef263eb39f8c66448a03282d64446665d4c443",
+      "binarySha256": "FFD45105799330DC81F1A86D9244244286121D49FC3B65BD25E8A93376206B20",
+      "modelSha256": "704CC89912B08EE23C4279D6FE4A9705FE206CEF75A069F377422D3916A2F27C",
+      "captureProvenance": "D:/openscad/runs/readme-captures/baseline-final/provenance.json"
+    }
+  ]
+}

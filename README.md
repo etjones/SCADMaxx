@@ -2,124 +2,132 @@
 
 *OpenSCAD, with the sliders turned up.*
 
-This is the private, local SCADMaxx development workspace. The source experiments, integration branches and
-workspace control history stay local. Publish an individual feature to GitHub only when the user explicitly
-chooses to make it public. The two bare origins live in `E:/Dropbox/bare_repos`; see the
-[local Git layout](docs/git-layout.md) for the installed repositories and publication workflow.
+SCADMaxx combines regular OpenSCAD with additional features and selected upstream patches.
+This repository holds the build recipes, tools, prompts and documentation used to assemble it.
 
-This workspace supports three kinds of work:
+<!-- Hand-maintained by the user. Agents must not regenerate or update this README unless explicitly asked. -->
 
-| Work | Instructions | Durable input |
-| --- | --- | --- |
-| Native OpenSCAD annotations, based on the Blender feature | [Annotations](workflows/annotations.md) | [Implementation and verification](.plans/3_done/2026-09-30_openscad-annotations/5_post-implementation-notes.md) |
-| Native viewport navigation cube | Dedicated `wt-openscad-navigation-cube`, branch `feature/navigation-cube`, head `c54886b82` | [Completed implementation and local build](.plans/3_done/2026-10-01_navigation-cube/5_post-implementation-notes.md) |
-| HTTP endpoint / agent server | Dedicated `wt-openscad-http-agent-server`, branch `codex/http-agent-server` | [Completed implementation and verification](.plans/3_done/2026-10-01_http-agent-server/5_post-implementation-notes.md) |
-| UI visual polish (all four features implemented) | Dedicated `wt-openscad-ui-visual-polish`, branch `codex/ui-visual-polish` | [Final audit and verified private handoff](.plans/2_in-progress/2026-10-01_ui-preferences-dialog-polish/5_post-implementation-notes.md) |
-| Experimental Windows builds of current upstream master plus selected PRs | [Build workflow](workflows/experimental-builds.md) | [Manually maintained PR stack](experimental/PR_STACK.md) |
-| Testing and improving an individual upstream PR or issue | [PR development](workflows/pr-development.md) | The relevant checkout and feature plan |
+Click any screenshot to open the full-size image. The examples below use the first integrated SCADMaxx build;
+the UI comparisons also show regular OpenSCAD with the same model and layout.
 
-## Layout
+## New features
 
-- `AGENTS.md`: short entry point for agents working anywhere under this directory.
-- `workflows/`: instructions for the three activities.
-- `experimental/PR_STACK.md`: the authoritative, ordered selection of PRs, PR variants, and local features.
-- `experimental/integration-inputs.md`: source selection, locked change boundaries, and overlap handling.
-- `experimental/REPAIRS.md`: reusable repair catalog, backed by individual records when repairs are discovered.
-- `experimental/profiles/windows-x64.md`: Windows profile with a tested build/packaging recipe and explicit GUI limits.
-- `experimental/scripts/`: executable run preparation, build, test, deployment, and packaging tools.
-- `experimental/versioning-and-releases.md`: control-repository scope, input snapshots, and release identities.
-- `experimental/templates/`: build-run and repair evidence templates.
-- `.plans/`: feature planning, using planning, in-progress, and done lanes as needed.
-- `docs/worktrees.md`: discovered checkouts, their roles, and important existing work.
-- `runs/<run-id>/`: evidence from future experimental runs; created when a run starts.
-- `artifacts/<run-id>/`: staged Windows distribution, ZIP, and checksums; created during packaging.
-- `openscad-master/`: shared OpenSCAD clone and main `master` checkout; create new worktrees from this repository.
-- `wt-openscad-*/`: separate working directories for feature, PR, issue, and experimental-build branches.
-- Other existing source checkouts, such as `openscad-6991/`: retained in place with their existing work.
-- Existing `OpenSCAD-*` and `PythonSCAD` directories: installed/extracted builds; retained in place.
-- `vcpkg`, `deptools`, and `test-vcpkg*`: existing dependency tooling and experiments.
+### Annotations
 
-Use a UTC run ID such as `20260930T120000Z`; add a suffix if necessary to make it unique.
-Use a separate `experimental/<run-id>` source branch for every fresh composition. Annotations should have their
-own `feature/annotations` branch, and each PR investigation should retain its own branch and checkout.
-The annotations branch is now prepared in `wt-openscad-annotations`, based on freshly fetched upstream master
-at `612e684c2cbbcdcb9a7a8307973f33fd910f9c17`. The six implementation phases and full Windows Release build are complete;
-six commits end at `d670fad09`, verified in the private origin and marked ready for integration. The build and ZIP are under
-`artifacts/openscad-annotations-palette-fixed-win64` and `artifacts/openscad-annotations-palette-fixed-win64.zip`.
-See the linked verification notes for test evidence, build commands and limitations.
+<a href="docs/screenshots/annotations.png"><img align="left" hspace="16" width="320" src="docs/screenshots/annotations.png" alt="Red annotation around a mounting hole that breaks through the bracket edge, with drawing tools and defect comment dialog visible"></a>
 
-## Standard clone and worktree workflow
+- Draw directly on the viewport and attach comments to captured images.
+- Browse, search and edit annotations, or restore an annotation's camera view.
+- Save annotations alongside the SCAD document, with undo/redo support.
+- Give local agents access to annotation evidence through an optional API and Python client.
 
-Use the existing `D:/openscad/openscad-master` clone as the shared repository for new OpenSCAD worktrees.
-Keep its main checkout on `master` as the baseline, and do feature development, PR testing, and experimental
-compositions in separate worktrees alongside it under `D:/openscad`. Each worktree has its own checked-out branch
-and working files while sharing the clone's Git history and remotes. A new task normally needs a branch and
-worktree, not another clone or GitHub fork.
+*Mark a defect on the model and explain what needs to change.*
 
-1. Inspect `git -C D:/openscad/openscad-master worktree list` and the relevant checkout's status. Reuse a suitable
-   available worktree when possible; preserve occupied worktrees and local changes.
-2. Fetch the required upstream refs through `openscad-master`. For a new feature, use freshly fetched
-   `upstream/master`; for an existing PR or resumed task, use its explicitly selected branch or commit.
-3. Create the worktree from `openscad-master`, with a dedicated branch and a descriptive `wt-openscad-...` folder.
-   Record the actual base SHA. Fetching updates remote-tracking refs; it does not move the main checkout's `master`.
-4. Initialize its submodules and verify that the new checkout is clean. Keep the branch local and use `origin`
-   (`E:/Dropbox/bare_repos/scadmaxx.git`) for local pushes. GitHub is the explicit `publish` remote, used only when
-   the user chooses to publish an individual feature. Creating a worktree does not push a branch or create a PR.
-5. Record the worktree in `docs/worktrees.md` and link it from the relevant plan.
+<br clear="both">
 
-Example for a new feature (replace `example` with its name; run commands one at a time and stop on failure):
+### Navigation cube
 
-```powershell
-git -C D:/openscad/openscad-master fetch upstream master
-git -C D:/openscad/openscad-master worktree add --no-track -b feature/example D:/openscad/wt-openscad-example upstream/master
-git -C D:/openscad/wt-openscad-example config branch.feature/example.pushRemote origin
-git -C D:/openscad/wt-openscad-example submodule update --init --recursive
-git -C D:/openscad/wt-openscad-example status --short
-```
+<a href="docs/screenshots/navigation-cube.png"><img align="right" hspace="16" width="200" src="docs/screenshots/navigation-cube.png" alt="Close-up of the navigation cube and view rotation controls"></a>
 
-The annotations worktree follows this arrangement: `wt-openscad-annotations` belongs to the `openscad-master`
-repository and checks out `feature/annotations`.
+- Click cube faces, edges and corners to select a view.
+- Orbit freely, rotate in steps and switch between perspective and orthographic projection.
+- Save, name and recall document-specific camera views.
+- Adjust camera transitions and viewport information overlays.
 
-## Starting work
+*The cube follows the camera and provides direct view selection.*
 
-Windows builds reuse the existing shared vcpkg packages at
-`D:/openscad/openscad-6991/build/vcpkg_installed` with the toolchain in `D:/vcpkg`.
-Separate worktrees/application build directories do not require separate dependency installations.
-See the [shared dependency policy](experimental/profiles/windows-x64.md): automatic package installation and
-private dependency builds are disabled.
+<br clear="both">
 
-Example requests:
+<details>
+<summary>See saved views and viewport controls</summary>
 
-- "Develop the OpenSCAD annotations feature using its exploration."
-- "Run the Windows experimental build from the enabled entries in experimental/PR_STACK.md."
-- "Test and fix PR #6642 in its existing worktree."
+<a href="docs/screenshots/navigation-menu.png"><img width="480" src="docs/screenshots/navigation-menu.png" alt="Bracket viewport with navigation menu expanded, showing projection, display and saved-view controls"></a>
 
-The stack selects PR #6878 (customizable keyboard shortcuts), PR #6776 (dynamic dark-mode switching), navigation
-cube, UI visual polish, annotations and the HTTP endpoint / agent server. Current feature readiness, validated
-heads and handoffs are recorded in `experimental/SOURCES.json`; run preparation stops for any pending entry.
-Other existing PR worktrees remain candidates for manual selection; see the selection list.
-The [build tools](experimental/scripts/README.md) implement the recorded build steps; the agent still reviews
-integrations and diagnoses repairs. The first local run completed automated build, test, staging and extracted-ZIP
-checks on 2026-10-01. It includes #6878 and #6776, preceded by four separately committed Windows baseline repairs.
+*Keep useful camera positions with the document.*
 
-The current delivery fixes Unicode filenames in that composition using the focused UTF-8 manifest change from
-upstream PRs #6726/#6357, with a new regression test. It reuses the shared dependency installation, with Catch2 and
-Boost.Nowide previously added at the user's request. The obsolete private build directories were removed (28.97 GiB of files);
-historical logs and original ZIPs remain available.
+</details>
 
-- [Windows ZIP](artifacts/20261001-unicode-filename-fix/attempt-1/OpenSCAD-experimental-20261001-unicode-filename-fix-windows-x64.zip)
-- [Matching source ZIP](artifacts/20261001-unicode-filename-fix/attempt-1/OpenSCAD-experimental-20261001-unicode-filename-fix-source.zip)
-- [Run report and verification limits](runs/20261001-unicode-filename-fix/report.md)
+### Agent access
 
-Extract the complete Windows ZIP and run `staging/openscad.exe`. SHA-256 files sit alongside both archives.
-Build, 119 unit-test cases, standard rendering checks and fresh-ZIP extraction checks passed. The Unicode filename
-crash is fixed on Windows 10 1903+: seven filename cases pass through both launchers, including in the extracted ZIP.
-Existing UTF-8 AST, echo and CSG tests also pass. Shared dependencies were unchanged by this repair.
-Windows desktop theme switching, full-process shortcut persistence and clean-machine portability remain unverified;
-the [experimental-build feature](.plans/2_in-progress/2026-09-30_experimental-windows-builds/1_exploration.md)
-retains those acceptance checks. No successful-release tag, external publication or recurring job was created.
+<a href="docs/screenshots/agent-access.png"><img align="left" hspace="16" width="320" src="docs/screenshots/agent-access.png" alt="Agent access connection dialog with enable, stop and copy connection controls"></a>
 
-The workspace root is a separate Git control repository on `main`, with local origin
-`E:/Dropbox/bare_repos/scadmaxx-workspace.git` and an allowlist excluding source checkouts and generated artifacts.
-The initial private workspace history was established as part of the 2026-10-01 Dropbox setup. The scope and per-attempt
-snapshot procedure are defined in [versioning and release rules](experimental/versioning-and-releases.md).
+- Enable a local HTTP API for inspecting open documents and application state.
+- Read source snapshots, syntax trees, diagnostics and annotations.
+- Control the camera, capture viewport images and access native saved views.
+- Use the bundled Python client and agent workflow instructions.
+- Work through external file edits and reloads; the API does not write source files or force evaluation.
+
+*Enable local access and copy connection information from the application.*
+
+<br clear="both">
+
+### UI improvements
+
+<a href="docs/screenshots/ui-after.png"><img align="right" hspace="16" width="320" src="docs/screenshots/ui-after.png" alt="SCADMaxx toolbar and Customizer with unified icons, quieter group headers and help icons"></a>
+
+- Consistent typography and spacing that adapt to font sizes and display scaling.
+- Unified icons with light/dark support and configurable status-icon styles.
+- A quieter Customizer with restrained group headers, clearer labels and help tooltips.
+- Native Preferences tabs and improved spacing and readability across dialogs.
+- Independent editor and console content fonts.
+
+*SCADMaxx: clearer controls and a quieter Customizer.*
+
+<br clear="both">
+
+<details>
+<summary>Compare regular OpenSCAD and SCADMaxx</summary>
+
+| Regular OpenSCAD | SCADMaxx |
+| --- | --- |
+| <a href="docs/screenshots/ui-before.png"><img width="400" src="docs/screenshots/ui-before.png" alt="Regular OpenSCAD toolbar and Customizer"></a> | <a href="docs/screenshots/ui-after.png"><img width="400" src="docs/screenshots/ui-after.png" alt="SCADMaxx toolbar and Customizer with the same bracket"></a> |
+| <a href="docs/screenshots/preferences-before.png"><img width="300" src="docs/screenshots/preferences-before.png" alt="Regular OpenSCAD Advanced Preferences"></a> | <a href="docs/screenshots/preferences-after.png"><img width="300" src="docs/screenshots/preferences-after.png" alt="SCADMaxx Advanced Preferences with updated tabs, fonts and spacing"></a> |
+
+*Matched model, camera, window size and display scale. The Customizer shows each version's default presentation.*
+
+</details>
+
+## Included upstream PRs
+
+### Customizable keyboard shortcuts — [#6878](https://github.com/openscad/openscad/pull/6878)
+
+<a href="docs/screenshots/shortcuts.png"><img align="left" hspace="16" width="320" src="docs/screenshots/shortcuts.png" alt="Keyboard shortcut preferences listing real file and editing actions and their assigned keys"></a>
+
+- Search actions and assign keyboard shortcuts through the GUI.
+- Handle shortcut conflicts and restore defaults.
+- Apply changes across application windows and retain shortcut settings.
+
+*Find an application action and customize its keyboard shortcuts.*
+
+<br clear="both">
+
+### Dynamic dark-mode switching — [#6776](https://github.com/openscad/openscad/pull/6776)
+
+<a href="docs/screenshots/dark-mode.png"><img align="right" hspace="16" width="320" src="docs/screenshots/dark-mode.png" alt="Bracket and Customizer in dark mode"></a>
+
+- Respond to light/dark theme changes while OpenSCAD remains open.
+- Update widget palettes without restarting the application.
+- Provide the theme foundation used by the local UI improvements.
+
+*The same model in dark mode, with a matching dark viewport background.*
+
+<details>
+<summary>Compare the matching light theme</summary>
+
+<a href="docs/screenshots/light-mode.png"><img width="480" src="docs/screenshots/light-mode.png" alt="The same bracket, camera and Customizer layout in light mode"></a>
+
+</details>
+
+<br clear="both">
+
+## Build status and documentation
+
+The first integrated Windows x64 build includes all four feature groups above and PRs #6878/#6776.
+Its source is branch `scadmaxx-20261001`, revision `bcf48145d`.
+Screenshots use that integrated source with a documentation-only capture harness.
+
+- [Screenshot sources and capture details](docs/screenshots/sources.json)
+- [Workspace guide](docs/workspace.md)
+- [Repositories, worktrees and push destinations](docs/git-layout.md)
+- [Selected features and PRs](experimental/PR_STACK.md)
+- [Update and build instructions](workflows/update-and-build-scadmaxx.md)
