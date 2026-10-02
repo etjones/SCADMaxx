@@ -1,0 +1,53 @@
+if(POLICY CMP0207)
+  cmake_policy(SET CMP0207 NEW)
+endif()
+set(CMAKE_GET_RUNTIME_DEPENDENCIES_PLATFORM windows+pe)
+set(CMAKE_GET_RUNTIME_DEPENDENCIES_TOOL dumpbin)
+set(CMAKE_GET_RUNTIME_DEPENDENCIES_COMMAND "@LAUNCHER_DUMPBIN@")
+set(dependencies "@LAUNCHER_DEPENDENCIES@")
+file(MAKE_DIRECTORY "${CMAKE_INSTALL_PREFIX}/platforms" "${CMAKE_INSTALL_PREFIX}/styles")
+set(plugins)
+foreach(plugin platforms/qwindows.dll platforms/qoffscreen.dll styles/qmodernwindowsstyle.dll)
+  if(EXISTS "${dependencies}/Qt6/plugins/${plugin}")
+    get_filename_component(plugin_directory "${plugin}" DIRECTORY)
+    file(INSTALL "${dependencies}/Qt6/plugins/${plugin}" DESTINATION "${CMAKE_INSTALL_PREFIX}/${plugin_directory}")
+    list(APPEND plugins "${dependencies}/Qt6/plugins/${plugin}")
+  elseif(plugin STREQUAL "platforms/qwindows.dll")
+    message(FATAL_ERROR "Required Windows platform plugin is missing")
+  endif()
+endforeach()
+file(GET_RUNTIME_DEPENDENCIES
+  EXECUTABLES "${CMAKE_INSTALL_PREFIX}/scadmaxx-launcher.exe"
+  LIBRARIES ${plugins}
+  DIRECTORIES "${dependencies}/bin"
+  RESOLVED_DEPENDENCIES_VAR resolved UNRESOLVED_DEPENDENCIES_VAR unresolved
+  CONFLICTING_DEPENDENCIES_PREFIX conflicts
+  PRE_EXCLUDE_REGEXES "[Aa][Pp][Ii]-[Mm][Ss]-.*" "[Ee][Xx][Tt]-[Mm][Ss]-.*"
+  POST_EXCLUDE_REGEXES ".*[/\\][Ww][Ii][Nn][Dd][Oo][Ww][Ss][/\\][Ss][Yy][Ss][Tt][Ee][Mm]32[/\\].*")
+if(unresolved)
+  message(FATAL_ERROR "Missing runtime dependencies: ${unresolved}")
+endif()
+foreach(name IN LISTS conflicts_FILENAMES)
+  # On redeployment, the same DLL may be resolved from both the package and vcpkg.
+  # Accept identical bytes only; never silently mix runtime versions.
+  set(expected_hash "")
+  foreach(candidate IN LISTS "conflicts_${name}")
+    file(SHA256 "${candidate}" actual_hash)
+    if(expected_hash AND NOT actual_hash STREQUAL expected_hash)
+      message(FATAL_ERROR "Runtime version conflict for ${name}: ${conflicts_${name}}")
+    endif()
+    set(expected_hash "${actual_hash}")
+  endforeach()
+  list(GET "conflicts_${name}" 0 canonical)
+  list(APPEND resolved "${canonical}")
+endforeach()
+foreach(dependency IN LISTS resolved)
+  file(INSTALL "${dependency}" DESTINATION "${CMAKE_INSTALL_PREFIX}")
+endforeach()
+file(WRITE "${CMAKE_INSTALL_PREFIX}/qt.conf" "[Paths]\nPrefix=.\nPlugins=.\n")
+file(GLOB notices "${dependencies}/share/*/copyright")
+foreach(notice IN LISTS notices)
+  get_filename_component(package "${notice}" DIRECTORY)
+  get_filename_component(package "${package}" NAME)
+  file(INSTALL "${notice}" DESTINATION "${CMAKE_INSTALL_PREFIX}/licenses" RENAME "${package}.txt")
+endforeach()
