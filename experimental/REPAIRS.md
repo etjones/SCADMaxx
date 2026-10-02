@@ -3,8 +3,15 @@
 This catalog preserves narrowly scoped repairs discovered during experimental runs. It does not select features.
 Existing dirty PR worktrees are not a repair library. Only the individually recorded commits below are candidates.
 
+Integration decisions: [PR 6776 camera input policy](repairs/pr-6776-camera-input-policy.md).
+PR behavior approved on 2026-10-02; the recorded checkpoint passed build and tests.
+See also the [annotations/navigation composition recipe](repairs/annotations-navigation-composition.md).
+
 | ID | Applies after | Source repository / full commit SHA | Applicability | Verification | State |
 | --- | --- | --- | --- | --- | --- |
+| native-ui-test-fixtures | ui-visual-polish, navigation-cube, annotations, http-agent-server | openscad-master / `bcf48145d9ebc7ffdcde0414ddde38ceb62f0b6a` | Deferred UI relayout and native picker invalidate test assumptions | [Native and standard tests passed](repairs/native-ui-test-fixtures.md) | reusable |
+| windows-manifest-dependency | baseline, windows-unicode-codepage | openscad-master / `6486d7660b5370efc08795681c9d0098fa2e8436` | Incremental RC build retains an old embedded manifest | [Manifest, Unicode and standard tests passed](repairs/windows-manifest-dependency.md) | reusable |
+| preferences-tab-order-test | pr-6878, ui-visual-polish | openscad-master / `61fb8357ad3101852bb2a12fc40421f047f99e68` | UI test assumes Dialogs precedes AI despite inserted Shortcuts page | [Unit/render tests passed](repairs/preferences-tab-order-test.md) | reusable |
 | settings-stream-declarations | baseline | openscad-master / `c577f934adade4b762fba095abbad79a3b13df30` | Missing stream declarations before SettingsEntryList instantiation on MSVC | [Build/test passed](repairs/settings-stream-declarations.md) | reusable |
 | windows-gui-test-sleep | baseline | openscad-master / `67884e65f4565c1215a88ecdcd0a2daa122e53d7` | POSIX sleep prevents MSVC GUI-test compilation | [Build/native tests passed](repairs/windows-gui-test-sleep.md) | reusable |
 | windows-argument-storage | baseline | openscad-master / `e1a798257aeaabb0f82898e477ef8f5e6fd3558d` | Runtime-sized arrays in wmain rejected by MSVC | [Build/test passed](repairs/windows-argument-storage.md) | reusable |
