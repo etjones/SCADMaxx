@@ -1,0 +1,7 @@
+{
+  "canonical_document": "doc/customizer-attributes.md",
+  "source_revision": "41d92671b6040959caa036a886be1f245bc32f5f",
+  "document_modified_from_commit": false,
+  "document_sha256": "f1015714c8b834ba19332c1b3f50635076b0f2fa7c22ded18e80586a514a148c",
+  "note": "Generated from the canonical source document; refresh with Build-ScadmaxxSkill.ps1. This companion does not assert that every SCADMaxx binary contains these features."
+}

@@ -1,6 +1,7 @@
 # SCADMaxx agent skill
 
-Status: planning feature. Requested on 2026-10-02 as a broader home for agent guidance,
+Status: implemented; see post-implementation notes for verification and limits.
+Requested on 2026-10-02 as a broader home for agent guidance,
 including documentation for the OEP8-compatible Customizer annotation patch.
 
 ## Purpose and scope
@@ -12,6 +13,7 @@ in SCADMaxx. Keep the skill useful for models that do not use experimental langu
 Include guidance for:
 
 - Structuring and parameterizing models, selecting relevant language features and reading diagnostics.
+- Using BOSL2 as the default modeling library and establishing the conceptual shape before edge treatments.
 - Modeling bevels/chamfers and fillets/roundovers, including approach selection and dimensional checks.
 - Previewing, rendering and exporting, with checks appropriate to the requested deliverable.
 - Customizer design, supported annotations, and parameter-dependent visibility/locking.
@@ -29,8 +31,8 @@ existing workspace workflows. Product users should not need this development wor
 Document a repeatable discover -> target -> inspect -> edit -> preview -> render/export -> validate
 workflow, choosing the HTTP API, CLI or UI according to the actual available capabilities. Verify
 document and operation semantics against the shipped implementation rather than assuming API support.
-The full agent API is being consolidated under `/v1`; use the
-[v1-only follow-up](../../2_in-progress/2026-10-02_agent-api-v1-only/5_post-implementation-notes.md)
+The full agent API uses `/v1` with direct HTTP access and no shipped Python client; use the
+[direct-HTTP follow-up](../../2_in-progress/2026-10-02_agent-direct-http/5_post-implementation-notes.md)
 as the current source handoff. It has no source-write, tab-switch, save or forced preview/render endpoint.
 Explain how file-based editing and observed native reload fit those limits; do not invent HTTP operations.
 
@@ -94,6 +96,41 @@ is part of this feature; writing into a user's agent configuration requires thei
   annotation spelling. Identify which builds support the new syntax and how to recognize older builds.
 - Keep empty-group visibility a separate feature; do not imply it is part of this syntax patch.
 
+## Required modeling approach: BOSL2 and two passes
+
+Put the following rules in the main skill entry point so they apply before an agent selects a modeling
+technique. Keep detailed helper selection, examples and limitations in the modeling/edge-treatment references.
+
+- Use BOSL2 as the default modeling library for general model construction, not only edge treatments.
+  Reuse its primitives, attachment facilities and relevant geometry helpers instead of reimplementing
+  functionality it already provides. Use ordinary OpenSCAD constructs where they are the straightforward
+  building blocks of that design; do not introduce complexity merely to use a library call.
+- Check the available BOSL2 installation and the documentation for that revision before using its APIs.
+  If BOSL2 is missing, install it from its official upstream source into a library location resolved by
+  the intended OpenSCAD/SCADMaxx instance. Installation is part of the modeling workflow and does not
+  require a separate confirmation merely because the library is absent. Preserve existing installations
+  and local modifications, record the installed revision, and verify a minimal include-and-render example
+  with the target executable before proceeding. Request permission only if an actual environment access
+  restriction requires it; report a concrete installation failure rather than silently abandoning BOSL2.
+  Use its supported chamfering, rounding and filleting helpers for edge treatments. Do not manually
+  construct rings, profiles or vertex meshes and loft them with `skin()` to manufacture chamfers or fillets.
+  Choosing BOSL2's `skin()` for that hand-built workaround does not satisfy the requirement to use its
+  dedicated helpers. This rule concerns edge treatments, not legitimate lofted model bodies.
+- First pass: approximate the conceptual shape using simple, readily editable geometry. Establish the
+  silhouette, proportions, component arrangement, major cutouts and functional interfaces. Keep nominal
+  dimensions and mating constraints explicit even while simplifying the shape. Inspect it from useful
+  viewpoints and resolve structural mistakes before adding edge details.
+- Second pass: apply the intended chamfers and fillets using BOSL2 helpers once the base form is sound.
+  Keep edge-treatment parameters separate from the base dimensions and retain a way to inspect the
+  untreated form. Choose a base construction that can accept those treatments without a wholesale rewrite.
+  Recheck the envelope, wall thickness, clearances and selected edges after adding treatments.
+- If BOSL2 installation is blocked or no suitable helper supports the requested treatment, state the specific
+  limitation. Do not silently replace the intended approach with bespoke `skin()` geometry. Prefer a
+  simpler supported construction where it meets the request; surface any remaining unmet requirement.
+
+The two passes are a modeling sequence, not an automatic user-approval gate between them. Continue through
+both when the requested form is clear; ask only when an unresolved design choice actually needs user input.
+
 ## Bevels and fillets exploration
 
 Explore practical guidance for bevels/chamfers and fillets/roundovers as part of ordinary modeling,
@@ -101,9 +138,11 @@ not only experimental features. Cover:
 
 - Distinguishing flat bevels from rounded fillets, inside versus outside corners, and rounding a 2D
   profile versus selected edges of a 3D solid.
-- Choosing profile-first construction with offsets and extrusion, hulls or Minkowski operations,
-  targeted geometry, or verified available libraries. Check library availability and APIs before
-  recommending them; do not assume a general arbitrary-edge fillet operator is available.
+- Selecting the appropriate verified BOSL2 helper for the shape and intended edges. Explain when a
+  profile-first construction makes its supported treatment simpler. Discuss native offsets, hulls or
+  Minkowski operations only where they have a concrete advantage or fill a verified library limitation;
+  do not present them or hand-built lofts as interchangeable defaults with BOSL2's dedicated helpers.
+  Do not assume a general arbitrary-edge fillet operator is available.
 - Preserving nominal dimensions, wall thickness, mating clearances and the intended edge selection.
   Explain radius/width conventions and how operation order affects the result.
 - Handling convex and concave corners, intersecting blends, small features, excessive radii,
@@ -122,6 +161,12 @@ documentation for the established language and document SCADMaxx differences exp
 Validate the skill structure and reference links. Exercise representative tasks from the bundle alone:
 an ordinary parametric model, a beveled/filleted model with dimensional checks, a model with reactive
 Customizer annotations, object/object() usage, and a render/export or automation task.
+For modeling tasks, verify BOSL2 is used where applicable and that the agent establishes and inspects the
+base form before adding edge treatments. Retain untreated and finished examples with dimensional checks;
+inspect the source to confirm chamfers/fillets use supported helpers rather than manually constructed
+`skin()` meshes. Include a missing-library case that requires installation and verifies loading/rendering
+with the target executable. Include an unsupported-helper or blocked-installation case to check that
+concrete limitations are reported rather than hidden behind a custom workaround.
 Include a multi-document task with unsaved edits and active-tab changes, checking that operations and
 results stay associated with the intended target and unrelated buffers remain intact. Exercise capability
 detection and fallback behavior against identified mainstream and SCADMaxx builds; report unavailable
@@ -131,6 +176,6 @@ verify that an agent does not assume experimental capabilities exist in every Op
 Test the packaged bundle from a directory outside the development workspace.
 
 Existing implementation and test evidence:
-[OEP8/Customizer handoff](../2026-10-02_oep8-customizer-syntax/5_post-implementation-notes.md).
+[OEP8/Customizer handoff](../../1_planning/2026-10-02_oep8-customizer-syntax/5_post-implementation-notes.md).
 The language patch is already selected and verified; this skill/documentation feature is separate work
 and does not reopen its implementation or delay existing selected builds.
