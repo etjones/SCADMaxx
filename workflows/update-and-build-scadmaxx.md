@@ -2,7 +2,7 @@
 
 This is the entry point for a fresh chat receiving that request, or equivalent wording. No previous chat history
 is needed. It requests a new Windows composition from current selected sources, including integration/repair
-commits, tests, local ZIP delivery and retention in the Dropbox origins. It does not request GitHub publication,
+commits, tests and local ZIP delivery. It does not request pushes to Dropbox origins or GitHub publication,
 dependency upgrades, or rebasing all feature worktrees. A documentation-only request does not start a build.
 
 Read `docs/workspace.md`, `docs/git-layout.md`, `docs/worktrees.md`, `experimental/PR_STACK.md`,
@@ -21,15 +21,29 @@ addresses that blocker, then Luna resumes the same frozen run. Switching models 
 | Workspace instructions and selection | `D:/openscad/scadmaxx`; origin `E:/Dropbox/bare_repos/scadmaxx.git` | Fetch control `origin`; reconcile as described below |
 | OpenSCAD baseline | `https://github.com/openscad/openscad.git`, `refs/heads/master` | Fetch once into a new run-specific ref |
 | Enabled upstream PR | That row's PR URL, resolved as `refs/pull/<number>/head` | Fetch the actual PR head from OpenSCAD GitHub |
-| Private feature | Exact `repository` and `ref` in `SOURCES.json`; currently the Dropbox source bare repo | Synchronize eligible local commits, then fetch that exact source into a run-specific ref |
+| Private feature | Exact `repository` and `ref` in `SOURCES.json`; currently the Dropbox source bare repo | Fetch the already-promoted source into a run-specific ref; do not push newer local commits |
 | Published feature or PR variant | Exact GitHub repository/ref explicitly selected in `SOURCES.json` | Fetch that declared source, regardless of the local branch's tracking configuration |
 | Repairs | `experimental/REPAIRS.md` and linked records | Obtain the retained commits, check applicability, apply separately |
-| Integration history | Fresh `scadmaxx-YYYYMMDD` branch in `wt-scadmaxx-YYYYMMDD` | Push only to `E:/Dropbox/bare_repos/openscad.git` |
+| Integration history | Fresh `scadmaxx-YYYYMMDD` branch in `wt-scadmaxx-YYYYMMDD` | Retain locally; push specified refs to the private origin only on explicit user request |
 | ZIPs, matching source, logs | `artifacts/<run-id>/` and `runs/<run-id>/` | Retain outside source/control Git; no external publication by default |
 
 The source clone's `origin` is Dropbox, `upstream` is OpenSCAD GitHub, and `publish` is the user's GitHub fork.
 The workspace checkout has a different `origin`, containing only workspace controls. Always use an explicit
 working directory and repository/ref; do not treat these two origins as interchangeable.
+
+## Push authorization and promotion
+
+Keep intermediate and completed commits local by default. A commit request, accepted feature, readiness check,
+or "update everything and build" request does not authorize a push. This applies to source, workspace controls,
+integration branches, repair/run refs and tags, including private Dropbox destinations.
+
+Pushing a feature branch to its declared build-input repository promotes that revision for future integrated
+builds. Require an explicit user request to push/promote the relevant repository/branch or refs. Authorization
+for one promotion does not authorize later commits or other branches. Promotion does not itself enable a new
+entry in the manually selected PR stack. Record local completion separately from promoted build readiness.
+
+When explicitly authorized, review the outgoing range, use the named remote and exact refspec, push without
+force, and verify the remote object ID. Do not add automatic pushes to hooks, scripts or completion workflows.
 
 ## 1. Reconcile the workspace controls
 
@@ -43,7 +57,7 @@ If origin has unseen changes that conflict with local work, or histories diverge
 revision and stop before preparing a run. Do not silently use stale controls, discard edits, or force an update.
 Git control commits are separate from the source integration/repair commits authorized by a build request.
 
-## 2. Check readiness and synchronize private feature inputs
+## 2. Check readiness of promoted feature inputs
 
 Run `New-ExperimentalRun.ps1 -ValidateOnly` to inspect all selected entries without fetching/building. For each
 selected local feature, find its source checkout in `docs/worktrees.md` and inspect its branch, committed HEAD,
@@ -59,16 +73,16 @@ an inspection ref and compare it with the matching local feature branch. Use ful
 | State | Action |
 | --- | --- |
 | Local and bare heads match | Lock the declared bare ref in the new run |
-| Local branch contains newer eligible committed feature work | Review the outgoing range and readiness, then push that single branch to the declared local bare ref without force; verify the resulting head before locking |
+| Local branch contains newer committed feature work | Report the unpromoted local head and preserve it. Lock the already-promoted bare revision if it still satisfies the selected build; if the task requires the newer revision, obtain explicit promotion authorization before proceeding |
 | Bare branch is ahead | Build from the newer declared bare ref; do not reset or merge into an occupied feature checkout |
 | Local branch or checkout is absent | Use the declared ready source if available; a build need not have every development checkout |
 | Histories diverge, source ref is missing, or newer commits have unclear readiness | Stop and report the affected feature; no force-push or fallback source |
 | Working files/index/submodules are dirty | Preserve and report excluded edits; only eligible committed source can enter the build |
 
-The update/build request includes fast-forward synchronization of eligible selected private feature commits to
-the declared Dropbox source origin. It never authorizes pushing them to GitHub. Re-read the declared ref after
-the local push; fail on a concurrent non-fast-forward update instead of forcing it. A normal Git push rejects
-non-fast-forward branch updates by default.
+An update/build request reads promoted private feature inputs; it does not promote newer local commits.
+If the requested revision is not available in the declared repository, report the exact branch/commit awaiting
+promotion. Do not silently substitute the local checkout, change the declared source, or push to make it available.
+After an explicitly authorized push, re-read the declared ref before freezing it; never force a conflicting update.
 
 Do not pull upstream master into all feature branches before composing. The integration branch starts from fresh
 upstream and resolves compatibility there. Updating a feature's own base is separate feature-maintenance work.
@@ -81,7 +95,7 @@ Invoke `experimental/scripts/New-ExperimentalRun.ps1` from the control repositor
 in `D:/openscad/scadmaxx` and source/run directories in `D:/openscad`. It fetches master and each selected
 repository/ref, locks full head/base SHAs, retains refs under `refs/experimental-runs/<run-id>/`, saves binary-capable
 patches and original commit identities, and creates the isolated integration worktree. It does not perform the
-control/feature synchronization above; the agent must complete and record that first.
+control reconciliation and promoted-input checks above; the agent must complete and record those first.
 
 Record the source synchronization decisions in the run report. Freeze `PR_STACK.md`, `SOURCES.json`, applicable
 repair records, profile, scripts and instructions with hashes. Do not refetch or change selections halfway through
@@ -107,17 +121,21 @@ notices and checksums. Do not create or bundle release notes. Test a fresh extra
 or clean-machine checks honestly. Current scripts use `OpenSCAD-experimental-<run-id>` artifact identities; the
 SCADMaxx product name does not imply that binary/ZIP branding has already been changed.
 
-Push the integration branch and explicitly named run/repair refs to source `origin`. Push a release tag only after
-its required validation. Verify the remote object IDs. Ordinary branch pushes do not retain custom refs. Retain
-the run/control snapshots and matching source archive with the delivered artifacts. Keep unrelated staged edits
-out of control commits; when control changes are committed, push them to the separate workspace origin.
+Retain the integration branch and run/repair refs locally, with run/control snapshots and matching source archives.
+Push only the refs explicitly requested by the user, following the authorization rule above. A release tag also
+requires its validation before an authorized push. Ordinary branch pushes do not retain custom refs. Keep unrelated
+staged edits out of control commits; committing controls does not authorize pushing the workspace origin.
 
 ## Feature completion and later GitHub publication
 
-Each feature-development task must leave a reproducible handoff: usable committed source, obtainable matching
-submodule commits, tests/evidence, exact source head and intended delta boundary, reviewed dependencies, and a
-verified push to its declared private repository. Set `ready: true` only once that handoff is valid, updating the
-pending reason and selection metadata as necessary. New unfinished changes do not belong in a build implicitly.
+Each feature-development task must leave a reproducible local handoff: source state (committed when requested),
+matching submodule revisions, tests/evidence, exact source head and intended delta boundary, and reviewed dependencies.
+Feature acceptance and local commits do not require or authorize a push. Report any completed but unpromoted revision.
+
+After the user explicitly requests promotion, verify the push to the declared repository and update build readiness
+for that promoted revision. Set `ready: true` only when it is available and validated. For a new source awaiting
+promotion, retain `ready: false` with a concrete reason. If an older promoted revision remains usable, keep its
+readiness evidence tied to that revision; do not mark newer local work promoted merely because the feature is done.
 
 When the user chooses to maintain a feature publicly, publish only its reviewed feature history and deliberately
 update that entry's `repository`/`ref` to the GitHub source. It can instead remain sourced from Dropbox while a

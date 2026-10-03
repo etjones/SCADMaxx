@@ -124,7 +124,7 @@ Before resuming, verify the branch HEAD, submodules, frozen inputs, profile, and
 Do not overwrite intervening edits or resume from a presumed last successful step. Preserve all delivered runs,
 matching source, and evidence until an explicit retention policy exists.
 
-Retain completed source work in local `origin` (`E:/Dropbox/bare_repos/openscad.git`): explicitly push the run's
-integration branch, repair/run refs, and any verified release tag. Ordinary branch pushes do not include custom
-refs. Workspace control commits belong in the separate workspace origin. GitHub publication is a separate user
-decision; use the [local Git layout](../docs/git-layout.md).
+Retain completed source work and run refs locally. Build completion does not authorize any push. Follow the
+[push authorization rule](update-and-build-scadmaxx.md#push-authorization-and-promotion) before pushing specified
+integration branches, repair/run refs, verified release tags or workspace controls. Ordinary branch pushes do not
+include custom refs. GitHub publication is a separate user decision; use the [local Git layout](../docs/git-layout.md).

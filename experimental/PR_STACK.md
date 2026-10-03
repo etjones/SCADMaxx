@@ -43,8 +43,10 @@ at run start; this selection does not pin today's commits or include uncommitted
 
 The local features were selected by the user on 2026-10-01. Their current readiness and exact validated heads live
 in `SOURCES.json` and their linked handoffs. Pending entries stop preparation; do not omit them or integrate their
-starting commits as if the features were present. Development tasks must commit and privately retain usable source
-before marking it ready. Build runs must not commit another task's unfinished work.
+starting commits as if the features were present. Build readiness applies to validated revisions promoted by an
+explicit user push/promotion request; local completion and intermediate commits do not authorize that step.
+Follow the [promotion rule](../workflows/update-and-build-scadmaxx.md#push-authorization-and-promotion).
+Build runs must not commit another task's unfinished work.
 
 The UI source is verified at `8f5b3ae4707a8718db28722deb2fd723fd9415ab`. Apply only its explicit UI delta after
 `be352f27972d570d61c9224a927079fa21055ac0`, which excludes the already-incorporated #6776 and four Windows baseline

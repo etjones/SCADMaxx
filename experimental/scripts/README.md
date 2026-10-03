@@ -9,7 +9,7 @@ for the remaining Windows desktop and clean-machine verification limits.
 
 ## Prepare a fresh run
 
-First complete the control/source synchronization in [the update/build runbook](../../workflows/update-and-build-scadmaxx.md).
+First reconcile controls and check promoted inputs in [the update/build runbook](../../workflows/update-and-build-scadmaxx.md).
 The preparation script reads the declared repositories; it does not push newer feature-worktree commits to their
 bare origins, pull/rebase development checkouts, or switch a local source to GitHub automatically.
 
@@ -31,8 +31,9 @@ Preparation failures retain their inputs and logs. Check the actual refs/worktre
 Use `-ValidateOnly` to inspect the selection and source definitions without fetching or creating a run/worktree.
 
 Selected unfinished features use `ready: false` plus `pendingReason` in `SOURCES.json`. Validation reports them;
-actual preparation stops before fetching or creating a run. Only mark them ready after their development task
-commits and pushes usable revisions to the declared source and their change boundaries/dependencies are reviewed.
+actual preparation stops before fetching or creating a run. Only mark a new source ready after an explicitly
+user-requested promotion has made its validated revision available in the declared repository and its change
+boundaries/dependencies are reviewed. A commit or build request does not authorize a push.
 
 For a `feature` or `pr-variant`, the Source column names a definition in `experimental/SOURCES.json`.
 An explicitly requested alternate file can be passed with `-SourceDefinitions <json-file>`.

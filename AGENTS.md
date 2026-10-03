@@ -16,7 +16,10 @@ the parent container `D:/openscad`. See `docs/layout-migration.md` when resuming
 - For SCADMaxx update/build requests, including "update everything and build a new SCADMaxx", start with
   `workflows/update-and-build-scadmaxx.md`, then `workflows/experimental-builds.md` and `experimental/PR_STACK.md`.
   Only the enabled entries in that manually maintained list belong in a build.
-- At feature completion, follow the source/readiness handoff in `workflows/update-and-build-scadmaxx.md`.
+- Keep commits local unless the user explicitly requests a push for the relevant repository/branch or refs.
+  Commit requests, feature completion and update/build requests do not authorize pushes. Promotion into the
+  future-build input repository is a separate explicit user decision; see `workflows/update-and-build-scadmaxx.md`.
+- At feature completion, record the local handoff described in `workflows/update-and-build-scadmaxx.md`.
 - For testing or advancing a PR, read `workflows/pr-development.md`.
 - Keep workspace plans, run records, and artifacts outside upstream-facing source changes.
 - Inspect branch, worktree status, submodules, and checkout-local instructions before source edits.

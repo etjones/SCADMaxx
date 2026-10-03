@@ -74,7 +74,9 @@ Example of the selected annotations source (the real definition also records rea
 }
 ```
 
-Commit and push selected local feature work to the local origin before locking a build that reads from it.
+Only an explicit user push/promotion request advances selected local feature work in the declared origin.
+Commit and build requests do not authorize that step. Lock the already-promoted revision for a build;
+if newer local work is required, report the revision awaiting promotion rather than pushing automatically.
 Uncommitted working-tree edits are not build inputs and are not stored by a bare remote. Publishing a feature
 later can change its declared source to GitHub; do not enable both copies of the same feature.
 
@@ -123,10 +125,12 @@ baseline's recovery ref. Seven stash reflog commits also have named recovery ref
 Git's receive operation rejects `refs/stash`, so that ref was fetched and installed locally in the bare repository.
 The original stash and worktree files were left intact. Config snapshots and verification are in the migration record.
 
-After a feature commit, `git push origin` in its worktree stores that branch in Dropbox. Before integrating it,
-check that the declared source ref contains the intended commit. After a build, explicitly push its integration
-branch, repair/run refs and any verified release tag to local origin; an ordinary branch push does not include
-custom refs. Never use an all-ref push to GitHub. Workspace control commits use the workspace's own local origin.
+Feature and control commits remain local by default. Follow the
+[push authorization and promotion rule](../workflows/update-and-build-scadmaxx.md#push-authorization-and-promotion):
+push only on an explicit user request for the relevant repository/branch or refs. A feature push to the build-input
+origin promotes its revision for future integration. Before integrating, check that the declared source ref contains
+the intended promoted commit. Build completion does not authorize pushing integration branches, repair/run refs or
+release tags. An ordinary branch push does not include custom refs. Never use an all-ref push to GitHub.
 
 Keep the Dropbox bare repositories available offline, and allow syncing to complete before using them on another
 machine. Avoid concurrent writes to their synced copies. Automatic Git GC is disabled on the bare repositories;

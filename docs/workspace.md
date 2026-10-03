@@ -69,7 +69,8 @@ worktree, not another clone or GitHub fork.
 3. Create the worktree from `openscad-master`, with a dedicated branch and a descriptive `wt-openscad-...` folder.
    Record the actual base SHA. Fetching updates remote-tracking refs; it does not move the main checkout's `master`.
 4. Initialize its submodules and verify that the new checkout is clean. Keep the branch local and use `origin`
-   (`E:/Dropbox/bare_repos/openscad.git`) for local pushes. GitHub is the explicit `publish` remote, used only when
+   (`E:/Dropbox/bare_repos/openscad.git`) only for explicitly user-requested pushes/promotions. Neither a commit
+   nor a build request authorizes a push. GitHub is the explicit `publish` remote, used only when
    the user chooses to publish an individual feature. Creating a worktree does not push a branch or create a PR.
 5. Record the worktree in `docs/worktrees.md` and link it from the relevant plan.
 

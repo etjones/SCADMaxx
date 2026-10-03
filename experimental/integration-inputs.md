@@ -21,8 +21,11 @@ valid without publishing it. Retain its selected commits in the shared clone und
 
 For explicitly selected but unfinished features, set `ready: false` and a nonempty `pendingReason` in the source
 definition. Selection validation reports these entries; actual preparation stops before fetching or creating a run.
-After the feature's development task commits and pushes a usable revision to its declared repository, review its
-delta base/dependencies and set `ready: true`. Omitted `ready` defaults to true for existing definitions. This flag
+Local completion or a commit does not promote a revision. Only after an explicit user push/promotion request and
+a verified push of a usable revision to its declared repository, review its delta base/dependencies and set
+`ready: true` for that revision. Keep newer unpromoted local work distinct from any already-ready remote revision.
+Follow the [promotion rule](../workflows/update-and-build-scadmaxx.md#push-authorization-and-promotion).
+Omitted `ready` defaults to true for existing definitions. This flag
 records readiness; it does not replace revision, diff, build or behavior verification.
 
 For example, the selected annotations source uses repository `E:/Dropbox/bare_repos/openscad.git` and ref
