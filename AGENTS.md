@@ -16,6 +16,8 @@ the parent container `D:/openscad`. See `docs/layout-migration.md` when resuming
 - For SCADMaxx update/build requests, including "update everything and build a new SCADMaxx", start with
   `workflows/update-and-build-scadmaxx.md`, then `workflows/experimental-builds.md` and `experimental/PR_STACK.md`.
   Only the enabled entries in that manually maintained list belong in a build.
+  Inventory all local branches first, warn about unpushed work, and show the exact selected revisions and
+  exclusions to the user before integrating or compiling; follow the runbook's pre-build reporting steps.
 - Keep commits local unless the user explicitly requests a push for the relevant repository/branch or refs.
   Commit requests, feature completion and update/build requests do not authorize pushes. Promotion into the
   future-build input repository is a separate explicit user decision; see `workflows/update-and-build-scadmaxx.md`.

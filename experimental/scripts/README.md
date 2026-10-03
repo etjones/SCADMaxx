@@ -9,9 +9,13 @@ for the remaining Windows desktop and clean-machine verification limits.
 
 ## Prepare a fresh run
 
-First reconcile controls and check promoted inputs in [the update/build runbook](../../workflows/update-and-build-scadmaxx.md).
+First inventory all local source/control branches, report unpushed work, reconcile controls and check promoted
+inputs in [the update/build runbook](../../workflows/update-and-build-scadmaxx.md).
 The preparation script reads the declared repositories; it does not push newer feature-worktree commits to their
 bare origins, pull/rebase development checkouts, or switch a local source to GitHub automatically.
+The agent must perform and save this inventory; `-ValidateOnly` validates selection metadata, not push status.
+After preparation, show the user the exact `inputs.json` composition and excluded local commits/dirty work before
+running integration or build commands. The preparation script does not replace this user-facing report.
 
 New integration branches/worktrees must follow the
 [SCADMaxx naming rule](../../docs/git-layout.md#integration-branch-and-worktree-names):

@@ -7,11 +7,36 @@ Finished (UTC):
 Requested scope:
 Profile status: establishing | previously verified (reference) | verified this run
 
+## Pre-build branch inventory
+
+- Observation time / repositories inspected / common Git directories deduplicated:
+- Comparison refs fetched / failures or unverified comparisons:
+- Worktrees, detached heads and dirty-file evidence:
+- User-facing preliminary warning/report delivered:
+
+| Repository / local branch | Worktree(s) | Local head | Comparison repository/ref / remote head | Local-only / remote-only counts | State | Selected for this run? | Local-only commit list / dirty evidence |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+
+Include every local source/control branch, not only selected or checked-out branches. Compare against declared
+promotion refs as well as upstreams where they differ. Distinguish absent/unverified comparisons from equal heads.
+
+## Exact composition notice before building
+
+- User-facing frozen-input report delivered before baseline/integration/compilation:
+- Upstream SHA / control revision and dirty snapshot:
+- Unpushed local commits and dirty work excluded from the build (or explicitly none):
+- Differences since inventory / refreshed comparisons:
+- Unresolved revision choices / explicit user decision when required:
+- Any separately authorized promotion: user request, repository/ref, exact revision, verification:
+
+| Order / entry | Declared repository/ref | Pinned or latest | Locked head | Delta base | Dependencies / readiness | Local head / excluded commits |
+| --- | --- | --- | --- | --- | --- | --- |
+
 ## Locked inputs
 
 - Workspace origin fetch / control reconciliation decision:
-- Per selected feature: declared repository/ref, local committed head if present, remote head before/after sync,
-  ahead/behind/divergence result, readiness, excluded dirty state, synchronization command/result:
+- Per selected feature: declared repository/ref, local committed head if present, observed promoted remote head,
+  ahead/behind/divergence result, readiness, excluded dirty state, comparison commands/results:
 
 - PR stack snapshot path and SHA-256:
 - Control repository commit (or not initialized) / dirty state / complete control snapshot and hashes:

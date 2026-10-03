@@ -45,6 +45,48 @@ entry in the manually selected PR stack. Record local completion separately from
 When explicitly authorized, review the outgoing range, use the named remote and exact refspec, push without
 force, and verify the remote object ID. Do not add automatic pushes to hooks, scripts or completion workflows.
 
+## 0. Inventory all local branches before preparing a build
+
+Start every fresh integrated-build request with an inventory, not just the selected feature checkouts.
+Inspect the control repository, the shared `openscad-master` repository and every other local source repository
+identified in `docs/worktrees.md` or the workspace. Enumerate all `refs/heads`, including branches with no checked-out
+worktree. Deduplicate linked worktrees by their common Git directory, but record each worktree's dirty state and
+any detached HEAD. Do not recursively search dependency/build directories for repositories.
+
+Use Git's actual state rather than the historical checkout table. Useful commands for each known repository:
+
+```powershell
+git -C <repository> rev-parse --git-common-dir
+git -C <repository> worktree list --porcelain
+git -C <repository> for-each-ref --format='%(refname:short)|%(objectname)|%(upstream)|%(upstream:track)' refs/heads/
+git -C <worktree> status --short
+```
+
+The upstream tracking column is only an initial hint: it can be stale or refer to upstream GitHub rather than
+the private promotion destination. Fetch the relevant known comparison refs without merging, resetting or pushing.
+For selected features, compare against the exact repository/ref in `SOURCES.json`; for other branches, report
+their configured upstream and promotion destination where known. Compare both when they differ. Do not guess
+that a branch is pushed merely because its upstream is current. If a remote cannot be inspected, mark the result
+unverified and explain the failure; do not report it as synchronized.
+
+For each comparison, record full local and remote SHAs, ahead/behind counts and local-only commit subjects:
+
+```powershell
+git -C <repository> rev-list --left-right --count <local-sha>...<remote-sha>
+git -C <repository> log --format='%H %s' <remote-sha>..<local-sha>
+```
+
+The left count is local-only, the right remote-only. Classify equal, ahead, behind, diverged, missing remote ref,
+or no configured comparison. A branch with no remote ref is unpromoted, not zero commits ahead. A branch with
+no upstream still needs its declared promotion-ref check when selected. List dirty files separately from commits;
+neither staged edits nor untracked files are automatically build inputs. Do not inventory unrelated user repositories.
+
+Save the inventory with an observation time in the run evidence. Before preparation, present a user-facing summary:
+which branches have unpushed commits (counts, heads and subjects), which are selected, which are excluded, and which
+comparisons are missing/diverged/unverified. Include a clean result explicitly when no local-only work exists.
+The complete branch table may be an attached report; make selected-source warnings visible in the message itself.
+Use the matching tables in `experimental/templates/run-report.md`. Do not start a build as part of this inventory.
+
 ## 1. Reconcile the workspace controls
 
 Inspect workspace status, staged changes and ongoing tasks before fetching its local origin. Fetching is safe for
@@ -73,7 +115,7 @@ an inspection ref and compare it with the matching local feature branch. Use ful
 | State | Action |
 | --- | --- |
 | Local and bare heads match | Lock the declared bare ref in the new run |
-| Local branch contains newer committed feature work | Report the unpromoted local head and preserve it. Lock the already-promoted bare revision if it still satisfies the selected build; if the task requires the newer revision, obtain explicit promotion authorization before proceeding |
+| Local branch contains newer committed feature work | Warn that the build will exclude the listed local-only commits and identify the promoted revision it will use. If the requested build clearly allows that revision, lock it; if the intended revision is unclear or newer work is required, ask the user to choose the promoted revision or explicitly authorize promotion, then stop for the answer |
 | Bare branch is ahead | Build from the newer declared bare ref; do not reset or merge into an occupied feature checkout |
 | Local branch or checkout is absent | Use the declared ready source if available; a build need not have every development checkout |
 | Histories diverge, source ref is missing, or newer commits have unclear readiness | Stop and report the affected feature; no force-push or fallback source |
@@ -97,7 +139,22 @@ repository/ref, locks full head/base SHAs, retains refs under `refs/experimental
 patches and original commit identities, and creates the isolated integration worktree. It does not perform the
 control reconciliation and promoted-input checks above; the agent must complete and record those first.
 
-Record the source synchronization decisions in the run report. Freeze `PR_STACK.md`, `SOURCES.json`, applicable
+### Show the exact build composition before integration or compilation
+
+After preparation resolves `latest` and writes `inputs.json`, present the frozen composition to the user before
+any baseline build, integration or compilation. Preparation may fetch and create a worktree; it is not the build.
+Show the exact upstream SHA, control revision/dirty snapshot, and every enabled entry in order with its declared
+repository/ref, locked head, delta base, readiness and dependencies. Distinguish a pinned revision from the current
+remote tip. Explicitly list unpushed local commits and dirty work that will be excluded, including selected branches
+whose local HEAD differs from the locked input. Never summarize such a build as containing "all latest local work".
+
+Record this notice and the inventory in the run report. Compare the frozen SHAs with the preliminary inventory;
+if a ref moved, refresh the affected comparison and warn about the actual locked revision before continuing.
+Repeat the check when resuming if local or remote state has changed, while preserving the frozen inputs.
+No generic confirmation is needed for a composition that clearly matches the user's request, but unresolved
+revision choices require an explicit answer. Warnings, silence and a build request never authorize a push.
+
+Record promoted and excluded local source revisions in the run report. Freeze `PR_STACK.md`, `SOURCES.json`, applicable
 repair records, profile, scripts and instructions with hashes. Do not refetch or change selections halfway through
 a run. If inputs must change, preserve the failed/abandoned attempt and start a new run ID.
 

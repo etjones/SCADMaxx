@@ -1,7 +1,7 @@
 # Experimental Windows build workflow
 
 Use this workflow only when a build run is requested. First follow
-[the fresh-chat update/build runbook](update-and-build-scadmaxx.md) for control and source synchronization.
+[the fresh-chat update/build runbook](update-and-build-scadmaxx.md) for the full branch inventory and promoted-input checks.
 Read `../experimental/PR_STACK.md` as the authoritative input.
 Use the shared git-workflow skill for commits. Use the [executable tools](../experimental/scripts/README.md) for
 preparation and build steps. Integration review and repairs remain agent-operated; record actual commands and
@@ -14,7 +14,9 @@ Read the [input and integration contract](../experimental/integration-inputs.md)
 
 ## Prepare and lock
 
-1. Inspect existing worktrees, processes, remotes, branch status, and submodules. Preserve user work.
+1. Complete the runbook's inventory of all local source/control branches, including unchecked-out branches,
+   independent source repositories and dirty/detached worktrees. Report unpushed commits and selected-source
+   exclusions to the user before preparation. Inspect processes, remotes and submodules; preserve user work.
    Check selected feature readiness in `SOURCES.json` first. If any selected source is marked `ready: false`,
    stop preparation and report its pending reason; do not omit it or commit another task's unfinished work.
 2. Create `runs/<run-id>/` and copy `experimental/templates/run-report.md` as its report. Save an exact copy of
@@ -32,6 +34,8 @@ Read the [input and integration contract](../experimental/integration-inputs.md)
    including selected variants and partially integrated upstream changes. Document any reviewed residual patch.
    If an entry cannot be applied as selected, record the reason and stop rather than silently omitting it.
    An entry proven to be contained in the locked upstream base is recorded as already present and needs no replay.
+   Present the exact frozen composition and excluded local work to the user as required by the runbook before
+   integrating or compiling anything, including the baseline. Resolve ambiguous revision choices before proceeding.
 5. Create an isolated worktree from the shared `openscad-master` clone, following the workspace guide's standard workflow,
    with a `scadmaxx-YYYYMMDD` branch and `wt-scadmaxx-YYYYMMDD` directory at the locked upstream master SHA.
    Follow the [creation-date and collision naming rule](../docs/git-layout.md#integration-branch-and-worktree-names).
