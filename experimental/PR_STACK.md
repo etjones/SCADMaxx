@@ -36,8 +36,22 @@ It defines source synchronization and the handoff required when each feature bec
 | 6 | http-agent-server | feature | http-agent-server-local | latest | 85829fa71870c4aa6945d3cd4abbc932faeab392 | navigation-cube, annotations | HTTP endpoint / agent server for OpenSCAD automation |
 | 7 | pr-6081 | pr | https://github.com/openscad/openscad/pull/6081 | latest | auto-merge-base | none declared | OEP8a object literals and object comprehensions |
 | 8 | pr-6642-oep8 | pr-variant | pr-6642-oep8-local | latest | 612e684c2cbbcdcb9a7a8307973f33fd910f9c17 | pr-6081 | Native Customizer attributes using fixed OEP8-style key: value entries |
+| 9 | source-editing-foundation | feature | source-editing-foundation-local | 3131a23d6ec04f4405952d8804a41dd8296b2dc5 | 179f2d528ef32bfcdde3ad70f3094a1a2472a8c6 | http-agent-server | Guarded source transactions and source lifecycle |
+| 10 | selection-model-inspector | feature | selection-model-inspector-local | e2b3a49470b67f46b433762bdd8d49aa8be7147e | b611584e013b8b4dbee123d62fabe9621b4bc137 | http-agent-server | Geometric picking and shared inspection presentation |
+| 11 | vim-editor-mode | feature | vim-editor-mode-local | 1c48233689c4582754784c66fd23ed4273d56981 | 657aeead6534583964bec8797ae99f445404714c | source-editing-foundation, pr-6878 | Native Vim editing without GTK or GLib |
+| 12 | source-geometry-provenance | feature | source-geometry-provenance-local | bb68db75a8d0fb259d17f50322306007d3750ebe | 6c8d2634c9de02265166464a1ab89fbb09eab6b8 | source-editing-foundation, selection-model-inspector, pr-6642-oep8 | Source spans and evaluated instance provenance |
+| 13 | design-object-persistence | feature | design-object-persistence-local | 015aa3172759c00979830ab178cc3515b4e7fd50 | 0b7edfd57110dead25670bfbb83b743a2abf330a | source-editing-foundation, selection-model-inspector, pr-6642-oep8 | Typed design objects stored in SCAD source |
+| 14 | live-clipping-sections | feature | live-clipping-sections-local | 3e81b46a59f929870e7066e40dcf3809f4d9a2d6 | 2878c9234181f6a9cfadbd93af0e00dfc37ec42a | design-object-persistence | Live clipping planes and saved sections |
+| 15 | geometry-services | feature | geometry-services-local | 4e1286c7b362f84e920a21ba65e13042178a6fea | e95c9bd5662f20e6df671889a3351c28a6b0f90e | none declared | Strict in-memory measurement and section services |
+| 16 | component-provider-adapters | feature | component-provider-adapters-local | 9d0cb2097efcac6856ae5dafb31a642803ec32d7 | 35145c58c2b7c018158ce010ac18f8564a192923 | none declared | Version-matched component catalogs and source generation |
+| 17 | semantic-foundation-followups | feature | semantic-model-hierarchy-local | e1d33c876493ed7bbe0dc61c3183280f0347e4d2 | 29c7ce594716b0fb2bb851b685113cd9248496bc | source-geometry-provenance, design-object-persistence | Captured evaluation jobs source navigation edit guards and reference validation |
+| 18 | semantic-model-hierarchy | feature | semantic-model-hierarchy-local | 7e50bf157b4993ef183019e1e26e00ebd919b58f | e1d33c876493ed7bbe0dc61c3183280f0347e4d2 | semantic-foundation-followups | Parts Assemblies Components and scoped parameters |
+| 19 | anchor-foundation-followups | feature | anchors-attachments-local | af0948f5d9711dc7f9336f6e08ffce21aba87364 | b223fe6702d13debc53f7c1d8ecec5ae53006131 | semantic-model-hierarchy | Scoped consumer lifecycle placement extension hooks and inspection fixes |
+| 20 | anchors-attachments | feature | anchors-attachments-local | 629a6d7c809d7493583451f6a7b3ca3bb5e057b8 | af0948f5d9711dc7f9336f6e08ffce21aba87364 | anchor-foundation-followups | Typed anchors references and attachment placement |
+| 21 | insertion-foundation-followups | feature | contextual-insertion-local | 2895ab7f882ca65a4b4fe35fc726ae7f74e1b43b | 5c5d75b133af95f90763853992bf90b62fd308dc | anchors-attachments, component-provider-adapters, pr-6878 | Sealed draft inputs focus groups parser guards ownership checks and Windows unit manifest |
+| 22 | contextual-insertion | feature | contextual-insertion-local | 9db25842df0c3d7aad6a26bd6d96a7da86d189fe | 2895ab7f882ca65a4b4fe35fc726ae7f74e1b43b | insertion-foundation-followups | Searchable insertion palette isolated preview and guarded Commit |
 
-Selected by the user on 2026-09-30. Both PRs were open and unmerged when checked against GitHub on that date.
+The first two entries were selected by the user on 2026-09-30. Both PRs were open and unmerged when checked against GitHub on that date.
 PR #6878 is the updated version of the older Shortcuts GUI PR #3338. Resolve fresh heads and validate dependencies
 at run start; this selection does not pin today's commits or include uncommitted local fixes.
 
@@ -53,6 +67,29 @@ The UI source is verified at `8f5b3ae4707a8718db28722deb2fd723fd9415ab`. Apply o
 repairs. It depends on the selected `pr-6776`; review newer dependency revisions during composition and apply
 applicable baseline repairs separately. See the [complete audit and handoff](../.plans/3_done/2026-10-01_ui-preferences-dialog-polish/5_post-implementation-notes.md).
 Do not replay the full branch or silently substitute a local variant for the selected upstream PR.
+
+## Source-first feature selection, 2026-10-04
+
+The user selected all twelve completed features and requested local commits. Entries 9-22 select the eleven native
+features and three separately bounded foundation-follow-up groups, in dependency order. Revisions are pinned to the
+verified local commits. The shared follow-up entries use ancestor revisions on their consumer's branch; they are
+separate deltas, not additional copies of the consumer or its whole prerequisite composition.
+
+These new sources are selected but `ready: false`: their commits have not been promoted to the declared Dropbox
+repositories. Preparation must report that state and stop, not omit them or silently substitute local worktrees.
+See [the local commit ledger](source-first-local-commits.md) for feature heads, delta bases, retained prerequisites,
+follow-up boundaries and verification. Original feature handoffs describe the same tested source before committing.
+Features 09/10/13 remain postponed, 16 remains exploration-only, and the separate evaluation-performance experiment
+is not selected by this request.
+
+### Selected skill/package companion: feature 01
+
+`agent-skill-workflows-local` in `SOURCES.json` selects feature 01 from the control repository. Its pinned head and
+delta base are in the local commit ledger. This is part of the requested delivery, not an OpenSCAD source patch.
+Before the next build, promote the explicitly authorized revision and incorporate its reviewed control/skill delta
+into the build controls, then freeze those controls and run the companion Stage/Package checks with the new binary.
+Do not apply it to the native source tree or assume registration alone has updated the currently checked-out scripts.
+Its source registration remains pending; no packaging implementation or integrated acceptance is claimed here.
 
 ## HTTP agent-server feature handoff
 

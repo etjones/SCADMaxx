@@ -39,5 +39,137 @@
     "pendingReason": null,
     "validatedHead": "6a5dc9d1555cbcf9f1f8a359f37f68f5448f44a1",
     "handoff": ".plans/2_in-progress/2026-10-02_agent-direct-http/5_post-implementation-notes.md"
+  },
+  "source-editing-foundation-local": {
+    "repository": "E:/Dropbox/bare_repos/openscad.git",
+    "ref": "refs/heads/feature/source-editing-foundation",
+    "ready": false,
+    "pendingReason": "Locally committed and verified at 3131a23d6ec04f4405952d8804a41dd8296b2dc5; awaits explicit promotion to the declared repository. No push authorized.",
+    "validatedHead": "3131a23d6ec04f4405952d8804a41dd8296b2dc5",
+    "localHead": "3131a23d6ec04f4405952d8804a41dd8296b2dc5",
+    "deltaBase": "179f2d528ef32bfcdde3ad70f3094a1a2472a8c6",
+    "handoff": ".plans/1_planning/2026-10-03_02_source-editing-foundation/5_post-implementation-notes.md",
+    "localCommitRecord": "experimental/source-first-local-commits.md"
+  },
+  "selection-model-inspector-local": {
+    "repository": "E:/Dropbox/bare_repos/openscad.git",
+    "ref": "refs/heads/feature/selection-model-inspector",
+    "ready": false,
+    "pendingReason": "Locally committed and verified at e2b3a49470b67f46b433762bdd8d49aa8be7147e; awaits explicit promotion to the declared repository. No push authorized.",
+    "validatedHead": "e2b3a49470b67f46b433762bdd8d49aa8be7147e",
+    "localHead": "e2b3a49470b67f46b433762bdd8d49aa8be7147e",
+    "deltaBase": "b611584e013b8b4dbee123d62fabe9621b4bc137",
+    "handoff": ".plans/1_planning/2026-10-03_03_selection-model-inspector/5_post-implementation-notes.md",
+    "localCommitRecord": "experimental/source-first-local-commits.md"
+  },
+  "vim-editor-mode-local": {
+    "repository": "E:/Dropbox/bare_repos/openscad.git",
+    "ref": "refs/heads/feature/vim-editor-mode",
+    "ready": false,
+    "pendingReason": "Locally committed and verified at 1c48233689c4582754784c66fd23ed4273d56981; awaits explicit promotion to the declared repository. No push authorized.",
+    "validatedHead": "1c48233689c4582754784c66fd23ed4273d56981",
+    "localHead": "1c48233689c4582754784c66fd23ed4273d56981",
+    "deltaBase": "657aeead6534583964bec8797ae99f445404714c",
+    "handoff": ".plans/1_planning/2026-10-03_05_vim-editor-mode/5_post-implementation-notes.md",
+    "localCommitRecord": "experimental/source-first-local-commits.md"
+  },
+  "source-geometry-provenance-local": {
+    "repository": "E:/Dropbox/bare_repos/openscad.git",
+    "ref": "refs/heads/feature/source-geometry-provenance",
+    "ready": false,
+    "pendingReason": "Locally committed and verified at bb68db75a8d0fb259d17f50322306007d3750ebe; awaits explicit promotion to the declared repository. No push authorized.",
+    "validatedHead": "bb68db75a8d0fb259d17f50322306007d3750ebe",
+    "localHead": "bb68db75a8d0fb259d17f50322306007d3750ebe",
+    "deltaBase": "6c8d2634c9de02265166464a1ab89fbb09eab6b8",
+    "handoff": ".plans/1_planning/2026-10-03_06_source-geometry-provenance/5_post-implementation-notes.md",
+    "localCommitRecord": "experimental/source-first-local-commits.md"
+  },
+  "design-object-persistence-local": {
+    "repository": "E:/Dropbox/bare_repos/openscad.git",
+    "ref": "refs/heads/feature/design-object-persistence",
+    "ready": false,
+    "pendingReason": "Locally committed and verified at 015aa3172759c00979830ab178cc3515b4e7fd50; awaits explicit promotion to the declared repository. No push authorized.",
+    "validatedHead": "015aa3172759c00979830ab178cc3515b4e7fd50",
+    "localHead": "015aa3172759c00979830ab178cc3515b4e7fd50",
+    "deltaBase": "0b7edfd57110dead25670bfbb83b743a2abf330a",
+    "handoff": ".plans/1_planning/2026-10-03_14_design-object-persistence/5_post-implementation-notes.md",
+    "localCommitRecord": "experimental/source-first-local-commits.md"
+  },
+  "live-clipping-sections-local": {
+    "repository": "E:/Dropbox/bare_repos/openscad.git",
+    "ref": "refs/heads/feature/live-clipping-sections",
+    "ready": false,
+    "pendingReason": "Locally committed and verified at 3e81b46a59f929870e7066e40dcf3809f4d9a2d6; awaits explicit promotion to the declared repository. No push authorized.",
+    "validatedHead": "3e81b46a59f929870e7066e40dcf3809f4d9a2d6",
+    "localHead": "3e81b46a59f929870e7066e40dcf3809f4d9a2d6",
+    "deltaBase": "2878c9234181f6a9cfadbd93af0e00dfc37ec42a",
+    "handoff": ".plans/1_planning/2026-10-03_04_live-clipping-sections/5_post-implementation-notes.md",
+    "localCommitRecord": "experimental/source-first-local-commits.md"
+  },
+  "geometry-services-local": {
+    "repository": "E:/Dropbox/bare_repos/openscad.git",
+    "ref": "refs/heads/feature/geometry-services",
+    "ready": false,
+    "pendingReason": "Locally committed and verified at 4e1286c7b362f84e920a21ba65e13042178a6fea; awaits explicit promotion to the declared repository. No push authorized.",
+    "validatedHead": "4e1286c7b362f84e920a21ba65e13042178a6fea",
+    "localHead": "4e1286c7b362f84e920a21ba65e13042178a6fea",
+    "deltaBase": "e95c9bd5662f20e6df671889a3351c28a6b0f90e",
+    "handoff": ".plans/1_planning/2026-10-03_15_geometry-services/5_post-implementation-notes.md",
+    "localCommitRecord": "experimental/source-first-local-commits.md"
+  },
+  "component-provider-adapters-local": {
+    "repository": "E:/Dropbox/bare_repos/openscad.git",
+    "ref": "refs/heads/feature/component-provider-adapters",
+    "ready": false,
+    "pendingReason": "Locally committed and verified at 9d0cb2097efcac6856ae5dafb31a642803ec32d7; awaits explicit promotion to the declared repository. No push authorized.",
+    "validatedHead": "9d0cb2097efcac6856ae5dafb31a642803ec32d7",
+    "localHead": "9d0cb2097efcac6856ae5dafb31a642803ec32d7",
+    "deltaBase": "35145c58c2b7c018158ce010ac18f8564a192923",
+    "handoff": ".plans/3_done/2026-10-03_11_component-provider-adapters/5_post-implementation-notes.md",
+    "localCommitRecord": "experimental/source-first-local-commits.md"
+  },
+  "semantic-model-hierarchy-local": {
+    "repository": "E:/Dropbox/bare_repos/openscad.git",
+    "ref": "refs/heads/feature/semantic-model-hierarchy",
+    "ready": false,
+    "pendingReason": "Locally committed and verified at 7e50bf157b4993ef183019e1e26e00ebd919b58f; awaits explicit promotion to the declared repository. No push authorized.",
+    "validatedHead": "7e50bf157b4993ef183019e1e26e00ebd919b58f",
+    "localHead": "7e50bf157b4993ef183019e1e26e00ebd919b58f",
+    "deltaBase": "e1d33c876493ed7bbe0dc61c3183280f0347e4d2",
+    "handoff": ".plans/3_done/2026-10-03_07_semantic-model-hierarchy/5_post-implementation-notes.md",
+    "localCommitRecord": "experimental/source-first-local-commits.md"
+  },
+  "anchors-attachments-local": {
+    "repository": "E:/Dropbox/bare_repos/openscad.git",
+    "ref": "refs/heads/feature/anchors-attachments",
+    "ready": false,
+    "pendingReason": "Locally committed and verified at 629a6d7c809d7493583451f6a7b3ca3bb5e057b8; awaits explicit promotion to the declared repository. No push authorized.",
+    "validatedHead": "629a6d7c809d7493583451f6a7b3ca3bb5e057b8",
+    "localHead": "629a6d7c809d7493583451f6a7b3ca3bb5e057b8",
+    "deltaBase": "af0948f5d9711dc7f9336f6e08ffce21aba87364",
+    "handoff": ".plans/3_done/2026-10-03_08_anchors-attachments/5_post-implementation-notes.md",
+    "localCommitRecord": "experimental/source-first-local-commits.md"
+  },
+  "contextual-insertion-local": {
+    "repository": "E:/Dropbox/bare_repos/openscad.git",
+    "ref": "refs/heads/feature/contextual-insertion",
+    "ready": false,
+    "pendingReason": "Locally committed and verified at 9db25842df0c3d7aad6a26bd6d96a7da86d189fe; awaits explicit promotion to the declared repository. No push authorized.",
+    "validatedHead": "9db25842df0c3d7aad6a26bd6d96a7da86d189fe",
+    "localHead": "9db25842df0c3d7aad6a26bd6d96a7da86d189fe",
+    "deltaBase": "2895ab7f882ca65a4b4fe35fc726ae7f74e1b43b",
+    "handoff": ".plans/3_done/2026-10-03_12_contextual-insertion/5_post-implementation-notes.md",
+    "localCommitRecord": "experimental/source-first-local-commits.md"
+  },
+  "agent-skill-workflows-local": {
+    "repository": "E:/Dropbox/bare_repos/scadmaxx.git",
+    "ref": "refs/heads/feature/agent-skill-workflows",
+    "ready": false,
+    "pendingReason": "Locally committed at 4e5fe1b611d2ec4e6a77337511a71f1c965c3732; control/skill companion awaits explicit promotion and packaging integration.",
+    "validatedHead": "4e5fe1b611d2ec4e6a77337511a71f1c965c3732",
+    "localHead": "4e5fe1b611d2ec4e6a77337511a71f1c965c3732",
+    "deltaBase": "af7a0882deab83c0970360ea343e0689617eacaf",
+    "handoff": ".plans/1_planning/2026-10-03_01_agent-skill-workflows/5_post-implementation-notes.md",
+    "localCommitRecord": "experimental/source-first-local-commits.md"
   }
 }
