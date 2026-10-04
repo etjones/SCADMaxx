@@ -75,8 +75,8 @@ features and three separately bounded foundation-follow-up groups, in dependency
 verified local commits. The shared follow-up entries use ancestor revisions on their consumer's branch; they are
 separate deltas, not additional copies of the consumer or its whole prerequisite composition.
 
-These new sources are selected but `ready: false`: their commits have not been promoted to the declared Dropbox
-repositories. Preparation must report that state and stop, not omit them or silently substitute local worktrees.
+These new sources are selected and `ready: true`: the user subsequently authorized their pushes to the declared
+Dropbox repositories, and all twelve remote feature heads were verified against the pinned local commits.
 See [the local commit ledger](source-first-local-commits.md) for feature heads, delta bases, retained prerequisites,
 follow-up boundaries and verification. Original feature handoffs describe the same tested source before committing.
 Features 09/10/13 remain postponed, 16 remains exploration-only, and the separate evaluation-performance experiment
@@ -86,10 +86,10 @@ is not selected by this request.
 
 `agent-skill-workflows-local` in `SOURCES.json` selects feature 01 from the control repository. Its pinned head and
 delta base are in the local commit ledger. This is part of the requested delivery, not an OpenSCAD source patch.
-Before the next build, promote the explicitly authorized revision and incorporate its reviewed control/skill delta
+Before the next build, incorporate the promoted revision's reviewed control/skill delta
 into the build controls, then freeze those controls and run the companion Stage/Package checks with the new binary.
 Do not apply it to the native source tree or assume registration alone has updated the currently checked-out scripts.
-Its source registration remains pending; no packaging implementation or integrated acceptance is claimed here.
+Its promoted source is ready; application to build controls and integrated packaging acceptance remain build work.
 
 ## HTTP agent-server feature handoff
 

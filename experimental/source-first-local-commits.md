@@ -1,7 +1,8 @@
 # Source-first features: local commits and build selection
 
 Recorded 2026-10-04 after explicit authorization to commit completed features locally and select them for the build.
-No push, promotion, integrated build or release was performed. This record supersedes the uncommitted-state wording
+At initial recording, no push, promotion, integrated build or release had been performed. The later authorized
+promotion is recorded below. This record supersedes the uncommitted-state wording
 in the original feature handoffs; their tested patch identities and verification limits remain authoritative.
 
 ## Committed feature boundaries
@@ -47,7 +48,7 @@ Detailed preparation, per-feature patch SHA-256 values and committed trees are r
 unit, DPI and selected composition evidence. This was a commit/selection operation: no build or behavior tests
 were rerun and no new integrated binary was produced.
 
-Registry readiness remains false until explicit promotion to its declared repository. No remote refs changed.
+At initial recording, registry readiness remained false pending explicit promotion; no remote refs had changed.
 Unrelated dirty controls, README edits, planning work and the performance experiment were preserved.
 
 The next integration must review newer upstream/prerequisite overlaps and apply required Windows repairs separately.
@@ -55,3 +56,15 @@ The source feature heads identify the tested code; they do not establish clean-m
 
 Selection validation passed: 22 ordered native entries, including 14 newly selected entries awaiting promotion.
 All twelve final Git trees match the prepared snapshots; feature diff statistics match the recorded feature patches.
+
+## Subsequent user-authorized promotion
+
+The user explicitly requested pushing these repositories' feature branches to their Dropbox bare origins.
+All eleven native feature branches were pushed without force to `E:/Dropbox/bare_repos/openscad.git`;
+`feature/agent-skill-workflows` was pushed to `E:/Dropbox/bare_repos/scadmaxx.git`.
+Every remote feature head was read back and matches the exact SHA in the table above. Foundation follow-up commits
+are retained as ancestors of the pushed consumer branches. `SOURCES.json` now records these sources as ready.
+The verification record is `D:/openscad/runs/20261004-feature-local-commits/promotion-verification.json`.
+The build selection and readiness controls are committed and pushed separately on control `main`.
+Feature 01 still needs its selected control/skill delta incorporated during build preparation. No integrated build,
+release, GitHub publication or push of unrelated feature branches is part of this promotion.
