@@ -2,13 +2,22 @@
 
 *OpenSCAD, with the sliders turned up.*
 
-SCADMaxx combines regular OpenSCAD with additional features and selected upstream patches.
+SCADMaxx is not a fork of OpenSCAD. It is a build of openscad-master with a collection of experimental patches. These
+patches are PR's from OpenSCAD's Github as well as other features that (source code wise) aren't in a state to be merged
+and are only to be taken as implementations to investigate in terms of functionality, usability and so on.
+
+SCADMaxx makes no promises on language compatibility or what features will be in the next version.
+
+That said, I personally use SCADMaxx for everything I do with OpenSCAD. Its agentic implementation details range from
+'obvious' to 'still visible', but it's perfectly usable in terms of stability.
+
 This repository holds the build recipes, tools, prompts and documentation used to assemble it.
 
 <!-- Hand-maintained by the user. Agents must not regenerate or update this README unless explicitly asked. -->
 
-Click any screenshot to open the full-size image. The examples below use the first integrated SCADMaxx build;
-the UI comparisons also show regular OpenSCAD with the same model and layout.
+Here is a list of what SCADMaxx has or does over OpenSCAD master (everything compares to the latest dev builds from
+master since the regular release is so old and missing things that master has, that it's basically irrelevant at this
+point):
 
 ## New features
 
@@ -16,12 +25,14 @@ the UI comparisons also show regular OpenSCAD with the same model and layout.
 
 <a href="docs/screenshots/annotations.png"><img align="left" hspace="16" width="320" src="docs/screenshots/annotations.png" alt="Red annotation around a mounting hole that breaks through the bracket edge, with drawing tools and defect comment dialog visible"></a>
 
+Ever found yourself going in a circle of having your agent change a model, previewing changes in OpenSCAD, 
+describing what the issue is and where it happens on the model; or taking a screenshot, pasting into Paint, and
+then pasting that back into your agent? Well, no more! Annotate your views straight in SCADMaxx itself!
+
 - Draw directly on the viewport and attach comments to captured images.
 - Browse, search and edit annotations, or restore an annotation's camera view.
-- Save annotations alongside the SCAD document, with undo/redo support.
-- Give local agents access to annotation evidence through an optional API and Python client.
-
-*Mark a defect on the model and explain what needs to change.*
+- Save annotations alongside the SCAD document.
+- Local agents directly access your annotations through an HTTP API, and remove it when the issue is fixed, if you want.
 
 <br clear="both">
 
@@ -32,20 +43,9 @@ the UI comparisons also show regular OpenSCAD with the same model and layout.
 - Click cube faces, edges and corners to select a view.
 - Orbit freely, rotate in steps and switch between perspective and orthographic projection.
 - Save, name and recall document-specific camera views.
-- Adjust camera transitions and viewport information overlays.
-
-*The cube follows the camera and provides direct view selection.*
+- Additional (optional) viewport information overlays.
 
 <br clear="both">
-
-<details>
-<summary>See saved views and viewport controls</summary>
-
-<a href="docs/screenshots/navigation-menu.png"><img width="480" src="docs/screenshots/navigation-menu.png" alt="Bracket viewport with navigation menu expanded, showing projection, display and saved-view controls"></a>
-
-*Keep useful camera positions with the document.*
-
-</details>
 
 ### Agent access
 
@@ -54,10 +54,7 @@ the UI comparisons also show regular OpenSCAD with the same model and layout.
 - Enable a local HTTP API for inspecting open documents and application state.
 - Read source snapshots, syntax trees, diagnostics and annotations.
 - Control the camera, capture viewport images and access native saved views.
-- Use the bundled Python client and agent workflow instructions.
 - Work through external file edits and reloads; the API does not write source files or force evaluation.
-
-*Enable local access and copy connection information from the application.*
 
 <br clear="both">
 
@@ -71,8 +68,6 @@ the UI comparisons also show regular OpenSCAD with the same model and layout.
 - Native Preferences tabs and improved spacing and readability across dialogs.
 - Independent editor and console content fonts.
 
-*SCADMaxx: clearer controls and a quieter Customizer.*
-
 <br clear="both">
 
 <details>
@@ -83,9 +78,15 @@ the UI comparisons also show regular OpenSCAD with the same model and layout.
 | <a href="docs/screenshots/ui-before.png"><img width="400" src="docs/screenshots/ui-before.png" alt="Regular OpenSCAD toolbar and Customizer"></a> | <a href="docs/screenshots/ui-after.png"><img width="400" src="docs/screenshots/ui-after.png" alt="SCADMaxx toolbar and Customizer with the same bracket"></a> |
 | <a href="docs/screenshots/preferences-before.png"><img width="300" src="docs/screenshots/preferences-before.png" alt="Regular OpenSCAD Advanced Preferences"></a> | <a href="docs/screenshots/preferences-after.png"><img width="300" src="docs/screenshots/preferences-after.png" alt="SCADMaxx Advanced Preferences with updated tabs, fonts and spacing"></a> |
 
-*Matched model, camera, window size and display scale. The Customizer shows each version's default presentation.*
-
 </details>
+
+### OpenSCAD skill
+
+- Instructions on how to build clean models, how to do chamfers and fillets.
+- How to work with Agent Annotations.
+- Work with SCADMaxx specific language features.
+
+<br clear="both">
 
 ### SCADMaxx Launcher
 
@@ -93,11 +94,8 @@ the UI comparisons also show regular OpenSCAD with the same model and layout.
 
 - Manage multiple installed OpenSCAD and SCADMaxx builds in one place.
 - Choose which build opens files for each configured extension.
-- Discover builds in selected folders and review which ones to include.
-- Switch builds from the system tray, with optional startup at sign-in.
-- Set up file associations through Windows Default Apps.
-
-*A separate Windows companion utility: choose which installed build opens each file type.*
+- Useful if you regularly download development builds (or make them yourself) and want to configure what binary is used
+  to default-open OpenSCAD or SCADMaxx files.
 
 <br clear="both">
 
@@ -107,11 +105,8 @@ the UI comparisons also show regular OpenSCAD with the same model and layout.
 
 <a href="docs/screenshots/shortcuts.png"><img align="right" hspace="16" width="320" src="docs/screenshots/shortcuts.png" alt="Keyboard shortcut preferences listing real file and editing actions and their assigned keys"></a>
 
-- Search actions and assign keyboard shortcuts through the GUI.
+- Assign keyboard shortcuts through the GUI.
 - Handle shortcut conflicts and restore defaults.
-- Apply changes across application windows and retain shortcut settings.
-
-*Find an application action and customize its keyboard shortcuts.*
 
 <br clear="both">
 
@@ -119,11 +114,8 @@ the UI comparisons also show regular OpenSCAD with the same model and layout.
 
 <a href="docs/screenshots/dark-mode.png"><img align="left" hspace="16" width="320" src="docs/screenshots/dark-mode.png" alt="Bracket and Customizer in dark mode"></a>
 
-- Respond to light/dark theme changes while OpenSCAD remains open.
-- Update widget palettes without restarting the application.
-- Provide the theme foundation used by the local UI improvements.
-
-*The same model in dark mode, with a matching dark viewport background.*
+- Much improved handling of theme awareness, including switching themes when the application is running and better use
+  of theme colors.
 
 <details>
 <summary>Compare the matching light theme</summary>
@@ -134,14 +126,20 @@ the UI comparisons also show regular OpenSCAD with the same model and layout.
 
 <br clear="both">
 
-## Build status and documentation
+## Installation
 
-The first integrated Windows x64 editor build includes annotations, navigation, agent access, UI improvements and PRs #6878/#6776.
-Its source is branch `scadmaxx-20261001`, revision `bcf48145d`.
-Screenshots use that integrated source with a documentation-only capture harness.
+Only Windows builds are provided at the moment. If there is demand, I can look into doing cross platform builds. If you
+are on another platform and want to build it yourself, you can also tell your agent to clone this repo and execute the
+procedures described.
 
-- [Screenshot sources and capture details](docs/screenshots/sources.json)
-- [Workspace guide](docs/workspace.md)
-- [Repositories, worktrees and push destinations](docs/git-layout.md)
-- [Selected features and PRs](experimental/PR_STACK.md)
-- [Update and build instructions](workflows/update-and-build-scadmaxx.md)
+Builds are date-based, there is no regular release schedule. Have suggestions for patches or functionality that would
+fit in an experimental build like this? File an issue.
+
+To install, give your agent this prompt:
+
+    Download the latest release zip of SCADMaxx from http://github.com/roel-v/SCADMaxx. Unzip it in a suitable working
+    directory, into a subdirectory thereof with a name derived from the downloaded zip file. Install the agent skill
+    you'll find in that installation folder. Report where you installed it afterward.
+
+Or specify where you want it to install, of course.
+
