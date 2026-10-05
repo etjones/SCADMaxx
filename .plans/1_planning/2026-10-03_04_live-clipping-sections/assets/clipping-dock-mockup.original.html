@@ -1,0 +1,218 @@
+<div id="clip-mock" class="w-full max-w-4xl mx-auto text-base text-[var(--viz-text)]">
+  <div class="grid gap-4 md:grid-cols-[360px_1fr]">
+    <section class="rounded-lg border border-[var(--viz-border)] bg-[var(--viz-panel)] p-3">
+      <div class="flex items-center justify-between gap-3 mb-3">
+        <div>
+          <div class="font-semibold">Clipping</div>
+          <div class="text-sm text-[var(--viz-muted)]">Viewer-only section planes</div>
+        </div>
+        <button id="addClip" type="button" class="px-3 py-2 rounded-md border border-[var(--viz-border)] hover:bg-[var(--viz-card)]">+ Add</button>
+      </div>
+
+      <div id="clipList" class="space-y-1 mb-4"></div>
+
+      <div class="border-t border-[var(--viz-border)] pt-3 space-y-4">
+        <div class="flex items-center gap-2">
+          <input id="clipName" type="text" value="Center section" class="min-w-0 flex-1 rounded-md border border-[var(--viz-border)] bg-transparent px-3 py-2 text-base" aria-label="Clip name">
+          <label class="flex items-center gap-2 text-sm whitespace-nowrap"><input id="enabled" type="checkbox" checked> Enabled</label>
+        </div>
+
+        <div>
+          <div class="text-sm font-medium mb-2">Place from mesh</div>
+          <div class="grid grid-cols-2 gap-2">
+            <button id="pickPoint" type="button" class="rounded-md border border-[var(--viz-border)] px-2 py-2 text-sm">Pick point</button>
+            <button id="pickAlign" type="button" class="rounded-md border border-[var(--viz-border)] px-2 py-2 text-sm">Pick + align</button>
+          </div>
+          <div id="pickState" class="mt-2 text-xs text-[var(--viz-muted)]">Origin: 0.0, 0.0, 42.7 mm</div>
+        </div>
+
+        <div>
+          <div class="text-sm font-medium mb-2">Orientation</div>
+          <div class="grid grid-cols-4 gap-1 mb-3" id="axisButtons">
+            <button type="button" data-axis="XY" class="axisBtn rounded-md border border-[var(--viz-border)] px-2 py-2 text-sm bg-[var(--viz-accent-bg)]">XY</button>
+            <button type="button" data-axis="XZ" class="axisBtn rounded-md border border-[var(--viz-border)] px-2 py-2 text-sm">XZ</button>
+            <button type="button" data-axis="YZ" class="axisBtn rounded-md border border-[var(--viz-border)] px-2 py-2 text-sm">YZ</button>
+            <button type="button" data-axis="Free" class="axisBtn rounded-md border border-[var(--viz-border)] px-2 py-2 text-sm">Free</button>
+          </div>
+
+          <div class="grid grid-cols-[1fr_82px] gap-2 items-center mb-2">
+            <label for="rotation" class="text-sm">Rotation</label>
+            <input id="rotation" type="number" value="0" min="-180" max="180" step="0.5" class="rounded-md border border-[var(--viz-border)] bg-transparent px-2 py-1.5 text-base text-right">
+          </div>
+          <div class="grid grid-cols-[1fr_82px] gap-2 items-center">
+            <label for="tilt" class="text-sm">Tilt</label>
+            <input id="tilt" type="number" value="0" min="-90" max="90" step="0.5" class="rounded-md border border-[var(--viz-border)] bg-transparent px-2 py-1.5 text-base text-right">
+          </div>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label for="position" class="text-sm font-medium">Position along normal</label>
+            <div><input id="positionNumber" type="number" value="42.7" min="-20" max="120" step="0.1" class="w-20 rounded-md border border-[var(--viz-border)] bg-transparent px-2 py-1 text-base text-right"> <span class="text-sm">mm</span></div>
+          </div>
+          <input id="position" type="range" min="-20" max="120" step="0.1" value="42.7" class="w-full">
+          <div class="flex justify-between text-xs text-[var(--viz-muted)]"><span>-20 mm</span><span>Bounding box</span><span>120 mm</span></div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2">
+          <button id="flip" type="button" class="rounded-md border border-[var(--viz-border)] px-2 py-2 text-sm">Flip direction</button>
+          <button id="reset" type="button" class="rounded-md border border-[var(--viz-border)] px-2 py-2 text-sm">Reset orientation</button>
+        </div>
+
+        <div class="space-y-2 text-sm">
+          <label class="flex items-center gap-2"><input id="showPlane" type="checkbox" checked> Show helper plane</label>
+          <label class="flex items-center gap-2"><input id="highlight" type="checkbox" checked> Highlight section boundary</label>
+          <label class="flex items-center gap-2"><input id="cap" type="checkbox"> Cap section when available</label>
+        </div>
+
+        <div class="rounded-md bg-[var(--viz-card)] px-3 py-2 text-xs text-[var(--viz-muted)]">
+          Coplanar model faces are discarded. Moving and rotating clips does not rebuild the SCAD model.
+        </div>
+      </div>
+    </section>
+
+    <section class="rounded-lg border border-[var(--viz-border)] bg-[var(--viz-card)] p-4 min-w-0">
+      <div class="flex items-center justify-between gap-3 mb-3">
+        <div>
+          <div class="font-semibold">Viewport behavior</div>
+          <div id="viewportStatus" class="text-sm text-[var(--viz-muted)]">Center section: XY at 42.7 mm</div>
+        </div>
+        <div id="sideBadge" class="text-xs rounded-full border border-[var(--viz-border)] px-2 py-1">Keep +normal</div>
+      </div>
+
+      <div id="viewport" tabindex="0" class="relative rounded-lg border border-[var(--viz-border)] min-h-[300px] overflow-hidden cursor-crosshair" aria-label="Schematic clipping viewport">
+        <svg viewBox="0 0 500 330" class="w-full h-auto" role="img" aria-label="Schematic model and clipping plane">
+          <polygon points="145,100 330,72 400,120 214,150" fill="var(--viz-series-2)" opacity="0.25"></polygon>
+          <polygon points="145,100 214,150 214,268 145,215" fill="var(--viz-series-3)" opacity="0.35"></polygon>
+          <polygon points="214,150 400,120 400,235 214,268" fill="var(--viz-series-4)" opacity="0.28"></polygon>
+          <polyline points="145,100 330,72 400,120 400,235 214,268 145,215 145,100 214,150 400,120 M214,150 L214,268 M214,150 L330,72" fill="none" stroke="var(--viz-text)" stroke-width="2" opacity="0.55"></polyline>
+          <g id="planeGroup">
+            <polygon id="planeShape" points="105,160 385,118 430,168 150,212" fill="var(--viz-series-5)" opacity="0.32" stroke="var(--viz-text)" stroke-width="2" stroke-dasharray="7 5"></polygon>
+            <circle id="originMarker" cx="265" cy="165" r="6" fill="var(--viz-text)"></circle>
+          </g>
+          <line id="normalLine" x1="265" y1="165" x2="315" y2="125" stroke="var(--viz-text)" stroke-width="3"></line>
+          <polygon id="normalArrow" points="315,125 301,130 308,140" fill="var(--viz-text)"></polygon>
+          <text x="26" y="32" fill="var(--viz-muted)" font-size="13">Schematic preview. Click model while pick mode is active.</text>
+        </svg>
+        <div id="modeOverlay" class="hidden absolute inset-x-3 bottom-3 rounded-md bg-[var(--viz-panel)] border border-[var(--viz-border)] px-3 py-2 text-sm">Click the model to place the clipping plane.</div>
+      </div>
+
+      <div class="mt-4 grid gap-3 sm:grid-cols-2 text-sm">
+        <div>
+          <div class="font-medium">Viewport gizmo</div>
+          <div class="text-[var(--viz-muted)]">Drag the plane along its normal. Rotate with two orientation rings around the picked origin.</div>
+        </div>
+        <div>
+          <div class="font-medium">Multiple enabled clips</div>
+          <div class="text-[var(--viz-muted)]">All enabled planes apply together. Disable a saved plane without deleting it.</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+  (() => {
+    const root = document.getElementById('clip-mock');
+    if (!root || root.dataset.init) return;
+    root.dataset.init = '1';
+
+    let clips = [
+      {name:'Center section', enabled:true},
+      {name:'Side wall', enabled:false},
+      {name:'Diagonal detail', enabled:false}
+    ];
+    let selected = 0;
+    let pickMode = null;
+    let flipped = false;
+
+    const list = root.querySelector('#clipList');
+    const name = root.querySelector('#clipName');
+    const enabled = root.querySelector('#enabled');
+    const pos = root.querySelector('#position');
+    const posNum = root.querySelector('#positionNumber');
+    const rotation = root.querySelector('#rotation');
+    const tilt = root.querySelector('#tilt');
+    const status = root.querySelector('#viewportStatus');
+    const planeGroup = root.querySelector('#planeGroup');
+    const normalLine = root.querySelector('#normalLine');
+    const normalArrow = root.querySelector('#normalArrow');
+    const overlay = root.querySelector('#modeOverlay');
+    const badge = root.querySelector('#sideBadge');
+
+    function renderList() {
+      list.innerHTML = '';
+      clips.forEach((c,i) => {
+        const row = document.createElement('button');
+        row.type = 'button';
+        row.className = 'w-full flex items-center gap-2 rounded-md border px-2 py-2 text-left ' + (i===selected ? 'border-[var(--viz-accent)] bg-[var(--viz-accent-bg)]' : 'border-[var(--viz-border)]');
+        row.innerHTML = '<span class="text-xs">' + (c.enabled ? '[x]' : '[ ]') + '</span><span class="min-w-0 flex-1 truncate">' + c.name.replace(/[<>]/g,'') + '</span><span class="text-xs text-[var(--viz-muted)]">saved</span>';
+        row.addEventListener('click', () => { selected=i; name.value=c.name; enabled.checked=c.enabled; renderList(); updateStatus(); });
+        list.appendChild(row);
+      });
+    }
+
+    function updateStatus() {
+      const activeAxis = root.querySelector('.axisBtn.bg-\\[var\\(--viz-accent-bg\\)\\]');
+      const axis = activeAxis ? activeAxis.dataset.axis : 'Free';
+      status.textContent = name.value + ': ' + axis + ' at ' + Number(pos.value).toFixed(1) + ' mm';
+      badge.textContent = flipped ? 'Keep -normal' : 'Keep +normal';
+      const a = Number(rotation.value) || 0;
+      const t = Number(tilt.value) || 0;
+      planeGroup.setAttribute('transform','rotate(' + (a*0.25) + ' 265 165) translate(0 ' + (-Number(pos.value)*0.22 + 9) + ') skewX(' + (t*0.12) + ')');
+      normalLine.setAttribute('transform','rotate(' + (a*0.25 + (flipped?180:0)) + ' 265 165)');
+      normalArrow.setAttribute('transform','rotate(' + (a*0.25 + (flipped?180:0)) + ' 265 165)');
+    }
+
+    renderList();
+    updateStatus();
+
+    root.querySelector('#addClip').addEventListener('click', () => {
+      clips.push({name:'New clip ' + (clips.length+1), enabled:true});
+      selected=clips.length-1;
+      name.value=clips[selected].name;
+      enabled.checked=true;
+      renderList(); updateStatus();
+    });
+
+    name.addEventListener('input', () => { clips[selected].name=name.value || 'Unnamed clip'; renderList(); updateStatus(); });
+    enabled.addEventListener('change', () => { clips[selected].enabled=enabled.checked; renderList(); });
+
+    pos.addEventListener('input', () => { posNum.value=pos.value; updateStatus(); });
+    posNum.addEventListener('input', () => {
+      let v = Number(posNum.value); if (!Number.isFinite(v)) v=0; v=Math.max(-20,Math.min(120,v)); pos.value=v; updateStatus();
+    });
+    rotation.addEventListener('input', updateStatus);
+    tilt.addEventListener('input', updateStatus);
+
+    root.querySelectorAll('.axisBtn').forEach(btn => btn.addEventListener('click', () => {
+      root.querySelectorAll('.axisBtn').forEach(b => b.classList.remove('bg-[var(--viz-accent-bg)]'));
+      btn.classList.add('bg-[var(--viz-accent-bg)]');
+      const ax=btn.dataset.axis;
+      if(ax==='XY'){rotation.value=0;tilt.value=0;}
+      if(ax==='XZ'){rotation.value=0;tilt.value=90;}
+      if(ax==='YZ'){rotation.value=90;tilt.value=90;}
+      updateStatus();
+    }));
+
+    root.querySelector('#flip').addEventListener('click', () => { flipped=!flipped; updateStatus(); });
+    root.querySelector('#reset').addEventListener('click', () => { rotation.value=0; tilt.value=0; updateStatus(); });
+    root.querySelector('#showPlane').addEventListener('change', e => { planeGroup.style.display=e.target.checked?'':'none'; });
+    root.querySelector('#highlight').addEventListener('change', updateStatus);
+    root.querySelector('#cap').addEventListener('change', updateStatus);
+
+    function startPick(mode){ pickMode=mode; overlay.classList.remove('hidden'); overlay.textContent = mode==='align' ? 'Click a surface: origin and surface normal will be used.' : 'Click a surface: only the clipping origin will move.'; }
+    root.querySelector('#pickPoint').addEventListener('click', () => startPick('point'));
+    root.querySelector('#pickAlign').addEventListener('click', () => startPick('align'));
+
+    root.querySelector('#viewport').addEventListener('click', e => {
+      if(!pickMode) return;
+      const r=e.currentTarget.getBoundingClientRect();
+      const x=((e.clientX-r.left)/r.width*100).toFixed(1);
+      const y=((e.clientY-r.top)/r.height*100).toFixed(1);
+      root.querySelector('#pickState').textContent='Origin: ' + x + ', ' + y + ', 42.7 mm';
+      if(pickMode==='align'){ rotation.value=32; tilt.value=-18.5; root.querySelectorAll('.axisBtn').forEach(b=>b.classList.remove('bg-[var(--viz-accent-bg)]')); root.querySelector('[data-axis="Free"]').classList.add('bg-[var(--viz-accent-bg)]'); }
+      pickMode=null; overlay.classList.add('hidden'); updateStatus();
+    });
+  })();
+  </script>
+</div>

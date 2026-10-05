@@ -1,0 +1,327 @@
+{
+  "schema": 1,
+  "importEdgesFile": "library-import-edges.json",
+  "normalization": "UTF-8; strip initial BOM; CRLF/CR to LF; no other changes",
+  "profiles": [
+    {
+      "id": "bosl2-2.0.766-e173fa0",
+      "version": "2.0.766",
+      "revision": "e173fa0ae45f9e2082e0d8c0382dae98621b7c20",
+      "digest": "af99ecc69d19198e63794f952c491c162f1039dbbad0cc1cd4c1da8035d25f27",
+      "files": [
+        {
+          "path": "affine.scad",
+          "sha256": "035629bc49574b7b745afd2cb493efb1ff8d7bdf6f7fa7cf0abe92d6f99b76c8"
+        },
+        {
+          "path": "attachments.scad",
+          "sha256": "d7eb1f2d0ec74b713ceb14532bcb2b3ec7bc04c28ff0ef12eaf1c886562cc8cb"
+        },
+        {
+          "path": "beziers.scad",
+          "sha256": "54b6f1938c10b59c9998dce97a163d5482dcb2f4f002019872ee1d93ab90b96c"
+        },
+        {
+          "path": "builtins.scad",
+          "sha256": "8e3b0aacadb648d143348ba19e3f07997f06d5bc3edfd85c4d9d7fc03f417f1f"
+        },
+        {
+          "path": "color.scad",
+          "sha256": "052e3d3e6f422a31dd6af38f52f23ba0cee3f29b2f157e2b20f998e5dd2a4d99"
+        },
+        {
+          "path": "comparisons.scad",
+          "sha256": "7df1cb0a72bd1eb0d416165101e48b7de66e02e94d5e5ba10693c0e87ee882d0"
+        },
+        {
+          "path": "constants.scad",
+          "sha256": "b2012b882a41be9d127904989e1b4be5fa627a3971aae17681613d7f39981392"
+        },
+        {
+          "path": "coords.scad",
+          "sha256": "f0af54b84722a447cb0d34390962cd0913cb213fe14d479a014bc5a0cd02d116"
+        },
+        {
+          "path": "distributors.scad",
+          "sha256": "636ada5a6b2f9259415d9b1256629a8f3326697d84ecbf0ebfaeda5ed72b204c"
+        },
+        {
+          "path": "drawing.scad",
+          "sha256": "b0f01f1dca062bf8ddb1ea37768fc4252ec15b493ce113d4e358d8a8385bc92e"
+        },
+        {
+          "path": "geometry.scad",
+          "sha256": "c6afef6a9e4e21052235f5eab7c370bffceafc2e47eb3ef8d58ab0281335dddb"
+        },
+        {
+          "path": "linalg.scad",
+          "sha256": "89541cd77089ca9cde978957ee18c3fbadc18b731fdf8ac0a290f7c7692337bd"
+        },
+        {
+          "path": "lists.scad",
+          "sha256": "2a48070fb8c326429d99539256c8f435fd1ac633ac34b8a2e783f4cbebd997c8"
+        },
+        {
+          "path": "masks.scad",
+          "sha256": "b30f6b069d5847561a4febff958e55d78bb7c0ac8e32288b150bcb37257c1a2e"
+        },
+        {
+          "path": "math.scad",
+          "sha256": "e86863ba2314abcaa4f7add60d56006be9c6f96928d00115b83fcc362b4a8f98"
+        },
+        {
+          "path": "miscellaneous.scad",
+          "sha256": "696ad3f5939dd7f30bb257f1e057a230578d5912aa1be3a67a20bd83133e52d9"
+        },
+        {
+          "path": "partitions.scad",
+          "sha256": "044fa31c38c46b98035ec467f9959a5797295b66eb160987a6172805d7db718b"
+        },
+        {
+          "path": "paths.scad",
+          "sha256": "7221787a912f35bd719a579c1d20a063a384077b623a75a5ddc4e86d34bea34f"
+        },
+        {
+          "path": "regions.scad",
+          "sha256": "8693307de69a28645bfacbfd9329e995940103f101956739a5607aaba1f12cf1"
+        },
+        {
+          "path": "rounding.scad",
+          "sha256": "b6a70c5a50842619734b749a4b9a88b5de5d74999faa2228a70732fdf08e7ce9"
+        },
+        {
+          "path": "screw_drive.scad",
+          "sha256": "e7c301d928f7061616de59935aaffacc57eea22b55448d829b7a2779b3c1fcec"
+        },
+        {
+          "path": "screws.scad",
+          "sha256": "e35cdacf7f9eec1ffdf4ec4d6ec0b0cb38878e5457b3d0b0e468203c4f0613e9"
+        },
+        {
+          "path": "shapes2d.scad",
+          "sha256": "7c80e65adef8a88a91846ae6d6a171e506aab2ce3a90bac00f8abf4ca3b1daf7"
+        },
+        {
+          "path": "shapes3d.scad",
+          "sha256": "8f46a6c845ae4799f781e2a9bb78f336998df41407e3c341051664cb8c180326"
+        },
+        {
+          "path": "skin.scad",
+          "sha256": "0669c768eab0cdba10e35a251e8ef78aa85692a3d3b0b28837e7aaf4dd8a0085"
+        },
+        {
+          "path": "std.scad",
+          "sha256": "bcddc3093863ab322cd8503f4f784a67a6c706423a27669e64ddeb13e4d355a2"
+        },
+        {
+          "path": "strings.scad",
+          "sha256": "b5ea8ba57b13a0a2d9c68a880d16f533a3063776f42709e69024cf410a449278"
+        },
+        {
+          "path": "structs.scad",
+          "sha256": "62638486c7e10c54c92784c6858c1ed1ccfa25be657973b8a901ae52762cc41a"
+        },
+        {
+          "path": "threading.scad",
+          "sha256": "895481e465754412f29ffe32113d20debc74aef735eb44c77a9565ff276fa253"
+        },
+        {
+          "path": "transforms.scad",
+          "sha256": "6e0f58ac40a52fe3d4ed202746cbe26a293487e7b47b50e9d661b9d51ef9c810"
+        },
+        {
+          "path": "trigonometry.scad",
+          "sha256": "63553ca2a297c633ed6a8aca99bae9b6db91a335c720a92d529b433955b3ac7e"
+        },
+        {
+          "path": "utility.scad",
+          "sha256": "1ee2f63d4f8eca1be1612c36042896334f2f01ba0314ef870c95513dadf606db"
+        },
+        {
+          "path": "vectors.scad",
+          "sha256": "ef1fcd02b7d5cce86719d25d3fd1b2f57683180d002c585f44994cc6198fd7cb"
+        },
+        {
+          "path": "version.scad",
+          "sha256": "5919420c6986908eacc3ccea21fb0a6e0dfdb82af5323c733b314ef5272b6edd"
+        },
+        {
+          "path": "vnf.scad",
+          "sha256": "f4bae873b2d9c85f3bf1d45ad286f43d99891b71a09b04e75406b55959f94566"
+        }
+      ]
+    },
+    {
+      "id": "boltsos-0.4.1",
+      "version": "0.4.1",
+      "revision": "official boltsos_0.4.1.tar.gz",
+      "digest": "d08ca4bd8bc2eb2a6c0a94fc93aad0d3f6c522da620a6d31aeab74f1809795e6",
+      "files": [
+        {
+          "path": "BOLTS.scad",
+          "sha256": "372f7af6ba7a9ed366d71d461d391c88a644f599f8ab216ecf5772017a84ddb6"
+        },
+        {
+          "path": "base/batteries/batteries.scad",
+          "sha256": "eae6f0aea494b3bf8dff9b684aa4e2ebd69b03db85b94922e2b002311faaa165"
+        },
+        {
+          "path": "base/bearings/bearings.scad",
+          "sha256": "feecffc26b60cba6eeb072d83dbea2cfebcf38901e323a5a8b1e501113e3dfe2"
+        },
+        {
+          "path": "base/extrusions/aluminiumProfiles.scad",
+          "sha256": "d5aeafe5aa6563cc2e116d7c90e0498f28d3d74b9481fcda119d5ba3fae8d44a"
+        },
+        {
+          "path": "base/hex/hex.scad",
+          "sha256": "6c731734348454a91de40d5ac92d669d00b5c4548f590c7f089a773ef738a86a"
+        },
+        {
+          "path": "base/hex_socket/hex_socket.scad",
+          "sha256": "0349a57ce545af59e2a1155ee779f82af4a4ea15fbea43a827aca28275bfcb99"
+        },
+        {
+          "path": "base/nut/nut.scad",
+          "sha256": "8e7c2cb6bf03ff45b5b778c87ed721d861198b89be6a3c145ac949bf3e14ea9e"
+        },
+        {
+          "path": "base/pipes/pipe.scad",
+          "sha256": "a0a2946f5e05308dbfc68f349f9acbd5817b59c2abc5462a638673a0dfb0a158"
+        },
+        {
+          "path": "base/washer/washer.scad",
+          "sha256": "6127c97d4470ac2cd0195b291f11fca983ca24aa02ed5629455b9c7dcbe0e80f"
+        },
+        {
+          "path": "classes/axialthrustbearing.scad",
+          "sha256": "0b0aa103e9cdc8d79b53ec9e288932c3dcf9b1f692d8c33e89d34088db8bd849"
+        },
+        {
+          "path": "classes/din11850range2.scad",
+          "sha256": "931eee6f2e92644a1c383bdabb14349517289cc318f2d9f9eee0494f6e792cca"
+        },
+        {
+          "path": "classes/genericpipe.scad",
+          "sha256": "5558ef8709229ecf59cdce234f843e50717d8869fbaea7763d07e79605a036e7"
+        },
+        {
+          "path": "classes/heavydutyplainwasher.scad",
+          "sha256": "c644770fbeab11c8cc022cdc13dd9b859490055dd30b9440e7f2ee3fc001908c"
+        },
+        {
+          "path": "classes/hexagonnut1.scad",
+          "sha256": "44b6bd5312e8778a07684320312da2e184e3b24b1fde135d4c878303633eeddf"
+        },
+        {
+          "path": "classes/hexagonnut2.scad",
+          "sha256": "ca14d1b653a0105f564df0ba90811b4e436dbda5680ef14073248127e3ca707a"
+        },
+        {
+          "path": "classes/hexagonnut3.scad",
+          "sha256": "12b3257889021717e06206c16c04dc8a53727cd6f6a993fc648dfa760b7bd61c"
+        },
+        {
+          "path": "classes/hexagonthinnut1.scad",
+          "sha256": "1aaf1457f8dbd7b1db7e23dd2fa4b7ce939be89035770404f3a5e5ba09679f05"
+        },
+        {
+          "path": "classes/hexagonthinnut2.scad",
+          "sha256": "a7178ae827ef288aa84feab64b9256890e4989ed3d6bbea62641cd20d096e204"
+        },
+        {
+          "path": "classes/hexbolt1.scad",
+          "sha256": "dcdffc5460eba96f3cf8f41fcae381d1494ebcc32b3fa9b2c13cf513801b166a"
+        },
+        {
+          "path": "classes/hexbolt2.scad",
+          "sha256": "ad4a45a934ea686df81aae2ba259429e90f58020e9a0e9308176b01d5af7c3d3"
+        },
+        {
+          "path": "classes/hexscrew1.scad",
+          "sha256": "ab14fb12bdeedd0e5fe49cd35d49272099f225da3b986e732c089ddda1268ec7"
+        },
+        {
+          "path": "classes/hexscrew2.scad",
+          "sha256": "cd8f9071a241778ac59f95ae58c86a887f4efc66342e337fba5febb59859db8c"
+        },
+        {
+          "path": "classes/hexsocketcountersunk.scad",
+          "sha256": "283c73956dd3613489681ac7d18d77bb1bb026ee30e5c441aec000aaf4b3f66c"
+        },
+        {
+          "path": "classes/hexsocketheadcap.scad",
+          "sha256": "67d6cdc1bee0baa6f9747ae24f56e27d31b47c55214d9f65b9bc9a4b28bf374a"
+        },
+        {
+          "path": "classes/nominalpipesize.scad",
+          "sha256": "39f979f9aeb9b6e84287efa9633c5d6245d18222b8b105119fa95b4d61a7f5ce"
+        },
+        {
+          "path": "classes/plainwasher1.scad",
+          "sha256": "09760a5c1e452a0f7c9280a228b3ac57310506b72c8f561dfbcfde0b3041b0b0"
+        },
+        {
+          "path": "classes/plainwasher2.scad",
+          "sha256": "0ad179100c6965ecd905349655f97088e0c95f30a48791a7abd418fe746f8d8f"
+        },
+        {
+          "path": "classes/plainwasherchamfered.scad",
+          "sha256": "f81791a2064b4fab768e31bc2aef252aba48b1a8d9c0a89150ebdaeeb61cbb3b"
+        },
+        {
+          "path": "classes/plainwasherforcheesehead.scad",
+          "sha256": "79fd3f5b83a1c41864988e3f1cb0436d302b41bb8e01d6dc1d82be2a58f631be"
+        },
+        {
+          "path": "classes/round_battery.scad",
+          "sha256": "3597596be40790da4df19c652a75ea5977f36eaff10f179f12ebdf4f77c5c6dc"
+        },
+        {
+          "path": "classes/singlerowradialbearing.scad",
+          "sha256": "17b923b2aa96b87dae305deaf99fe378dadc26f60cd4fa159deb6fd862d4f023"
+        },
+        {
+          "path": "classes/singlerowradialbearingimperial.scad",
+          "sha256": "14342b5ecc74d6656324c2416e71e0e8ca045b61031af2c49081fb84e51ff427"
+        },
+        {
+          "path": "classes/tslot20x20.scad",
+          "sha256": "44b87addd21323d38a087f12ecd822bcd9532a89e1a933758e3f2a19d7bcf3c8"
+        },
+        {
+          "path": "classes/tslot20x20_1s.scad",
+          "sha256": "f39278d36df0c55d6ae379a17a8c0798d610bdf40a5ff918be448038522f91f0"
+        },
+        {
+          "path": "classes/tslot20x20_2s.scad",
+          "sha256": "63cf40a447508c33e72b2891078de6670ed547bd9874d253b1ac3073758fe1b1"
+        },
+        {
+          "path": "classes/tslot20x20_2sa.scad",
+          "sha256": "c53c4cbe4ab737b0400bac70f0d7d573253bc0550f1d349cfa5539f5af0b393e"
+        },
+        {
+          "path": "classes/tslot20x20_3s.scad",
+          "sha256": "5377fbfb17f5030fca694937bacce4f546f348e22419fa51818381f9a3664d82"
+        },
+        {
+          "path": "common/common.scad",
+          "sha256": "f73e4916ae3f8797b14c080c29bd272b486ad7b91b15f30e0641a1dd3ffb466c"
+        },
+        {
+          "path": "common/conf.scad",
+          "sha256": "822fa34d975fdea2c2b8e972f5ee6858fd6ad377f8226ab88d29651ff0a03cf7"
+        },
+        {
+          "path": "common/local.scad",
+          "sha256": "d9251734778c9f75510f4c97aa08feda0cc78d8e51eb2d28d5def976b8163b3f"
+        },
+        {
+          "path": "common/version.scad",
+          "sha256": "21a643e2b192580c5c2c8c54f32df16b2d488289766259d002869d58ad21ed41"
+        }
+      ]
+    }
+  ]
+}

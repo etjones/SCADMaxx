@@ -1,0 +1,477 @@
+{
+  "schema": 1,
+  "profiles": [
+    {
+      "profileId": "bosl2-2.0.766-e173fa0",
+      "edges": [
+        {
+          "from": "color.scad",
+          "kind": "use",
+          "import": "builtins.scad",
+          "to": "builtins.scad"
+        },
+        {
+          "from": "screw_drive.scad",
+          "kind": "include",
+          "import": "structs.scad",
+          "to": "structs.scad"
+        },
+        {
+          "from": "screws.scad",
+          "kind": "include",
+          "import": "structs.scad",
+          "to": "structs.scad"
+        },
+        {
+          "from": "screws.scad",
+          "kind": "include",
+          "import": "threading.scad",
+          "to": "threading.scad"
+        },
+        {
+          "from": "screws.scad",
+          "kind": "include",
+          "import": "screw_drive.scad",
+          "to": "screw_drive.scad"
+        },
+        {
+          "from": "shapes2d.scad",
+          "kind": "use",
+          "import": "builtins.scad",
+          "to": "builtins.scad"
+        },
+        {
+          "from": "shapes3d.scad",
+          "kind": "use",
+          "import": "builtins.scad",
+          "to": "builtins.scad"
+        },
+        {
+          "from": "std.scad",
+          "kind": "include",
+          "import": "version.scad",
+          "to": "version.scad"
+        },
+        {
+          "from": "std.scad",
+          "kind": "include",
+          "import": "constants.scad",
+          "to": "constants.scad"
+        },
+        {
+          "from": "std.scad",
+          "kind": "include",
+          "import": "transforms.scad",
+          "to": "transforms.scad"
+        },
+        {
+          "from": "std.scad",
+          "kind": "include",
+          "import": "distributors.scad",
+          "to": "distributors.scad"
+        },
+        {
+          "from": "std.scad",
+          "kind": "include",
+          "import": "miscellaneous.scad",
+          "to": "miscellaneous.scad"
+        },
+        {
+          "from": "std.scad",
+          "kind": "include",
+          "import": "color.scad",
+          "to": "color.scad"
+        },
+        {
+          "from": "std.scad",
+          "kind": "include",
+          "import": "attachments.scad",
+          "to": "attachments.scad"
+        },
+        {
+          "from": "std.scad",
+          "kind": "include",
+          "import": "beziers.scad",
+          "to": "beziers.scad"
+        },
+        {
+          "from": "std.scad",
+          "kind": "include",
+          "import": "shapes3d.scad",
+          "to": "shapes3d.scad"
+        },
+        {
+          "from": "std.scad",
+          "kind": "include",
+          "import": "shapes2d.scad",
+          "to": "shapes2d.scad"
+        },
+        {
+          "from": "std.scad",
+          "kind": "include",
+          "import": "drawing.scad",
+          "to": "drawing.scad"
+        },
+        {
+          "from": "std.scad",
+          "kind": "include",
+          "import": "masks.scad",
+          "to": "masks.scad"
+        },
+        {
+          "from": "std.scad",
+          "kind": "include",
+          "import": "math.scad",
+          "to": "math.scad"
+        },
+        {
+          "from": "std.scad",
+          "kind": "include",
+          "import": "paths.scad",
+          "to": "paths.scad"
+        },
+        {
+          "from": "std.scad",
+          "kind": "include",
+          "import": "lists.scad",
+          "to": "lists.scad"
+        },
+        {
+          "from": "std.scad",
+          "kind": "include",
+          "import": "comparisons.scad",
+          "to": "comparisons.scad"
+        },
+        {
+          "from": "std.scad",
+          "kind": "include",
+          "import": "linalg.scad",
+          "to": "linalg.scad"
+        },
+        {
+          "from": "std.scad",
+          "kind": "include",
+          "import": "trigonometry.scad",
+          "to": "trigonometry.scad"
+        },
+        {
+          "from": "std.scad",
+          "kind": "include",
+          "import": "vectors.scad",
+          "to": "vectors.scad"
+        },
+        {
+          "from": "std.scad",
+          "kind": "include",
+          "import": "affine.scad",
+          "to": "affine.scad"
+        },
+        {
+          "from": "std.scad",
+          "kind": "include",
+          "import": "coords.scad",
+          "to": "coords.scad"
+        },
+        {
+          "from": "std.scad",
+          "kind": "include",
+          "import": "geometry.scad",
+          "to": "geometry.scad"
+        },
+        {
+          "from": "std.scad",
+          "kind": "include",
+          "import": "regions.scad",
+          "to": "regions.scad"
+        },
+        {
+          "from": "std.scad",
+          "kind": "include",
+          "import": "strings.scad",
+          "to": "strings.scad"
+        },
+        {
+          "from": "std.scad",
+          "kind": "include",
+          "import": "vnf.scad",
+          "to": "vnf.scad"
+        },
+        {
+          "from": "std.scad",
+          "kind": "include",
+          "import": "structs.scad",
+          "to": "structs.scad"
+        },
+        {
+          "from": "std.scad",
+          "kind": "include",
+          "import": "rounding.scad",
+          "to": "rounding.scad"
+        },
+        {
+          "from": "std.scad",
+          "kind": "include",
+          "import": "skin.scad",
+          "to": "skin.scad"
+        },
+        {
+          "from": "std.scad",
+          "kind": "include",
+          "import": "utility.scad",
+          "to": "utility.scad"
+        },
+        {
+          "from": "std.scad",
+          "kind": "include",
+          "import": "partitions.scad",
+          "to": "partitions.scad"
+        }
+      ]
+    },
+    {
+      "profileId": "boltsos-0.4.1",
+      "edges": [
+        {
+          "from": "BOLTS.scad",
+          "kind": "include",
+          "import": "common/local.scad",
+          "to": "common/local.scad"
+        },
+        {
+          "from": "BOLTS.scad",
+          "kind": "include",
+          "import": "common/conf.scad",
+          "to": "common/conf.scad"
+        },
+        {
+          "from": "BOLTS.scad",
+          "kind": "include",
+          "import": "common/common.scad",
+          "to": "common/common.scad"
+        },
+        {
+          "from": "BOLTS.scad",
+          "kind": "include",
+          "import": "common/version.scad",
+          "to": "common/version.scad"
+        },
+        {
+          "from": "BOLTS.scad",
+          "kind": "include",
+          "import": "base/pipes/pipe.scad",
+          "to": "base/pipes/pipe.scad"
+        },
+        {
+          "from": "BOLTS.scad",
+          "kind": "include",
+          "import": "classes/genericpipe.scad",
+          "to": "classes/genericpipe.scad"
+        },
+        {
+          "from": "BOLTS.scad",
+          "kind": "include",
+          "import": "classes/din11850range2.scad",
+          "to": "classes/din11850range2.scad"
+        },
+        {
+          "from": "BOLTS.scad",
+          "kind": "include",
+          "import": "classes/nominalpipesize.scad",
+          "to": "classes/nominalpipesize.scad"
+        },
+        {
+          "from": "BOLTS.scad",
+          "kind": "include",
+          "import": "base/nut/nut.scad",
+          "to": "base/nut/nut.scad"
+        },
+        {
+          "from": "BOLTS.scad",
+          "kind": "include",
+          "import": "classes/hexagonthinnut1.scad",
+          "to": "classes/hexagonthinnut1.scad"
+        },
+        {
+          "from": "BOLTS.scad",
+          "kind": "include",
+          "import": "classes/hexagonthinnut2.scad",
+          "to": "classes/hexagonthinnut2.scad"
+        },
+        {
+          "from": "BOLTS.scad",
+          "kind": "include",
+          "import": "classes/hexagonnut1.scad",
+          "to": "classes/hexagonnut1.scad"
+        },
+        {
+          "from": "BOLTS.scad",
+          "kind": "include",
+          "import": "classes/hexagonnut2.scad",
+          "to": "classes/hexagonnut2.scad"
+        },
+        {
+          "from": "BOLTS.scad",
+          "kind": "include",
+          "import": "classes/hexagonnut3.scad",
+          "to": "classes/hexagonnut3.scad"
+        },
+        {
+          "from": "BOLTS.scad",
+          "kind": "include",
+          "import": "base/washer/washer.scad",
+          "to": "base/washer/washer.scad"
+        },
+        {
+          "from": "BOLTS.scad",
+          "kind": "include",
+          "import": "classes/plainwasher1.scad",
+          "to": "classes/plainwasher1.scad"
+        },
+        {
+          "from": "BOLTS.scad",
+          "kind": "include",
+          "import": "classes/plainwasherchamfered.scad",
+          "to": "classes/plainwasherchamfered.scad"
+        },
+        {
+          "from": "BOLTS.scad",
+          "kind": "include",
+          "import": "classes/plainwasher2.scad",
+          "to": "classes/plainwasher2.scad"
+        },
+        {
+          "from": "BOLTS.scad",
+          "kind": "include",
+          "import": "classes/plainwasherforcheesehead.scad",
+          "to": "classes/plainwasherforcheesehead.scad"
+        },
+        {
+          "from": "BOLTS.scad",
+          "kind": "include",
+          "import": "classes/heavydutyplainwasher.scad",
+          "to": "classes/heavydutyplainwasher.scad"
+        },
+        {
+          "from": "BOLTS.scad",
+          "kind": "include",
+          "import": "base/bearings/bearings.scad",
+          "to": "base/bearings/bearings.scad"
+        },
+        {
+          "from": "BOLTS.scad",
+          "kind": "include",
+          "import": "classes/singlerowradialbearing.scad",
+          "to": "classes/singlerowradialbearing.scad"
+        },
+        {
+          "from": "BOLTS.scad",
+          "kind": "include",
+          "import": "classes/singlerowradialbearingimperial.scad",
+          "to": "classes/singlerowradialbearingimperial.scad"
+        },
+        {
+          "from": "BOLTS.scad",
+          "kind": "include",
+          "import": "classes/axialthrustbearing.scad",
+          "to": "classes/axialthrustbearing.scad"
+        },
+        {
+          "from": "BOLTS.scad",
+          "kind": "include",
+          "import": "base/extrusions/aluminiumProfiles.scad",
+          "to": "base/extrusions/aluminiumProfiles.scad"
+        },
+        {
+          "from": "BOLTS.scad",
+          "kind": "include",
+          "import": "classes/tslot20x20.scad",
+          "to": "classes/tslot20x20.scad"
+        },
+        {
+          "from": "BOLTS.scad",
+          "kind": "include",
+          "import": "classes/tslot20x20_1s.scad",
+          "to": "classes/tslot20x20_1s.scad"
+        },
+        {
+          "from": "BOLTS.scad",
+          "kind": "include",
+          "import": "classes/tslot20x20_2s.scad",
+          "to": "classes/tslot20x20_2s.scad"
+        },
+        {
+          "from": "BOLTS.scad",
+          "kind": "include",
+          "import": "classes/tslot20x20_2sa.scad",
+          "to": "classes/tslot20x20_2sa.scad"
+        },
+        {
+          "from": "BOLTS.scad",
+          "kind": "include",
+          "import": "classes/tslot20x20_3s.scad",
+          "to": "classes/tslot20x20_3s.scad"
+        },
+        {
+          "from": "BOLTS.scad",
+          "kind": "include",
+          "import": "base/hex_socket/hex_socket.scad",
+          "to": "base/hex_socket/hex_socket.scad"
+        },
+        {
+          "from": "BOLTS.scad",
+          "kind": "include",
+          "import": "classes/hexsocketcountersunk.scad",
+          "to": "classes/hexsocketcountersunk.scad"
+        },
+        {
+          "from": "BOLTS.scad",
+          "kind": "include",
+          "import": "classes/hexsocketheadcap.scad",
+          "to": "classes/hexsocketheadcap.scad"
+        },
+        {
+          "from": "BOLTS.scad",
+          "kind": "include",
+          "import": "base/hex/hex.scad",
+          "to": "base/hex/hex.scad"
+        },
+        {
+          "from": "BOLTS.scad",
+          "kind": "include",
+          "import": "classes/hexscrew1.scad",
+          "to": "classes/hexscrew1.scad"
+        },
+        {
+          "from": "BOLTS.scad",
+          "kind": "include",
+          "import": "classes/hexscrew2.scad",
+          "to": "classes/hexscrew2.scad"
+        },
+        {
+          "from": "BOLTS.scad",
+          "kind": "include",
+          "import": "classes/hexbolt1.scad",
+          "to": "classes/hexbolt1.scad"
+        },
+        {
+          "from": "BOLTS.scad",
+          "kind": "include",
+          "import": "classes/hexbolt2.scad",
+          "to": "classes/hexbolt2.scad"
+        },
+        {
+          "from": "BOLTS.scad",
+          "kind": "include",
+          "import": "base/batteries/batteries.scad",
+          "to": "base/batteries/batteries.scad"
+        },
+        {
+          "from": "BOLTS.scad",
+          "kind": "include",
+          "import": "classes/round_battery.scad",
+          "to": "classes/round_battery.scad"
+        }
+      ]
+    }
+  ]
+}

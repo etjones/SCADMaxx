@@ -1,0 +1,175 @@
+{
+  "schemaVersion": 1,
+  "providerId": "example.parts",
+  "providerVersion": "1.0.0",
+  "label": "Project parts",
+  "libraries": [
+    {
+      "libraryId": "example-parts",
+      "label": "Project modules",
+      "defaultImportPrefix": "MyParts",
+      "profiles": [
+        {
+          "profileId": "bracket-1.0.0",
+          "releaseLabel": "1.0.0",
+          "revisionEvidence": "Authored example, examples/MyParts/bracket.scad",
+          "fileHashes": [
+            {
+              "path": "bracket.scad",
+              "sha256": "e9a9232cb39ea4e8db32a577fa9fab9d7db17e678937c488637a411fbb1b7a94"
+            }
+          ],
+          "importEdges": [],
+          "digest": "f749b7b5e84631a8eb512d5555ff77645403ce0605b9e60a706cb04035e21be8"
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "id": "bracket",
+      "label": "Bracket fixture",
+      "category": [
+        "Project"
+      ],
+      "description": "Simple fixture for catalog registration.",
+      "parameters": [
+        {
+          "id": "width",
+          "label": "Width",
+          "type": "number",
+          "unit": "mm",
+          "default": 20,
+          "min": 0,
+          "exclusiveMin": true,
+          "max": 100000
+        },
+        {
+          "id": "height",
+          "label": "Height",
+          "type": "number",
+          "unit": "mm",
+          "default": 10,
+          "min": 0,
+          "exclusiveMin": true,
+          "max": 100000
+        }
+      ],
+      "operation": "additive",
+      "recipes": [
+        {
+          "moduleBindings": [
+            {
+              "module": "catalog_bracket",
+              "libraryId": "example-parts",
+              "path": "bracket.scad"
+            }
+          ],
+          "profileIds": [
+            "bracket-1.0.0"
+          ],
+          "imports": [
+            {
+              "libraryId": "example-parts",
+              "path": "bracket.scad",
+              "kind": "include",
+              "scope": "helper",
+              "helperId": "bracket"
+            }
+          ],
+          "helpers": [
+            {
+              "id": "bracket",
+              "parameters": [
+                "width",
+                "height"
+              ],
+              "body": {
+                "module": "catalog_bracket",
+                "arguments": [
+                  {
+                    "name": "width",
+                    "value": {
+                      "parameter": "width"
+                    }
+                  },
+                  {
+                    "name": "height",
+                    "value": {
+                      "parameter": "height"
+                    }
+                  }
+                ],
+                "children": []
+              }
+            }
+          ],
+          "geometry": {
+            "module": {
+              "helper": "bracket"
+            },
+            "arguments": [
+              {
+                "name": "width",
+                "value": {
+                  "parameter": "width"
+                }
+              },
+              {
+                "name": "height",
+                "value": {
+                  "parameter": "height"
+                }
+              }
+            ],
+            "children": []
+          },
+          "placement": {
+            "origin": [
+              {
+                "operator": "div",
+                "arguments": [
+                  {
+                    "parameter": "width"
+                  },
+                  {
+                    "constant": 2
+                  }
+                ]
+              },
+              {
+                "constant": 2
+              },
+              {
+                "constant": 0
+              }
+            ],
+            "normal": [
+              {
+                "constant": 0
+              },
+              {
+                "constant": 0
+              },
+              {
+                "constant": -1
+              }
+            ],
+            "up": [
+              {
+                "constant": 0
+              },
+              {
+                "constant": 1
+              },
+              {
+                "constant": 0
+              }
+            ],
+            "label": "Bottom centre"
+          }
+        }
+      ]
+    }
+  ]
+}
