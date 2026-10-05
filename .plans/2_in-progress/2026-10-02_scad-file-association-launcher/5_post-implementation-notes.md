@@ -95,3 +95,9 @@ Both CTest suites passed. Added two core cases for shallow/excluded traversal wi
 curation/restoration/protected mappings. UI smoke exercises checklist default selection, accepted import and cancelled
 review. Offscreen Manage builds capture inspected at runs/scadmaxx-launcher/manage-builds.png. Rebuilt and deployed to
 the original artifacts/scadmaxx-launcher location, with a successful deployed smoke check. No launcher instance was running at deployment time; no process needed to be stopped or restarted.
+
+## 2026-10-03 redesign
+
+The current implementation supersedes the global build library described above. See status.md and
+rework/01/5_post-implementation-notes.md for file-type sources, Latest resolution, the global opening chooser,
+versioning/icon integration and current verification. Changes are uncommitted pending user review.
