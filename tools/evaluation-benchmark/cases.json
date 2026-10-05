@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "workloads": [
+    {
+      "name": "panel",
+      "file": "ventilated-panel.scad",
+      "defines": [],
+      "globalEdit": "wave_amplitude=0.18",
+      "globalBase": 0.12,
+      "localEdit": "edit_delta=0.4",
+      "advancedOperators": []
+    },
+    {
+      "name": "brackets-core",
+      "file": "bracket-array.scad",
+      "defines": ["use_hull=false", "use_minkowski=false"],
+      "globalEdit": "body_delta=0.6",
+      "globalBase": 0,
+      "localEdit": "edit_delta=0.35",
+      "advancedOperators": []
+    },
+    {
+      "name": "brackets-hull",
+      "file": "bracket-array.scad",
+      "defines": ["use_hull=true", "use_minkowski=false"],
+      "globalEdit": "body_delta=0.6",
+      "globalBase": 0,
+      "localEdit": "edit_delta=0.35",
+      "advancedOperators": ["hull"]
+    },
+    {
+      "name": "brackets-minkowski",
+      "file": "bracket-array.scad",
+      "defines": ["use_hull=false", "use_minkowski=true"],
+      "globalEdit": "body_delta=0.6",
+      "globalBase": 0,
+      "localEdit": "edit_delta=0.35",
+      "advancedOperators": ["minkowski"]
+    },
+    {
+      "name": "brackets-full",
+      "file": "bracket-array.scad",
+      "defines": ["use_hull=true", "use_minkowski=true"],
+      "globalEdit": "body_delta=0.6",
+      "globalBase": 0,
+      "localEdit": "edit_delta=0.35",
+      "advancedOperators": ["hull", "minkowski"]
+    }
+  ]
+}
