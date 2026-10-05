@@ -12,6 +12,7 @@ For Windows exact-byte insertion fixtures, see [insertion golden line endings](r
 For surface selection at fractional DPI, see [logical viewport bounds](repairs/selection-fractional-dpi-bounds.md).
 Promoted viewport performance fixes: [redraw freshness and camera publication](repairs/viewport-redraw-freshness.md).
 For PR 6642 with UI polish, see [Customizer group visibility test wiring](repairs/customizer-group-visibility-test.md).
+For anchor tests after Inspector opens, see [pick-time projection snapshots](repairs/anchor-pick-frame-test.md).
 
 | ID | Applies after | Source repository / full commit SHA | Applicability | Verification | State |
 | --- | --- | --- | --- | --- | --- |
