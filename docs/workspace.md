@@ -2,15 +2,17 @@
 
 *OpenSCAD, with the sliders turned up.*
 
-Latest local delivery: [scadmaxx-2026100-windows-x64.zip](../../artifacts/scadmaxx-all-features/20261005T012805021Z/scadmaxx-2026100-windows-x64.zip).
+Latest local delivery: [scadmaxx-2026100-windows-x64.zip](../../artifacts/scadmaxx-all-features/20261005T195510539Z/scadmaxx-2026100-windows-x64.zip).
 Extract the complete ZIP and launch `scadmaxx.exe`; `scadmaxx.com` provides console invocation.
 Both names are CMake outputs, with no `openscad.exe`/`openscad.com` aliases. This delivery includes all
-22 native entries frozen for the 2026-10-04 integration run, plus the selected skill companion.
-Final source is `c5d03a05c1f45ce8ada0538eeb4e6e36c8b9054d`. Unit, native/DPI, rendering,
+22 native entries frozen for the 2026-10-05 integration run, plus the selected skill companion.
+Final source is `dcd732fefa0aef5b12d4e5d0a2097223caf32726`. Unit, native/DPI, rendering,
 experimental/Minkowski, extracted Unicode and library/catalog checks passed. Matching source and
 skill archives sit beside the Windows ZIP. See the
-[run report](../../runs/20261004-scadmaxx-all-features/report.md) for checksums, frozen inputs and limits:
-live Windows theme switching and clean-machine portability remain unverified. No pushes were made.
+[run report](../../runs/20261005-scadmaxx-all-features/report.md) for checksums, frozen inputs and limits:
+live Windows theme switching and clean-machine portability remain unverified. Feature branches,
+integration history and controls are retained in the Dropbox bare repositories under the user's
+explicit 2026-10-05 push authorization. No GitHub publication was made.
 
 The control repository is `D:/openscad/scadmaxx`; the container is `D:/openscad`. The source experiments, integration branches and
 workspace control history stay local. Publish an individual feature to GitHub only when the user explicitly

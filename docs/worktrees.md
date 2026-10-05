@@ -1,11 +1,19 @@
 # Checkout inventory
 
-The current integrated source is `wt-scadmaxx-20261002`, branch `scadmaxx-20261002`, at
-`4c325716b94e444637a80df3966197ce110b2b75`. It includes the eight frozen entries from
-`runs/20261002-scadmaxx-updated` and the separate Windows executable naming corrections.
-The linked packaging correction is recorded in `runs/20261003-scadmaxx-executable-name`.
-Its build uses `scadmaxx.exe`/`scadmaxx.com`; older delivered artifacts retain their original names.
-Recheck live status before using this checkout.
+The current integrated source is `wt-scadmaxx-20261005`, branch `scadmaxx-20261005`, at
+`dcd732fefa0aef5b12d4e5d0a2097223caf32726`. It includes all 22 frozen entries from
+`runs/20261005-scadmaxx-all-features`, on upstream `c0ac8289f1c9db6f70891da5df3b4085b7eaf8b6`.
+Its build uses `scadmaxx.exe`/`scadmaxx.com`; see that run's report for current acceptance
+and delivery evidence. Preserve the older integration worktrees as historical checkpoints.
+Recheck live status before using any checkout.
+
+The historical records below describe their observation dates, not current Git status.
+On 2026-10-05 the user requested committing and privately pushing all source work.
+Owner and previously unpromoted experiment branches were retained in the Dropbox bare
+repository; [promotion record](../experimental/promotion-20261005.md) and the preflight
+inventory in `runs/20261005-scadmaxx-updated` identify the actual heads. Experiments outside
+the selected stack remain excluded. Generated Clipper2 metadata and Python caches are not
+source changes and were not committed.
 
 For new integration worktrees, use `wt-scadmaxx-YYYYMMDD` with branch `scadmaxx-YYYYMMDD`;
 see the [creation-date naming rule](git-layout.md#integration-branch-and-worktree-names).

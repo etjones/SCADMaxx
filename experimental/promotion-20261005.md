@@ -21,8 +21,9 @@ New owner commits separate viewport freshness/performance from the Model structu
 
 Selected owner pins advance to these committed changes for this requested build. The three
 foundation-follow-up pins, all delta bases, entry order and enabled membership are unchanged.
-Registry `validatedHead` retains the prior full-feature acceptance; `promotedHead` identifies
-the new input. Fresh combined validation remains mandatory before delivery.
+At preparation, registry `validatedHead` retained the prior full-feature acceptance while
+`promotedHead` identified the new input. The fresh combined run now validates the nine
+promoted heads above; `validatedHead` has advanced to match. Foundation pins are unchanged.
 
 The performance fixes passed focused and native checks in `runs/20261005-viewport-performance`.
 The Model structure followups passed the recorded unit/native checks in
@@ -35,6 +36,16 @@ later sealed-input foundations. Preserve their hypothetical-pixel guards. The In
 `addPanel` prerequisite appears in both selection and hierarchy owner deltas; keep one copy.
 Preserve the integrated foreign-presentation ownership guard and its native regression.
 Component parameters now belong to Inspector; the global Customizer is independent.
+
+Fresh integration: `wt-scadmaxx-20261005`, branch `scadmaxx-20261005`, final source
+`dcd732fefa0aef5b12d4e5d0a2097223caf32726`, on upstream
+`c0ac8289f1c9db6f70891da5df3b4085b7eaf8b6`. All 22 entry checkpoints passed. Full native
+validation passed 188 checks; the seven DPI suites passed 116 checks at each of 150%
+and 200%. The anchor test needed a separate [projection snapshot repair](repairs/anchor-pick-frame-test.md)
+because opening Inspector changes the viewport after picking. Its original tolerance
+and all production behavior remain unchanged. The final source archive includes that repair.
+See [run report](../../runs/20261005-scadmaxx-all-features/report.md) for exact runtimes,
+test-only patch identity, delivery verification and retained superseded candidate.
 
 Previously committed experiments and verification branches were also retained privately,
 including edit-evaluation performance. They remain outside the selected stack. Generated
