@@ -1,5 +1,12 @@
 # Checkout inventory
 
+The current integrated source is `wt-scadmaxx-20261002`, branch `scadmaxx-20261002`, at
+`4c325716b94e444637a80df3966197ce110b2b75`. It includes the eight frozen entries from
+`runs/20261002-scadmaxx-updated` and the separate Windows executable naming corrections.
+The linked packaging correction is recorded in `runs/20261003-scadmaxx-executable-name`.
+Its build uses `scadmaxx.exe`/`scadmaxx.com`; older delivered artifacts retain their original names.
+Recheck live status before using this checkout.
+
 For new integration worktrees, use `wt-scadmaxx-YYYYMMDD` with branch `scadmaxx-YYYYMMDD`;
 see the [creation-date naming rule](git-layout.md#integration-branch-and-worktree-names).
 The two integration worktrees were renamed on 2026-10-02; see [migration details](layout-migration.md).
@@ -60,3 +67,147 @@ Preserve existing independent clones and worktrees; do not rename or migrate the
 - Navigation/annotations verification: `wt-openscad-navigation-annotations-check`, branch
   `codex/navigation-annotations-check`, merge `d16b00019` (navigation `c54886b82`, annotations `d670fad09`).
   Native annotation tests pass. Separate verification checkout, not a selected distribution. Preserve it.
+
+## New-feature implementation worktrees, 2026-10-03
+
+The user requested features 01, 02 and 15. Each has a separate branch and checkout; implementation is local,
+without promotion or an enabled-stack change. Preserve these occupied worktrees and their verification outputs.
+
+| Directory | Branch / recorded base | Ownership |
+| --- | --- | --- |
+| `wt-scadmaxx-agent-skill-workflows` | Control repo `feature/agent-skill-workflows`, base `a05b64c17a2e0b95fbeb44fe6a5cdbc7c3979a8c` | Feature 01 skill and frozen companion build/delivery. Existing skill/script edits were copied from the primary controls and recorded under `runs/20261003-agent-skill-workflows/input`; primary files are preserved. |
+| `wt-openscad-source-editing-foundation` | Source repo `feature/source-editing-foundation`, base `6a5dc9d1555cbcf9f1f8a359f37f68f5448f44a1` | Feature 02, on the retained HTTP/annotation/navigation prerequisite composition. |
+| `wt-openscad-geometry-services` | Source repo `feature/geometry-services`, upstream base `31f27b7522af858ebabed764e67ecc10d9e27add` | Feature 15 strict geometry measurements and sections. Separate repair inputs and checks are recorded under `runs/20261003-geometry-services`. |
+
+Feature source remains uncommitted until a commit is explicitly requested. Verification records include source
+patches/hashes so a base SHA alone is never presented as the identity of an edited build. Final application
+composition and real-release companion acceptance require their own requested build.
+
+Feature 03 is locally complete in `wt-openscad-selection-model-inspector`, branch `feature/selection-model-inspector`,
+based on the retained HTTP/annotation/navigation composition `6a5dc9d1555cbcf9f1f8a359f37f68f5448f44a1`.
+Its phase records and separate repair inputs are under `runs/20261003-selection-model-inspector`.
+Preserve this occupied worktree; 02/15 source changes are excluded. The later navigation selected head remains
+a separately recorded composition obligation. Its final feature patch is frozen in the run's `final-feature.patch`
+(`fc9f0e8da7fa019447700bee498b09a689f00152d8ae965a106341a0569290bb`), with source/API and native/DPI verification
+in the plan's completion notes. No commits/promotion. The remaining queue for this chat is 05, 06, 14, 04.
+
+Feature 05 is locally complete in `wt-openscad-vim-editor-mode`, branch `feature/vim-editor-mode`,
+HEAD/base `6a5dc9d1555cbcf9f1f8a359f37f68f5448f44a1`. Its working prerequisite input adds the
+verified feature 02 patch and selected shortcuts PR #6878, recorded separately from the base SHA.
+Pinned Geany vimode source, port evidence and build outputs are under `runs/20261004-vim-editor-mode`.
+Preserve this occupied checkout. No feature commits or stack promotion are authorized. The final feature patch
+is `runs/20261004-vim-editor-mode/final-v2-feature.patch`, SHA256
+`05946cc5b49ba36b979fe556298299213298e360a82408c936a05c7f5955c724`; the matching source, runtime and
+passing native/restart evidence are recorded in the plan's completion notes. Remaining queue: 06, 14, 04.
+
+Feature 06 is locally complete in `wt-openscad-source-geometry-provenance`, branch `feature/source-geometry-provenance`,
+base `6a5dc9d1555cbcf9f1f8a359f37f68f5448f44a1`. The verified 02/03 patches and pinned OEP8/Customizer parser
+inputs are its prerequisites. Run evidence is under `runs/20261004-source-geometry-provenance`.
+Preserve this occupied checkout. No feature commits or stack promotion are authorized.
+Its final feature patch is `runs/20261004-source-geometry-provenance/final-v2-feature.patch`, SHA256
+`dfc078d2b428df12e5225fa514bd0c6c9d09f45c458a5cbd8f7545032c90ca6c`; matching source/runtime and passing
+native/DPI evidence are recorded in its completion notes. Remaining queue: 14, then 04.
+
+Feature 14 is locally complete in `wt-openscad-design-object-persistence`, branch `feature/design-object-persistence`,
+base `6a5dc9d1555cbcf9f1f8a359f37f68f5448f44a1`. It uses verified 02/03 and pinned OEP8/Customizer inputs,
+without a dependency on 06 or downstream clipping/semantic/drawing features. Run evidence is under
+`runs/20261004-design-object-persistence`. Preserve this occupied checkout. No commits or promotion are authorized.
+Final feature patch: `1eff9db907b673fd4971b5f8338a433931f242edddb3ca8add5fae1d0696d598`;
+complete input `56275040c8fde09076ce5ae8510927d5845cf5f882ba27cab5142a59f4ec6c9a`.
+Matching source, native/DPI, undo/conflict and extracted-runtime checks are recorded in its completion notes.
+Remaining queue: 04.
+
+Feature 04 is locally complete in `wt-openscad-live-clipping-sections`, branch `feature/live-clipping-sections`,
+base `6a5dc9d1555cbcf9f1f8a359f37f68f5448f44a1`, with the verified 03/14 working closure above.
+Run: `runs/20261004-live-clipping-sections`. Preserve this occupied checkout. It has no 06/07/15 dependency;
+no feature commits or promotion are authorized. This is the final queue entry for the current chat.
+
+Queue 03 → 05 → 06 → 14 → 04 is locally complete. Feature 04's final patch is `cf1245b8dbd1f02aa16173265610b55645192c57fe5e49650b69d34286c4898e`;
+verification `a6984899c4e260cfae6bf906187249d45284c304bb46153c9f038adf66addf76`, with extracted native/DPI/runtime evidence in its completion notes.
+No source commits, promotion, stack changes or integrated release were performed.
+
+Feature 11 is locally complete in `wt-openscad-component-provider-adapters`, branch
+`feature/component-provider-adapters`, frozen upstream base `9899c745e47dbf0f48b3ca23562eea31e66f9b82`.
+Run evidence: `runs/20261004-component-providers`. Its source changes and Windows repairs remain uncommitted;
+the repair inputs are retained separately in the run. This checkout belongs to the 11 → 07 → 08 → 12 implementation
+queue. Preserve it and its build outputs. No promotion or selected-stack change is authorized.
+
+Its feature-only patch is `79a0cc3aad41a4d2da9884324e4b2cb0818a495c32656c709d98fd070550d0f5`, with exact source,
+21 focused tests and extracted package evidence in the completion notes under `.plans/3_done`.
+
+Feature 07 is locally complete in `wt-openscad-semantic-model-hierarchy`, branch `feature/semantic-model-hierarchy`.
+The intentionally retained prerequisite base is `6a5dc9d1555cbcf9f1f8a359f37f68f5448f44a1`, plus the verified 03/02,
+OEP8/Customizer closure and separate 06/14 owner deltas. Source composition is recorded in
+`runs/20261004-semantic-hierarchy`; prerequisite patch SHA-256
+`386e30092a30f76a469e04e94cebe91ab012dfe25e4977ff3d1ba8aaba46185f`.
+Its feature-only patch is `555f4cc75b97856c0073a2f63cc2e8416d62e18991c0b03a1a30131be8c38383`, complete input
+`7da00d78d6886e7d984067bdcaf01f5363bd674d42d5ac6cf8b05c0c37aff904`, with minimal/extracted/DPI and real 04/05
+composition acceptance in `.plans/3_done/2026-10-03_07_semantic-model-hierarchy/5_post-implementation-notes.md`.
+This occupied checkout is preserved. The 11 → 07 → 08 → 12 queue is locally complete; source remains uncommitted.
+
+`wt-openscad-semantic-composition-check`, branch `codex/semantic-composition-check`, is an isolated verification
+checkout for 07 with the retained 04/05 features and selected #6878 shortcut prerequisite. Its base is
+`6a5dc9d1555cbcf9f1f8a359f37f68f5448f44a1`; source inputs and overlap resolutions belong to
+`runs/20261004-semantic-hierarchy/composition-check`. It is not a selected build or release. Preserve owner worktrees.
+
+`wt-openscad-anchors-attachments`, branch `feature/anchors-attachments`, is locally complete for feature 08.
+Its retained base is `6a5dc9d1555cbcf9f1f8a359f37f68f5448f44a1`; the exact 07 closure and separately tested
+generic owner refinements are retained in `runs/20261004-anchors-attachments`. Feature patch:
+`474b690a175d2ea4eb6d6e6c096968494e1c76d3f96809055130c5ce92736676`; complete input:
+`61a07718bbca47e5ec09270b4b0ca9db49dd03a75e5898dc3fe1d0311e5a926e`. Native, DPI, extracted-runtime and real
+library acceptance are recorded in its `.plans/3_done` completion notes. Preserve this occupied checkout.
+
+`wt-openscad-anchors-composition-check`, branch `codex/anchors-composition-check`, verifies 08 with the actual
+04/05 features and selected #6878. Its source and acceptance evidence belong to
+`runs/20261004-anchors-attachments/composition-check`. It is separate from the minimal feature handoff and selected
+distribution. Preserve it and the earlier owner worktrees.
+
+`wt-openscad-contextual-insertion`, branch `feature/contextual-insertion`, is locally complete for feature 12.
+Retained base: `6a5dc9d1555cbcf9f1f8a359f37f68f5448f44a1`, plus frozen 08 complete input, 11 feature delta and
+#6878. Run records: `runs/20261004-contextual-insertion`. Generic 03 sealed-input/draft-display and 07 ownership
+refinements are tested and frozen separately. All six phases pass, including isolated preview and guarded Commit.
+The final source is bound to feature patch `78a2eea6c88d81be251946efd412a81243df3c0d05fe92d04a917089ab930191` and
+complete input `41cf37d49217ac09de4140664880f6d39cbd32a7987b31e6843e816c7a8cc1c1`. Evidence includes 295 unit cases,
+155 extracted native rows, 31 insertion rows at each of 150%/200%, and 16 real catalog checks through both launchers.
+See [the completion notes](../.plans/3_done/2026-10-03_12_contextual-insertion/5_post-implementation-notes.md).
+Preserve the local uncommitted source and runtime; no promotion, selected-stack change or integrated release occurred.
+
+`wt-openscad-insertion-composition-check`, branch `codex/insertion-composition-check`, is the separate actual 04/05
+verification checkout for feature 12, at base `6a5dc9d1555cbcf9f1f8a359f37f68f5448f44a1`. Its final uncommitted source
+is independently replayed and recorded in `runs/20261004-contextual-insertion/composition-check`. All 66 affected unit
+cases and 15 native classes / 184 rows pass, including actual clipping/visibility restoration and Vim typing Undo
+boundaries. Preserve this occupied checkout and all original owner worktrees.
+
+## Edit-evaluation performance exploration, 2026-10-04
+
+`wt-openscad-edit-evaluation-performance`, branch `feature/edit-evaluation-performance`, is dedicated to faster
+source/parameter reevaluation. Fresh upstream base: `9899c745e47dbf0f48b3ca23562eea31e66f9b82`; all six submodules
+are initialized at their recorded revisions. The standalone benchmark fixtures are under
+`tests/data/scad/benchmarks/edit-evaluation/`; phases 1/2/3 add interpreter changes and language regressions
+described below. Preserve this occupied worktree.
+
+The plan is `.plans/2_in-progress/2026-10-04_edit-evaluation-performance/1_exploration.md`; runner and case catalog
+are under `tools/evaluation-benchmark`, with evidence in `runs/20261004-edit-evaluation-performance` (container
+relative). Full support and an explicitly selected mode excluding exactly Hull/Minkowski are separate research
+tracks. Phase 2 replaces the built-in sin/cos shortcut with lazy entry contexts for every function call;
+no restricted backend exists. Its source snapshots, matching comparison runtimes, semantic/mesh checks and
+timings are in `runs/20261004-evaluation-general-contexts`. Earlier phase-1 builds and isolated Windows repairs
+remain in `runs/20261004-evaluation-math-fastpath`. The initial corpus run used the older integrated SCADMaxx binary,
+recorded separately. Source remains uncommitted; there is no promotion or selected-stack change.
+
+Phase 3 transfers the already-bound ordinary parameter map into a fresh function body while preserving special
+variable merging and heap accounting. It retains phase 2 and adds a native test plus two SCAD regressions.
+Evidence and frozen source/runtimes are in `runs/20261004-evaluation-parameter-transfer`. Panel language time
+improves 6.79% against phase 2; repeated-update medians improve 3.69-8.66%, with substantial sample variation.
+Brackets show no useful gain. All 128 echo comparisons and 306 mesh comparisons match the previous runtime;
+known baseline failures remain documented. Preserve this local uncommitted experiment and its earlier inputs.
+
+The #4654 upstream-speedup composition is now benchmarked in the same performance working tree. Four applicable
+PRs are ported; three are already represented by current upstream code. Original phase-3 source/impact and the
+combined patch are frozen in `runs/20261004-evaluation-upstream-speedups`. Combined patch SHA256:
+`06716fa6f704c208da8fe3361d4dd934b863cc71584dceccf5243ac240511daf`; executable SHA256:
+`2809e523cdf6460a962c34fbb1a2121d9ff23ee264ed5269880220318333f443`. All 123 native cases and 129 language
+comparisons pass their recorded expectations; 8,000 corpus executions and 3,210 output checks are retained in
+`runs/20261004-realworld-upstream-speedups`. Typical-model gains remain near zero; evaluator-heavy examples show
+larger gains, while incremental upstream attribution is limited by timing variation. Read that run's `results.md`.
+The source stays uncommitted on the same base. Preserve the worktree; no promotion or selected-stack change.

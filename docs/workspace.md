@@ -2,6 +2,16 @@
 
 *OpenSCAD, with the sliders turned up.*
 
+Latest local delivery: [scadmaxx-2026100-windows-x64.zip](../../artifacts/scadmaxx-all-features/20261005T012805021Z/scadmaxx-2026100-windows-x64.zip).
+Extract the complete ZIP and launch `scadmaxx.exe`; `scadmaxx.com` provides console invocation.
+Both names are CMake outputs, with no `openscad.exe`/`openscad.com` aliases. This delivery includes all
+22 native entries frozen for the 2026-10-04 integration run, plus the selected skill companion.
+Final source is `c5d03a05c1f45ce8ada0538eeb4e6e36c8b9054d`. Unit, native/DPI, rendering,
+experimental/Minkowski, extracted Unicode and library/catalog checks passed. Matching source and
+skill archives sit beside the Windows ZIP. See the
+[run report](../../runs/20261004-scadmaxx-all-features/report.md) for checksums, frozen inputs and limits:
+live Windows theme switching and clean-machine portability remain unverified. No pushes were made.
+
 The control repository is `D:/openscad/scadmaxx`; the container is `D:/openscad`. The source experiments, integration branches and
 workspace control history stay local. Publish an individual feature to GitHub only when the user explicitly
 chooses to make it public. The two bare origins live in `E:/Dropbox/bare_repos`; see the
@@ -136,7 +146,7 @@ The [build tools](../experimental/scripts/README.md) implement the recorded buil
 integrations and diagnoses repairs. The first local run completed automated build, test, staging and extracted-ZIP
 checks on 2026-10-01. It includes #6878 and #6776, preceded by four separately committed Windows baseline repairs.
 
-The current delivery fixes Unicode filenames in that composition using the focused UTF-8 manifest change from
+The earlier 2026-10-01 delivery fixed Unicode filenames in that composition using the focused UTF-8 manifest change from
 upstream PRs #6726/#6357, with a new regression test. It reuses the shared dependency installation, with Catch2 and
 Boost.Nowide previously added at the user's request. The obsolete private build directories were removed (28.97 GiB of files);
 historical logs and original ZIPs remain available.
@@ -164,3 +174,15 @@ The `scadmaxx` directory is a separate Git control repository on `main`, with lo
 `E:/Dropbox/bare_repos/scadmaxx.git` and an allowlist excluding source checkouts and generated artifacts.
 The initial private workspace history was established as part of the 2026-10-01 Dropbox setup. The scope and per-attempt
 snapshot procedure are defined in [versioning and release rules](../experimental/versioning-and-releases.md).
+
+The 11 → 07 → 08 → 12 implementation queue is locally complete with verified handoffs for all four features. Feature 07's
+[completion notes](../.plans/3_done/2026-10-03_07_semantic-model-hierarchy/5_post-implementation-notes.md) lock its
+uncommitted delta, minimal source closure, extracted runtime and real clipping/Vim composition. Feature 08's
+[completion notes](../.plans/3_done/2026-10-03_08_anchors-attachments/5_post-implementation-notes.md) retain its source,
+native/package/DPI and actual clipping/Vim acceptance. Feature 12's
+[completion notes](../.plans/3_done/2026-10-03_12_contextual-insertion/5_post-implementation-notes.md) record its
+interactive candidate preview, guarded source Commit and all six accepted phases in `wt-openscad-contextual-insertion`.
+Its [run report](../../runs/20261004-contextual-insertion/report.md) links replayable source captures, the extracted
+development package, 295 unit cases, 155 native rows and 184 actual clipping/Vim composition rows, plus 150%/200% DPI
+and all eight catalog entries through both launchers. These local uncommitted feature results leave the selected
+stack and latest delivered distribution unchanged.
