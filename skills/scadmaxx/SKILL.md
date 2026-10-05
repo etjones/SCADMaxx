@@ -24,11 +24,33 @@ Preserve existing libraries and local modifications; an actual access restrictio
 
 Do not manually construct rings, profiles or vertex meshes and loft them with `skin()` to manufacture
 chamfers or fillets. Calling BOSL2's `skin()` for that workaround does not satisfy this rule.
-Legitimate lofted model bodies are a separate use. Read [edge treatments](references/edge-treatments.md)
-before choosing a helper; report a specific unsupported treatment instead of hiding it behind custom lofts.
+Also do not manufacture 3D edge treatments by rounding/chamfering a 2D outline and then adding further
+rounding/chamfering during extrusion, such as `round_corners()` followed by `offset_sweep()` with end treatments.
+Using dedicated BOSL2 functions within that profile-and-extrusion workaround does not make it acceptable.
+An untreated extrusion (including `offset_sweep()` without edge treatments) followed in a second pass by
+separate path-following BOSL2 masks is explicitly allowed. Keep the base solid independently inspectable;
+sweep `mask2d_roundover()` or `mask2d_chamfer()` along the actual edge path and apply the mask separately.
+Legitimate lofted bodies and ordinary 2D outlines are separate uses. Read
+[edge treatments](references/edge-treatments.md) before choosing a helper; report unsupported treatments
+instead of using either workaround.
 The two passes do not require an intervening user approval when the requested shape is clear.
 
 ## Choose the relevant workflow
+
+Read [task routing](references/task-routing.md) to separate intent, operating surface, required evidence and
+interaction policy. Honor the user's explicit question/approval rules; when they require stopping after a
+question, end the turn and wait for their answer. Reversible assumptions never authorize ignoring that rule.
+
+| Task intent | Start here |
+| --- | --- |
+| Create | [Design reasoning](references/design-reasoning.md), then [modeling](references/modeling.md). |
+| Edit source | [Source editing](references/task-routing.md#source-editing), then [validation](references/validation.md). |
+| Edit an imported mesh | [Mesh editing](references/mesh-editing.md). |
+| Reconstruct an editable model | [Reverse engineering](references/reverse-engineering.md#mesh-reconstruction). |
+| Replicate an image | [Image replication](references/reverse-engineering.md#image-replication). |
+| Inspect | [Inspection](references/inspection.md). |
+
+Use [visual verification](references/visual-verification.md) for comparable evidence during changes.
 
 - For model structure, library setup and an ordinary parametric starter: [modeling](references/modeling.md).
 - For chamfers, roundovers and fillets: [edge treatments](references/edge-treatments.md).

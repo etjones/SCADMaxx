@@ -7,9 +7,8 @@ selection and limits vary by helper; there is no assumed operation that fillets 
 | --- | --- |
 | Rectangular solid, selected outside edges | `cuboid()` with `rounding` or `chamfer`, `edges` and `except` |
 | Circular solid's end rims | `cyl()` rounding/chamfer parameters, including per-end variants |
-| Corners of a planar outline | `round_corners()` then extrusion, when a profile defines the part |
-| Profile with treated top/bottom edges | `offset_sweep()` and its documented end-treatment specifications |
 | Local supported cut/rounding at a known edge | BOSL2 masks such as `chamfer_edge_mask()` or `rounding_edge_mask()` |
+| Perimeter of an established extrusion, treated in a second pass | `mask2d_roundover()` or `mask2d_chamfer()` swept along the edge with a suitable `path_sweep()` or `path_sweep2d()` |
 
 Sources: [shapes3d](https://github.com/BelfrySCAD/BOSL2/wiki/shapes3d.scad),
 [rounding](https://github.com/BelfrySCAD/BOSL2/wiki/rounding.scad),
@@ -17,11 +16,43 @@ Sources: [shapes3d](https://github.com/BelfrySCAD/BOSL2/wiki/shapes3d.scad),
 every revision implements every combination. Primitive edge selectors describe that primitive's edges,
 not newly created Boolean intersections. Rounding a 2D outline rounds its extruded side corners, not its end rims.
 
-Use the primitive's helper before constructing a more elaborate profile. If the desired shape is naturally
-profile-based, choose a profile construction that supports the treatment. A specialized mask requires correct
-orientation, attachment and Boolean subtraction; inspect both ends and junctions. Do not substitute a manual
-ring stack plus `skin()` when an intersection fillet is unsupported. State which edge/helper combination is
-unsupported and choose a simpler supported construction only if it still satisfies the request.
+Use the solid primitive's own edge-treatment parameters or a suitable documented mask. A specialized mask
+requires correct orientation, attachment and Boolean subtraction; inspect both ends and junctions.
+
+Do not use either of these workarounds to manufacture chamfers or fillets:
+
+- Manually constructed rings, profiles or vertex meshes lofted with `skin()`.
+- A rounded/chamfered 2D outline followed by further rounded/chamfered extrusion ends: for example,
+  `round_corners()` followed by `offset_sweep()` with bottom/top end treatments. Equivalent offset/profile
+  stacks or custom extrusion sequences are covered too; changing helper names does not avoid the restriction.
+
+These are user-imposed modeling constraints, not claims that the BOSL2 functions are defective. They apply
+even when the workaround calls official BOSL2 helpers or starts with a naturally profile-based part.
+Ordinary 2D outline design and legitimate lofted bodies are not prohibited, but must not be used to disguise
+these 3D edge-treatment workarounds. State which edge/helper combination is unsupported and choose a simpler
+supported construction only if it still satisfies the request; otherwise report the remaining limitation.
+
+## Allowed: separate path-following masks in the second pass
+
+First create and inspect the untreated conceptual solid from its outline. A plain extrusion or
+`offset_sweep()` without rounding/chamfering end treatments is acceptable for this base construction.
+Keep the base module usable on its own; establish dimensions, silhouette and functional interfaces first.
+
+Then create a separate mask cross-section with `mask2d_roundover()` or `mask2d_chamfer()`. Sweep it along
+the relevant edge using a suitable documented `path_sweep()` or `path_sweep2d()` call, position/orient it
+at the intended rim, and subtract the resulting cutter from the established solid. Preserve the base
+construction and make the finishing masks independently inspectable and removable. This explicit second
+pass is allowed; it is not the prohibited outline-treatment-plus-extrusion-end-treatment construction above.
+
+For a straight extrusion, reuse the base outline to locate its top or bottom edge. With taper or offsets,
+derive the actual perimeter at the treatment height; do not blindly reuse the original outline. Check path
+winding, mask orientation, closed-path handling and a suitable Boolean overlap. Tight concave corners,
+intersecting masks and disappearing offsets can invalidate a sweep; verify helper limits and the rendered
+Boolean result. Check envelope, wall thickness, clearances and the intended edge coverage afterward.
+
+The restriction on handmade `skin()` geometry does not prohibit a documented BOSL2 path-sweep helper merely
+because it is implemented in `skin.scad`. Use the supported mask/sweep APIs rather than constructing profile
+stacks or vertex meshes yourself. See the [sweep documentation](https://github.com/BelfrySCAD/BOSL2/wiki/skin.scad).
 
 ## Preserve design intent
 
