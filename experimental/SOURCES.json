@@ -7,8 +7,9 @@
     "pendingReason": "",
     "validatedHead": "8ea44273775f3c7720f2ff607e6d4ea5215422a6",
     "localHead": "1dad283e17be06380f2ff6b23daca68719d1f70c",
-    "localCommitRecord": "experimental/local-commits-20261005.md",
-    "handoff": ".plans/1_planning/2026-10-02_oep8-customizer-syntax/5_post-implementation-notes.md"
+    "localCommitRecord": "experimental/promotion-20261005.md",
+    "handoff": ".plans/1_planning/2026-10-02_oep8-customizer-syntax/5_post-implementation-notes.md",
+    "promotedHead": "1dad283e17be06380f2ff6b23daca68719d1f70c"
   },
   "navigation-cube-local": {
     "repository": "E:/Dropbox/bare_repos/openscad.git",
@@ -17,8 +18,9 @@
     "pendingReason": "",
     "validatedHead": "bfd009ef0047452c09e3629d0af25efd6af34700",
     "localHead": "6b42cbf3f95bfe1ad2ff4b845a6dc20f4ed336fe",
-    "localCommitRecord": "experimental/local-commits-20261005.md",
-    "handoff": ".plans/3_done/2026-10-01_navigation-cube/5_post-implementation-notes.md"
+    "localCommitRecord": "experimental/promotion-20261005.md",
+    "handoff": ".plans/3_done/2026-10-01_navigation-cube/5_post-implementation-notes.md",
+    "promotedHead": "6b42cbf3f95bfe1ad2ff4b845a6dc20f4ed336fe"
   },
   "ui-visual-polish-local": {
     "repository": "E:/Dropbox/bare_repos/openscad.git",
@@ -27,8 +29,9 @@
     "pendingReason": "",
     "validatedHead": "8f5b3ae4707a8718db28722deb2fd723fd9415ab",
     "localHead": "2217d2c7d54743c93cefb9418b208825168ddc1c",
-    "localCommitRecord": "experimental/local-commits-20261005.md",
-    "handoff": ".plans/3_done/2026-10-01_ui-preferences-dialog-polish/5_post-implementation-notes.md"
+    "localCommitRecord": "experimental/promotion-20261005.md",
+    "handoff": ".plans/3_done/2026-10-01_ui-preferences-dialog-polish/5_post-implementation-notes.md",
+    "promotedHead": "2217d2c7d54743c93cefb9418b208825168ddc1c"
   },
   "annotations-local": {
     "repository": "E:/Dropbox/bare_repos/openscad.git",
@@ -44,7 +47,10 @@
     "ready": true,
     "pendingReason": null,
     "validatedHead": "6a5dc9d1555cbcf9f1f8a359f37f68f5448f44a1",
-    "handoff": ".plans/2_in-progress/2026-10-02_agent-direct-http/5_post-implementation-notes.md"
+    "handoff": ".plans/2_in-progress/2026-10-02_agent-direct-http/5_post-implementation-notes.md",
+    "localHead": "9aa372e8fcb012d8bcfe6344483d83f3bcd4f2d0",
+    "promotedHead": "9aa372e8fcb012d8bcfe6344483d83f3bcd4f2d0",
+    "localCommitRecord": "experimental/promotion-20261005.md"
   },
   "source-editing-foundation-local": {
     "repository": "E:/Dropbox/bare_repos/openscad.git",
@@ -64,11 +70,11 @@
     "ready": true,
     "pendingReason": "",
     "validatedHead": "e2b3a49470b67f46b433762bdd8d49aa8be7147e",
-    "localHead": "e2b3a49470b67f46b433762bdd8d49aa8be7147e",
+    "localHead": "ced629047eaa725a319f0c5a6a3602330b033c6d",
     "deltaBase": "b611584e013b8b4dbee123d62fabe9621b4bc137",
     "handoff": ".plans/1_planning/2026-10-03_03_selection-model-inspector/5_post-implementation-notes.md",
-    "localCommitRecord": "experimental/source-first-local-commits.md",
-    "promotedHead": "e2b3a49470b67f46b433762bdd8d49aa8be7147e"
+    "localCommitRecord": "experimental/promotion-20261005.md",
+    "promotedHead": "ced629047eaa725a319f0c5a6a3602330b033c6d"
   },
   "vim-editor-mode-local": {
     "repository": "E:/Dropbox/bare_repos/openscad.git",
@@ -112,11 +118,11 @@
     "ready": true,
     "pendingReason": "",
     "validatedHead": "3e81b46a59f929870e7066e40dcf3809f4d9a2d6",
-    "localHead": "3e81b46a59f929870e7066e40dcf3809f4d9a2d6",
+    "localHead": "06d073f73720a391f5d806911a3d91a27b1ebd4e",
     "deltaBase": "2878c9234181f6a9cfadbd93af0e00dfc37ec42a",
     "handoff": ".plans/1_planning/2026-10-03_04_live-clipping-sections/5_post-implementation-notes.md",
-    "localCommitRecord": "experimental/source-first-local-commits.md",
-    "promotedHead": "3e81b46a59f929870e7066e40dcf3809f4d9a2d6"
+    "localCommitRecord": "experimental/promotion-20261005.md",
+    "promotedHead": "06d073f73720a391f5d806911a3d91a27b1ebd4e"
   },
   "geometry-services-local": {
     "repository": "E:/Dropbox/bare_repos/openscad.git",
@@ -148,11 +154,11 @@
     "ready": true,
     "pendingReason": "",
     "validatedHead": "7e50bf157b4993ef183019e1e26e00ebd919b58f",
-    "localHead": "7e50bf157b4993ef183019e1e26e00ebd919b58f",
+    "localHead": "966b68b98fc21308d1fd1d40dbcb8eebeda7cc2f",
     "deltaBase": "e1d33c876493ed7bbe0dc61c3183280f0347e4d2",
     "handoff": ".plans/3_done/2026-10-03_07_semantic-model-hierarchy/5_post-implementation-notes.md",
-    "localCommitRecord": "experimental/source-first-local-commits.md",
-    "promotedHead": "7e50bf157b4993ef183019e1e26e00ebd919b58f"
+    "localCommitRecord": "experimental/promotion-20261005.md",
+    "promotedHead": "966b68b98fc21308d1fd1d40dbcb8eebeda7cc2f"
   },
   "anchors-attachments-local": {
     "repository": "E:/Dropbox/bare_repos/openscad.git",
@@ -160,11 +166,11 @@
     "ready": true,
     "pendingReason": "",
     "validatedHead": "629a6d7c809d7493583451f6a7b3ca3bb5e057b8",
-    "localHead": "629a6d7c809d7493583451f6a7b3ca3bb5e057b8",
+    "localHead": "56ceab74239507093067f11d078d73c12ae431c4",
     "deltaBase": "af0948f5d9711dc7f9336f6e08ffce21aba87364",
     "handoff": ".plans/3_done/2026-10-03_08_anchors-attachments/5_post-implementation-notes.md",
-    "localCommitRecord": "experimental/source-first-local-commits.md",
-    "promotedHead": "629a6d7c809d7493583451f6a7b3ca3bb5e057b8"
+    "localCommitRecord": "experimental/promotion-20261005.md",
+    "promotedHead": "56ceab74239507093067f11d078d73c12ae431c4"
   },
   "contextual-insertion-local": {
     "repository": "E:/Dropbox/bare_repos/openscad.git",
@@ -172,11 +178,11 @@
     "ready": true,
     "pendingReason": "",
     "validatedHead": "9db25842df0c3d7aad6a26bd6d96a7da86d189fe",
-    "localHead": "9db25842df0c3d7aad6a26bd6d96a7da86d189fe",
+    "localHead": "b298c802905289b4fb94178d9127c6a8283342b7",
     "deltaBase": "2895ab7f882ca65a4b4fe35fc726ae7f74e1b43b",
     "handoff": ".plans/3_done/2026-10-03_12_contextual-insertion/5_post-implementation-notes.md",
-    "localCommitRecord": "experimental/source-first-local-commits.md",
-    "promotedHead": "9db25842df0c3d7aad6a26bd6d96a7da86d189fe"
+    "localCommitRecord": "experimental/promotion-20261005.md",
+    "promotedHead": "b298c802905289b4fb94178d9127c6a8283342b7"
   },
   "agent-skill-workflows-local": {
     "repository": "E:/Dropbox/bare_repos/scadmaxx.git",
