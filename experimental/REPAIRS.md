@@ -6,9 +6,14 @@ Existing dirty PR worktrees are not a repair library. Only the individually reco
 Integration decisions: [PR 6776 camera input policy](repairs/pr-6776-camera-input-policy.md).
 PR behavior approved on 2026-10-02; the recorded checkpoint passed build and tests.
 See also the [annotations/navigation composition recipe](repairs/annotations-navigation-composition.md).
+For the current language/API stack, see the [OEP8, Customizer and HTTP composition recipe](repairs/oep8-customizer-http-composition.md).
+For the newer source-editing/modeling stack, see the [source-first composition recipe](repairs/source-first-composition.md).
+For Windows exact-byte insertion fixtures, see [insertion golden line endings](repairs/insertion-golden-line-endings.md).
+For surface selection at fractional DPI, see [logical viewport bounds](repairs/selection-fractional-dpi-bounds.md).
 
 | ID | Applies after | Source repository / full commit SHA | Applicability | Verification | State |
 | --- | --- | --- | --- | --- | --- |
+| windows-executable-name | baseline | openscad-master / three commits through `4c325716b94e444637a80df3966197ce110b2b75` (see recipe) | Required packaging support for SCADMaxx executable names | [Recipe and verification](repairs/windows-executable-name.md) | reusable |
 | native-ui-test-fixtures | ui-visual-polish, navigation-cube, annotations, http-agent-server | openscad-master / `bcf48145d9ebc7ffdcde0414ddde38ceb62f0b6a` | Deferred UI relayout and native picker invalidate test assumptions | [Native and standard tests passed](repairs/native-ui-test-fixtures.md) | reusable |
 | windows-manifest-dependency | baseline, windows-unicode-codepage | openscad-master / `6486d7660b5370efc08795681c9d0098fa2e8436` | Incremental RC build retains an old embedded manifest | [Manifest, Unicode and standard tests passed](repairs/windows-manifest-dependency.md) | reusable |
 | preferences-tab-order-test | pr-6878, ui-visual-polish | openscad-master / `61fb8357ad3101852bb2a12fc40421f047f99e68` | UI test assumes Dialogs precedes AI despite inserted Shortcuts page | [Unit/render tests passed](repairs/preferences-tab-order-test.md) | reusable |
