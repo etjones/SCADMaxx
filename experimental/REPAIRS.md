@@ -10,7 +10,8 @@ For the current language/API stack, see the [OEP8, Customizer and HTTP compositi
 For the newer source-editing/modeling stack, see the [source-first composition recipe](repairs/source-first-composition.md).
 For Windows exact-byte insertion fixtures, see [insertion golden line endings](repairs/insertion-golden-line-endings.md).
 For surface selection at fractional DPI, see [logical viewport bounds](repairs/selection-fractional-dpi-bounds.md).
-Pending local viewport performance fixes: [redraw freshness and camera publication](repairs/viewport-redraw-freshness.md).
+Promoted viewport performance fixes: [redraw freshness and camera publication](repairs/viewport-redraw-freshness.md).
+For PR 6642 with UI polish, see [Customizer group visibility test wiring](repairs/customizer-group-visibility-test.md).
 
 | ID | Applies after | Source repository / full commit SHA | Applicability | Verification | State |
 | --- | --- | --- | --- | --- | --- |

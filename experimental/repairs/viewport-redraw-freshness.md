@@ -57,6 +57,13 @@ Selection's owner patch needs two explicit adaptations after the later source-fi
 Do not overwrite the integrated EvaluationBinding files with the older owner files.
 The full adapted delta is retained as `integrated.patch` in the run.
 
+The fresh `20261005-scadmaxx-all-features` run reproduced this overlap at insertion
+foundation `05deb09fd`. Its preserved conflict is under
+`conflicts/insertion-foundation-followups/`. Resolve both predicates and watcher loops
+as above. The final EvaluationBinding.cc matches verified `0a53d34ce` exactly.
+The subsequent contextual-insertion strict-validation followup is already satisfied;
+its three-way patch applies without removing those checks. All 22 entry checkpoints passed.
+
 ## Verification
 
 Run evidence, executable identity and final native outcomes are in the run's `report.md`.
