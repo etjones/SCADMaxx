@@ -1,0 +1,2 @@
+#pragma once
+#define SCADMAXX_LAUNCHER_VERSION "@LAUNCHER_VERSION@"

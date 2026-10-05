@@ -3,6 +3,14 @@
 Standalone Windows C++17 / Qt6 Widgets utility. Select an executable per extension; defaults are `.scad` and
 provisional `.scadmax`. It does not require an OpenSCAD source checkout or change editor binaries.
 
+Agreed distribution requirements and the deferred packaging test are in [PACKAGING.md](PACKAGING.md).
+Finish implementation before running that test; the current deployment helper is not yet evidence that all
+installer, runtime-minimization and independent-lifecycle requirements have been met.
+
+Agreed distribution requirements and the deferred packaging test are in [PACKAGING.md](PACKAGING.md).
+Finish implementation before running that test; the current deployment helper is not yet evidence that all
+installer, runtime-minimization and independent-lifecycle requirements have been met.
+
 ## Use
 
 Run `scadmaxx-launcher.exe` and open **Manage builds**:
