@@ -15,6 +15,17 @@ function Expect-Failure([scriptblock]$Action, [string]$Pattern) {
     try { & $Action } catch { if ($_.ToString() -notmatch $Pattern) { throw }; return }
     throw "Expected failure matching $Pattern"
 }
+Assert-DeliveryStagingPath "$case/artifacts/example/20261005T142530123Z/staging" $case 'example'
+Assert-DeliveryStagingPath "$case/artifacts/example/20261006T091215456Z/staging" $case 'example'
+foreach ($badCollection in @('20261005-scadmaxx-all-features','scadmaxx-20261005','attempt-5','../outside','')) {
+    Expect-Failure { Assert-DeliveryStagingPath "$case/artifacts/$badCollection/20261005T142530123Z/staging" $case $badCollection } 'Delivery collection'
+}
+foreach ($bad in @('attempt-1/staging','20261005T142530123Z/runtime','20261305T142530123Z/staging',
+        '20261005T142530123Z/extra/staging')) {
+    Expect-Failure { Assert-DeliveryStagingPath "$case/artifacts/example/$bad" $case 'example' } 'Delivery'
+}
+Expect-Failure { Assert-DeliveryStagingPath "$case/artifacts/other/20261005T142530123Z/staging" $case 'example' } 'Delivery'
+$count++
 Assert-ChildPath (Join-Path $root 'child') $root
 Expect-Failure { Assert-ChildPath "$root-other/child" $root } 'Path must be inside'
 $count++

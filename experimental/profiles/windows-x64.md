@@ -65,7 +65,7 @@ targets. `New-ExperimentalRun.ps1` locks selections and prepares the isolated ch
 | Build | Build the selected configuration; log command, source SHA, output, and exit code. |
 | Test | Run relevant automated tests and CLI fixtures; record GUI checks separately with actual evidence. |
 | Stage | Install/deploy executable, Qt plugins, runtime libraries, resources, and notices into isolated staging. |
-| Package | Write build info and release notes, create ZIP/checksums, extract separately, and run runtime smoke checks. |
+| Package | Create a flat ZIP/checksums, matching source and selected skill companion; extract separately and run runtime smoke checks. Do not create release notes. |
 
 Fail on native-command failures; do not report success because the surrounding PowerShell process continued.
 Support resuming a step without refetching locked inputs or overwriting an earlier delivered artifact. Logs must

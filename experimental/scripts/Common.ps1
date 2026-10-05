@@ -1,5 +1,23 @@
 Set-StrictMode -Version Latest
 
+function Assert-DeliveryStagingPath([string]$Staging, [string]$Workspace, [string]$Collection) {
+    if ($Collection -cnotmatch '^[a-z][a-z0-9]*(-[a-z0-9]+)*$' -or $Collection -match '20\d{6}|attempt-\d+') {
+        throw 'Delivery collection must be a stable lowercase build-family slug, without run dates or attempt numbers.'
+    }
+    $delivery = Split-Path ([IO.Path]::GetFullPath($Staging)) -Parent
+    $stamp = Split-Path $delivery -Leaf
+    $parsed = [DateTime]::MinValue
+    if ($stamp -cnotmatch '^\d{8}T\d{9}Z$' -or
+        ![DateTime]::TryParseExact($stamp, "yyyyMMdd'T'HHmmssfff'Z'",
+            [Globalization.CultureInfo]::InvariantCulture, [Globalization.DateTimeStyles]::None, [ref]$parsed)) {
+        throw 'Delivery ID must be a UTC timestamp: yyyyMMddTHHmmssfffZ; do not use attempt-N.'
+    }
+    $expected = [IO.Path]::GetFullPath((Join-Path $Workspace "artifacts/$Collection/$stamp/staging"))
+    if (![string]::Equals([IO.Path]::GetFullPath($Staging), $expected, [StringComparison]::OrdinalIgnoreCase)) {
+        throw "Delivery staging path must be $expected; runtime is not a delivery directory name."
+    }
+}
+
 function Get-IntegrationNames([string]$Workspace, [string]$Repository, [string]$CreationDate) {
     if ($CreationDate -notmatch '^\d{8}$') { throw 'Creation date must be YYYYMMDD.' }
     $refs = @(Read-Git $Repository @('for-each-ref','--format=%(refname)',
@@ -127,13 +145,17 @@ function Save-ControlSnapshot([string]$Workspace, [string]$RunDirectory, [string
     $destination = Join-Path $RunDirectory "control/$Attempt"
     New-Item -ItemType Directory $destination | Out-Null
     $files = @('AGENTS.md','README.md','docs/git-layout.md','docs/worktrees.md',
-        'docs/workspace.md','docs/layout-migration.md',
+        'docs/workspace.md','docs/layout-migration.md','docs/scadmaxx-skill.md',
         'workflows/update-and-build-scadmaxx.md','workflows/experimental-builds.md','experimental/PR_STACK.md',
         'experimental/SOURCES.json','experimental/integration-inputs.md','experimental/REPAIRS.md','experimental/versioning-and-releases.md',
         'experimental/profiles/windows-x64.md','experimental/templates/run-report.md')
     $files += @(Get-ChildItem (Join-Path $Workspace 'experimental/scripts') -File | ForEach-Object {
         [IO.Path]::GetRelativePath($Workspace,$_.FullName)
     })
+    # The authored skill is a release input, not a file borrowed from the live checkout at Stage.
+    $files += @(Get-ChildItem -LiteralPath (Join-Path $Workspace 'skills/scadmaxx') -Recurse -File | Where-Object {
+        $_.Extension -ne '.zip' -and $_.FullName -notmatch '[\\/](?:__pycache__|staging)[\\/]'
+    } | ForEach-Object { [IO.Path]::GetRelativePath($Workspace,$_.FullName) })
     $repairDirectory = Join-Path $Workspace 'experimental/repairs'
     if (Test-Path $repairDirectory) {
         $files += @(Get-ChildItem $repairDirectory -Filter '*.md' -File | ForEach-Object {
@@ -158,6 +180,118 @@ function Save-ControlSnapshot([string]$Workspace, [string]$RunDirectory, [string
     return $destination
 }
 
+function Assert-ControlSnapshot([string]$Snapshot) {
+    $manifest = Join-Path $Snapshot 'snapshot.json'
+    $info = Get-Content -LiteralPath $manifest -Raw | ConvertFrom-Json -AsHashtable
+    if (!$info.ContainsKey('commit') -or !$info.ContainsKey('files')) { throw 'Invalid control snapshot manifest.' }
+    $seen = [Collections.Generic.HashSet[string]]::new([StringComparer]::OrdinalIgnoreCase)
+    foreach ($file in $info.files) {
+        $relative = $file.path.Replace('\','/')
+        $path = Join-Path $Snapshot $relative
+        Assert-ChildPath $path $Snapshot
+        if (!$seen.Add($relative) -or !(Test-Path -LiteralPath $path -PathType Leaf) -or
+            (Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash -ne $file.sha256) {
+            throw "Control snapshot file/hash mismatch: $relative"
+        }
+    }
+    foreach ($required in @('experimental/scripts/Build-ScadmaxxSkill.ps1','skills/scadmaxx/SKILL.md','docs/scadmaxx-skill.md')) {
+        if (!$seen.Contains($required)) { throw "Control snapshot omitted companion input: $required" }
+    }
+    return $manifest
+}
+
+function New-SkillCompanion([string]$Snapshot, [string]$Source, [string]$WorkDirectory, [string]$OutputZip) {
+    $manifest = Assert-ControlSnapshot $Snapshot
+    $builder = Join-Path $Snapshot 'experimental/scripts/Build-ScadmaxxSkill.ps1'
+    $result = @(& $builder -CustomizerSourceRoot $Source -OutputZip $OutputZip `
+        -SkillRoot (Join-Path $Snapshot 'skills/scadmaxx') -WorkDirectory $WorkDirectory -ControlManifestPath $manifest)
+    if ($result.Count -ne 1 -or $result[0].path -ne [IO.Path]::GetFullPath($OutputZip)) {
+        throw 'Frozen companion builder did not return exactly one matching artifact.'
+    }
+    $artifact = $result[0]
+    if (!(Test-Path -LiteralPath $artifact.path -PathType Leaf) -or
+        (Get-FileHash -LiteralPath $artifact.path -Algorithm SHA256).Hash -ne $artifact.sha256) {
+        throw 'Frozen companion artifact/hash mismatch.'
+    }
+    Assert-ControlSnapshot $Snapshot | Out-Null
+    return @{path=$artifact.path; metadata=@{
+        filename=(Split-Path $artifact.path -Leaf); sha256=$artifact.sha256; source_revision=$artifact.source_revision;
+        document_sha256=$artifact.document_sha256; control_manifest_sha256=$artifact.control_manifest_sha256}}
+}
+
+function Assert-SkillCompanion([string]$Path, [hashtable]$Metadata, [string]$Snapshot, [string]$Source) {
+    if (!$Metadata.filename -or [IO.Path]::GetFileName($Metadata.filename) -ne $Metadata.filename -or
+        $Metadata.filename -notmatch '^[A-Za-z0-9][A-Za-z0-9_.-]*\.zip$' -or
+        (Split-Path $Path -Leaf) -ne $Metadata.filename) { throw 'Invalid companion delivery filename.' }
+    foreach ($field in @('sha256','document_sha256','control_manifest_sha256')) {
+        if ($Metadata[$field] -notmatch '^[0-9a-f]{64}$') { throw "Invalid companion provenance: $field" }
+    }
+    if (!(Test-Path -LiteralPath $Path -PathType Leaf) -or
+        (Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash -ne $Metadata.sha256) {
+        throw 'Recorded companion is missing or its SHA-256 changed; stage a new attempt.'
+    }
+    $manifest = Assert-ControlSnapshot $Snapshot
+    if ((Get-FileHash -LiteralPath $manifest -Algorithm SHA256).Hash -ne $Metadata.control_manifest_sha256) {
+        throw 'Companion control manifest hash does not match Stage.'
+    }
+    if ((Read-Git $Source @('rev-parse','HEAD')) -ne $Metadata.source_revision -or
+        (Read-Git $Source @('status','--porcelain','--','doc/customizer-attributes.md')) -or
+        (Get-FileHash -LiteralPath (Join-Path $Source 'doc/customizer-attributes.md') -Algorithm SHA256).Hash -ne $Metadata.document_sha256) {
+        throw 'Companion canonical source provenance does not match the application.'
+    }
+    $archive = [IO.Compression.ZipFile]::OpenRead($Path)
+    try {
+        $entries = @($archive.Entries | Where-Object { $_.FullName.Replace('\','/') -eq 'scadmaxx/references/bundle-source.json' })
+        if ($entries.Count -ne 1) { throw 'Companion archive lacks unique bundle provenance.' }
+        $reader = [IO.StreamReader]::new($entries[0].Open())
+        try { $bundled = $reader.ReadToEnd() | ConvertFrom-Json -AsHashtable } finally { $reader.Dispose() }
+        if ($bundled.schema_version -ne 1 -or $bundled.canonical_document -ne 'doc/customizer-attributes.md') {
+            throw 'Companion archive has unsupported provenance.'
+        }
+        foreach ($field in @('source_revision','document_sha256','control_manifest_sha256')) {
+            if ($bundled[$field] -ne $Metadata[$field]) { throw "Companion archive provenance mismatch: $field" }
+        }
+        $documents = @($archive.Entries | Where-Object { $_.FullName.Replace('\','/') -eq 'scadmaxx/references/customizer-attributes.md' })
+        if ($documents.Count -ne 1) { throw 'Companion archive lacks unique canonical document.' }
+        $stream = $documents[0].Open()
+        try { $hash = [Convert]::ToHexString([Security.Cryptography.SHA256]::HashData($stream)).ToLowerInvariant() }
+        finally { $stream.Dispose() }
+        if ($hash -ne $Metadata.document_sha256) { throw 'Companion bundled canonical document hash mismatch.' }
+    } finally { $archive.Dispose() }
+}
+
+function Copy-SkillCompanion([string]$Path, [hashtable]$Metadata, [string]$Snapshot, [string]$Source, [string]$DeliveryDirectory) {
+    Assert-SkillCompanion $Path $Metadata $Snapshot $Source
+    $destination = Join-Path $DeliveryDirectory $Metadata.filename
+    Assert-ChildPath $destination $DeliveryDirectory
+    if ((Test-Path -LiteralPath $destination) -or (Test-Path -LiteralPath "$destination.sha256")) {
+        throw 'Existing companion delivery is preserved; use a new delivery attempt.'
+    }
+    # File.Copy's two-argument overload refuses an artifact created after the preflight check.
+    [IO.File]::Copy($Path,$destination)
+    if ((Get-FileHash -LiteralPath $destination -Algorithm SHA256).Hash -ne $Metadata.sha256) {
+        throw 'Delivered companion SHA-256 differs from Stage.'
+    }
+    Set-Content -LiteralPath "$destination.sha256" -Value "$($Metadata.sha256)  $($Metadata.filename)" -Encoding ascii
+    return $destination
+}
+
+function Copy-SourceAgentBundles([string]$Source, [string]$Staging, [object[]]$Entries) {
+    # This source-owned bundle remains independent of the control-owned skill companion.
+    $agentBundles = @{ 'http-agent-server'='openscad-agent-server' }
+    foreach ($featureId in $agentBundles.Keys) {
+        if (!@($Entries | Where-Object { $_.id -eq $featureId }).Count) { continue }
+        $bundle = $agentBundles[$featureId]
+        $tracked = @(& git -C $Source ls-files -- "contrib/$bundle/*.md" "contrib/$bundle/*.json")
+        if ($LASTEXITCODE -ne 0 -or !$tracked.Count) { throw "Missing tracked agent skill bundle for $featureId" }
+        foreach ($relative in $tracked) {
+            $destination = Join-Path $Staging $relative.Substring('contrib/'.Length)
+            New-Item -ItemType Directory -Force (Split-Path $destination) | Out-Null
+            Copy-Item -LiteralPath (Join-Path $Source $relative) -Destination $destination
+        }
+    }
+}
+
 function Invoke-Logged([string]$Executable, [string[]]$Arguments, [switch]$RejectErrors) {
     $entry = [ordered]@{exe=$Executable; arguments=$Arguments; started=[DateTime]::UtcNow.ToString('o')}
     $script:CommandRecords.Add($entry)
@@ -175,6 +309,12 @@ function Invoke-Logged([string]$Executable, [string[]]$Arguments, [switch]$Rejec
 }
 
 function Invoke-Smoke([string]$Executable, [string]$Directory, [string]$Version, [switch]$CleanPath) {
+    $runtime = Split-Path $Executable
+    foreach ($obsolete in @('openscad.exe','openscad.com')) {
+        if (Test-Path (Join-Path $runtime $obsolete)) { throw "Obsolete executable in SCADMaxx runtime: $obsolete" }
+    }
+    $console = Join-Path $runtime 'scadmaxx.com'
+    if (!(Test-Path $console)) { throw 'Missing SCADMaxx console launcher.' }
     New-Item -ItemType Directory -Path $Directory | Out-Null
     $fixture = Join-Path $Directory 'smoke.scad'
     'difference() { cube([12,12,6], center=true); cylinder(h=10,r=3,center=true,$fn=32); }' |
@@ -191,7 +331,10 @@ function Invoke-Smoke([string]$Executable, [string]$Directory, [string]$Version,
         }
         $actualVersion = (& $Executable --version 2>&1 | Out-String)
         if ($LASTEXITCODE -ne 0 -or !$actualVersion.Contains($Version)) { throw "Unexpected application identity: $actualVersion" }
-        $actualVersion | Set-Content (Join-Path $Directory 'version.txt')
+          $actualVersion | Set-Content (Join-Path $Directory 'version.txt')
+          $consoleVersion = (& $console --version 2>&1 | Out-String)
+          if ($LASTEXITCODE -ne 0 -or !$consoleVersion.Contains($Version)) { throw "Unexpected console identity: $consoleVersion" }
+          $consoleVersion | Set-Content (Join-Path $Directory 'console-version.txt')
         $stl = Join-Path $Directory 'smoke.stl'
         Invoke-Logged $Executable @('-o',$stl,$fixture) -RejectErrors
         if (!(Test-Path $stl) -or (Get-Item $stl).Length -lt 100) { throw 'CLI render produced no useful STL.' }

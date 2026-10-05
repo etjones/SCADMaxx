@@ -95,14 +95,29 @@ Verify both command-line rendering of a small SCAD fixture and GUI startup/previ
 Exercise the selected behaviors, including the focused checks in the selection list; record actual outcomes and
 any limits to verification.
 
-Stage a portable application under `artifacts/<run-id>/staging/`, using the checkout's packaging support where
+Use exactly `artifacts/<collection>/<delivery-id>/staging/` for every new portable delivery.
+Generate `<delivery-id>` once at staging start with `Get-Date -AsUTC -Format yyyyMMddTHHmmssfffZ`
+(for example `20261005T142530123Z`). Reuse it for Stage, Package and validation. It identifies
+this delivery, not the source version. Use a stable build-family collection such as `scadmaxx-all-features`
+across daily runs; select it once as the launcher's search folder. Separate release channels or feature
+branches may have separate stable collection slugs. Never derive the collection from a dated run ID.
+Pass the same explicit `-DeliveryCollection` to Stage and Package. Keep the dated run ID in `runs/`,
+frozen inputs, build-info.json, logs and source-archive provenance. Do not repeat
+branch names in the delivery ID. Never use numbered `attempt-N` directories or substitute
+`runtime`, `release`, or another name for `staging`. Disposable test runtimes under `runs/`
+are separate from this final-delivery contract. Put ZIPs/checksums and `extracted-check/`
+beside `staging/`. For retries requiring new output, generate a fresh timestamp and preserve
+prior outputs. Do not rename or move historical deliveries.
+
+Stage the portable application there, using the checkout's packaging support where
 applicable. Include required runtime libraries, Qt plugins, resources, fonts, examples, licenses/notices, and other
 redistribution requirements from OpenSCAD and its dependencies. A successful executable build alone is insufficient.
 Do not claim portability if testing depends on developer-only PATH entries or installed build tools.
 
-Create `OpenSCAD-experimental-<run-id>-windows-x64.zip` from the contents of the staging directory.
-Put `openscad.exe`, DLLs and resource folders directly at the ZIP root, without a `staging/` or other wrapper folder.
-After extraction, launch `openscad.exe` directly in the extraction directory. Extract into a separate test directory and repeat the
+Apply the [Windows executable naming support](../experimental/repairs/windows-executable-name.md) for the SCADMaxx profile.
+Create `scadmaxx-2026100-windows-x64.zip` from the contents of the staging directory, preserving the collection/delivery layout above.
+Put `scadmaxx.exe`, `scadmaxx.com`, DLLs and resource folders directly at the ZIP root, without a `staging/` or other wrapper folder.
+After extraction, launch `scadmaxx.exe` directly in the extraction directory. Extract into a separate test directory and repeat the
 smoke checks with a controlled runtime PATH. Prefer a clean Windows test environment for a distribution release.
 Record the exact environment and limitations if only the development machine was available.
 Verify the run identifier in the application's About/version information. Do not create or bundle release notes. Include a build-info

@@ -164,19 +164,25 @@ the dark-mode PR as its foundation. Record an explicit base/dependency or review
 
 ## 4. Integrate, build, test and deliver
 
+Launcher packaging is a separately owned companion deliverable. Follow
+[the recorded launcher requirements](../tools/scadmaxx-launcher/PACKAGING.md). Its packaging test is deferred until launcher implementation is finished; the current build scripts do
+not yet implement that full contract. Do not silently treat the existing editor ZIP as satisfying it.
+
 Follow `workflows/experimental-builds.md` and `experimental/scripts/README.md`: preserve baseline evidence,
 integrate each entry in order, commit its conflict resolutions, make separate repair commits, and verify each
 checkpoint. The agent resolves implementation conflicts; the scripts do not automatically merge the stack.
 Report genuinely ambiguous behavior conflicts instead of silently dropping functionality.
 
 Use the existing shared vcpkg installation and recorded Windows profile. Do not install/upgrade dependencies or
-create a private dependency tree. Apply the required Unicode filename repair when applicable and run its tests.
+create a private dependency tree. Apply the required [Windows executable naming support](../experimental/repairs/windows-executable-name.md)
+before the SCADMaxx profile checkpoints. It produces `scadmaxx.exe` and `scadmaxx.com`; neither old-name alias is shipped.
+Apply the required Unicode filename repair when applicable and run its tests.
 Every selected feature needs behavior evidence; compilation alone is insufficient.
 
 Package the combined GUI executable with its DLLs/resources, matching source including submodules, build info,
 notices and checksums. Do not create or bundle release notes. Test a fresh extraction with a controlled PATH. Record any missing desktop
-or clean-machine checks honestly. Current scripts use `OpenSCAD-experimental-<run-id>` artifact identities; the
-SCADMaxx product name does not imply that binary/ZIP branding has already been changed.
+or clean-machine checks honestly. The binary ZIP is `scadmaxx-2026100-windows-x64.zip`, inside the canonical stable-collection/UTC-timestamp delivery
+directory (see the packaging contract in `experimental-builds.md`). Name the application folder `staging`, never `runtime`. Its root contains `scadmaxx.exe` and `scadmaxx.com`. Matching source archives retain their run ID.
 
 Retain the integration branch and run/repair refs locally, with run/control snapshots and matching source archives.
 Push only the refs explicitly requested by the user, following the authorization rule above. A release tag also

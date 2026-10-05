@@ -74,11 +74,11 @@ then rebuild. This repaired the 2026-10-02 validation tree on its first focused 
 the fresh delivery tree generated the file correctly without intervention. No source patch
 or dependency rebuild is needed for this stale generated-file case.
 
-For additional upstream CTest checks on Windows, the runner expects `<build>/openscad.com`.
-If it reports that executable missing before any tests run, copy the matching launcher from
-the successful Test step's installed runtime into that build root, then rerun the same tests.
-Do not substitute an older build's launcher or change expected test results. This resolved
-the six experimental/Minkowski checks on 2026-10-02 on the first repair attempt.
+Apply the [Windows executable naming support](../repairs/windows-executable-name.md) before using
+this profile. It configures `OPENSCAD_WINDOWS_OUTPUT_NAME=scadmaxx`, producing `scadmaxx.exe`
+and `scadmaxx.com` directly at the build root. CTest uses that console launcher; no copying or
+post-build renaming is required. The name participates in the fingerprint. Staging and extracted-ZIP
+smoke checks reject old executable names and verify both new launchers.
 
 Compile-time feature audit for the 2026-10-01 integration source (`bcf48145d`), with current
 SCADMaxx recipe settings. Attempt-5 includes experimental features and Manifold Minkowski;
@@ -142,16 +142,18 @@ upstream. Record verification and limitations in the run report. Do not create o
 
 ```powershell
 $buildArgs.Build = 'D:/openscad/runs/<run-id>/integration-build'
-$staging = 'D:/openscad/artifacts/<run-id>/attempt-1/staging'
-./experimental/scripts/Build-Windows.ps1 @buildArgs -Step Stage -Staging $staging
-./experimental/scripts/Build-Windows.ps1 @buildArgs -Step Package -Staging $staging
+$collection = 'scadmaxx-all-features' # Stable across daily runs.
+$deliveryId = Get-Date -AsUTC -Format yyyyMMddTHHmmssfffZ
+$staging = "D:/openscad/artifacts/$collection/$deliveryId/staging" # Reuse for Stage and Package.
+./experimental/scripts/Build-Windows.ps1 @buildArgs -Step Stage -Staging $staging -DeliveryCollection $collection
+./experimental/scripts/Build-Windows.ps1 @buildArgs -Step Package -Staging $staging -DeliveryCollection $collection
 ```
 
 Stage installs upstream resources, copies the locked Release DLL set and Qt plugins with an app-local `qt.conf`,
 checks runtime dependencies, and copies license notices. It does not require Qt's optional `windeployqt` tool.
 The runtime bundle deliberately includes the installed Release libraries, including indirect plugin dependencies.
 Package verifies staging has not changed, archives its contents directly at the ZIP root, checks the ZIP,
-and exports matching source including submodules. After extraction, run `openscad.exe` directly in the
+and exports matching source including submodules. After extraction, run `scadmaxx.exe` directly in the
 extraction directory; `staging` is only an internal build directory. See the [packaging contract](../../workflows/experimental-builds.md#package-and-verify).
 Both perform CLI geometry/PNG checks with a controlled PATH and reject error diagnostics even with exit code zero.
 The Test step requires the Catch2 unit test binary, supplies the locked Qt plugins, and installs a separate test
@@ -160,7 +162,7 @@ These automated checks do not claim GUI interactions, selected feature behavior,
 Complete those checks in the run report before marking the profile/release verified or creating its success tag.
 
 For a failed staging attempt, use a new staging path; for a failed Package attempt, preserve its outputs and use a
-new attempt directory. Final verification evidence and profile/dependency metadata must accompany source delivery.
+new UTC-timestamped delivery directory in the same stable collection. Never use attempt-N or runtime for new deliveries. Final verification evidence and profile/dependency metadata must accompany source delivery.
 
 ## Tool checks
 
