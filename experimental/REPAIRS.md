@@ -18,6 +18,7 @@ For repeated cross section edits and persistence test lifetime, see [session ref
 For the Inspector font-input guard declaration, see [its direct header dependency](repairs/inspector-parser-capability-include.md).
 For the provenance-only parser budget test, see [the core inventory assertion](repairs/provenance-parser-budget-fixture.md).
 For repeated toolbar overflow relayout, see [shared action icon refresh](repairs/toolbar-icon-refresh-loop.md).
+For cross sections with insertion previews, see [draft editing ownership](repairs/cross-section-insertion-draft.md).
 
 | ID | Applies after | Source repository / full commit SHA | Applicability | Verification | State |
 | --- | --- | --- | --- | --- | --- |
