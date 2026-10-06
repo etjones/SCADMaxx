@@ -36,6 +36,17 @@ Existing application binaries have not changed.
 
 ## Everyday feature maintenance
 
+### Validation follow-up checkpoint
+
+Run `runs/20261006-validation-promotion` has passing Cross sections, persistence,
+Inspector, annotation/HTTP, navigation, Vim and UI checks. It repaired the session
+refresh guard and merged owner fixes forward. Downstream validation is blocked by
+the newly added semantic cross-section regression's ResolveContext initialization
+after two focused attempts. Current exact heads are in the manifests; they are not
+promoted or fully validated. See the run report for the compiler error and precise
+resume point. Do not promote the current heads or replay historical composition
+branches to get past this checkpoint.
+
 ### 2026-10-06 pre-integration commit checkpoint
 
 The pending Cross sections UI and branding changes are now committed (`aba032259`,

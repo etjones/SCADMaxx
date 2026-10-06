@@ -157,7 +157,7 @@
     "semantic-model-hierarchy": {
       "sourceKey": "semantic-model-hierarchy-local",
       "ref": "refs/heads/feature/semantic-model-hierarchy",
-      "acceptedHead": "5a507ab41b45f0e800f5f1908caa99293811fbb2",
+      "acceptedHead": "bd60d24968a1b8e59887522683ce31169a786b24",
       "featureMarker": "966b68b98fc21308d1fd1d40dbcb8eebeda7cc2f",
       "validation": "not-run",
       "dependencies": {
@@ -168,21 +168,21 @@
     "anchors-attachments": {
       "sourceKey": "anchors-attachments-local",
       "ref": "refs/heads/feature/anchors-attachments",
-      "acceptedHead": "0306932d42a4c2a23cdba1f898f9401d227470b6",
+      "acceptedHead": "2c34ce88c9f08ba77c307b044620f4c4918871c2",
       "featureMarker": "56ceab74239507093067f11d078d73c12ae431c4",
       "validation": "not-run",
       "dependencies": {
-        "semantic-model-hierarchy": "5a507ab41b45f0e800f5f1908caa99293811fbb2"
+        "semantic-model-hierarchy": "bd60d24968a1b8e59887522683ce31169a786b24"
       }
     },
     "contextual-insertion": {
       "sourceKey": "contextual-insertion-local",
       "ref": "refs/heads/feature/contextual-insertion",
-      "acceptedHead": "46c95cbbce988cbfa84db112e57e4e4450ad823a",
+      "acceptedHead": "18f294b8e39fc43fcf5bb75c167ed52f24ba3d4d",
       "featureMarker": "b298c802905289b4fb94178d9127c6a8283342b7",
       "validation": "not-run",
       "dependencies": {
-        "anchors-attachments": "0306932d42a4c2a23cdba1f898f9401d227470b6",
+        "anchors-attachments": "2c34ce88c9f08ba77c307b044620f4c4918871c2",
         "component-provider-adapters": "9d0cb2097efcac6856ae5dafb31a642803ec32d7",
         "pr-6878": "3014fb55405759bfa1871e79f50cbee4c2a2c638"
       }
