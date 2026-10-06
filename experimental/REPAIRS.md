@@ -17,6 +17,7 @@ For hierarchy tests after removing geometry attachments, see [world-space cross-
 For repeated cross section edits and persistence test lifetime, see [session refresh validation](repairs/session-section-refresh.md).
 For the Inspector font-input guard declaration, see [its direct header dependency](repairs/inspector-parser-capability-include.md).
 For the provenance-only parser budget test, see [the core inventory assertion](repairs/provenance-parser-budget-fixture.md).
+For repeated toolbar overflow relayout, see [shared action icon refresh](repairs/toolbar-icon-refresh-loop.md).
 
 | ID | Applies after | Source repository / full commit SHA | Applicability | Verification | State |
 | --- | --- | --- | --- | --- | --- |
