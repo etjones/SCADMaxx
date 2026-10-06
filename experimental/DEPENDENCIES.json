@@ -118,7 +118,7 @@
     "design-object-persistence": {
       "sourceKey": "design-object-persistence-local",
       "ref": "refs/heads/feature/design-object-persistence",
-      "acceptedHead": "5e20706a3379334537e3d3c40c8e7dcc85f6b0c7",
+      "acceptedHead": "cdfc439c169ead84b91366bca7096348380c1fd1",
       "featureMarker": "015aa3172759c00979830ab178cc3515b4e7fd50",
       "validation": "not-run",
       "dependencies": {
@@ -130,11 +130,11 @@
     "live-clipping-sections": {
       "sourceKey": "live-clipping-sections-local",
       "ref": "refs/heads/feature/live-clipping-sections",
-      "acceptedHead": "930b2a87e0d345a969bf2c3ee69c01423454ffde",
+      "acceptedHead": "ce8af12e4b4d4cee14b82f697062f75cf552f0c3",
       "featureMarker": "06d073f73720a391f5d806911a3d91a27b1ebd4e",
       "validation": "not-run",
       "dependencies": {
-        "design-object-persistence": "5e20706a3379334537e3d3c40c8e7dcc85f6b0c7",
+        "design-object-persistence": "cdfc439c169ead84b91366bca7096348380c1fd1",
         "pr-6878": "3014fb55405759bfa1871e79f50cbee4c2a2c638"
       }
     },
@@ -157,32 +157,32 @@
     "semantic-model-hierarchy": {
       "sourceKey": "semantic-model-hierarchy-local",
       "ref": "refs/heads/feature/semantic-model-hierarchy",
-      "acceptedHead": "dd709ea0fbdb2e4aeaff5c89cd548adae03188f3",
+      "acceptedHead": "5a507ab41b45f0e800f5f1908caa99293811fbb2",
       "featureMarker": "966b68b98fc21308d1fd1d40dbcb8eebeda7cc2f",
       "validation": "not-run",
       "dependencies": {
         "source-geometry-provenance": "36e43d75020ebe2ff81cb90ce84aca63c482fd8c",
-        "design-object-persistence": "5e20706a3379334537e3d3c40c8e7dcc85f6b0c7"
+        "design-object-persistence": "cdfc439c169ead84b91366bca7096348380c1fd1"
       }
     },
     "anchors-attachments": {
       "sourceKey": "anchors-attachments-local",
       "ref": "refs/heads/feature/anchors-attachments",
-      "acceptedHead": "1411dc676a14d3222be109997c6bed3df4e89460",
+      "acceptedHead": "0306932d42a4c2a23cdba1f898f9401d227470b6",
       "featureMarker": "56ceab74239507093067f11d078d73c12ae431c4",
       "validation": "not-run",
       "dependencies": {
-        "semantic-model-hierarchy": "dd709ea0fbdb2e4aeaff5c89cd548adae03188f3"
+        "semantic-model-hierarchy": "5a507ab41b45f0e800f5f1908caa99293811fbb2"
       }
     },
     "contextual-insertion": {
       "sourceKey": "contextual-insertion-local",
       "ref": "refs/heads/feature/contextual-insertion",
-      "acceptedHead": "a04a15047e55846211bedbca8e7012e1a4818de7",
+      "acceptedHead": "46c95cbbce988cbfa84db112e57e4e4450ad823a",
       "featureMarker": "b298c802905289b4fb94178d9127c6a8283342b7",
       "validation": "not-run",
       "dependencies": {
-        "anchors-attachments": "1411dc676a14d3222be109997c6bed3df4e89460",
+        "anchors-attachments": "0306932d42a4c2a23cdba1f898f9401d227470b6",
         "component-provider-adapters": "9d0cb2097efcac6856ae5dafb31a642803ec32d7",
         "pr-6878": "3014fb55405759bfa1871e79f50cbee4c2a2c638"
       }

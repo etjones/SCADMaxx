@@ -40,13 +40,13 @@ It defines source synchronization and the handoff required when each feature bec
 | 10 | selection-model-inspector | feature | selection-model-inspector-local | 6440acdfd1c21f979d3074b2cdd60478d0aa8977 | merge | http-agent-server | Geometric picking and shared inspection presentation |
 | 11 | vim-editor-mode | feature | vim-editor-mode-local | f6e316ed43dcaa4726520dbee76980015e681ec7 | merge | source-editing-foundation, pr-6878 | Native Vim editing without GTK or GLib |
 | 12 | source-geometry-provenance | feature | source-geometry-provenance-local | 36e43d75020ebe2ff81cb90ce84aca63c482fd8c | merge | source-editing-foundation, selection-model-inspector, pr-6642-oep8 | Source spans and evaluated instance provenance |
-| 13 | design-object-persistence | feature | design-object-persistence-local | 5e20706a3379334537e3d3c40c8e7dcc85f6b0c7 | merge | source-editing-foundation, selection-model-inspector, pr-6642-oep8 | Typed design objects stored in SCAD source |
-| 14 | live-clipping-sections | feature | live-clipping-sections-local | 930b2a87e0d345a969bf2c3ee69c01423454ffde | merge | design-object-persistence, pr-6878 | Live cross section clipping planes and saved cross sections |
+| 13 | design-object-persistence | feature | design-object-persistence-local | cdfc439c169ead84b91366bca7096348380c1fd1 | merge | source-editing-foundation, selection-model-inspector, pr-6642-oep8 | Typed design objects stored in SCAD source |
+| 14 | live-clipping-sections | feature | live-clipping-sections-local | ce8af12e4b4d4cee14b82f697062f75cf552f0c3 | merge | design-object-persistence, pr-6878 | Live cross section clipping planes and saved cross sections |
 | 15 | geometry-services | feature | geometry-services-local | 4e1286c7b362f84e920a21ba65e13042178a6fea | merge | none declared | Strict in-memory measurement and section services |
 | 16 | component-provider-adapters | feature | component-provider-adapters-local | 9d0cb2097efcac6856ae5dafb31a642803ec32d7 | merge | none declared | Version-matched component catalogs and source generation |
-| 17 | semantic-model-hierarchy | feature | semantic-model-hierarchy-local | dd709ea0fbdb2e4aeaff5c89cd548adae03188f3 | merge | source-geometry-provenance, design-object-persistence | Parts Assemblies Components and scoped parameters |
-| 18 | anchors-attachments | feature | anchors-attachments-local | 1411dc676a14d3222be109997c6bed3df4e89460 | merge | semantic-model-hierarchy | Typed anchors references and attachment placement |
-| 19 | contextual-insertion | feature | contextual-insertion-local | a04a15047e55846211bedbca8e7012e1a4818de7 | merge | anchors-attachments, component-provider-adapters, pr-6878 | Searchable insertion palette isolated preview and guarded Commit |
+| 17 | semantic-model-hierarchy | feature | semantic-model-hierarchy-local | 5a507ab41b45f0e800f5f1908caa99293811fbb2 | merge | source-geometry-provenance, design-object-persistence | Parts Assemblies Components and scoped parameters |
+| 18 | anchors-attachments | feature | anchors-attachments-local | 0306932d42a4c2a23cdba1f898f9401d227470b6 | merge | semantic-model-hierarchy | Typed anchors references and attachment placement |
+| 19 | contextual-insertion | feature | contextual-insertion-local | 46c95cbbce988cbfa84db112e57e4e4450ad823a | merge | anchors-attachments, component-provider-adapters, pr-6878 | Searchable insertion palette isolated preview and guarded Commit |
 
 The selected product features are unchanged. The three historical foundation-followup rows have been retired:
 their shared behavior now belongs to the maintained owners listed in [the migration record](../docs/feature-ancestry.md).
