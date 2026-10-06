@@ -5,17 +5,17 @@ The 2026-10-06 local migration supersedes historical snapshot/delta instructions
 
 *OpenSCAD, with the sliders turned up.*
 
-Latest local delivery: [scadmaxx-2026100-windows-x64.zip](../../artifacts/scadmaxx-all-features/20261005T195510539Z/scadmaxx-2026100-windows-x64.zip).
+Latest local delivery: [scadmaxx-2026100-windows-x64.zip](../../artifacts/scadmaxx-all-features/20261006T230852571Z/scadmaxx-2026100-windows-x64.zip).
 Extract the complete ZIP and launch `scadmaxx.exe`; `scadmaxx.com` provides console invocation.
 Both names are CMake outputs, with no `openscad.exe`/`openscad.com` aliases. This delivery includes all
-22 native entries frozen for the 2026-10-05 integration run, plus the selected skill companion.
-Final source is `dcd732fefa0aef5b12d4e5d0a2097223caf32726`. Unit, native/DPI, rendering,
+19 native entries frozen for the 2026-10-06 integration run, plus the selected skill companion.
+Final source is `569220a50377c705a4c3af5cc21fd106b2e91662`. Unit, native/DPI, rendering,
 experimental/Minkowski, extracted Unicode and library/catalog checks passed. Matching source and
 skill archives sit beside the Windows ZIP. See the
-[run report](../../runs/20261005-scadmaxx-all-features/report.md) for checksums, frozen inputs and limits:
-live Windows theme switching and clean-machine portability remain unverified. Feature branches,
-integration history and controls are retained in the Dropbox bare repositories under the user's
-explicit 2026-10-05 push authorization. No GitHub publication was made.
+[run report](../../runs/20261006-scadmaxx-all-features/report.md) for checksums, frozen inputs and limits:
+live Windows theme switching and clean-machine portability remain unverified. Selected feature inputs
+were promoted to Dropbox under the user's earlier explicit authorization; this new integration branch,
+release tag and control updates remain local. No GitHub publication was made.
 
 The control repository is `D:/openscad/scadmaxx`; the container is `D:/openscad`. The source experiments, integration branches and
 workspace control history stay local. Publish an individual feature to GitHub only when the user explicitly
