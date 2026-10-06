@@ -70,11 +70,11 @@
     "ready": false,
     "pendingReason": "Ancestry migration is local and has not been built/tested or promoted. See docs/feature-ancestry.md.",
     "validatedHead": "3131a23d6ec04f4405952d8804a41dd8296b2dc5",
-    "localHead": "6421dc080550911bceed99fb72742c679c8ef0cd",
+    "localHead": "0bcafded2a98d98802a8e869e44a658770ebc3b4",
     "handoff": ".plans/1_planning/2026-10-03_02_source-editing-foundation/5_post-implementation-notes.md",
     "localCommitRecord": "docs/feature-ancestry.md",
     "promotedHead": "3131a23d6ec04f4405952d8804a41dd8296b2dc5",
-    "acceptedHead": "6421dc080550911bceed99fb72742c679c8ef0cd",
+    "acceptedHead": "0bcafded2a98d98802a8e869e44a658770ebc3b4",
     "integration": "merge"
   },
   "selection-model-inspector-local": {
@@ -122,11 +122,11 @@
     "ready": false,
     "pendingReason": "Ancestry migration is local and has not been built/tested or promoted. See docs/feature-ancestry.md.",
     "validatedHead": "015aa3172759c00979830ab178cc3515b4e7fd50",
-    "localHead": "d97af002bd076c82f0ff8fd55e33ab285fdd902b",
+    "localHead": "5e048d5aa600f5bb3772cea1b5ec7de785c5b7dd",
     "handoff": ".plans/1_planning/2026-10-03_14_design-object-persistence/5_post-implementation-notes.md",
     "localCommitRecord": "docs/feature-ancestry.md",
     "promotedHead": "015aa3172759c00979830ab178cc3515b4e7fd50",
-    "acceptedHead": "d97af002bd076c82f0ff8fd55e33ab285fdd902b",
+    "acceptedHead": "5e048d5aa600f5bb3772cea1b5ec7de785c5b7dd",
     "integration": "merge"
   },
   "live-clipping-sections-local": {
@@ -135,11 +135,11 @@
     "ready": false,
     "pendingReason": "Ancestry migration is local and has not been built/tested or promoted. See docs/feature-ancestry.md.",
     "validatedHead": "06d073f73720a391f5d806911a3d91a27b1ebd4e",
-    "localHead": "db0188a709c23a43f356d1fd4bd4d5cf38111428",
+    "localHead": "d463920733484462a8ba1bf4af4f76e667bd3cc2",
     "handoff": ".plans/1_planning/2026-10-03_04_live-clipping-sections/5_post-implementation-notes.md",
     "localCommitRecord": "docs/feature-ancestry.md",
     "promotedHead": "06d073f73720a391f5d806911a3d91a27b1ebd4e",
-    "acceptedHead": "db0188a709c23a43f356d1fd4bd4d5cf38111428",
+    "acceptedHead": "d463920733484462a8ba1bf4af4f76e667bd3cc2",
     "integration": "merge"
   },
   "geometry-services-local": {

@@ -36,6 +36,15 @@ Existing application binaries have not changed.
 
 ## Everyday feature maintenance
 
+The continuous source-editing follow-up is source editing `0bcafded2` (hidden widgets
+are disabled for input without changing document read-only protection), persistence
+`5e048d5aa` (current-buffer records, guarded source patches and undo/redo, readable
+inserted declarations), merged into Cross sections `d46392073`. The consumer's
+pending UI changes use those records for repeated edits and retain the last displayed
+clipping pipeline; picking still requires evaluated geometry. Run and source snapshot:
+`runs/20261006-section-promotion-display` in the container. Build results belong in
+that report; no runtime tests or promotion are implied by these pins.
+
 The hidden-Editor session-edit fix is owned by source editing (`5c67b8c4a`, with
 regression correction `6421dc080`), merged forward into persistence (`d97af002b`)
 and Cross sections (`db0188a70`). A hidden Editor dock sets Scintilla read-only;
