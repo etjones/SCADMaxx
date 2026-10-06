@@ -150,3 +150,17 @@ GUI build/test results and any later repair. Production GUI test hooks stay disa
 The final 150% DPI check exposed a selection edge-rounding bug. Apply the
 [logical viewport bounds repair](selection-fractional-dpi-bounds.md) when absent;
 do not change the existing exterior-edge test expectation to Miss.
+
+### 2026-10-06 forward-merge verification
+
+The frozen current owners still lack the semantic/clipping fixture priorities.
+`d0da90316` assigns priority 200 to the four explicit test mesh providers; production
+provider priorities remain unchanged. The isolated cross-section suite passed
+20/20 in `runs/20261006-scadmaxx-all-features/native-clipping-provider-repair.log`.
+`180c92a04` also restores the Ready wait instead of treating an inactive transient
+state as completed preparation. These are manually reviewed integration repairs,
+not cherry-picks of an earlier aggregate.
+
+The logical selection bounds repair is absent too and is restored as `0bfece13f`.
+Its native DPI verification remains pending in that run. Do not mistake source
+replay for passing verification or package an earlier staged candidate.

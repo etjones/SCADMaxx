@@ -41,3 +41,10 @@ The isolated source suite passed 8/8 in `native-source-qt-dialog-repair.log`; fu
 native verification follows in the run report. The original interrupted test and
 debugger evidence are retained. Earlier staged output predates these test repairs
 and must not be presented as the final delivery.
+
+The next combined run exposed a separate scratch-tab reset issue: session-only
+records can remain dirty even when source text is clean. `09aa5dfb7` makes
+`UXTest::restoreWindowInitialState` discard only its disposable test tabs, reject
+unexpected modal dialogs, and assert that each tab actually closes. MainWindow
+and ModuleCache suites then passed. This is test-only and must never be used to
+discard user documents in an ordinary application run.
