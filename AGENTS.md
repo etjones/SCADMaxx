@@ -6,10 +6,12 @@ the parent container `D:/openscad`. See `docs/layout-migration.md` when resuming
 
 - Whenever you ask the user a question, stop and end your turn. Resume only after an explicit answer.
   Do not use a timeout, choose a default, or interpret silence as permission.
+- Do not build or run tests unless the user explicitly requests them. Editing or fixing code alone does not authorize either.
 - `README.md` is hand-maintained by the user. Do not regenerate or update it unless the user explicitly requests an edit.
 - Do not add or retain backward-compatibility code, aliases, shims, fallbacks or migrations unless the user explicitly
   authorizes that compatibility. When replacing behavior, remove its obsolete paths and update the affected consumers.
 - For README screenshots, follow `docs/readme-screenshots.md`; replacement captures are deferred until the integrated build works.
+- For UI terminology and shared controls, including the Customizer-style "help icon", read `docs/ui-conventions.md`.
 - Read `docs/workspace.md` for the workspace layout and `docs/worktrees.md` before selecting a checkout.
 - Before feature maintenance or standalone builds, read `docs/feature-ancestry.md`; preserve dependencies with normal
   forward merges, never cherry-picks or squash copies. Accepted pins live in `experimental/DEPENDENCIES.json`.
@@ -24,6 +26,8 @@ the parent container `D:/openscad`. See `docs/layout-migration.md` when resuming
   Commit requests, feature completion and update/build requests do not authorize pushes. Promotion into the
   future-build input repository is a separate explicit user decision; see `workflows/update-and-build-scadmaxx.md`.
 - At feature completion, record the local handoff described in `workflows/update-and-build-scadmaxx.md`.
+- For all SCADMaxx builds, apply the shared icon patch described in `workflows/scadmaxx-branding.md`.
+- For standalone feature builds, follow `workflows/feature-builds.md` for the shared branch-title patch.
 - For testing or advancing a PR, read `workflows/pr-development.md`.
 - Keep workspace plans, run records, and artifacts outside upstream-facing source changes.
 - Inspect branch, worktree status, submodules, and checkout-local instructions before source edits.

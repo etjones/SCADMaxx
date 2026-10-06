@@ -7,6 +7,7 @@
    Preserve local modifications. Compare overlapping Customizer work before moving changes between checkouts.
    When a new checkout is needed, create a worktree from `openscad-master` following the workspace guide's standard workflow,
    using the selected PR branch or commit as its base.
+   For standalone builds, use the shared title patch in [feature builds](feature-builds.md).
 3. Reproduce the reported behavior and record the base/head revision, toolchain, commands, and observations.
    Keep feature-specific evidence and plans outside the patch sent upstream.
 4. Implement a focused change and verify both the intended behavior and relevant regression coverage.

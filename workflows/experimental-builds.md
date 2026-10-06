@@ -92,6 +92,8 @@ feature B integration, feature B repairs, and so on. A repair-free entry has onl
 
 After the complete stack passes, prepare the experimental version identity and any separate packaging-metadata
 commit required by the release rules. Build/package from the final committed source with clean recorded submodules.
+Apply the shared [SCADMaxx icon patch](scadmaxx-branding.md) after stack composition and before the final source checkpoint.
+
 Use a fresh final build/staging directory, or a verified cache configuration that cannot mix incompatible inputs.
 Verify both command-line rendering of a small SCAD fixture and GUI startup/preview/render on Windows.
 Exercise the selected behaviors, including the focused checks in the selection list; record actual outcomes and

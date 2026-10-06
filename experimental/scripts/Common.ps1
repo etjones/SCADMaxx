@@ -162,6 +162,12 @@ function Save-ControlSnapshot([string]$Workspace, [string]$RunDirectory, [string
             [IO.Path]::GetRelativePath($Workspace,$_.FullName)
         })
     }
+    $files += @('workflows/scadmaxx-branding.md','workflows/feature-builds.md')
+    foreach ($assetDirectory in @('assets/icons','experimental/patches')) {
+        $files += @(Get-ChildItem -LiteralPath (Join-Path $Workspace $assetDirectory) -File | ForEach-Object {
+            [IO.Path]::GetRelativePath($Workspace, $_.FullName)
+        })
+    }
     foreach ($relative in $files) {
         $target = Join-Path $destination $relative
         New-Item -ItemType Directory -Force (Split-Path $target) | Out-Null

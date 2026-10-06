@@ -8,6 +8,9 @@
 !/skills/
 !/workflows/
 !/experimental/
+!/assets/
+/assets/*
+!/assets/icons/
 !/.plans/
 
 # Generated or machine-private files within the admitted control directories.

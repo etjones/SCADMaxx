@@ -1,0 +1,81 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 0b9e55e16..2b6a9f350 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -28,6 +28,7 @@ if(POLICY CMP0167) # Since CMake 3.30
+   cmake_policy(SET CMP0167 NEW)
+ endif()
+ 
++include("cmake/Modules/scadmaxx_feature_title.cmake")
+ include("cmake/Modules/openscad_version.cmake")
+ configure_file(
+   ${CMAKE_SOURCE_DIR}/src/version.cc.in
+diff --git a/src/openscad_gui.cc b/src/openscad_gui.cc
+index f4218fc43..9ceadb14f 100644
+--- a/src/openscad_gui.cc
++++ b/src/openscad_gui.cc
+@@ -57,6 +57,7 @@
+ #include "gui/AppleEvents.h"
+ #include "gui/input/InputDriverManager.h"
+ #include "version.h"
++#include "feature-build-title.h"
+ #ifdef ENABLE_HIDAPI
+ #include "gui/input/HidApiInputDriver.h"
+ #endif
+@@ -222,7 +223,9 @@ int gui(std::vector<std::string>& inputFiles, const std::filesystem::path& origi
+   QCoreApplication::setOrganizationDomain("openscad.org");
+   QCoreApplication::setApplicationName("OpenSCAD");
+   QCoreApplication::setApplicationVersion(QString::fromStdString(std::string(openscad_versionnumber)));
+-  QGuiApplication::setApplicationDisplayName("OpenSCAD");
++  const auto featureTitle = QString::fromUtf8(SCADMAXX_TITLE_LABEL);
++  QGuiApplication::setApplicationDisplayName(featureTitle.isEmpty()
++    ? QStringLiteral("OpenSCAD") : QStringLiteral("OpenSCAD [%1]").arg(featureTitle));
+   QGuiApplication::setDesktopFileName(DESKTOP_FILENAME);
+ #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+   QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
+diff --git a/cmake/Modules/scadmaxx_feature_title.cmake b/cmake/Modules/scadmaxx_feature_title.cmake
+new file mode 100644
+index 000000000..756b14b37
+--- /dev/null
++++ b/cmake/Modules/scadmaxx_feature_title.cmake
+@@ -0,0 +1,32 @@
++# Feature-only build identity. The application/settings identity remains OpenSCAD.
++option(SCADMAXX_FEATURE_TITLE "Show the source branch in GUI window titles" ON)
++set(SCADMAXX_TITLE_LABEL "")
++if(SCADMAXX_FEATURE_TITLE)
++  find_package(Git REQUIRED)
++  execute_process(COMMAND "${GIT_EXECUTABLE}" -c "safe.directory=${CMAKE_SOURCE_DIR}"
++    -C "${CMAKE_SOURCE_DIR}" rev-parse --absolute-git-dir
++    OUTPUT_VARIABLE title_git_dir OUTPUT_STRIP_TRAILING_WHITESPACE
++    RESULT_VARIABLE title_git_result)
++  if(NOT title_git_result EQUAL 0)
++    message(FATAL_ERROR "Feature titles require a Git checkout; disable SCADMAXX_FEATURE_TITLE for archive builds.")
++  endif()
++  # Branch switches, including linked worktrees, must regenerate the embedded identity.
++  set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS "${title_git_dir}/HEAD")
++  execute_process(COMMAND "${GIT_EXECUTABLE}" -c "safe.directory=${CMAKE_SOURCE_DIR}"
++    -C "${CMAKE_SOURCE_DIR}" symbolic-ref --quiet --short HEAD
++    OUTPUT_VARIABLE SCADMAXX_TITLE_LABEL OUTPUT_STRIP_TRAILING_WHITESPACE
++    RESULT_VARIABLE title_branch_result)
++  if(title_branch_result EQUAL 1)
++    get_filename_component(title_worktree "${CMAKE_SOURCE_DIR}" NAME)
++    set(SCADMAXX_TITLE_LABEL "${title_worktree} (detached)")
++  elseif(NOT title_branch_result EQUAL 0)
++    message(FATAL_ERROR "Cannot determine feature branch.")
++  endif()
++endif()
++# Escape a UTF-8 C++ string, including unusual but legal branch-name characters.
++string(REPLACE "\\" "\\\\" SCADMAXX_TITLE_LABEL "${SCADMAXX_TITLE_LABEL}")
++string(REPLACE "\"" "\\\"" SCADMAXX_TITLE_LABEL "${SCADMAXX_TITLE_LABEL}")
++string(REPLACE "\n" "\\n" SCADMAXX_TITLE_LABEL "${SCADMAXX_TITLE_LABEL}")
++string(REPLACE "\r" "\\r" SCADMAXX_TITLE_LABEL "${SCADMAXX_TITLE_LABEL}")
++configure_file("${CMAKE_SOURCE_DIR}/src/feature-build-title.h.in"
++  "${CMAKE_BINARY_DIR}/feature-build-title.h" @ONLY)
+diff --git a/src/feature-build-title.h.in b/src/feature-build-title.h.in
+new file mode 100644
+index 000000000..8e7ff7a84
+--- /dev/null
++++ b/src/feature-build-title.h.in
+@@ -0,0 +1,2 @@
++#pragma once
++#define SCADMAXX_TITLE_LABEL "@SCADMAXX_TITLE_LABEL@"
