@@ -19,3 +19,11 @@
 - Focused verification: 54 assertions, zero failures/errors/skips in
   `feature-checks/insertion-golden-lf.xml`. Full checkpoint rerun is recorded in the run ledger.
 - This was focused repair attempt 1. No production behavior or selected feature was removed.
+
+Reproduced with promoted insertion `9ba04f92b` during the forward-merge run
+`20261006-scadmaxx-all-features`. Failure: `20261006T220429552Z-test-unit.xml`.
+Repair `1521fb795` adds the same scoped attribute as a separate integration repair
+commit (no cherry-pick), then refreshes the three clean fixtures to LF. The only
+staged content delta is `.gitattributes`. First focused attempt passed all 687869
+assertions with zero failures/errors/skips and deployed smoke checks:
+`logs/20261006T221251937Z-test.json`. The frozen owner head remains unchanged.
