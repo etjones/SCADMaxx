@@ -1,5 +1,8 @@
 # SCADMaxx workspace guide
 
+For feature dependencies and forward-only maintenance, read [maintained feature ancestry](feature-ancestry.md).
+The 2026-10-06 local migration supersedes historical snapshot/delta instructions below.
+
 *OpenSCAD, with the sliders turned up.*
 
 Latest local delivery: [scadmaxx-2026100-windows-x64.zip](../../artifacts/scadmaxx-all-features/20261005T195510539Z/scadmaxx-2026100-windows-x64.zip).

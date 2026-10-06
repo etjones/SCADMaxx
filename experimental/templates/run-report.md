@@ -29,7 +29,7 @@ promotion refs as well as upstreams where they differ. Distinguish absent/unveri
 - Unresolved revision choices / explicit user decision when required:
 - Any separately authorized promotion: user request, repository/ref, exact revision, verification:
 
-| Order / entry | Declared repository/ref | Pinned or latest | Locked head | Delta base | Dependencies / readiness | Local head / excluded commits |
+| Order / entry | Declared repository/ref | Pinned or latest | Locked head | Accepted dependency SHAs | Dependencies / readiness | Local head / excluded commits |
 | --- | --- | --- | --- | --- | --- | --- |
 
 ## Locked inputs
@@ -39,6 +39,7 @@ promotion refs as well as upstreams where they differ. Distinguish absent/unveri
   ahead/behind/divergence result, readiness, excluded dirty state, comparison commands/results:
 
 - PR stack snapshot path and SHA-256:
+- Dependency manifest snapshot/hash and ancestry/selection-closure evidence:
 - Control repository commit (or not initialized) / dirty state / complete control snapshot and hashes:
 - Repair catalog and record snapshot / profile and script snapshot:
 - Upstream repository / master SHA:
@@ -48,11 +49,11 @@ promotion refs as well as upstreams where they differ. Distinguish absent/unveri
 - Build/cache directory ownership / compatibility fingerprint:
 - Baseline outcome / log / repair commits:
 
-| Order / ID | Kind / source repository and ref | Locked head / delta base | Dependencies | Source diff / commits record | Integration commit | Passing checkpoint | Outcome |
+| Order / ID | Kind / source repository and ref | Locked head | Accepted dependency SHAs | Review diff / commits record | Merge commit | Passing checkpoint | Outcome |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 
 For each entry record its PR URL if applicable, original PR head for variants, retained run refs, source-worktree
-dirty state excluded from inputs, source authors, patch checksum, and already-present or residual-change evidence.
+dirty state excluded from inputs, source authors, review-patch checksum, and already-present ancestry evidence.
 
 ## Repair decisions
 
@@ -66,7 +67,7 @@ Include baseline repairs and uncataloged new fixes. Link new reusable repairs ba
 | Step | Source SHA | Command/log path | Exit code | Diagnosis and action | Verification |
 | --- | --- | --- | --- | --- | --- |
 
-Record exact patch application commands and conflict resolutions, including their effect on earlier entries.
+Record exact merge commands and conflict resolutions, including their effect on earlier entries.
 Never leave an omitted entry unexplained. Record the checks made before resuming an interrupted run.
 
 ## Final validation

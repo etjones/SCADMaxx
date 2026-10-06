@@ -1,53 +1,13 @@
 digraph SCADMaxxFeatureDependencies {
-  graph [rankdir=LR, label="SCADMaxx dependencies: feature IDs are not execution positions", labelloc=t];
+  graph [rankdir=LR, label="SCADMaxx unfinished planning work", labelloc=t];
   node [shape=box, style=rounded];
 
-  // Sparse unfinished-work graph: redundant transitive edges and independent 01 are omitted.
-  // Existing selected source prerequisites and full direct dependencies are in the overview's 3_overall-plan.md.
-  // 03/14 have specified foundation plans; this does not claim they are implemented.
-  // First priority: 01/02/03, then 05 after 02 and 06/14 after 02/03, then 04.
-  // Semantic contributions are owned by dependent 06/07/08 branches.
-  subgraph cluster_foundations {
-    label="Foundations";
-    source [label="02 Source transactions", URL="1_planning/2026-10-03_02_source-editing-foundation/1_exploration.md"];
-    picking [label="03 Geometric picking", URL="1_planning/2026-10-03_03_selection-model-inspector/1_exploration.md"];
-    geometry [label="15 Geometry services", URL="1_planning/2026-10-03_15_geometry-services/1_exploration.md"];
-  }
-  subgraph cluster_followthrough {
-    label="Foundation follow-through";
-    vim [label="05 Vim editor mode", URL="1_planning/2026-10-03_05_vim-editor-mode/1_exploration.md"];
-    provenance [label="06 Source / instance provenance", URL="1_planning/2026-10-03_06_source-geometry-provenance/1_exploration.md"];
-    hierarchy [label="07 Semantic hierarchy", URL="3_done/2026-10-03_07_semantic-model-hierarchy/1_exploration.md"];
-    anchors [label="08 Anchors / attachments", URL="3_done/2026-10-03_08_anchors-attachments/1_exploration.md"];
-    persistence [label="14 Design objects / persistence", URL="1_planning/2026-10-03_14_design-object-persistence/1_exploration.md"];
-  }
-  subgraph cluster_inspection {
-    label="Inspection and documentation";
-    clips [label="04 Live clipping / saved sections", URL="1_planning/2026-10-03_04_live-clipping-sections/1_exploration.md"];
-    drawings [label="09 Technical drawings (postponed)", color=gray, fontcolor=gray, URL="1_planning/2026-10-03_09_technical-drawings/1_exploration.md"];
-  }
-  subgraph cluster_authoring {
-    label="Source authoring consumers";
-    editing [label="10 Interactive source edits (postponed)", color=gray, fontcolor=gray, URL="1_planning/2026-10-03_10_interactive-source-editing/1_exploration.md"];
-    analysis [label="13 Agent geometry tools (postponed)", color=gray, fontcolor=gray, URL="1_planning/2026-10-03_13_agent-geometry-analysis/1_exploration.md"];
-  }
-  { rank=same; source; picking; geometry; }
-  source -> provenance;
-  source -> vim;
-  picking -> provenance;
-  source -> persistence;
-  picking -> persistence;
-  provenance -> hierarchy;
-  persistence -> hierarchy;
-  hierarchy -> anchors;
-  persistence -> clips;
-  anchors -> drawings;
-  geometry -> drawings;
-  anchors -> editing;
+  // Implemented prerequisites are omitted from this sparse work-order graph.
+  // Actual maintained source ancestry, including completed foundations, is in
+  // ../experimental/DEPENDENCIES.json and ../docs/feature-ancestry.md.
+  // 09/10/13 consume existing foundations; none depends on another consumer UI.
+  drawings [label="09 Technical drawings (postponed)", color=gray, fontcolor=gray, URL="1_planning/2026-10-03_09_technical-drawings/1_exploration.md"];
+  editing [label="10 Interactive source edits (postponed)", color=gray, fontcolor=gray, URL="1_planning/2026-10-03_10_interactive-source-editing/1_exploration.md"];
+  analysis [label="13 Agent geometry tools (postponed)", color=gray, fontcolor=gray, URL="1_planning/2026-10-03_13_agent-geometry-analysis/1_exploration.md"];
   keyboard [label="16 Viewport keyboard commands / focus (exploration)", URL="1_planning/2026-10-04_16_viewport-keyboard-commands/1_exploration.md"];
-  // 12's complete tool coverage is now available; command/focus foundation work remains independent.
-  anchors -> analysis;
-  geometry -> analysis;
-  // Drawings consume 14's Section type, not the clipping dock. Provider metadata does not require anchors.
-  // 09/10/13 share foundations; none depends on another consumer's UI implementation.
 }

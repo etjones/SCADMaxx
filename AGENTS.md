@@ -11,6 +11,8 @@ the parent container `D:/openscad`. See `docs/layout-migration.md` when resuming
   authorizes that compatibility. When replacing behavior, remove its obsolete paths and update the affected consumers.
 - For README screenshots, follow `docs/readme-screenshots.md`; replacement captures are deferred until the integrated build works.
 - Read `docs/workspace.md` for the workspace layout and `docs/worktrees.md` before selecting a checkout.
+- Before feature maintenance or standalone builds, read `docs/feature-ancestry.md`; preserve dependencies with normal
+  forward merges, never cherry-picks or squash copies. Accepted pins live in `experimental/DEPENDENCIES.json`.
 - Create new OpenSCAD worktrees from the sibling `openscad-master` clone; follow `docs/workspace.md`.
 - For annotations, read `workflows/annotations.md` and its linked feature exploration.
 - For SCADMaxx update/build requests, including "update everything and build a new SCADMaxx", start with

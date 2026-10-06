@@ -6,7 +6,7 @@ commits, tests and local ZIP delivery. It does not request pushes to Dropbox ori
 dependency upgrades, or rebasing all feature worktrees. A documentation-only request does not start a build.
 
 Read `docs/workspace.md`, `docs/git-layout.md`, `docs/worktrees.md`, `experimental/PR_STACK.md`,
-`experimental/SOURCES.json`, and `workflows/experimental-builds.md`. Follow the linked integration, repair,
+`experimental/SOURCES.json`, `experimental/DEPENDENCIES.json`, `docs/feature-ancestry.md`, and `workflows/experimental-builds.md`. Follow the linked integration, repair,
 Windows profile and release contracts. Only the enabled selection is authoritative; do not infer features from
 worktree names, public branches, open PRs or remembered conversations.
 
@@ -135,8 +135,8 @@ An explicitly pinned `Revision` remains pinned even during an "update everything
 Choose a new run ID and follow the [integration naming rule](../docs/git-layout.md#integration-branch-and-worktree-names).
 Invoke `experimental/scripts/New-ExperimentalRun.ps1` from the control repository. Its defaults locate controls
 in `D:/openscad/scadmaxx` and source/run directories in `D:/openscad`. It fetches master and each selected
-repository/ref, locks full head/base SHAs, retains refs under `refs/experimental-runs/<run-id>/`, saves binary-capable
-patches and original commit identities, and creates the isolated integration worktree. It does not perform the
+repository/ref, locks full head and accepted dependency SHAs, retains refs under `refs/experimental-runs/<run-id>/`, saves binary-capable
+review patches and original commit identities, checks dependency ancestry, and creates the isolated integration worktree. It does not perform the
 control reconciliation and promoted-input checks above; the agent must complete and record those first.
 
 ### Show the exact build composition before integration or compilation
@@ -144,7 +144,7 @@ control reconciliation and promoted-input checks above; the agent must complete 
 After preparation resolves `latest` and writes `inputs.json`, present the frozen composition to the user before
 any baseline build, integration or compilation. Preparation may fetch and create a worktree; it is not the build.
 Show the exact upstream SHA, control revision/dirty snapshot, and every enabled entry in order with its declared
-repository/ref, locked head, delta base, readiness and dependencies. Distinguish a pinned revision from the current
+repository/ref, locked head, readiness and accepted dependency revisions. Distinguish a pinned revision from the current
 remote tip. Explicitly list unpushed local commits and dirty work that will be excluded, including selected branches
 whose local HEAD differs from the locked input. Never summarize such a build as containing "all latest local work".
 
@@ -155,12 +155,15 @@ No generic confirmation is needed for a composition that clearly matches the use
 revision choices require an explicit answer. Warnings, silence and a build request never authorize a push.
 
 Record promoted and excluded local source revisions in the run report. Freeze `PR_STACK.md`, `SOURCES.json`, applicable
-repair records, profile, scripts and instructions with hashes. Do not refetch or change selections halfway through
+`DEPENDENCIES.json`, repair records, profile, scripts and instructions with hashes. Do not refetch or change selections halfway through
 a run. If inputs must change, preserve the failed/abandoned attempt and start a new run ID.
 
-Review dependencies and overlapping changes before integration. In particular, the UI branch currently includes
-the dark-mode PR as its foundation. Record an explicit base/dependency or reviewed residual UI-only patch so
-#6776 is not applied twice. A selected change already upstream gets evidence and an `already-present` result.
+Review dependencies and overlapping changes before integration. Use normal merges of the frozen source heads;
+never squash, cherry-pick or apply feature-only deltas. The UI branch has real ancestry from #6776, so Git retains
+the shared history. If an upstream PR has advanced beyond a consumer's accepted pin, stop for feature maintenance:
+merge and review it in that consumer, update its dependency pins, and validate/promote separately. A selected
+head already upstream gets ancestry evidence and an `already-present` result. Do not silently include an excluded
+feature through another feature's history; select the full declared dependency closure or omit the consumer.
 
 ## 4. Integrate, build, test and deliver
 
@@ -192,7 +195,7 @@ staged edits out of control commits; committing controls does not authorize push
 ## Feature completion and later GitHub publication
 
 Each feature-development task must leave a reproducible local handoff: source state (committed when requested),
-matching submodule revisions, tests/evidence, exact source head and intended delta boundary, and reviewed dependencies.
+matching submodule revisions, tests/evidence (or explicitly not run), exact source head and accepted dependency SHAs.
 Feature acceptance and local commits do not require or authorize a push. Report any completed but unpromoted revision.
 
 After the user explicitly requests promotion, verify the push to the declared repository and update build readiness

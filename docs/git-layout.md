@@ -56,7 +56,8 @@ IDs to repositories and full refs. A feature's source can be the local bare repo
 1. Fetch OpenSCAD master and lock its SHA. Create a fresh local `scadmaxx-YYYYMMDD` branch from that commit,
    following the naming rule below.
 2. Resolve the two selected upstream PR heads (#6878 and #6776), local feature heads, and any selected published
-   feature heads. Lock all SHAs and intended delta bases before integrating.
+   feature heads. Lock all source and accepted dependency SHAs before integrating with normal merges; see
+   [maintained feature ancestry](feature-ancestry.md).
 3. Apply applicable Windows baseline repairs, then each selected feature/PR as its own integration commit,
    followed by separate build-fix commits and verification. Include the required Unicode filename repair unless
    upstream already supplies the behavior; retain its regression checks.

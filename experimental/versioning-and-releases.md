@@ -34,7 +34,7 @@ identify the revision used to produce and verify the delivered package.
 - Implement this through the locked source's supported version mechanism where possible. Any needed source change
   is a separate packaging-metadata commit before the final build; do not put a self-referential commit SHA into a
   source commit. Generate final-SHA metadata at build time.
-- Include a build-info file with upstream SHA, every entry's source/base/head and integration SHA, repairs, final
+- Include a build-info file with upstream SHA, every entry's source/head, accepted dependency SHAs and merge SHA, repairs, final
   source SHA, submodules, control snapshot identity, profile, and toolchain. Keep validation results and limitations
   in the run report; do not create or bundle release notes.
 - After final validation, create an annotated, never-moved source tag `experimental/<run-id>` at the exact final

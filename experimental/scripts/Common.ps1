@@ -147,7 +147,7 @@ function Save-ControlSnapshot([string]$Workspace, [string]$RunDirectory, [string
     $files = @('AGENTS.md','README.md','docs/git-layout.md','docs/worktrees.md',
         'docs/workspace.md','docs/layout-migration.md','docs/scadmaxx-skill.md',
         'workflows/update-and-build-scadmaxx.md','workflows/experimental-builds.md','experimental/PR_STACK.md',
-        'experimental/SOURCES.json','experimental/integration-inputs.md','experimental/REPAIRS.md','experimental/versioning-and-releases.md',
+        'experimental/SOURCES.json','experimental/DEPENDENCIES.json','docs/feature-ancestry.md','experimental/integration-inputs.md','experimental/REPAIRS.md','experimental/versioning-and-releases.md',
         'experimental/profiles/windows-x64.md','experimental/templates/run-report.md')
     $files += @(Get-ChildItem (Join-Path $Workspace 'experimental/scripts') -File | ForEach-Object {
         [IO.Path]::GetRelativePath($Workspace,$_.FullName)
@@ -168,6 +168,8 @@ function Save-ControlSnapshot([string]$Workspace, [string]$RunDirectory, [string
         $inputPath = if ($relative -eq 'experimental/PR_STACK.md') { Join-Path $RunDirectory 'PR_STACK.md' }
             elseif ($relative -eq 'experimental/SOURCES.json' -and (Test-Path (Join-Path $RunDirectory 'source-definitions.json'))) {
                 Join-Path $RunDirectory 'source-definitions.json'
+            } elseif ($relative -eq 'experimental/DEPENDENCIES.json' -and (Test-Path (Join-Path $RunDirectory 'dependencies.json'))) {
+                Join-Path $RunDirectory 'dependencies.json'
             } else { Join-Path $Workspace $relative }
         Copy-Item -LiteralPath $inputPath -Destination $target
     }

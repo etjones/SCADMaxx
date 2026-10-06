@@ -32,19 +32,26 @@ $rows = @($section -split '\r?\n' | Where-Object { $_ -match '^\|\s*\d+\s*\|' })
 if (!$rows.Count) { throw 'No entries enabled; an enhanced build requires an explicit selection.' }
 if (!$SourceDefinitions) { $SourceDefinitions = Join-Path $ControlRoot 'experimental/SOURCES.json' }
 $definitions = Get-Content $SourceDefinitions -Raw | ConvertFrom-Json -AsHashtable
+$dependencyPath = Join-Path $ControlRoot 'experimental/DEPENDENCIES.json'
+$manifest = Get-Content $dependencyPath -Raw | ConvertFrom-Json -AsHashtable
+if ($manifest.schemaVersion -ne 1 -or $manifest.integration -ne 'merge') { throw 'Unsupported dependency contract.' }
 $ids = @()
 $orders = @()
 $entries = foreach ($row in $rows) {
     $cells = @($row.Trim().Trim('|').Split('|') | ForEach-Object { $_.Trim() })
     if ($cells.Count -ne 8) { throw "Expected eight selection columns: $row" }
-    $order,$id,$kind,$selectedSource,$revision,$deltaBase,$depends,$reason = $cells
+    $order,$id,$kind,$selectedSource,$revision,$integration,$depends,$reason = $cells
     if ($id -notmatch '^[a-z0-9][a-z0-9-]*$' -or $id -in $ids -or [int]$order -in $orders) { throw 'Invalid/duplicate selection ID or order.' }
     if ($orders.Count -and [int]$order -le $orders[-1]) { throw 'Rows must be in ascending order; do not silently reorder.' }
     $dependencies = @(if ($depends -ne 'none declared') { $depends.Split(',') | ForEach-Object { $_.Trim() } })
     foreach ($dependency in $dependencies) { if ($dependency -notin $ids) { throw "Dependency $dependency must be selected earlier." } }
-    if ($dependencies.Count -and $deltaBase -eq 'auto-merge-base') { throw "Stacked entry $id needs an explicit delta base." }
+    if ($integration -ne 'merge') { throw "Entry $id must use merge integration." }
     if ($revision -ne 'latest' -and $revision -notmatch '^[0-9a-f]{40}$') { throw "Invalid revision for $id" }
-    if ($deltaBase -ne 'auto-merge-base' -and $deltaBase -notmatch '^[0-9a-f]{40}$') { throw "Invalid delta base for $id" }
+    if (!$manifest.nodes.ContainsKey($id)) { throw "Missing dependency manifest node: $id" }
+    $node = $manifest.nodes[$id]
+    if ((($dependencies | Sort-Object) -join ',') -ne (($node.dependencies.Keys | Sort-Object) -join ',')) {
+        throw "Selection dependencies disagree with DEPENDENCIES.json: $id"
+    }
     $ready = $true
     $pendingReason = $null
     if ($kind -eq 'pr') {
@@ -56,6 +63,7 @@ $entries = foreach ($row in $rows) {
     } elseif ($kind -in @('feature','pr-variant')) {
         if (!$definitions.ContainsKey($selectedSource)) { throw "Missing explicit source definition: $selectedSource" }
         $definition = $definitions[$selectedSource]
+        if ($node.sourceKey -ne $selectedSource -or $node.ref -ne $definition.ref) { throw "Manifest/source identity mismatch: $id" }
         if ($definition.ContainsKey('ready')) {
             if ($definition.ready -isnot [bool]) { throw "Source readiness must be a JSON boolean: $selectedSource" }
             $ready = $definition.ready
@@ -73,7 +81,7 @@ $entries = foreach ($row in $rows) {
     $ids += $id
     $orders += [int]$order
     @{id=$id; order=[int]$order; kind=$kind; repository=$repository; sourceRef=$ref; revision=$revision;
-      deltaBase=$deltaBase; dependencies=$dependencies; reason=$reason; prUrl=$prUrl;
+      integration=$integration; dependencies=$dependencies; acceptedDependencies=$node.dependencies; reason=$reason; prUrl=$prUrl;
       ready=$ready; pendingReason=$pendingReason}
 }
 if ($ValidateOnly) {
@@ -88,11 +96,13 @@ if ($pending.Count) {
 New-Item -ItemType Directory -Path $run,(Join-Path $run 'logs') | Out-Null
 $script:LogPath = Join-Path $run 'logs/prepare.log'
 $script:CommandRecords = [Collections.Generic.List[object]]::new()
-$info = [ordered]@{runId=$RunId; versionDate=(Get-Date -AsUTC -Format yyyy.MM.dd); status='preparing'; source=$source; branch=$branch; controlRoot=$ControlRoot; entries=@($entries)}
+$info = [ordered]@{contractVersion=2; runId=$RunId; versionDate=(Get-Date -AsUTC -Format yyyy.MM.dd); status='preparing'; source=$source; branch=$branch; controlRoot=$ControlRoot; entries=@($entries)}
 try {
     Copy-Item (Join-Path $ControlRoot 'experimental/PR_STACK.md') (Join-Path $run 'PR_STACK.md')
     Copy-Item (Join-Path $ControlRoot 'experimental/templates/run-report.md') (Join-Path $run 'report.md')
     if ($SourceDefinitions) { Copy-Item $SourceDefinitions (Join-Path $run 'source-definitions.json') }
+    Copy-Item $dependencyPath (Join-Path $run 'dependencies.json')
+    $info.dependenciesSha256 = (Get-FileHash (Join-Path $run 'dependencies.json')).Hash
     $info.controlSnapshot = Save-ControlSnapshot $ControlRoot $run 'prepare' ''
     Invoke-Logged 'git' @('-C',$repo,'fetch','upstream',"refs/heads/master:refs/experimental-runs/$RunId/upstream")
     $info.upstream = Read-Git $repo @('rev-parse',"refs/experimental-runs/$RunId/upstream")
@@ -104,12 +114,10 @@ try {
         Invoke-Logged 'git' @('-C',$repo,'merge-base','--is-ancestor',$entry.head,$tip)
         Invoke-Logged 'git' @('-C',$repo,'update-ref',$retained,$entry.head)
         $entry.retainedRef = $retained
-        if ($entry.deltaBase -eq 'auto-merge-base') {
-            $bases = (Read-Git $repo @('merge-base','--all',$info.upstream,$entry.head)) -split '\n'
-            if ($bases.Count -ne 1) { throw "Ambiguous merge base for $($entry.id)" }
-            $entry.deltaBase = $bases[0]
+        $node = $manifest.nodes[$entry.id]
+        if ($entry.kind -ne 'pr' -and $entry.head -ne $node.acceptedHead) {
+            throw "Source $($entry.id) differs from its reviewed dependency checkpoint. Update the manifest through feature maintenance."
         }
-        Invoke-Logged 'git' @('-C',$repo,'merge-base','--is-ancestor',$entry.deltaBase,$entry.head)
         if ($entry.prUrl) {
             $number = $entry.prUrl.Split('/')[-1]
             $pr = Invoke-RestMethod "https://api.github.com/repos/openscad/openscad/pulls/$number"
@@ -117,11 +125,36 @@ try {
             $entry.prMerged = $pr.merged
             $entry.originalPrHead = $pr.head.sha
         }
-        $patch = Join-Path $run "$($entry.id).patch"
-        Invoke-Logged 'git' @('-C',$repo,'diff','--binary',"--output=$patch",$entry.deltaBase,$entry.head)
-        $entry.patchSha256 = (Get-FileHash $patch).Hash
-        Read-Git $repo @('log','--format=fuller',"$($entry.deltaBase)..$($entry.head)") |
+        # Evidence only: never apply this comparison as a feature-only patch.
+        $bases = @( (Read-Git $repo @('merge-base','--all',$info.upstream,$entry.head)) -split '\n' )
+        if ($bases.Count -ne 1) { throw "Ambiguous comparison base for $($entry.id)" }
+        $entry.comparisonBase = $bases[0]
+        $patch = Join-Path $run "$($entry.id)-review.patch"
+        Invoke-Logged 'git' @('-C',$repo,'diff','--binary',"--output=$patch",$entry.comparisonBase,$entry.head)
+        $entry.reviewPatchSha256 = (Get-FileHash $patch).Hash
+        Read-Git $repo @('log','--format=fuller',"$($entry.comparisonBase)..$($entry.head)") |
             Set-Content (Join-Path $run "$($entry.id)-commits.txt")
+    }
+    $selected = @{}
+    foreach ($entry in $entries) { $selected[$entry.id] = $entry }
+    foreach ($entry in $entries) {
+        foreach ($dependency in $entry.dependencies) {
+            $accepted = $entry.acceptedDependencies[$dependency]
+            if ($accepted -ne $selected[$dependency].head) {
+                throw "Dependency $dependency selected at $($selected[$dependency].head), but $($entry.id) accepts $accepted. Merge/review it in its owner first."
+            }
+            Invoke-Logged 'git' @('-C',$repo,'merge-base','--is-ancestor',$accepted,$entry.head)
+        }
+        foreach ($known in $manifest.nodes.Keys) {
+            if ($selected.ContainsKey($known)) { continue }
+            $marker = $manifest.nodes[$known].featureMarker
+            & git -C $repo merge-base --is-ancestor $marker $info.upstream
+            if ($LASTEXITCODE -eq 0) { continue }
+            if ($LASTEXITCODE -ne 1) { throw "Cannot inspect upstream ancestry for $known" }
+            & git -C $repo merge-base --is-ancestor $marker $entry.head
+            if ($LASTEXITCODE -eq 0) { throw "$($entry.id) contains excluded feature $known. Select its closure or omit the consumer." }
+            if ($LASTEXITCODE -ne 1) { throw "Cannot inspect dependency ancestry for $known" }
+        }
     }
     $info.stackSha256 = (Get-FileHash (Join-Path $run 'PR_STACK.md')).Hash
     Save-Json (Join-Path $run 'inputs.json') $info
@@ -129,7 +162,7 @@ try {
     Invoke-Logged 'git' @('-C',$source,'config',"branch.$branch.pushRemote",'origin')
     Invoke-Logged 'git' @('-C',$source,'submodule','update','--init','--recursive')
     $info.status = 'prepared-not-integrated'
-    Write-Output "Prepared $source. Build the baseline, then review/apply each frozen delta with separate integration and repair commits."
+    Write-Output "Prepared $source. Review and merge each frozen head with --no-ff, preserving separate repair commits. Build/test only when requested."
 } catch {
     $info.status = 'prepare-failed'
     $info.error = $_.ToString()

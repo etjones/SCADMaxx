@@ -6,6 +6,7 @@ Read `../experimental/PR_STACK.md` as the authoritative input.
 Use the shared git-workflow skill for commits. Use the [executable tools](../experimental/scripts/README.md) for
 preparation and build steps. Integration review and repairs remain agent-operated; record actual commands and
 results. Tool availability alone does not imply that the full Windows distribution profile is verified.
+The input contract below supersedes the older patch-application wording in the hand-maintained scripts README.
 
 Read the [input and integration contract](../experimental/integration-inputs.md),
 [repair catalog](../experimental/REPAIRS.md), [Windows profile](../experimental/profiles/windows-x64.md), and
@@ -26,12 +27,12 @@ Read the [input and integration contract](../experimental/integration-inputs.md)
 3. Verify the upstream remote URL, fetch `master`, and record its SHA. Resolve `pr` entries from upstream PR head
    refs (`refs/pull/<number>/head`), not GitHub's synthetic merge refs. Resolve `feature` and `pr-variant` entries
    from their explicitly declared repository/ref. Record source identity, PR URL where applicable, base branch,
-   head SHA, source commits, and status. Lock each delta base according to the input contract; preserve the intended
-   source diff. Validate pinned revisions and available submodule commits. Do not rely on stale local names or
+   head SHA, source commits, and status. Freeze `DEPENDENCIES.json` and require each accepted prerequisite to match
+   its selected head and be an ancestor of its consumer. Validate pinned revisions and submodule commits. Do not rely on stale local names or
    implicitly include dirty worktree contents. Compare a PR variant with its original PR and record the differences.
 4. Freeze those inputs for this run, retaining fetched refs under a run-specific namespace so later fetches or
    force-pushes do not change the recorded source. Check merged/closed PRs and overlapping/dependent changes,
-   including selected variants and partially integrated upstream changes. Document any reviewed residual patch.
+   including selected variants and partially integrated upstream changes. Review any content overlap explicitly.
    If an entry cannot be applied as selected, record the reason and stop rather than silently omitting it.
    An entry proven to be contained in the locked upstream base is recorded as already present and needs no replay.
    Present the exact frozen composition and excluded local work to the user as required by the runbook before
@@ -60,12 +61,13 @@ Do not silently reorder the stack to get past a failure.
 
 For each enabled entry:
 
-1. Save the current integration HEAD, entry ID, source head, delta base, and reviewed patch identity in the report.
-2. Apply the reviewed delta using the input contract and create one squash integration commit, for example
+1. Save the current integration HEAD, entry ID, frozen source head and accepted dependency pins in the report.
+2. Merge the frozen head with `git merge --no-ff --no-commit <retained-ref>` and create a merge commit, for example
    `Integrate openscad PR #6642: dynamic parameter changes`. Include the PR URL, source head, and original source
    commit identities/author attribution in the commit body or referenced run record. Use `Integrate feature <id>`
-   for a local feature and identify the selected variant for an improved PR. This gives each run a linear,
-   reviewable composition history without claiming the changes were authored by the integration agent.
+   for a local feature and identify the selected variant for an improved PR. This preserves source ancestry and
+   gives each run a reviewable first-parent composition history. Do not apply the review patch or squash the merge.
+   If the selected head is already an ancestor, record that evidence without creating an empty commit.
 3. If application conflicts, record affected files and the resolution. Conflict resolution needed to create a
    valid integration belongs in that integration commit; document it explicitly. Preserve a source diff for review.
    Do not hide unrelated repairs in it. If the intended resolution is unclear, stop for the user's answer.
@@ -121,7 +123,7 @@ After extraction, launch `scadmaxx.exe` directly in the extraction directory. Ex
 smoke checks with a controlled runtime PATH. Prefer a clean Windows test environment for a distribution release.
 Record the exact environment and limitations if only the development machine was available.
 Verify the run identifier in the application's About/version information. Do not create or bundle release notes. Include a build-info
-file identifying upstream, ordered source heads and delta bases, integration/repair commits, final source SHA,
+file identifying upstream, ordered source heads and accepted dependency pins, integration/repair commits, final source SHA,
 control snapshot, and toolchain. Follow the release rules to create the retained source tag after validation.
 Provide corresponding source and build/repair material needed by the distribution's licenses; retain a source
 archive or stable accessible source reference that actually matches the binary, including relevant submodules.

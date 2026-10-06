@@ -1,75 +1,60 @@
-# Integration inputs and change boundaries
+# Integration inputs and dependency ancestry
 
-The enabled table in [PR_STACK.md](PR_STACK.md) is the authoritative ordered selection. These rules apply to every
-fresh run and to the frozen input snapshot when resuming. Examples below do not enable anything.
+The enabled table in [PR_STACK.md](PR_STACK.md) selects product features. The reviewed dependency graph is
+[DEPENDENCIES.json](DEPENDENCIES.json); repositories, readiness and historical validation live in
+[SOURCES.json](SOURCES.json). Read [feature ancestry](../docs/feature-ancestry.md) before feature maintenance.
+
+This contract supersedes the old patch-application wording in `scripts/README.md`. That hand-maintained README
+is unchanged; its build commands remain useful, but native integration follows the merge procedure below.
 
 ## Entry fields
 
 | Field | Meaning |
 | --- | --- |
-| Order / ID | Unique order and stable ID, such as `pr-6878` or `annotations`; use IDs in dependencies and repairs. |
+| Order / ID | Unique ascending order and stable dependency ID. |
 | Kind | `pr`, `feature`, or `pr-variant`. |
-| Source | PR URL for `pr`; a key in `SOURCES.json` for other kinds. |
-| Revision | `latest` resolves the declared ref once; a full commit SHA pins that source. |
-| Delta base | `auto-merge-base` or a full commit SHA defining the start of the intended change. |
-| Depends on | Earlier entry IDs or `none declared`; verify this against source history at run start. |
-| Reason | The behavior the user wants included. |
+| Source | Original PR URL, or explicit source key in SOURCES.json. |
+| Revision | Full accepted commit SHA, or `latest` resolved once from the declared source. |
+| Integration | `merge`: integrate the complete frozen head with normal Git ancestry. |
+| Depends on | Direct prerequisite IDs, selected earlier and matching DEPENDENCIES.json. |
+| Reason | User-selected behavior. |
 
-A `feature` or `pr-variant` definition in [SOURCES.json](SOURCES.json) must provide `repository` (URL or absolute local
-repository path), `ref` (for example `refs/heads/feature/annotations`), and, for a variant, `prUrl`. A local source is
-valid without publishing it. Retain its selected commits in the shared clone under run-specific refs.
+Fetch original PR heads from `refs/pull/<number>/head`, never synthetic merge refs. A PR variant uses its named
+repository/ref and replaces the original PR's selection. Never substitute a local variant for an original PR.
+Private feature sources remain in the Dropbox bare repository until the user explicitly chooses another source.
 
-For explicitly selected but unfinished features, set `ready: false` and a nonempty `pendingReason` in the source
-definition. Selection validation reports these entries; actual preparation stops before fetching or creating a run.
-Local completion or a commit does not promote a revision. Only after an explicit user push/promotion request and
-a verified push of a usable revision to its declared repository, review its delta base/dependencies and set
-`ready: true` for that revision. Keep newer unpromoted local work distinct from any already-ready remote revision.
-Follow the [promotion rule](../workflows/update-and-build-scadmaxx.md#push-authorization-and-promotion).
-Omitted `ready` defaults to true for existing definitions. This flag
-records readiness; it does not replace revision, diff, build or behavior verification.
+## Freeze and check the complete closure
 
-For example, the selected annotations source uses repository `E:/Dropbox/bare_repos/openscad.git` and ref
-`refs/heads/feature/annotations`. Resolve only committed history. Dirty source worktrees may remain occupied:
-record their state and exclude their edits, index contents, untracked files, and dirty submodule working files.
-Do not commit those edits as part of an integration run. A selected submodule commit must also be obtainable.
+1. Inventory local branches, dirty work and unpromoted commits before preparing. Preserve occupied worktrees.
+2. Require selected sources to be ready. New local commits do not become validated or promoted automatically.
+   Keep `localHead`, `acceptedHead`, `validatedHead` and `promotedHead` distinct. A push needs explicit authorization.
+3. Freeze upstream master and every selected head under `refs/experimental-runs/<run-id>/`. Pinned revisions stay
+   pinned. Record the original PR head/state for comparison. Freeze the dependency manifest and controls too.
+4. A native feature's frozen head must equal its reviewed `acceptedHead`. Each direct dependency's selected SHA
+   must equal that consumer's recorded accepted prerequisite and must actually be its ancestor. A newer selected
+   PR/foundation is not silently accepted: merge it into the owner, review conflicts, validate when authorized,
+   and update the manifest/selection/readiness before starting a new composition.
+5. Reject known feature markers contained in a selected head when that feature is excluded and is not already
+   part of upstream. Merging a consumer imports its ancestors, regardless of which rows were unchecked.
+   Exclude its dependent closure as well, or explicitly redesign the dependency.
+6. Retain binary-capable upstream comparisons and source commit lists for review. `*-review.patch` is evidence,
+   not a feature-only patch to apply. The old fixed B..H boundary becomes invalid after prerequisite merges.
 
-## Original PR versus our version
+New-ExperimentalRun enforces the native merge contract and writes `contractVersion: 2`. It prepares an isolated
+checkout; it does not merge, build, test, push or promote. `-ValidateOnly` only parses/reports selection metadata;
+it does not establish ancestry or readiness. Historical runs retain their frozen scripts and original contract.
 
-- `pr`: fetch `refs/pull/<number>/head` from the PR's upstream repository. The PR URL is the source identity.
-- `pr-variant`: use the explicitly selected repository/ref instead. Record both its locked head and the original
-  PR head for comparison, showing what our version changes. Never silently substitute a local branch for a PR.
-- Treat a variant that includes the whole PR as a replacement for that PR's row, not an additional full integration.
-  If selecting only an incremental fix, declare its actual delta base and dependency instead.
-- Reusable narrow Windows repairs can remain separate entries in the repair catalog rather than full PR variants.
+## Merge one input at a time
 
-Validate pinned commits against the declared source. If a ref was force-pushed and a pinned commit is no longer
-reachable, use retained provenance to establish its identity or stop; do not silently switch to the ref's new tip.
+Start each release from its freshly frozen upstream master. Do not base a feature on an integrated release.
+For each enabled row, use its retained ref with `git merge --no-ff --no-commit <retained-ref>`. Inspect all changes,
+resolve conflicts without dropping selected behavior, then commit the merge. If the source is already an ancestor,
+record `already-present`; no empty commit is needed. Do not squash, cherry-pick or apply the review patch.
 
-## Lock the intended delta
+Record source/before/after SHAs, merge parents and resolutions. First-parent history gives the concise sequence;
+full history preserves owner attribution. Keep subsequent build repairs in separate commits. Build and run tests
+only when requested. Stop for a user decision if resolving a conflict requires choosing feature behavior; preserve
+the checkpoint if a failure remains after two focused repair attempts. No automatic feature selection or reordering.
 
-1. Resolve upstream master, every source head, dependency, and delta base before modifying the integration checkout.
-   Retain refs under `refs/experimental-runs/<run-id>/` and record full SHAs in the run input record.
-2. For an independent entry, `auto-merge-base` means the unique merge base of its locked head and the locked upstream
-   master. Record that SHA. Multiple merge bases or unrelated histories need an explicit reviewed boundary.
-3. For a stacked feature, require an explicit base SHA at the dependency revision on which it was developed, plus
-   the dependency ID. Verify the base is an ancestor of the source head. If the selected dependency has since
-   changed, compare the revisions and record the adaptation; do not treat them as equivalent automatically.
-4. Preserve the source commit list and binary-capable diff from delta base to head. Inspect merges and unrelated
-   branch history. A simple commit range is insufficient if it would import changes outside the selected feature.
-5. Compare the intended delta with upstream and earlier entries, including earlier repairs. Ancestry can prove
-   containment; squash/rebase cases need patch/content evidence and relevant behavior checks. Patch IDs are useful
-   evidence, not proof that behavior is equivalent. Record fully present entries without empty commits.
-6. For partially present changes, document which parts already exist and preserve a reviewed residual patch.
-   Never apply the entire old delta blindly or infer that a whole feature is present from one matching commit.
-   If the intended residual or dependency is unclear, ask the user and stop.
-
-## Apply one integration at a time
-
-Apply the reviewed delta with three-way context where supported, inspect the resulting diff, and make one squash
-integration commit per entry. Do not use `git merge --squash <head>` blindly for stacked entries: earlier squash
-integrations do not retain the original dependency ancestry, so a later merge may replay that dependency.
-
-Record the exact application command, patch checksum, before/after SHAs, source authors, and any conflict
-resolutions. Resolve conflicts needed for integration in that commit; subsequent build repairs remain separate.
-Check both the newly added behavior and affected earlier features so a conflict resolution cannot silently undo
-an earlier integration or repair. No automatic dependency insertion, row reordering, or functionality removal.
+Branding and feature-title patches remain canonical control assets under their existing workflows. They are not
+API dependencies. The skill/launcher companions belong to the control repository and are not native merge inputs.

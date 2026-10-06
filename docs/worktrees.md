@@ -1,5 +1,8 @@
 # Checkout inventory
 
+Current ancestry and source revisions are in [maintained feature ancestry](feature-ancestry.md) and
+[DEPENDENCIES.json](../experimental/DEPENDENCIES.json). Historical inventory entries below retain earlier evidence.
+
 The current integrated source is `wt-scadmaxx-20261005`, branch `scadmaxx-20261005`, at
 `dcd732fefa0aef5b12d4e5d0a2097223caf32726`. It includes all 22 frozen entries from
 `runs/20261005-scadmaxx-all-features`, on upstream `c0ac8289f1c9db6f70891da5df3b4085b7eaf8b6`.
