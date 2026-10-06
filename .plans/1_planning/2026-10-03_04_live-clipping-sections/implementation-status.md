@@ -69,3 +69,9 @@ Extracted package `portable-verification-v2.zip`: `f2f18bc90a3ac1fb6be3f1dd81e9f
 Source evidence identifies 36 feature files. Base/HEAD alone does not identify this build.
 
 Final handoff: [completion notes](5_post-implementation-notes.md).
+
+2026-10-06 UI fix-forward: the existing Cross sections owner now exposes world Origin and Cut away presets/custom
+vector, with a single creation button and no offset/angle/drag-handle UI. Internal quaternion/translation/offset and
+parent storage remain intact. This new delta is unbuilt, untested and uncommitted against migrated HEAD
+`03e99c7d5d0660e04bd763f3eb2c2cf823fe9bed`; historical phase results above apply only to their frozen earlier input.
+See the dated completion-note entry for exact patch hash, retained dependencies, static checks and verification limits.

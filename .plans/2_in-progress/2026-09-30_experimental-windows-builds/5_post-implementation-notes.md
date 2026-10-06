@@ -68,3 +68,26 @@ dependency value compared equal, the build state fingerprint was migrated withou
 An extra Unicode CLI filename probe crashes in both the prior and rebuilt binaries, while ASCII controls pass.
 This existing source limitation is disclosed in release notes and remains unresolved. Desktop and clean-machine
 verification remain pending. No source changes, commits, publication or scheduling occurred during this rebuild.
+
+## 2026-10-06: shared feature-build title patch
+
+Added experimental/patches/feature-build-title.patch and scripts/Apply-FeatureBuildTitle.ps1;
+workflows/feature-builds.md is the canonical workflow, routed from AGENTS.md and PR development.
+Qt display names now identify feature branches without changing application/settings identity.
+The shared patch applies to all 16 feature-owner checkouts checked; it is currently applied only to Sections.
+CMake identity tests cover branch switches, detached worktrees and disabling. A native Windows probe verified
+`title-probe.scad - OpenSCAD [feature/live-clipping-sections]` in the rebuilt standalone app.
+Source is Sections HEAD 06d073f73720a391f5d806911a3d91a27b1ebd4e plus the retained Sections delta and
+canonical patch. Exact inputs, hashes, submodules references, commands and evidence are in
+D:/openscad/runs/20261006-feature-build-title. Delivery path is recorded in that run's delivery-path.txt.
+No integrated release, source promotion, commit or push; no other owner checkout was edited.
+
+## 2026-10-06: shared purple SCADMaxx icon
+
+Added the purple application icon master, PNG/ICO/ICNS exports and binary replacement patch in the control repo.
+The palette is based on the existing launcher S background #5143BA. Regular and nightly application resources
+share the icon; launcher and document-file icons retain their identities. Canonical workflow:
+workflows/scadmaxx-branding.md; apply helper: experimental/scripts/Apply-ScadmaxxIcon.ps1.
+Feature/integrated instructions route to that workflow; control snapshots include the assets and patches.
+No source worktree has been patched yet and no build or tests were run, per the user's standing instruction.
+Assets and patch are authored but build/platform validation remains pending explicit authorization.

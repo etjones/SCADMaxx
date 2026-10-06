@@ -83,11 +83,11 @@
     "ready": false,
     "pendingReason": "Ancestry migration is local and has not been built/tested or promoted. See docs/feature-ancestry.md.",
     "validatedHead": "ced629047eaa725a319f0c5a6a3602330b033c6d",
-    "localHead": "5cffc47440c9ca3a710d3d934ead8467b80a0775",
+    "localHead": "6440acdfd1c21f979d3074b2cdd60478d0aa8977",
     "handoff": ".plans/1_planning/2026-10-03_03_selection-model-inspector/5_post-implementation-notes.md",
     "localCommitRecord": "docs/feature-ancestry.md",
     "promotedHead": "ced629047eaa725a319f0c5a6a3602330b033c6d",
-    "acceptedHead": "5cffc47440c9ca3a710d3d934ead8467b80a0775",
+    "acceptedHead": "6440acdfd1c21f979d3074b2cdd60478d0aa8977",
     "integration": "merge"
   },
   "vim-editor-mode-local": {
@@ -96,11 +96,11 @@
     "ready": false,
     "pendingReason": "Ancestry migration is local and has not been built/tested or promoted. See docs/feature-ancestry.md.",
     "validatedHead": "1c48233689c4582754784c66fd23ed4273d56981",
-    "localHead": "0c00d53b56a4fc96bcccffcbb91f6ba54bf75bfa",
+    "localHead": "f6e316ed43dcaa4726520dbee76980015e681ec7",
     "handoff": ".plans/1_planning/2026-10-03_05_vim-editor-mode/5_post-implementation-notes.md",
     "localCommitRecord": "docs/feature-ancestry.md",
     "promotedHead": "1c48233689c4582754784c66fd23ed4273d56981",
-    "acceptedHead": "0c00d53b56a4fc96bcccffcbb91f6ba54bf75bfa",
+    "acceptedHead": "f6e316ed43dcaa4726520dbee76980015e681ec7",
     "integration": "merge"
   },
   "source-geometry-provenance-local": {
@@ -109,11 +109,11 @@
     "ready": false,
     "pendingReason": "Ancestry migration is local and has not been built/tested or promoted. See docs/feature-ancestry.md.",
     "validatedHead": "bb68db75a8d0fb259d17f50322306007d3750ebe",
-    "localHead": "bd4edb39b15a4ca220765c6657fce627c9680919",
+    "localHead": "36e43d75020ebe2ff81cb90ce84aca63c482fd8c",
     "handoff": ".plans/1_planning/2026-10-03_06_source-geometry-provenance/5_post-implementation-notes.md",
     "localCommitRecord": "docs/feature-ancestry.md",
     "promotedHead": "bb68db75a8d0fb259d17f50322306007d3750ebe",
-    "acceptedHead": "bd4edb39b15a4ca220765c6657fce627c9680919",
+    "acceptedHead": "36e43d75020ebe2ff81cb90ce84aca63c482fd8c",
     "integration": "merge"
   },
   "design-object-persistence-local": {
@@ -122,11 +122,11 @@
     "ready": false,
     "pendingReason": "Ancestry migration is local and has not been built/tested or promoted. See docs/feature-ancestry.md.",
     "validatedHead": "015aa3172759c00979830ab178cc3515b4e7fd50",
-    "localHead": "5e048d5aa600f5bb3772cea1b5ec7de785c5b7dd",
+    "localHead": "5e20706a3379334537e3d3c40c8e7dcc85f6b0c7",
     "handoff": ".plans/1_planning/2026-10-03_14_design-object-persistence/5_post-implementation-notes.md",
     "localCommitRecord": "docs/feature-ancestry.md",
     "promotedHead": "015aa3172759c00979830ab178cc3515b4e7fd50",
-    "acceptedHead": "5e048d5aa600f5bb3772cea1b5ec7de785c5b7dd",
+    "acceptedHead": "5e20706a3379334537e3d3c40c8e7dcc85f6b0c7",
     "integration": "merge"
   },
   "live-clipping-sections-local": {
@@ -135,11 +135,11 @@
     "ready": false,
     "pendingReason": "Ancestry migration is local and has not been built/tested or promoted. See docs/feature-ancestry.md.",
     "validatedHead": "06d073f73720a391f5d806911a3d91a27b1ebd4e",
-    "localHead": "d463920733484462a8ba1bf4af4f76e667bd3cc2",
+    "localHead": "930b2a87e0d345a969bf2c3ee69c01423454ffde",
     "handoff": ".plans/1_planning/2026-10-03_04_live-clipping-sections/5_post-implementation-notes.md",
     "localCommitRecord": "docs/feature-ancestry.md",
     "promotedHead": "06d073f73720a391f5d806911a3d91a27b1ebd4e",
-    "acceptedHead": "d463920733484462a8ba1bf4af4f76e667bd3cc2",
+    "acceptedHead": "930b2a87e0d345a969bf2c3ee69c01423454ffde",
     "integration": "merge"
   },
   "geometry-services-local": {
@@ -174,11 +174,11 @@
     "ready": false,
     "pendingReason": "Ancestry migration is local and has not been built/tested or promoted. See docs/feature-ancestry.md.",
     "validatedHead": "966b68b98fc21308d1fd1d40dbcb8eebeda7cc2f",
-    "localHead": "49bc5f2477bdbd5f328cd0239cd3e77ae1665d60",
+    "localHead": "dd709ea0fbdb2e4aeaff5c89cd548adae03188f3",
     "handoff": ".plans/3_done/2026-10-03_07_semantic-model-hierarchy/5_post-implementation-notes.md",
     "localCommitRecord": "docs/feature-ancestry.md",
     "promotedHead": "966b68b98fc21308d1fd1d40dbcb8eebeda7cc2f",
-    "acceptedHead": "49bc5f2477bdbd5f328cd0239cd3e77ae1665d60",
+    "acceptedHead": "dd709ea0fbdb2e4aeaff5c89cd548adae03188f3",
     "integration": "merge"
   },
   "anchors-attachments-local": {
@@ -187,11 +187,11 @@
     "ready": false,
     "pendingReason": "Ancestry migration is local and has not been built/tested or promoted. See docs/feature-ancestry.md.",
     "validatedHead": "56ceab74239507093067f11d078d73c12ae431c4",
-    "localHead": "e1ebaa4c9c274d0f7fd8c4c68bbf082cfd0391eb",
+    "localHead": "1411dc676a14d3222be109997c6bed3df4e89460",
     "handoff": ".plans/3_done/2026-10-03_08_anchors-attachments/5_post-implementation-notes.md",
     "localCommitRecord": "docs/feature-ancestry.md",
     "promotedHead": "56ceab74239507093067f11d078d73c12ae431c4",
-    "acceptedHead": "e1ebaa4c9c274d0f7fd8c4c68bbf082cfd0391eb",
+    "acceptedHead": "1411dc676a14d3222be109997c6bed3df4e89460",
     "integration": "merge"
   },
   "contextual-insertion-local": {
@@ -200,11 +200,11 @@
     "ready": false,
     "pendingReason": "Ancestry migration is local and has not been built/tested or promoted. See docs/feature-ancestry.md.",
     "validatedHead": "b298c802905289b4fb94178d9127c6a8283342b7",
-    "localHead": "99d6d7d4e2a6ce8beb58c1b13818ae79cac72cdf",
+    "localHead": "a04a15047e55846211bedbca8e7012e1a4818de7",
     "handoff": ".plans/3_done/2026-10-03_12_contextual-insertion/5_post-implementation-notes.md",
     "localCommitRecord": "docs/feature-ancestry.md",
     "promotedHead": "b298c802905289b4fb94178d9127c6a8283342b7",
-    "acceptedHead": "99d6d7d4e2a6ce8beb58c1b13818ae79cac72cdf",
+    "acceptedHead": "a04a15047e55846211bedbca8e7012e1a4818de7",
     "integration": "merge"
   },
   "agent-skill-workflows-local": {

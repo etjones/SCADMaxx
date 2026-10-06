@@ -85,7 +85,7 @@
     "selection-model-inspector": {
       "sourceKey": "selection-model-inspector-local",
       "ref": "refs/heads/feature/selection-model-inspector",
-      "acceptedHead": "5cffc47440c9ca3a710d3d934ead8467b80a0775",
+      "acceptedHead": "6440acdfd1c21f979d3074b2cdd60478d0aa8977",
       "featureMarker": "ced629047eaa725a319f0c5a6a3602330b033c6d",
       "validation": "not-run",
       "dependencies": {
@@ -95,46 +95,46 @@
     "vim-editor-mode": {
       "sourceKey": "vim-editor-mode-local",
       "ref": "refs/heads/feature/vim-editor-mode",
-      "acceptedHead": "0c00d53b56a4fc96bcccffcbb91f6ba54bf75bfa",
+      "acceptedHead": "f6e316ed43dcaa4726520dbee76980015e681ec7",
       "featureMarker": "1c48233689c4582754784c66fd23ed4273d56981",
       "validation": "not-run",
       "dependencies": {
-        "source-editing-foundation": "248875667cf92c420e22adc09209d1d3a557597d",
+        "source-editing-foundation": "0bcafded2a98d98802a8e869e44a658770ebc3b4",
         "pr-6878": "3014fb55405759bfa1871e79f50cbee4c2a2c638"
       }
     },
     "source-geometry-provenance": {
       "sourceKey": "source-geometry-provenance-local",
       "ref": "refs/heads/feature/source-geometry-provenance",
-      "acceptedHead": "bd4edb39b15a4ca220765c6657fce627c9680919",
+      "acceptedHead": "36e43d75020ebe2ff81cb90ce84aca63c482fd8c",
       "featureMarker": "bb68db75a8d0fb259d17f50322306007d3750ebe",
       "validation": "not-run",
       "dependencies": {
-        "source-editing-foundation": "248875667cf92c420e22adc09209d1d3a557597d",
-        "selection-model-inspector": "5cffc47440c9ca3a710d3d934ead8467b80a0775",
+        "source-editing-foundation": "0bcafded2a98d98802a8e869e44a658770ebc3b4",
+        "selection-model-inspector": "6440acdfd1c21f979d3074b2cdd60478d0aa8977",
         "pr-6642-oep8": "306c92d39c4cbb7fe82981e179161aa85d44774e"
       }
     },
     "design-object-persistence": {
       "sourceKey": "design-object-persistence-local",
       "ref": "refs/heads/feature/design-object-persistence",
-      "acceptedHead": "5e048d5aa600f5bb3772cea1b5ec7de785c5b7dd",
+      "acceptedHead": "5e20706a3379334537e3d3c40c8e7dcc85f6b0c7",
       "featureMarker": "015aa3172759c00979830ab178cc3515b4e7fd50",
       "validation": "not-run",
       "dependencies": {
         "source-editing-foundation": "0bcafded2a98d98802a8e869e44a658770ebc3b4",
-        "selection-model-inspector": "5cffc47440c9ca3a710d3d934ead8467b80a0775",
+        "selection-model-inspector": "6440acdfd1c21f979d3074b2cdd60478d0aa8977",
         "pr-6642-oep8": "306c92d39c4cbb7fe82981e179161aa85d44774e"
       }
     },
     "live-clipping-sections": {
       "sourceKey": "live-clipping-sections-local",
       "ref": "refs/heads/feature/live-clipping-sections",
-      "acceptedHead": "d463920733484462a8ba1bf4af4f76e667bd3cc2",
+      "acceptedHead": "930b2a87e0d345a969bf2c3ee69c01423454ffde",
       "featureMarker": "06d073f73720a391f5d806911a3d91a27b1ebd4e",
       "validation": "not-run",
       "dependencies": {
-        "design-object-persistence": "5e048d5aa600f5bb3772cea1b5ec7de785c5b7dd",
+        "design-object-persistence": "5e20706a3379334537e3d3c40c8e7dcc85f6b0c7",
         "pr-6878": "3014fb55405759bfa1871e79f50cbee4c2a2c638"
       }
     },
@@ -157,32 +157,32 @@
     "semantic-model-hierarchy": {
       "sourceKey": "semantic-model-hierarchy-local",
       "ref": "refs/heads/feature/semantic-model-hierarchy",
-      "acceptedHead": "49bc5f2477bdbd5f328cd0239cd3e77ae1665d60",
+      "acceptedHead": "dd709ea0fbdb2e4aeaff5c89cd548adae03188f3",
       "featureMarker": "966b68b98fc21308d1fd1d40dbcb8eebeda7cc2f",
       "validation": "not-run",
       "dependencies": {
-        "source-geometry-provenance": "bd4edb39b15a4ca220765c6657fce627c9680919",
-        "design-object-persistence": "4652ee8a816b0d7dc7411f4b7b3112a49175b545"
+        "source-geometry-provenance": "36e43d75020ebe2ff81cb90ce84aca63c482fd8c",
+        "design-object-persistence": "5e20706a3379334537e3d3c40c8e7dcc85f6b0c7"
       }
     },
     "anchors-attachments": {
       "sourceKey": "anchors-attachments-local",
       "ref": "refs/heads/feature/anchors-attachments",
-      "acceptedHead": "e1ebaa4c9c274d0f7fd8c4c68bbf082cfd0391eb",
+      "acceptedHead": "1411dc676a14d3222be109997c6bed3df4e89460",
       "featureMarker": "56ceab74239507093067f11d078d73c12ae431c4",
       "validation": "not-run",
       "dependencies": {
-        "semantic-model-hierarchy": "49bc5f2477bdbd5f328cd0239cd3e77ae1665d60"
+        "semantic-model-hierarchy": "dd709ea0fbdb2e4aeaff5c89cd548adae03188f3"
       }
     },
     "contextual-insertion": {
       "sourceKey": "contextual-insertion-local",
       "ref": "refs/heads/feature/contextual-insertion",
-      "acceptedHead": "99d6d7d4e2a6ce8beb58c1b13818ae79cac72cdf",
+      "acceptedHead": "a04a15047e55846211bedbca8e7012e1a4818de7",
       "featureMarker": "b298c802905289b4fb94178d9127c6a8283342b7",
       "validation": "not-run",
       "dependencies": {
-        "anchors-attachments": "e1ebaa4c9c274d0f7fd8c4c68bbf082cfd0391eb",
+        "anchors-attachments": "1411dc676a14d3222be109997c6bed3df4e89460",
         "component-provider-adapters": "9d0cb2097efcac6856ae5dafb31a642803ec32d7",
         "pr-6878": "3014fb55405759bfa1871e79f50cbee4c2a2c638"
       }

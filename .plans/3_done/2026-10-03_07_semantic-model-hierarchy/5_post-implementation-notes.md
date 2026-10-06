@@ -90,3 +90,25 @@ requires convertible 3D geometry; unsupported/empty/stale states are visible. So
 expressions or silently affect loop-shared calls. General attachment/drawing/insertion controllers remain with their
 own features. A later requested integrated build must select exact input revisions and run its release acceptance.
 Promotion and readiness registry changes remain a separate user decision.
+
+## 2026-10-06 fix-forward: viewport information placement
+
+Model structure now places the FPS/triangle information to its right with a ten-pixel logical
+gap and matching top alignment. Hiding it restores the information's original upper-left
+position. Placement follows overlay show/hide and relayout, with no new UI control and no
+per-frame work. Existing collapse, interaction and transparency behavior is retained.
+
+Local owner base is `966b68b98fc21308d1fd1d40dbcb8eebeda7cc2f`; the uncommitted delta, exact
+hashes, submodules and combined native verification are recorded under container-relative
+`runs/20261006-viewport-info-layout`. No commit, push, promotion or delivered-build replacement.
+
+## 2026-10-06: fix forward — optional structure, quiet empty viewport
+
+Removed the viewport initialization prompt. Plain models and absent results hide the overlay;
+Inspector > Component parameters retains Add model structure, and Inspector stays hidden by default.
+The FPS/triangle label returns left when the overlay hides. Creating structure restores the tree.
+Owner HEAD remains 966b68b98fc21308d1fd1d40dbcb8eebeda7cc2f; changes are local and uncommitted.
+Cumulative owner/verification patches, exact submodules, executable hashes and native tests are in
+D:/openscad/runs/20261006-optional-model-structure. This supersedes the prior viewport-info-layout
+owner patch while retaining its behavior; other pending feature-owner fixes remain separate.
+No release rebuild, source promotion or readiness update occurred.

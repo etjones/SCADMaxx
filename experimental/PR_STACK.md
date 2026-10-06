@@ -37,16 +37,16 @@ It defines source synchronization and the handoff required when each feature bec
 | 7 | pr-6081 | pr | https://github.com/openscad/openscad/pull/6081 | latest | merge | none declared | OEP8a object literals and object comprehensions |
 | 8 | pr-6642-oep8 | pr-variant | pr-6642-oep8-local | 306c92d39c4cbb7fe82981e179161aa85d44774e | merge | pr-6081 | Native Customizer attributes using fixed OEP8-style key: value entries |
 | 9 | source-editing-foundation | feature | source-editing-foundation-local | 0bcafded2a98d98802a8e869e44a658770ebc3b4 | merge | http-agent-server | Guarded source transactions and source lifecycle |
-| 10 | selection-model-inspector | feature | selection-model-inspector-local | 5cffc47440c9ca3a710d3d934ead8467b80a0775 | merge | http-agent-server | Geometric picking and shared inspection presentation |
-| 11 | vim-editor-mode | feature | vim-editor-mode-local | 0c00d53b56a4fc96bcccffcbb91f6ba54bf75bfa | merge | source-editing-foundation, pr-6878 | Native Vim editing without GTK or GLib |
-| 12 | source-geometry-provenance | feature | source-geometry-provenance-local | bd4edb39b15a4ca220765c6657fce627c9680919 | merge | source-editing-foundation, selection-model-inspector, pr-6642-oep8 | Source spans and evaluated instance provenance |
-| 13 | design-object-persistence | feature | design-object-persistence-local | 5e048d5aa600f5bb3772cea1b5ec7de785c5b7dd | merge | source-editing-foundation, selection-model-inspector, pr-6642-oep8 | Typed design objects stored in SCAD source |
-| 14 | live-clipping-sections | feature | live-clipping-sections-local | d463920733484462a8ba1bf4af4f76e667bd3cc2 | merge | design-object-persistence, pr-6878 | Live cross section clipping planes and saved cross sections |
+| 10 | selection-model-inspector | feature | selection-model-inspector-local | 6440acdfd1c21f979d3074b2cdd60478d0aa8977 | merge | http-agent-server | Geometric picking and shared inspection presentation |
+| 11 | vim-editor-mode | feature | vim-editor-mode-local | f6e316ed43dcaa4726520dbee76980015e681ec7 | merge | source-editing-foundation, pr-6878 | Native Vim editing without GTK or GLib |
+| 12 | source-geometry-provenance | feature | source-geometry-provenance-local | 36e43d75020ebe2ff81cb90ce84aca63c482fd8c | merge | source-editing-foundation, selection-model-inspector, pr-6642-oep8 | Source spans and evaluated instance provenance |
+| 13 | design-object-persistence | feature | design-object-persistence-local | 5e20706a3379334537e3d3c40c8e7dcc85f6b0c7 | merge | source-editing-foundation, selection-model-inspector, pr-6642-oep8 | Typed design objects stored in SCAD source |
+| 14 | live-clipping-sections | feature | live-clipping-sections-local | 930b2a87e0d345a969bf2c3ee69c01423454ffde | merge | design-object-persistence, pr-6878 | Live cross section clipping planes and saved cross sections |
 | 15 | geometry-services | feature | geometry-services-local | 4e1286c7b362f84e920a21ba65e13042178a6fea | merge | none declared | Strict in-memory measurement and section services |
 | 16 | component-provider-adapters | feature | component-provider-adapters-local | 9d0cb2097efcac6856ae5dafb31a642803ec32d7 | merge | none declared | Version-matched component catalogs and source generation |
-| 17 | semantic-model-hierarchy | feature | semantic-model-hierarchy-local | 49bc5f2477bdbd5f328cd0239cd3e77ae1665d60 | merge | source-geometry-provenance, design-object-persistence | Parts Assemblies Components and scoped parameters |
-| 18 | anchors-attachments | feature | anchors-attachments-local | e1ebaa4c9c274d0f7fd8c4c68bbf082cfd0391eb | merge | semantic-model-hierarchy | Typed anchors references and attachment placement |
-| 19 | contextual-insertion | feature | contextual-insertion-local | 99d6d7d4e2a6ce8beb58c1b13818ae79cac72cdf | merge | anchors-attachments, component-provider-adapters, pr-6878 | Searchable insertion palette isolated preview and guarded Commit |
+| 17 | semantic-model-hierarchy | feature | semantic-model-hierarchy-local | dd709ea0fbdb2e4aeaff5c89cd548adae03188f3 | merge | source-geometry-provenance, design-object-persistence | Parts Assemblies Components and scoped parameters |
+| 18 | anchors-attachments | feature | anchors-attachments-local | 1411dc676a14d3222be109997c6bed3df4e89460 | merge | semantic-model-hierarchy | Typed anchors references and attachment placement |
+| 19 | contextual-insertion | feature | contextual-insertion-local | a04a15047e55846211bedbca8e7012e1a4818de7 | merge | anchors-attachments, component-provider-adapters, pr-6878 | Searchable insertion palette isolated preview and guarded Commit |
 
 The selected product features are unchanged. The three historical foundation-followup rows have been retired:
 their shared behavior now belongs to the maintained owners listed in [the migration record](../docs/feature-ancestry.md).

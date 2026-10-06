@@ -36,6 +36,30 @@ Existing application binaries have not changed.
 
 ## Everyday feature maintenance
 
+### 2026-10-06 pre-integration commit checkpoint
+
+The pending Cross sections UI and branding changes are now committed (`aba032259`,
+`00fbd0902`), together with cursor-relative source insertion in persistence
+(`dcdb24b83`) and removal of the basic Inspector's hard-coded unavailable rows
+(`6440acdfd`). Real provenance and semantic contributions remain in their owners.
+Source editing and Inspector were merged forward through provenance, persistence,
+Vim, Cross sections, hierarchy, anchors and contextual insertion. Current exact
+heads and prerequisite pins are in DEPENDENCIES.json and PR_STACK.md.
+
+The only merge conflict was Inspector's detail format string in provenance:
+remove both static unavailable rows, keeping the downstream contribution mechanism.
+All other forward merges completed automatically; this is not runtime validation.
+No builds, tests or pushes were performed for this checkpoint. Historical validation
+and promotion records remain unchanged, and changed sources remain not ready.
+
+Old composition branch `scadmaxx-20261004` has separate preservation commits
+`4bc31ee40`, `2c3cc5763`, `82407a497`. It is not a selected input: do not merge it
+back into feature owners or replay its superseded clipping implementation.
+Generated Clipper2 headers, Python caches and dependency build directories remain
+outside commits. Inventory evidence: `runs/20261006-commit-all-features` in the
+workspace container. Earlier pending-change statements below describe their dated
+checkpoints, not the current state.
+
 The continuous source-editing follow-up is source editing `0bcafded2` (hidden widgets
 are disabled for input without changing document read-only protection), persistence
 `5e048d5aa` (current-buffer records, guarded source patches and undo/redo, readable

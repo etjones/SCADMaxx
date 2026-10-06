@@ -124,3 +124,34 @@ state on the GUI thread and use QPointer/immutable values for callbacks that may
 must freeze reviewed committed inputs, review the later navigation and selected-stack overlaps, and test actual
 consumer combinations. Local completion does not enable or promote the feature. The authorized queue continues with
 05, then 06, 14 and 04 in separate source worktrees.
+
+## 2026-10-05 fix-forward: visible selection and clear workflow
+
+Inspector now adds a background-aware selection box and picked-point marker for ordinary geometry,
+with bounds cached at selection time. Preview bounds belong to the picked CSG primitive; final merged
+geometry uses final-result bounds. No semantic ownership is inferred. Model-only captures exclude
+the overlay, and clearing/staling the selection unregisters it. Picking remains one-shot, with
+explicit completion feedback and inline workflow help. Preparation status now refers to geometry
+for model tools; the clipping owner clarifies that Inspector need not be closed.
+
+Local owner base: `ced629047eaa725a319f0c5a6a3602330b033c6d`. The uncommitted feature delta is
+`runs/20261005-inspector-selection-feedback/selection.patch`, SHA256
+`294b428eaecb2e553b7ae8f199aa7b5ddcc25005754874abafb13d416ea22d4d` (container-relative).
+The run report records exact owner/verification heads, patches, submodules, native tests and screenshots.
+Combined verification preserves existing Inspector scrolling and provenance contributions in
+`wt-scadmaxx-20261004`. No commit, push or promotion was made; the existing promoted source and
+delivered ZIP remain unchanged. Future integration must commit/promote the owner changes when requested.
+
+## 2026-10-06 fix-forward: inherit and update viewport colors
+
+Inspection presentation now applies the viewport color scheme before effects prepare meshes and
+when installing/restoring renderers. InspectionMeshRenderer marks colored buffers dirty when its
+effective color map changes, and rebuilds them in prepare() with a current GL context. Explicit
+piece colors survive theme switches; geometry providers are not reevaluated for recoloring.
+
+The cumulative uncommitted owner delta against `ced629047eaa725a319f0c5a6a3602330b033c6d` is
+`runs/20261006-inspection-colors/selection-owner.patch`, SHA256
+`e8ae5a11a5aad03e97ca848214138115289625ef02c018d8886bb8259cb8fdbb` (container-relative).
+It includes and supersedes the previous selection-feedback patch. Combined verification retains
+the newer Sections usability changes in `wt-scadmaxx-20261004`. Exact source, tests, hashes and
+limits are in that run's report. No commit, push, promotion or running-release replacement.
