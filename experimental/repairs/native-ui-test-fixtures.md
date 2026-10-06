@@ -20,3 +20,24 @@
   commands), `native-navigation-20261002T112454036` (15/15), and
   `logs/20261002T092400948Z-test.json`. No native tests were skipped.
 - Retained ref: `refs/experimental-repairs/native-ui-test-fixtures` in the private source origin.
+
+## Forward-merge replay, 2026-10-06
+
+The current merged owners retain isolated settings but not the pre-application
+`AA_DontUseNativeDialogs` line in `src/openscad_gui.cc`. Do not assume settings
+isolation implies Qt file pickers. Check that line explicitly before native tests.
+
+Run `20261006-scadmaxx-all-features` hung in SourceTransactions Save As. Noninvasive
+CDB evidence and a separately linked map identified a second save-conflict dialog
+after the native picker retained its original destination. First focused fixture
+repair `bea1f24d0` set/verified the visible filename edit; diagnostics then showed
+that editor did not exist because the picker was native. Second focused repair
+`c941b3371` restores the cataloged attribute under `ENABLE_GUI_TESTS` and
+`gui_test != "none"` before application construction, adds a source-only test
+selector, and retains useful picker failure diagnostics. Production dialogs are
+unchanged. No cherry-pick or old aggregate source was used.
+
+The isolated source suite passed 8/8 in `native-source-qt-dialog-repair.log`; full
+native verification follows in the run report. The original interrupted test and
+debugger evidence are retained. Earlier staged output predates these test repairs
+and must not be presented as the final delivery.
