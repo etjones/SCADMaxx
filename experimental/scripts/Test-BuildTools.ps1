@@ -61,16 +61,21 @@ Invoke-Logged 'git' @('init','-b','main',$fixtureRepo)
 Invoke-Logged 'git' @('-C',$fixtureRepo,'remote','add','upstream','https://github.com/openscad/openscad.git')
 New-Item -ItemType Directory (Join-Path $case 'experimental') | Out-Null
 '{}' | Set-Content (Join-Path $case 'experimental/SOURCES.json')
+Save-Json (Join-Path $case 'experimental/DEPENDENCIES.json') @{
+    schemaVersion=1; integration='merge'; nodes=@{
+        first=@{dependencies=@{}}; second=@{dependencies=@{}}
+    }
+}
 @'
 ## Enabled stack (ordered)
 
-| Order | ID | Kind | Source | Revision | Delta base | Depends on | Reason |
+| Order | ID | Kind | Source | Revision | Integration | Depends on | Reason |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | first | pr | https://github.com/openscad/openscad/pull/6878 | latest | auto-merge-base | none declared | Test fixture |
-| 2 | second | pr | https://github.com/openscad/openscad/pull/6776 | latest | auto-merge-base | none declared | Test fixture |
+| 1 | first | pr | https://github.com/openscad/openscad/pull/6878 | latest | merge | none declared | Test fixture |
+| 2 | second | pr | https://github.com/openscad/openscad/pull/6776 | latest | merge | none declared | Test fixture |
 
 ## Candidates
-| 3 | unselected | pr | https://github.com/openscad/openscad/pull/6871 | latest | auto-merge-base | none declared | Must stay unselected |
+| 3 | unselected | pr | https://github.com/openscad/openscad/pull/6871 | latest | merge | none declared | Must stay unselected |
 '@ | Set-Content (Join-Path $case 'experimental/PR_STACK.md')
 $selected = & "$PSScriptRoot/New-ExperimentalRun.ps1" -Workspace $case -ControlRoot $case -RunId 'validation' -ValidateOnly | ConvertFrom-Json
 if ($selected.Count -ne 2 -or $selected[0].id -ne 'first' -or $selected[1].dependencies.Count -ne 0) {
@@ -80,13 +85,18 @@ if (Test-Path (Join-Path $case 'runs/validation')) { throw 'Read-only validation
 $count++
 @'
 ## Enabled stack (ordered)
-| Order | ID | Kind | Source | Revision | Delta base | Depends on | Reason |
+| Order | ID | Kind | Source | Revision | Integration | Depends on | Reason |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | local-feature | feature | local-feature | latest | auto-merge-base | none declared | Required unfinished feature |
+| 1 | local-feature | feature | local-feature | latest | merge | none declared | Required unfinished feature |
 '@ | Set-Content (Join-Path $case 'experimental/PR_STACK.md')
 $featureDefinition = @{'local-feature'=@{repository='D:/nonexistent-selected-feature.git';
     ref='refs/heads/feature/example'; ready=$false; pendingReason='Implementation is not committed yet.'}}
 Save-Json (Join-Path $case 'experimental/SOURCES.json') $featureDefinition
+Save-Json (Join-Path $case 'experimental/DEPENDENCIES.json') @{
+    schemaVersion=1; integration='merge'; nodes=@{
+        'local-feature'=@{sourceKey='local-feature';ref='refs/heads/feature/example';dependencies=@{}}
+    }
+}
 $selected = & "$PSScriptRoot/New-ExperimentalRun.ps1" -Workspace $case -ControlRoot $case -RunId 'pending-feature' -ValidateOnly | ConvertFrom-Json
 if ($selected.ready -ne $false -or !$selected.pendingReason) { throw 'Validation lost pending feature state.' }
 Expect-Failure { & "$PSScriptRoot/New-ExperimentalRun.ps1" -Workspace $case -ControlRoot $case -RunId 'pending-feature' } 'Selected features are not ready'
