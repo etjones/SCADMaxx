@@ -13,6 +13,7 @@ For surface selection at fractional DPI, see [logical viewport bounds](repairs/s
 Promoted viewport performance fixes: [redraw freshness and camera publication](repairs/viewport-redraw-freshness.md).
 For PR 6642 with UI polish, see [Customizer group visibility test wiring](repairs/customizer-group-visibility-test.md).
 For anchor tests after Inspector opens, see [pick-time projection snapshots](repairs/anchor-pick-frame-test.md).
+For hierarchy tests after removing geometry attachments, see [world-space cross-section fixtures](repairs/semantic-world-space-section-fixture.md).
 For repeated cross section edits and persistence test lifetime, see [session refresh validation](repairs/session-section-refresh.md).
 For the Inspector font-input guard declaration, see [its direct header dependency](repairs/inspector-parser-capability-include.md).
 For the provenance-only parser budget test, see [the core inventory assertion](repairs/provenance-parser-budget-fixture.md).
