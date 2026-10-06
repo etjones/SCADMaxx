@@ -36,6 +36,27 @@ Existing application binaries have not changed.
 
 ## Everyday feature maintenance
 
+The hidden-Editor session-edit fix is owned by source editing (`5c67b8c4a`, with
+regression correction `6421dc080`), merged forward into persistence (`d97af002b`)
+and Cross sections (`db0188a70`). A hidden Editor dock sets Scintilla read-only;
+participant-only transactions must remain available without permitting text edits.
+The standalone Cross sections build and hidden-Editor/open-CSG GUI regression pass,
+as do 7 source-editing cases (93 assertions), including session undo/redo and rejected
+source edits. Evidence: `runs/20261006-section-open-example-debug` in the container.
+The runtime contains the pending Cross sections UI/branding changes; the last
+forward merges change only the unit test. Other consumers retain their previous
+dependency pins, and no promotion or full-feature validation is implied.
+
+The subsequent empty-document change is persistence commit `7cbbf6c88`, merged forward into Cross sections
+as `e10bb191d`. It permits independent transient Section edits without evaluated geometry. The current local
+pins record these heads; validation and promotion remain unchanged. Feature UI edits are still uncommitted.
+
+On 2026-10-06, persistence commit `912e292c0` removed persistent Section target/frame references.
+Cross sections merged it normally in `a736cdb5b`, including the required world-space pose-edit adapter.
+These are local, unbuilt and untested; promotion/validation pins remain unchanged. Pending UI and branding
+edits remain uncommitted in Cross sections. Other consumers retain their recorded older persistence pins
+until an explicit forward integration; do not silently relabel those dependencies as updated.
+
 1. Run `experimental/scripts/Get-FeatureAncestry.ps1` from controls to inspect accepted, available-local, promoted
    and validated revisions separately. For original PRs, available-local means the retained checkpoint, not a fresh
    GitHub lookup. Inspect worktree status/submodules before making changes; the inventory script does not fetch.

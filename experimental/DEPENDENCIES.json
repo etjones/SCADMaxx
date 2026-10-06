@@ -75,7 +75,7 @@
     "source-editing-foundation": {
       "sourceKey": "source-editing-foundation-local",
       "ref": "refs/heads/feature/source-editing-foundation",
-      "acceptedHead": "248875667cf92c420e22adc09209d1d3a557597d",
+      "acceptedHead": "6421dc080550911bceed99fb72742c679c8ef0cd",
       "featureMarker": "3131a23d6ec04f4405952d8804a41dd8296b2dc5",
       "validation": "not-run",
       "dependencies": {
@@ -118,11 +118,11 @@
     "design-object-persistence": {
       "sourceKey": "design-object-persistence-local",
       "ref": "refs/heads/feature/design-object-persistence",
-      "acceptedHead": "4652ee8a816b0d7dc7411f4b7b3112a49175b545",
+      "acceptedHead": "d97af002bd076c82f0ff8fd55e33ab285fdd902b",
       "featureMarker": "015aa3172759c00979830ab178cc3515b4e7fd50",
       "validation": "not-run",
       "dependencies": {
-        "source-editing-foundation": "248875667cf92c420e22adc09209d1d3a557597d",
+        "source-editing-foundation": "6421dc080550911bceed99fb72742c679c8ef0cd",
         "selection-model-inspector": "5cffc47440c9ca3a710d3d934ead8467b80a0775",
         "pr-6642-oep8": "306c92d39c4cbb7fe82981e179161aa85d44774e"
       }
@@ -130,11 +130,11 @@
     "live-clipping-sections": {
       "sourceKey": "live-clipping-sections-local",
       "ref": "refs/heads/feature/live-clipping-sections",
-      "acceptedHead": "03e99c7d5d0660e04bd763f3eb2c2cf823fe9bed",
+      "acceptedHead": "db0188a709c23a43f356d1fd4bd4d5cf38111428",
       "featureMarker": "06d073f73720a391f5d806911a3d91a27b1ebd4e",
       "validation": "not-run",
       "dependencies": {
-        "design-object-persistence": "4652ee8a816b0d7dc7411f4b7b3112a49175b545",
+        "design-object-persistence": "d97af002bd076c82f0ff8fd55e33ab285fdd902b",
         "pr-6878": "3014fb55405759bfa1871e79f50cbee4c2a2c638"
       }
     },
