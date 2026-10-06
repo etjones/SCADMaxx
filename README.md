@@ -16,8 +16,8 @@ This repository holds the build recipes, tools, prompts and documentation used t
 <!-- Hand-maintained by the user. Agents must not regenerate or update this README unless explicitly asked. -->
 
 Here is a list of what SCADMaxx has or does over OpenSCAD master (everything compares to the latest dev builds from
-master since the regular release is so old and missing things that master has, that it's basically irrelevant at this
-point):
+master since the last regular OpenSCAD release is so old and missing things that master has, that it's basically
+irrelevant at this point):
 
 <!-- Feature template: use ## for the three categories and ### for each user-facing feature.
 Within each category, alternate the primary image left/right, starting left.
@@ -97,7 +97,7 @@ Uncomment after adding the full-size image; keep the same file in href and src.
 - Click cube faces, edges and corners to select a view.
 - Orbit freely, rotate in steps and switch between perspective and orthographic projection.
 - Save, name and recall document-specific camera views.
-- Additional (optional) viewport information overlays.
+- Additional (optional) viewport information overlays (FPS, tri count etc.).
 
 <br clear="both">
 
@@ -122,9 +122,8 @@ Uncomment after adding the full-size image; keep the same file in href and src.
 -->
 
 - Look inside a model with movable clipping planes, without cutting the actual geometry.
-- Position and rotate planes with viewport handles, numeric controls or a picked surface.
-- Combine up to eight planes and save named sections in the SCAD source.
-- Move a clipping plane without reevaluating the model on every step.
+- Position and rotate section planes graphically.
+- Save named cross sections in the SCAD source.
 
 <br clear="both">
 
@@ -135,7 +134,7 @@ Uncomment after adding the full-size image; keep the same file in href and src.
 <a href="docs/screenshots/contextual-insertion.png"><img align="left" hspace="16" width="320" src="docs/screenshots/contextual-insertion.png" alt="Insertion palette and an uncommitted component preview positioned on a model."></a>
 -->
 
-- Pick a surface and press **Shift+A** to add a primitive, hole or hardware component.
+- Pick a surface and press **Shift+A** to add a primitive, hole or hardware component attached to that surface.
 - Search the insertion palette, set dimensions, and preview the proposed geometry before committing.
 - Drag, rotate or flip the placement, or attach a component to an existing named anchor.
 - Commit generates editable SCAD source; one Undo removes the insertion.
@@ -217,7 +216,7 @@ Uncomment after adding the full-size image; keep the same file in href and src.
 
 - Describe parameters with `@{key: value}` blocks directly above their assignments.
 - Set groups, descriptions, ranges and numeric widget options in source.
-- Use expressions to hide or lock parameters as other values change.
+- Use expressions to hide or lock parameters as other values change - a much more dynamic Customizer!.
 
 <br clear="both">
 
