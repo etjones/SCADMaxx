@@ -33,3 +33,16 @@ Two focused fixture attempts were used; do not repeat the empty-sentinel approac
 These passes do not validate the entire integrated release. Keep readiness tied to
 the final selected revision and actual remaining evidence. The run report preserves
 exact build logs, crash dump and all failing/passing test reports.
+
+## Inspector-created independent cross sections
+
+After removing Section target/frame fields, SemanticController::createSection still
+emitted those old fields. Owner `9bf60e5c7` copies world origin, normal and up once
+from the resolved target instead; no attachment dependency remains. The regression
+asserts empty dependencies, absent target/frame fields, and the copied world pose.
+Initialize its ResolveContext as a named aggregate with an explicit live Records
+reference; default construction and a temporary context both fail to compile.
+Correction `aca9bcd54` was merged forward through anchors and insertion. Semantic
+native checks pass (17), anchors pass at three scales (12 each), and insertion passes
+(31), in the resumed validation run. Future compositions inherit the owner fix by
+merge; no integration-only duplicate patch is needed.

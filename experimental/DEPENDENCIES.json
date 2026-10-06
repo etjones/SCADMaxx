@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "integration": "merge",
   "recorded": "2026-10-06",
-  "validation": "Migration not built or tested; historical validation is preserved separately in SOURCES.json.",
+  "validation": "Selected feature revisions validated through owner and forward-consumer checks and promoted to the declared private source repository. Integrated composition validation remains a new-run obligation.",
   "nodes": {
     "pr-6878": {
       "sourceRef": "refs/experimental-runs/20261005-scadmaxx-all-features/pr-6878",
@@ -23,7 +23,7 @@
       "ref": "refs/heads/feature/navigation-cube",
       "acceptedHead": "6b42cbf3f95bfe1ad2ff4b845a6dc20f4ed336fe",
       "featureMarker": "6b42cbf3f95bfe1ad2ff4b845a6dc20f4ed336fe",
-      "validation": "previous-evidence",
+      "validation": "owner/consumer evidence in runs/20261006-validation-promotion/report.md",
       "dependencies": {}
     },
     "ui-visual-polish": {
@@ -31,7 +31,7 @@
       "ref": "refs/heads/codex/ui-visual-polish",
       "acceptedHead": "6096a42d2ee5e8c8530b8b5776c9ca04a1a9afd2",
       "featureMarker": "2217d2c7d54743c93cefb9418b208825168ddc1c",
-      "validation": "not-run",
+      "validation": "owner/consumer evidence in runs/20261006-validation-promotion/report.md",
       "dependencies": {
         "pr-6776": "aab4aed030dd61b80c5f850177f2af93e067eb7d"
       }
@@ -41,7 +41,7 @@
       "ref": "refs/heads/feature/annotations",
       "acceptedHead": "d670fad09dba45526487e958b90fd553c6e1ace0",
       "featureMarker": "d670fad09dba45526487e958b90fd553c6e1ace0",
-      "validation": "previous-evidence",
+      "validation": "owner/consumer evidence in runs/20261006-validation-promotion/report.md",
       "dependencies": {}
     },
     "http-agent-server": {
@@ -49,7 +49,7 @@
       "ref": "refs/heads/codex/http-agent-server",
       "acceptedHead": "f2c9de2c94745b834b5a120fdc5c29a5999128c9",
       "featureMarker": "9aa372e8fcb012d8bcfe6344483d83f3bcd4f2d0",
-      "validation": "not-run",
+      "validation": "owner/consumer evidence in runs/20261006-validation-promotion/report.md",
       "dependencies": {
         "annotations": "d670fad09dba45526487e958b90fd553c6e1ace0",
         "navigation-cube": "6b42cbf3f95bfe1ad2ff4b845a6dc20f4ed336fe"
@@ -67,7 +67,7 @@
       "ref": "refs/heads/codex/pr6642",
       "acceptedHead": "306c92d39c4cbb7fe82981e179161aa85d44774e",
       "featureMarker": "1dad283e17be06380f2ff6b23daca68719d1f70c",
-      "validation": "not-run",
+      "validation": "owner/consumer evidence in runs/20261006-validation-promotion/report.md",
       "dependencies": {
         "pr-6081": "07b22af25704af0db39959773751fb5c6e4debbe"
       }
@@ -77,7 +77,7 @@
       "ref": "refs/heads/feature/source-editing-foundation",
       "acceptedHead": "0bcafded2a98d98802a8e869e44a658770ebc3b4",
       "featureMarker": "3131a23d6ec04f4405952d8804a41dd8296b2dc5",
-      "validation": "not-run",
+      "validation": "owner/consumer evidence in runs/20261006-validation-promotion/report.md",
       "dependencies": {
         "http-agent-server": "f2c9de2c94745b834b5a120fdc5c29a5999128c9"
       }
@@ -87,7 +87,7 @@
       "ref": "refs/heads/feature/selection-model-inspector",
       "acceptedHead": "6440acdfd1c21f979d3074b2cdd60478d0aa8977",
       "featureMarker": "ced629047eaa725a319f0c5a6a3602330b033c6d",
-      "validation": "not-run",
+      "validation": "owner/consumer evidence in runs/20261006-validation-promotion/report.md",
       "dependencies": {
         "http-agent-server": "f2c9de2c94745b834b5a120fdc5c29a5999128c9"
       }
@@ -97,7 +97,7 @@
       "ref": "refs/heads/feature/vim-editor-mode",
       "acceptedHead": "f6e316ed43dcaa4726520dbee76980015e681ec7",
       "featureMarker": "1c48233689c4582754784c66fd23ed4273d56981",
-      "validation": "not-run",
+      "validation": "owner/consumer evidence in runs/20261006-validation-promotion/report.md",
       "dependencies": {
         "source-editing-foundation": "0bcafded2a98d98802a8e869e44a658770ebc3b4",
         "pr-6878": "3014fb55405759bfa1871e79f50cbee4c2a2c638"
@@ -108,7 +108,7 @@
       "ref": "refs/heads/feature/source-geometry-provenance",
       "acceptedHead": "36e43d75020ebe2ff81cb90ce84aca63c482fd8c",
       "featureMarker": "bb68db75a8d0fb259d17f50322306007d3750ebe",
-      "validation": "not-run",
+      "validation": "owner/consumer evidence in runs/20261006-validation-promotion/report.md",
       "dependencies": {
         "source-editing-foundation": "0bcafded2a98d98802a8e869e44a658770ebc3b4",
         "selection-model-inspector": "6440acdfd1c21f979d3074b2cdd60478d0aa8977",
@@ -120,7 +120,7 @@
       "ref": "refs/heads/feature/design-object-persistence",
       "acceptedHead": "cdfc439c169ead84b91366bca7096348380c1fd1",
       "featureMarker": "015aa3172759c00979830ab178cc3515b4e7fd50",
-      "validation": "not-run",
+      "validation": "owner/consumer evidence in runs/20261006-validation-promotion/report.md",
       "dependencies": {
         "source-editing-foundation": "0bcafded2a98d98802a8e869e44a658770ebc3b4",
         "selection-model-inspector": "6440acdfd1c21f979d3074b2cdd60478d0aa8977",
@@ -132,7 +132,7 @@
       "ref": "refs/heads/feature/live-clipping-sections",
       "acceptedHead": "ce8af12e4b4d4cee14b82f697062f75cf552f0c3",
       "featureMarker": "06d073f73720a391f5d806911a3d91a27b1ebd4e",
-      "validation": "not-run",
+      "validation": "owner/consumer evidence in runs/20261006-validation-promotion/report.md",
       "dependencies": {
         "design-object-persistence": "cdfc439c169ead84b91366bca7096348380c1fd1",
         "pr-6878": "3014fb55405759bfa1871e79f50cbee4c2a2c638"
@@ -143,7 +143,7 @@
       "ref": "refs/heads/feature/geometry-services",
       "acceptedHead": "4e1286c7b362f84e920a21ba65e13042178a6fea",
       "featureMarker": "4e1286c7b362f84e920a21ba65e13042178a6fea",
-      "validation": "previous-evidence",
+      "validation": "owner/consumer evidence in runs/20261006-validation-promotion/report.md",
       "dependencies": {}
     },
     "component-provider-adapters": {
@@ -151,15 +151,15 @@
       "ref": "refs/heads/feature/component-provider-adapters",
       "acceptedHead": "9d0cb2097efcac6856ae5dafb31a642803ec32d7",
       "featureMarker": "9d0cb2097efcac6856ae5dafb31a642803ec32d7",
-      "validation": "previous-evidence",
+      "validation": "owner/consumer evidence in runs/20261006-validation-promotion/report.md",
       "dependencies": {}
     },
     "semantic-model-hierarchy": {
       "sourceKey": "semantic-model-hierarchy-local",
       "ref": "refs/heads/feature/semantic-model-hierarchy",
-      "acceptedHead": "bd60d24968a1b8e59887522683ce31169a786b24",
+      "acceptedHead": "aca9bcd54aaa739d6a1d5af4c0e9228618e6ebe0",
       "featureMarker": "966b68b98fc21308d1fd1d40dbcb8eebeda7cc2f",
-      "validation": "not-run",
+      "validation": "owner/consumer evidence in runs/20261006-validation-promotion/report.md",
       "dependencies": {
         "source-geometry-provenance": "36e43d75020ebe2ff81cb90ce84aca63c482fd8c",
         "design-object-persistence": "cdfc439c169ead84b91366bca7096348380c1fd1"
@@ -168,21 +168,21 @@
     "anchors-attachments": {
       "sourceKey": "anchors-attachments-local",
       "ref": "refs/heads/feature/anchors-attachments",
-      "acceptedHead": "2c34ce88c9f08ba77c307b044620f4c4918871c2",
+      "acceptedHead": "bd0a54c5c0eb8ded39cc3e2d8d5ff79230c9b4ab",
       "featureMarker": "56ceab74239507093067f11d078d73c12ae431c4",
-      "validation": "not-run",
+      "validation": "owner/consumer evidence in runs/20261006-validation-promotion/report.md",
       "dependencies": {
-        "semantic-model-hierarchy": "bd60d24968a1b8e59887522683ce31169a786b24"
+        "semantic-model-hierarchy": "aca9bcd54aaa739d6a1d5af4c0e9228618e6ebe0"
       }
     },
     "contextual-insertion": {
       "sourceKey": "contextual-insertion-local",
       "ref": "refs/heads/feature/contextual-insertion",
-      "acceptedHead": "18f294b8e39fc43fcf5bb75c167ed52f24ba3d4d",
+      "acceptedHead": "9ba04f92b79fb15715c79c84af677078dafda53f",
       "featureMarker": "b298c802905289b4fb94178d9127c6a8283342b7",
-      "validation": "not-run",
+      "validation": "owner/consumer evidence in runs/20261006-validation-promotion/report.md",
       "dependencies": {
-        "anchors-attachments": "2c34ce88c9f08ba77c307b044620f4c4918871c2",
+        "anchors-attachments": "bd0a54c5c0eb8ded39cc3e2d8d5ff79230c9b4ab",
         "component-provider-adapters": "9d0cb2097efcac6856ae5dafb31a642803ec32d7",
         "pr-6878": "3014fb55405759bfa1871e79f50cbee4c2a2c638"
       }

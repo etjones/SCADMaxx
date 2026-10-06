@@ -44,9 +44,9 @@ It defines source synchronization and the handoff required when each feature bec
 | 14 | live-clipping-sections | feature | live-clipping-sections-local | ce8af12e4b4d4cee14b82f697062f75cf552f0c3 | merge | design-object-persistence, pr-6878 | Live cross section clipping planes and saved cross sections |
 | 15 | geometry-services | feature | geometry-services-local | 4e1286c7b362f84e920a21ba65e13042178a6fea | merge | none declared | Strict in-memory measurement and section services |
 | 16 | component-provider-adapters | feature | component-provider-adapters-local | 9d0cb2097efcac6856ae5dafb31a642803ec32d7 | merge | none declared | Version-matched component catalogs and source generation |
-| 17 | semantic-model-hierarchy | feature | semantic-model-hierarchy-local | bd60d24968a1b8e59887522683ce31169a786b24 | merge | source-geometry-provenance, design-object-persistence | Parts Assemblies Components and scoped parameters |
-| 18 | anchors-attachments | feature | anchors-attachments-local | 2c34ce88c9f08ba77c307b044620f4c4918871c2 | merge | semantic-model-hierarchy | Typed anchors references and attachment placement |
-| 19 | contextual-insertion | feature | contextual-insertion-local | 18f294b8e39fc43fcf5bb75c167ed52f24ba3d4d | merge | anchors-attachments, component-provider-adapters, pr-6878 | Searchable insertion palette isolated preview and guarded Commit |
+| 17 | semantic-model-hierarchy | feature | semantic-model-hierarchy-local | aca9bcd54aaa739d6a1d5af4c0e9228618e6ebe0 | merge | source-geometry-provenance, design-object-persistence | Parts Assemblies Components and scoped parameters |
+| 18 | anchors-attachments | feature | anchors-attachments-local | bd0a54c5c0eb8ded39cc3e2d8d5ff79230c9b4ab | merge | semantic-model-hierarchy | Typed anchors references and attachment placement |
+| 19 | contextual-insertion | feature | contextual-insertion-local | 9ba04f92b79fb15715c79c84af677078dafda53f | merge | anchors-attachments, component-provider-adapters, pr-6878 | Searchable insertion palette isolated preview and guarded Commit |
 
 The selected product features are unchanged. The three historical foundation-followup rows have been retired:
 their shared behavior now belongs to the maintained owners listed in [the migration record](../docs/feature-ancestry.md).
@@ -57,10 +57,11 @@ Native entries use real merges of the frozen heads. No B..H feature patches or s
 Preparation rejects missing dependencies, different accepted revisions, and known excluded features hidden in ancestry.
 Updating a GitHub PR beyond a consumer's accepted prerequisite requires owner-branch maintenance first.
 
-The 2026-10-06 migration is local, not built/tested and not promoted. `SOURCES.json` preserves historical validated
-and promoted heads separately and marks changed sources not ready. A build request does not authorize a push.
-After explicit validation and promotion, verify the declared bare refs and update readiness. Do not silently fall
-back to older source heads. Original frozen runs retain their own control snapshots and previous delta contract.
+The 2026-10-06 migration and follow-up repairs passed owner/forward-consumer validation
+in `runs/20261006-validation-promotion`. The selected revisions were explicitly promoted
+to Dropbox and verified; `SOURCES.json` records their exact validated/promoted heads.
+Fresh integrated composition checks remain required. A build request alone does not
+authorize future pushes. Original runs retain their frozen controls and old contract.
 
 Features 09/10/13 remain postponed; viewport keyboard commands and the evaluation-performance experiment remain
 outside this native selection. The skill companion below is a separate control-repository input.
