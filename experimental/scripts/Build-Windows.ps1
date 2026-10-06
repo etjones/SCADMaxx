@@ -101,6 +101,7 @@ try {
         ENABLE_NAVIGATION_CUBE_TUNING=$navigationTuning
         EXPERIMENTAL='ON'
         USE_MANIFOLD_MINKOWSKI='ON'
+        SCADMAXX_FEATURE_TITLE='OFF'
     }
     $identity = [ordered]@{source=$Source; build=$Build; profile=$p; dependencies=$dependencies; submodules=$record.submodules; toolHashes=$toolHashes;
         cmakeVersion=(& $cmake --version | Select-Object -First 1); flags='Ninja;Release;GUI;Qt6;tests;builtin OpenCSG;app-local MSVC runtime';
@@ -142,6 +143,7 @@ try {
                 "-DENABLE_NAVIGATION_CUBE_TUNING=$navigationTuning",
                 "-DEXPERIMENTAL=$($record.featureFlags.EXPERIMENTAL)",
                 "-DUSE_MANIFOLD_MINKOWSKI=$($record.featureFlags.USE_MANIFOLD_MINKOWSKI)",
+                "-DSCADMAXX_FEATURE_TITLE=$($record.featureFlags.SCADMAXX_FEATURE_TITLE)",
                 '-DCMAKE_INSTALL_SYSTEM_RUNTIME_DESTINATION=.',
                 "-DFLEX_EXECUTABLE=$($p.flex)","-DBISON_EXECUTABLE=$($p.bison)",
                 "-DQT6QSCINTILLA_INCLUDE_DIR=$triplet/include/Qt6/Qsci",
