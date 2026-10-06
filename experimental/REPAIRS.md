@@ -15,6 +15,7 @@ For PR 6642 with UI polish, see [Customizer group visibility test wiring](repair
 For anchor tests after Inspector opens, see [pick-time projection snapshots](repairs/anchor-pick-frame-test.md).
 For repeated cross section edits and persistence test lifetime, see [session refresh validation](repairs/session-section-refresh.md).
 For the Inspector font-input guard declaration, see [its direct header dependency](repairs/inspector-parser-capability-include.md).
+For the provenance-only parser budget test, see [the core inventory assertion](repairs/provenance-parser-budget-fixture.md).
 
 | ID | Applies after | Source repository / full commit SHA | Applicability | Verification | State |
 | --- | --- | --- | --- | --- | --- |

@@ -17,3 +17,6 @@ Before another run, check whether SourceFile.cc already includes EvaluationInput
 If absent and the guard is used, apply the one-line include as a separate repair.
 The current frozen feature inputs remain unchanged. Verification is recorded in the
 run's Inspector repair checkpoint; final combined release checks remain separate.
+
+Verification passed on the first focused attempt: Configure/Build/Test at
+`106388a03`, `logs/20261006T211115858Z-test.json` (unit and controlled-runtime rendering).
