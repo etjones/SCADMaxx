@@ -2,8 +2,9 @@
 
 Run: `20261006-scadmaxx-all-features`. Source repair: `29e39eb92`.
 The repaired combined run passes selection 24/24, provenance 9/9 and cross sections
-20/20, including the previously stuck overflow-layout transition. Full verification
-is still in progress; consult the run report before delivery.
+20/20, including the previously stuck overflow-layout transition. Final combined
+verification at `569220a50` passed all 196 checks in 15 suites in
+`native-All-scale-1-20261006T225916644Z`. Consult the run report for delivery checks.
 
 The combined native run repeatedly spent time in toolbar overflow layout after
 navigation and selection resized the window. Cross-section numerical checks and

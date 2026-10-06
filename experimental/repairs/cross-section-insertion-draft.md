@@ -19,4 +19,6 @@ controls after cancellation. It retains source/Undo and mesh-job assertions.
 The focused native check passed 3/3 including setup/cleanup in
 `native-insertion-section-repair.log`. Full combined/DPI results belong in the run
 report. The initial compile needed a direct InspectionMeshRenderer header for the
-test's dynamic cast; no dependency changes were required.
+test's dynamic cast; no dependency changes were required. Final combined native
+verification passed all 196 checks, including 33 insertion checks, in
+`native-All-scale-1-20261006T225916644Z` at `569220a50`.
