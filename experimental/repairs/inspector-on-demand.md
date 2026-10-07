@@ -4,7 +4,11 @@ Implementation checkpoint below records the original working changes. The user s
 local commits, forward merges, building and performance comparison. The owners are now committed and
 merged forward; the combined application and unit-test targets compile. Focused native validation passes
 for on-demand behavior. The same-binary comparison measures approximately 15% lower Preview time with
-Inspector preparation off; broader background validation is in progress.
+Inspector preparation off. Broader background validation completed with the same 11
+previously recorded CLI failures (six echo crashes, one line-number expectation and four
+missing-Ghostscript image comparisons); later CLI batches were skipped by fail-fast.
+The two existing clipping and two insertion native failures remain in this checkpoint.
+Do not treat it as a fully passing integration or release promotion.
 See [the current run report](../../../runs/inspector-on-demand-2026-10-07_22-57/report.md) and its `heads.json`
 for current revisions, exact timing conditions, known integration failures and validation limits.
 No push or packaging has occurred; upstream-equivalent performance is not established.
