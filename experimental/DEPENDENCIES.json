@@ -29,9 +29,9 @@
     "ui-visual-polish": {
       "sourceKey": "ui-visual-polish-local",
       "ref": "refs/heads/codex/ui-visual-polish",
-      "acceptedHead": "6096a42d2ee5e8c8530b8b5776c9ca04a1a9afd2",
+      "acceptedHead": "d52e03649893fffb487976c36e4e0e028176b701",
       "featureMarker": "2217d2c7d54743c93cefb9418b208825168ddc1c",
-      "validation": "owner/consumer evidence in runs/20261006-validation-promotion/report.md",
+      "validation": "D:/openscad/runs/20261007-customizer-accent/report.md; application build, 77593 ordinary assertions and 320 native checks passed",
       "dependencies": {
         "pr-6776": "aab4aed030dd61b80c5f850177f2af93e067eb7d"
       }

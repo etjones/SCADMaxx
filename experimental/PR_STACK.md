@@ -31,7 +31,7 @@ It defines source synchronization and the handoff required when each feature bec
 | 1 | pr-6878 | pr | https://github.com/openscad/openscad/pull/6878 | latest | merge | none declared | Customize keyboard shortcuts through the GUI |
 | 2 | pr-6776 | pr | https://github.com/openscad/openscad/pull/6776 | latest | merge | none declared | Correct switching to and from dark mode while OpenSCAD is running |
 | 3 | navigation-cube | feature | navigation-cube-local | 6b42cbf3f95bfe1ad2ff4b845a6dc20f4ed336fe | merge | none declared | Native viewport navigation cube |
-| 4 | ui-visual-polish | feature | ui-visual-polish-local | 6096a42d2ee5e8c8530b8b5776c9ca04a1a9afd2 | merge | pr-6776 | Improved OpenSCAD UI from our UI work branch |
+| 4 | ui-visual-polish | feature | ui-visual-polish-local | d52e03649893fffb487976c36e4e0e028176b701 | merge | pr-6776 | Improved OpenSCAD UI from our UI work branch |
 | 5 | annotations | feature | annotations-local | d670fad09dba45526487e958b90fd553c6e1ace0 | merge | none declared | Native Blender-style annotation tool |
 | 6 | http-agent-server | feature | http-agent-server-local | f2c9de2c94745b834b5a120fdc5c29a5999128c9 | merge | annotations, navigation-cube | HTTP endpoint / agent server for OpenSCAD automation |
 | 7 | pr-6081 | pr | https://github.com/openscad/openscad/pull/6081 | latest | merge | none declared | OEP8a object literals and object comprehensions |
