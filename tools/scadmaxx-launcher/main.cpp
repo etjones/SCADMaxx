@@ -195,7 +195,7 @@ private:
 };
 
 static QString chooseBuild(QWidget *parent, const FileType &type, const ScanResult &scan, const Resolution &preferred, const QStringList &documents, const QString &lastUsed = {}) {
-    QDialog dialog(parent); dialog.setObjectName("buildChooser"); dialog.setWindowTitle("Choose build — " + type.name); dialog.resize(800, 430);
+    QDialog dialog(parent); dialog.setObjectName("buildChooser"); dialog.setWindowTitle("Choose build — " + type.name); dialog.resize(1200, 520);
     auto *layout = new QVBoxLayout(&dialog);
     layout->addWidget(label(documents.size() == 1 ? "Open " + QFileInfo(documents.first()).fileName() : QString("Open %1 files").arg(documents.size()), "pageTitle"));
     QString selectedPath = preferred.path;
@@ -215,6 +215,16 @@ static QString chooseBuild(QWidget *parent, const FileType &type, const ScanResu
         if (pathKey(b.path) == pathKey(selectedPath)) selected = row; ++row;
     }
     if (selected >= 0) list->selectRow(selected); layout->addWidget(list, 1);
+    list->setFocus(Qt::OtherFocusReason);
+    int nameWidth = 100, versionWidth = 90, pathWidth = 400;
+    for (const auto &build : scan.builds) {
+        nameWidth = qMax(nameWidth, list->fontMetrics().horizontalAdvance(build.name) + 28);
+        versionWidth = qMax(versionWidth, list->fontMetrics().horizontalAdvance(build.version) + 28);
+        pathWidth = qMax(pathWidth, list->fontMetrics().horizontalAdvance(build.path) + 28);
+    }
+    const auto available = dialog.screen()->availableGeometry();
+    dialog.resize(qMin(qMax(1200, nameWidth + versionWidth + pathWidth + 50), available.width() - 40),
+        qMin(520, available.height() - 40));
     if (scan.builds.isEmpty()) layout->addWidget(label("No available builds. Add a search folder or executable in the manager."));
     auto *buttons = new QDialogButtonBox(QDialogButtonBox::Open | QDialogButtonBox::Cancel); layout->addWidget(buttons);
     buttons->button(QDialogButtonBox::Open)->setEnabled(selected >= 0); buttons->button(QDialogButtonBox::Open)->setDefault(true);
@@ -270,6 +280,7 @@ static void applyAppearance(bool testing = false) {
             QComboBox::down-arrow { image: none; }
             QComboBox:disabled { color: %7; background: %2; }
             QTableWidget { background: %3; color: %1; gridline-color: %4; border: 1px solid %4; selection-background-color: %5; selection-color: %6; }
+            QTableWidget::item:selected, QTableWidget::item:selected:!active { background-color: %5; color: %6; }
             QHeaderView::section { background: %2; color: %1; padding: 5px; border: none; border-bottom: 1px solid %4; }
 
             QComboBox QAbstractItemView, QListWidget { background: %3; color: %1; border: 1px solid %4; selection-background-color: %5; selection-color: %6; }

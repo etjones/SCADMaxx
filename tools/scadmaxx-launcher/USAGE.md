@@ -70,7 +70,8 @@ On: show that file type's available builds with its last successfully launched e
 If it is no longer an eligible candidate, select the configured fixed/latest default instead. With neither
 available, require an explicit selection. Successful launches remember the executable separately per file type
 in last-used.ini, including launches with the chooser off. Cancel and failed launches do not update history.
-The remembered selection does not change the configured default.
+The remembered selection does not change the configured default. The wider chooser sizes itself to the columns
+within the available screen, uses single-line rows, and retains a strong selection color when focus moves.
 
 For example, add both an OpenSCAD source and a SCADMaxx source to the `.scadmaxx` type. Keep SCADMaxx as its default,
 and explicitly choose OpenSCAD in the opening dialog when desired. The launcher does not translate the language.
