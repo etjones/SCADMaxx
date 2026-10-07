@@ -18,3 +18,8 @@ owner revisions before reapplying; the obsolete fixture may already be updated.
 The first focused repair passed Configure, Build and Test at `182c007d3`, including
 684735 assertions with zero failures/errors/skips. Verification:
 `runs/20261006-scadmaxx-all-features/logs/20261006T215057354Z-test.json`.
+
+On 2026-10-07 the same fixture correction was made in its hierarchy owner as `e92646c22`,
+then propagated by normal forward merges. The owner full suite passes 276 cases; evidence is
+`runs/20261007-owner-evaluation-performance/hierarchy-full-unit.xml`. Future integrations inherit
+the owner correction and should not need a separate repair. No production behavior changed.
