@@ -66,9 +66,11 @@ can check an executable exists and is readable; it cannot prove all runtime file
 This is one global switch in both the manager and the right-click tray menu. It saves immediately.
 
 Off: open each handled file with its file type's configured fixed/latest default.
-On: show that file type's available builds with its resolved default selected. Show build name, version and path.
-Choose another build for this opening without changing the default. Cancel launches nothing. A missing default
-is explained and requires an explicit choice; the dialog never silently substitutes another editor.
+On: show that file type's available builds with its last successfully launched executable selected.
+If it is no longer an eligible candidate, select the configured fixed/latest default instead. With neither
+available, require an explicit selection. Successful launches remember the executable separately per file type
+in last-used.ini, including launches with the chooser off. Cancel and failed launches do not update history.
+The remembered selection does not change the configured default.
 
 For example, add both an OpenSCAD source and a SCADMaxx source to the `.scadmaxx` type. Keep SCADMaxx as its default,
 and explicitly choose OpenSCAD in the opening dialog when desired. The launcher does not translate the language.

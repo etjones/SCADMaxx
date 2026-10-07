@@ -194,11 +194,17 @@ private:
     }
 };
 
-static QString chooseBuild(QWidget *parent, const FileType &type, const ScanResult &scan, const Resolution &preferred, const QStringList &documents) {
+static QString chooseBuild(QWidget *parent, const FileType &type, const ScanResult &scan, const Resolution &preferred, const QStringList &documents, const QString &lastUsed = {}) {
     QDialog dialog(parent); dialog.setObjectName("buildChooser"); dialog.setWindowTitle("Choose build — " + type.name); dialog.resize(800, 430);
     auto *layout = new QVBoxLayout(&dialog);
     layout->addWidget(label(documents.size() == 1 ? "Open " + QFileInfo(documents.first()).fileName() : QString("Open %1 files").arg(documents.size()), "pageTitle"));
-    layout->addWidget(label(preferred.valid ? "Your default is selected. Choosing another build only affects this opening." : preferred.reason, "mappingStatus"));
+    QString selectedPath = preferred.path;
+    bool remembered = false;
+    for (const auto &build : scan.builds) if (!lastUsed.isEmpty() && pathKey(build.path) == pathKey(lastUsed)) {
+        selectedPath = build.path; remembered = true; break;
+    }
+    layout->addWidget(label(remembered ? "Your last-used build is selected. Successful opens are remembered for this file type."
+        : preferred.valid ? "Your configured default is selected. Successful opens are remembered for this file type." : preferred.reason, "mappingStatus"));
     auto *list = new QTableWidget(scan.builds.size(), 3); list->setObjectName("chooserBuilds"); compactBuildTable(list); list->setHorizontalHeaderLabels({"Build", "Version", "Path"});
     list->verticalHeader()->hide(); list->setEditTriggers(QAbstractItemView::NoEditTriggers); list->setSelectionBehavior(QAbstractItemView::SelectRows); list->setSelectionMode(QAbstractItemView::SingleSelection);
     list->horizontalHeader()->setSectionResizeMode(0, QHeaderView::ResizeToContents); list->horizontalHeader()->setSectionResizeMode(1, QHeaderView::ResizeToContents); list->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
@@ -206,7 +212,7 @@ static QString chooseBuild(QWidget *parent, const FileType &type, const ScanResu
     for (const auto &b : scan.builds) {
         auto *nameItem = new QTableWidgetItem(b.name); nameItem->setToolTip(b.name); list->setItem(row, 0, nameItem); list->setItem(row, 1, new QTableWidgetItem(b.version.isEmpty() ? "Unknown" : b.version));
         auto *p = new QTableWidgetItem(b.path); p->setToolTip(b.path); list->setItem(row, 2, p);
-        if (pathKey(b.path) == pathKey(preferred.path)) selected = row; ++row;
+        if (pathKey(b.path) == pathKey(selectedPath)) selected = row; ++row;
     }
     if (selected >= 0) list->selectRow(selected); layout->addWidget(list, 1);
     if (scan.builds.isEmpty()) layout->addWidget(label("No available builds. Add a search folder or executable in the manager."));
@@ -484,6 +490,11 @@ bool Manager::smokeTest() {
     });
     const auto chosen = chooseBuild(this,saved.types[0],scan,preferred,{"example.scad"});
     if(!sawDefault || chosen != first || saved.types[0].fixed != second) return false;
+    for (const auto &previous : {first, temp.filePath("removed.exe")}) {
+        const auto expected = previous == first ? first : second;
+        QTimer::singleShot(0,this,[&]{if(auto *d=qobject_cast<QDialog *>(QApplication::activeModalWidget())) d->accept();});
+        if(chooseBuild(this,saved.types[0],scan,preferred,{"example.scad"},previous)!=expected) return false;
+    }
     QTimer::singleShot(0,this,[]{if(auto *d=qobject_cast<QDialog *>(QApplication::activeModalWidget())) d->reject();});
     if(!chooseBuild(this,saved.types[0],scan,preferred,{"example.scad"}).isEmpty()) return false;
     TypeDialog editor(saved.types[0],cacheFile(),this);
@@ -521,6 +532,8 @@ bool Manager::smokeTest() {
         const auto record=temp.filePath("dispatch.json"); qputenv("SCADMAXX_TEST_ARGUMENTS",record.toUtf8());
         const auto result=openDocuments(dispatch,{document,secondDocument},cacheFile()); qunsetenv("SCADMAXX_TEST_ARGUMENTS");
         if(result!=0) return false;
+        QSettings history(QFileInfo(cacheFile()).dir().filePath("last-used.ini"),QSettings::IniFormat);
+        if(history.value(dispatch.types[0].id).toString()!=receiver || history.contains(dispatch.types[1].id)) return false;
         QElapsedTimer wait; wait.start(); QJsonArray received;
         while(wait.elapsed()<5000) {
             QFile f(record); if(f.open(QIODevice::ReadOnly)) received=QJsonDocument::fromJson(f.readAll()).array();
@@ -545,12 +558,14 @@ static int openDocuments(const Config &config, const QStringList &documents, con
         groups[type->id].append(QFileInfo(document).absoluteFilePath());
     }
     QVector<QPair<QString,QStringList>> launches;
+    QStringList launchedTypes;
+    QSettings recent(QFileInfo(cacheFile).dir().filePath("last-used.ini"), QSettings::IniFormat);
     for (const auto &type : config.types) if (groups.contains(type.id)) {
         ScanResult scan;
         if(config.ask || type.mode == "latest") scan = scanWithProgress(nullptr,type,cacheFile);
         auto resolved = resolveDefault(type,scan,selfPath()); QString program = resolved.path;
         if(config.ask) {
-            program = chooseBuild(nullptr,type,scan,resolved,groups[type.id]);
+            program = chooseBuild(nullptr,type,scan,resolved,groups[type.id],recent.value(type.id).toString());
             if(program.isEmpty()) return 0; // No editors launched until all groups have been confirmed.
         } else if (!resolved.valid) {
             QMessageBox box(QMessageBox::Warning,"Cannot open file",resolved.reason,QMessageBox::Close);
@@ -558,12 +573,16 @@ static int openDocuments(const Config &config, const QStringList &documents, con
             if(box.clickedButton()==manage) QProcess::startDetached(selfPath(),QStringList{});
             return 1;
         }
-        launches.append({program,groups[type.id]});
+        launches.append({program,groups[type.id]}); launchedTypes.append(type.id);
     }
+    int launchIndex = 0;
     for (const auto &launch : launches) {
         if(!validExecutable(launch.first,selfPath()) || !QProcess::startDetached(launch.first,launch.second,QFileInfo(launch.second.first()).absolutePath())) {
             QMessageBox::warning(nullptr,"Cannot start editor","The selected build is unavailable or failed to start:\n" + launch.first); return 1;
         }
+        recent.setValue(launchedTypes[launchIndex++], launch.first); recent.sync();
+        if (recent.status() != QSettings::NoError)
+            QMessageBox::warning(nullptr,"Build history","The editor started, but its selection could not be saved.");
     }
     return 0;
 }
