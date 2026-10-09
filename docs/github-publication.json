@@ -1,0 +1,97 @@
+[
+  {
+    "id": "background-model-evaluation-local",
+    "ref": "refs/heads/feature/background-model-evaluation",
+    "revision": "78dc9561b3bc3d3415ba617f2747b13c3a1d4728"
+  },
+  {
+    "id": "pr-6642-oep8-local",
+    "ref": "refs/heads/codex/pr6642",
+    "revision": "d77244154cc2c84a26a8a5fdb1ec20ce4a335b7f"
+  },
+  {
+    "id": "navigation-cube-local",
+    "ref": "refs/heads/feature/navigation-cube",
+    "revision": "6b42cbf3f95bfe1ad2ff4b845a6dc20f4ed336fe"
+  },
+  {
+    "id": "ui-visual-polish-local",
+    "ref": "refs/heads/codex/ui-visual-polish",
+    "revision": "e4e9046558d1a836939e63c2d0cc6bd4b353692b"
+  },
+  {
+    "id": "annotations-local",
+    "ref": "refs/heads/feature/annotations",
+    "revision": "d670fad09dba45526487e958b90fd553c6e1ace0"
+  },
+  {
+    "id": "http-agent-server-local",
+    "ref": "refs/heads/codex/http-agent-server",
+    "revision": "f2c9de2c94745b834b5a120fdc5c29a5999128c9"
+  },
+  {
+    "id": "source-editing-foundation-local",
+    "ref": "refs/heads/feature/source-editing-foundation",
+    "revision": "0bcafded2a98d98802a8e869e44a658770ebc3b4"
+  },
+  {
+    "id": "selection-model-inspector-local",
+    "ref": "refs/heads/feature/selection-model-inspector",
+    "revision": "bf91e96761251526cd25e5c8f60b93fd26468cb7"
+  },
+  {
+    "id": "vim-editor-mode-local",
+    "ref": "refs/heads/feature/vim-editor-mode",
+    "revision": "f6e316ed43dcaa4726520dbee76980015e681ec7"
+  },
+  {
+    "id": "source-geometry-provenance-local",
+    "ref": "refs/heads/feature/source-geometry-provenance",
+    "revision": "c740cdd0eebefe6622fc0f6f9bd02598ac1f04bd"
+  },
+  {
+    "id": "design-object-persistence-local",
+    "ref": "refs/heads/feature/design-object-persistence",
+    "revision": "62b512a4ca08296c63b5383a436cc67297476344"
+  },
+  {
+    "id": "live-clipping-sections-local",
+    "ref": "refs/heads/feature/live-clipping-sections",
+    "revision": "4fe538595c21f4bb32402fb335f7dfd654769a3a"
+  },
+  {
+    "id": "geometry-services-local",
+    "ref": "refs/heads/feature/geometry-services",
+    "revision": "4e1286c7b362f84e920a21ba65e13042178a6fea"
+  },
+  {
+    "id": "component-provider-adapters-local",
+    "ref": "refs/heads/feature/component-provider-adapters",
+    "revision": "9d0cb2097efcac6856ae5dafb31a642803ec32d7"
+  },
+  {
+    "id": "semantic-model-hierarchy-local",
+    "ref": "refs/heads/feature/semantic-model-hierarchy",
+    "revision": "232e7242abe03480db7bd0361321abefbe1d923d"
+  },
+  {
+    "id": "anchors-attachments-local",
+    "ref": "refs/heads/feature/anchors-attachments",
+    "revision": "bffbafdc447b6251a4e071e14396b03537eba105"
+  },
+  {
+    "id": "contextual-insertion-local",
+    "ref": "refs/heads/feature/contextual-insertion",
+    "revision": "6179d853dfb65c342f466a858234a0d410564f43"
+  },
+  {
+    "id": "geometry-bounds-local",
+    "ref": "refs/heads/feature/geometry-bounds",
+    "revision": "cbf75e737de7f4f36882a23968298bdabdcb699d"
+  },
+  {
+    "id": "current-integration",
+    "ref": "refs/heads/scadmaxx-20261006",
+    "revision": "f4f87a8eea11172037c459dd5ae9848b566fd044"
+  }
+]

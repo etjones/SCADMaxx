@@ -1,5 +1,10 @@
 # SCADMaxx local Git layout
 
+Current publication status (2026-10-09): controls are mirrored to the private
+`roel-v/SCADMaxx` repository; the selected feature branches and current integration are published to
+the public `roel-v/openscad` fork. See [the verified publication record](github-publication.md).
+The installation and migration descriptions below retain their original local-only decisions.
+
 Product name: **SCADMaxx**. Tagline: **OpenSCAD, with the sliders turned up.**
 
 Decision recorded on 2026-10-01: SCADMaxx experiments, composed builds, and the workspace root/control history
