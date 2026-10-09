@@ -6,6 +6,17 @@ downloaded third-party source and run evidence do not belong in the upstream fea
 
 ## Setup and collection
 
+Acquisition is sequential, with ten seconds between uncached GitHub search requests and two seconds between
+repository acquisitions. HTTP rate-limit responses honor Retry-After and X-RateLimit-Reset, with bounded retries.
+Search caches are keyed by query text and page. Use --query repeatedly for broader discovery, --pages for depth,
+and --exclude-manifest PATH to collect additions without selecting normalized-source duplicates of an older corpus.
+Use --all to index every unique nonempty SCAD file without count or diversity caps, including helpers and tests.
+All raw downloaded sources remain retained even when duplicated or excluded from the manifest.
+Additional sequential importers: import_thingiverse.py ROOT (pinned public SCAD dataset mirror),
+import_codecad.py ROOT --limit 25 (pinned university GitLab source sample), and
+import_webfiles.py ROOT CATALOG.json (explicit public source URLs with author, license and source-site metadata).
+Dataset mirrors may omit external assets; their SCAD text is not a claim of complete dependency acquisition.
+
 ```powershell
 uv sync --project D:/openscad/scadmaxx/tools/evaluation-benchmark/realworld
 uv run --project D:/openscad/scadmaxx/tools/evaluation-benchmark/realworld python corpus.py `
@@ -46,6 +57,8 @@ uv run python benchmark.py `
 ```
 
 Use only `--build baseline=...` to retain an initial baseline. Add future executables with explicit labels.
+Repeat `--build-argument=candidate=--enable=FEATURE` for explicit runtime experimental switches. Arguments are retained
+in each build identity and every command; compilation alone does not establish which features were exercised.
 `--limit 20` or `--ids id1,id2` provides a smoke run. `--resume` requires the same immutable configuration,
 source hashes, binary/runtime identities and runner, and skips completed samples. Failed cases count as completed;
 use a new run to retry them with a longer timeout. Do not run two writers into the same output directory.

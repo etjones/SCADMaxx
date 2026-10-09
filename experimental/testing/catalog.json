@@ -1,0 +1,74 @@
+{
+  "schema": 1,
+  "feature_inventory": "experimental/testing/feature-coverage.json",
+  "profiles": {
+    "everyday": ["unit", "vim", "cli-smoke", "cli-critical"],
+    "deep-background": ["unit", "vim", "cli-smoke", "cli-deep", "language", "annotations", "customizer", "provider-external", "harness"],
+    "desktop": ["gui"],
+    "desktop-visual": ["unit-visual"],
+    "perf-quick": ["performance"],
+    "perf-extended": ["performance"],
+    "realworld": ["corpus", "corpus-report"],
+    "distribution": ["cli-smoke", "language"],
+    "tools": ["harness", "build-tools"]
+  },
+  "suites": {
+    "unit": {"owner": "source", "execution": "background", "timeout": 300, "adapter": "catch", "binary": "OpenSCADUnitTests.exe"},
+    "vim": {"owner": "vim", "execution": "background", "timeout": 120, "adapter": "catch", "binary": "VimEngineTests.exe"},
+    "provider-external": {"owner": "providers/insertion", "execution": "background", "timeout": 1800, "adapter": "provider-external"},
+    "unit-visual": {"owner": "ui-visual-polish", "execution": "desktop", "timeout": 1200, "adapter": "unit-visual"},
+    "cli-smoke": {"owner": "controls", "execution": "background", "timeout": 180, "adapter": "smoke"},
+    "cli-critical": {"owner": "upstream-tests", "execution": "background", "timeout": 600, "adapter": "ctest", "selection": "critical"},
+    "cli-deep": {"owner": "upstream-tests", "execution": "background", "timeout": 14400, "adapter": "ctest", "selection": "healthy"},
+    "language": {"owner": "language-features", "execution": "background", "timeout": 900, "adapter": "language"},
+    "annotations": {"owner": "annotations", "execution": "background", "timeout": 180, "adapter": "standalone", "argument": "annotation_build", "tests": ["annotation-store", "annotation-transport"]},
+    "customizer": {"owner": "customizer", "execution": "background", "timeout": 120, "adapter": "standalone", "argument": "customizer_build", "tests": ["customizer-group-visibility"]},
+    "harness": {"owner": "controls", "execution": "background", "timeout": 300, "adapter": "harness"},
+    "build-tools": {"owner": "controls", "execution": "background", "timeout": 120, "adapter": "build-tools"},
+    "gui": {"owner": "gui-features", "execution": "desktop", "timeout": 1800, "adapter": "gui"},
+    "performance": {"owner": "performance", "execution": "quiet", "timeout": 14400, "adapter": "performance"},
+    "corpus": {"owner": "corpus-verification", "execution": "quiet", "timeout": 1209600, "adapter": "corpus"},
+    "corpus-report": {"owner": "corpus-verification", "execution": "background", "timeout": 86400, "adapter": "corpus-report"}
+  },
+  "ctest": {
+    "healthy_configs": ["Good", "Default"],
+    "bug_config": "Bugs",
+    "approved_scripts": ["test_cmdline_tool.py", "export_pngtest.py", "export_import_pngtest.py", "stlexportsanitytest.py", "shouldfail.py", "test_pretty_print_logfile.py", "test_unicode_filenames.py", "test_animation_export.py", "test_parallel_animation.py", "transparent_pngtest.py", "transparent_compositing_pngtest.py"],
+    "critical_names": ["astdump_echo-expression-tests", "echo_echo-tests", "echo_expression-precedence-tests", "dump_polyhedron-cube", "unicode_filenames"]
+  },
+  "gui_selectors": {
+    "source": "OPENSCAD_SOURCE_TESTS_ONLY",
+    "insertion": "OPENSCAD_INSERTION_TESTS_ONLY",
+    "inspection-draft": "OPENSCAD_INSPECTION_DRAFT_TESTS_ONLY",
+    "vim-persistence": "OPENSCAD_VIM_PERSISTENCE_ONLY",
+    "vim": "OPENSCAD_VIM_TESTS_ONLY",
+    "navigation": "OPENSCAD_NAVIGATION_TESTS_ONLY",
+    "anchors": "OPENSCAD_ANCHOR_TESTS_ONLY",
+    "semantic": "OPENSCAD_SEMANTIC_TESTS_ONLY",
+    "provenance": "OPENSCAD_PROVENANCE_TESTS_ONLY",
+    "clipping": "OPENSCAD_CLIPPING_TESTS_ONLY",
+    "design-objects": "OPENSCAD_DESIGN_OBJECT_TESTS_ONLY",
+    "selection": "OPENSCAD_SELECTION_TESTS_ONLY",
+    "annotations": "OPENSCAD_ANNOTATION_TESTS_ONLY",
+    "background-evaluation": "OPENSCAD_BACKGROUND_EVALUATION_TESTS_ONLY",
+    "mainwindow": "OPENSCAD_MAINWINDOW_TESTS_ONLY",
+    "module-cache": "OPENSCAD_MODULE_CACHE_TESTS_ONLY"
+  },
+  "source_required_gui_selectors": ["background-evaluation", "mainwindow", "module-cache"],
+  "source_declared_ctest": {
+    "pr-6964": ["animation_export", "parallel_animation"],
+    "pr-6951": ["transparent-png", "transparent-export-alpha", "transparent-compositing"],
+    "pr-7091": ["export-svg-color_color-squares", "export-dxf-color_color-squares", "export-pdf-color_color-squares"]
+  },
+  "separate_coverage": [
+    {"id": "native-performance", "execution": "desktop-quiet", "status": "separate-work-item", "path": ".plans/2_in-progress/2026-10-07_render-performance-regressions/1_exploration.md"},
+    {"id": "gui-unselectable-classes", "execution": "desktop", "status": "covered-by-full-gui", "classes": ["TestTabManager", "TestMainWindow", "TestModuleCache", "TestExportImage"]},
+    {"id": "hidden-restart-tests", "execution": "background", "status": "nested-child-tests", "tags": ["icon-restart", "typography-restart"], "parents": ["Status preference persists through the existing writer and a fresh process", "Persisted UI fonts load in a fresh process"]},
+    {"id": "qt-deployment-probe", "execution": "unclassified", "status": "explicit-build-probe", "path": "experimental/scripts/Test-QtDeployment.ps1"},
+    {"id": "runtime-deployment-probe", "execution": "background", "status": "explicit-build-probe", "path": "experimental/scripts/Test-RuntimeDeployment.ps1"},
+    {"id": "shortcut-feature-probe", "execution": "desktop", "status": "explicit-build-probe", "path": "experimental/scripts/Test-ShortcutFeature.ps1"},
+    {"id": "shared-vcpkg-probe", "execution": "background", "status": "explicit-build-probe", "path": "experimental/scripts/Test-SharedVcpkg.ps1"},
+    {"id": "skill-companion", "execution": "background", "status": "explicit-package-inputs", "path": "experimental/scripts/Test-SkillCompanion.ps1"},
+    {"id": "skill-models", "execution": "background", "status": "explicit-package-inputs", "path": "experimental/scripts/Test-ScadmaxxSkill.py"}
+  ]
+}

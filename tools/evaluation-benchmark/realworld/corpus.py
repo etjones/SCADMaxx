@@ -1,7 +1,6 @@
 """Discover, freeze and diversity-sample public OpenSCAD projects. Never executes repository scripts."""
 import argparse
 from collections import Counter, defaultdict
-from concurrent.futures import ThreadPoolExecutor, as_completed
 import hashlib
 import io
 import json
@@ -11,6 +10,8 @@ import re
 import time
 import urllib.parse
 import urllib.request
+import urllib.error
+from email.utils import parsedate_to_datetime
 import zipfile
 
 USER_AGENT = "SCADMaxx-realworld-benchmark/0.1"
@@ -29,32 +30,58 @@ def save(path, value):
 
 def fetch(url, limit=40_000_000):
     request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
-    with urllib.request.urlopen(request, timeout=45) as response:
-        data = response.read(limit + 1)
-        if len(data) > limit:
-            raise ValueError(f"Download exceeds {limit} bytes")
-        return data
+    for attempt in range(6):
+        try:
+            with urllib.request.urlopen(request, timeout=45) as response:
+                data = response.read(limit + 1)
+                if len(data) > limit:
+                    raise ValueError(f"Download exceeds {limit} bytes")
+                return data
+        except urllib.error.HTTPError as error:
+            body = error.read().decode("utf-8", errors="replace")
+            limited = error.code == 429 or (error.code == 403 and
+                       (error.headers.get("X-RateLimit-Remaining") == "0" or "rate limit" in body.lower()))
+            if not limited and error.code not in (500, 502, 503, 504):
+                raise
+            if attempt == 5:
+                raise RuntimeError(f"Request retries exhausted: HTTP {error.code} for {url}") from error
+            delay = (60 if limited else 5) * 2 ** attempt
+            retry = error.headers.get("Retry-After")
+            if retry:
+                try:
+                    delay = max(delay, float(retry))
+                except ValueError:
+                    delay = max(delay, parsedate_to_datetime(retry).timestamp() - time.time())
+            reset = error.headers.get("X-RateLimit-Reset")
+            if limited and reset:
+                delay = max(delay, float(reset) - time.time() + 2)
+            print(f"HTTP {error.code}; honoring rate limit/backoff for {delay:.0f}s", flush=True)
+            time.sleep(delay)
 
 
-def discover(root):
-    queries = ["language:OpenSCAD fork:false stars:>=2", "openscad models fork:false", "openscad collection fork:false", "language:OpenSCAD fork:false stars:0..10"]
+def discover(root, queries=None, pages=2):
+    if queries is None:
+        queries = ["language:OpenSCAD fork:false stars:>=2", "openscad models fork:false", "openscad collection fork:false", "language:OpenSCAD fork:false stars:0..10"]
     repos = {}
     for index, query in enumerate(queries):
-        for page in (1, 2):
-            cache = root / "discovery" / f"search-{index}-{page}.json"
+        for page in range(1, pages + 1):
+            cache = root / "discovery" / f"search-{sha(query.encode())[:16]}-{page}.json"
             if cache.exists():
                 result = json.loads(cache.read_text(encoding="utf-8"))
             else:
                 url = "https://api.github.com/search/repositories?" + urllib.parse.urlencode({"q": query, "sort": "stars", "per_page": 100, "page": page})
                 result = json.loads(fetch(url))
                 save(cache, result)
-                time.sleep(7)  # public search quota: at most ten requests/minute
+                print(f"Search {query}, page {page}: {len(result.get('items', []))} repositories", flush=True)
+                time.sleep(10)
             for repo in result.get("items", []):
                 description = (repo["full_name"] + " " + (repo.get("description") or "")).lower()
                 if any(word in description for word in ("fosscad", "firearm", "gun", "weapon")):
                     continue
                 if not repo["fork"] and repo["size"] < 180_000:
                     repos[repo["full_name"]] = repo
+            if len(result.get("items", [])) < 100:
+                break
     save(root / "discovery" / "repositories.json", list(repos.values()))
     print(f"Discovered {len(repos)} repositories", flush=True)
     return list(repos.values())
@@ -108,14 +135,15 @@ def acquire(root, repo, locked=None):
     return record
 
 
-def select(root, records, target, repo_cap, directory_cap):
-    pools, seen = {}, set()
+def select(root, records, target, repo_cap, directory_cap, excluded=None, site_cap=None, all_files=False):
+    pools, seen = {}, set(excluded or [])
     rejected = Counter()
+    processed = 0
     for record in sorted(records, key=lambda x: x["repository"]):
         groups = defaultdict(list)
         for file in record["files"]:
             path = PurePosixPath(file["path"])
-            if path.suffix.lower() != ".scad" or any(p.lower() in EXCLUDE for p in path.parts):
+            if path.suffix.lower() != ".scad" or (not all_files and any(p.lower() in EXCLUDE for p in path.parts)):
                 continue
             content = (root / record["root"] / file["path"]).read_text(encoding="utf-8", errors="replace")
             normalized = re.sub(r"/\*.*?\*/|//[^\n]*", "", content, flags=re.S)
@@ -125,33 +153,47 @@ def select(root, records, target, repo_cap, directory_cap):
                 rejected["duplicate_or_empty"] += 1
                 continue
             # Exclude obvious helpers with no geometry vocabulary; dynamic evaluation is screened separately.
-            if not re.search(r"\b(cube|sphere|cylinder|polyhedron|polygon|square|circle|linear_extrude|rotate_extrude|import|text|surface)\s*\(", content):
+            if not all_files and not re.search(r"\b(cube|sphere|cylinder|polyhedron|polygon|square|circle|linear_extrude|rotate_extrude|import|text|surface)\s*\(", content):
                 rejected["no_geometry_vocabulary"] += 1
                 continue
             seen.add(digest)
             tags = [op for op in ("hull", "minkowski", "text", "import", "surface", "polyhedron", "linear_extrude", "rotate_extrude", "offset", "projection", "difference", "intersection", "for") if re.search(r"\b" + op + r"\s*\(", content)]
             identifier = sha((record["repository"] + "/" + file["path"]).encode())[:16]
-            groups[str(path.parent)].append({"id": identifier, "repository": record["repository"], "revision": record["revision"], "path": file["path"], "file": f"{record['root']}/{file['path']}", "sha256": file["sha256"], "normalized_sha256": digest, "bytes": file["bytes"], "license": record["license"], "tags": tags, "source_url": f"{record['url']}/blob/{record['revision']}/{urllib.parse.quote(file['path'])}"})
+            source_site = record.get('source_site', 'GitHub')
+            source_url = record['url'] if source_site != 'GitHub' else f"{record['url']}/blob/{record['revision']}/{urllib.parse.quote(file['path'])}"
+            groups[str(path.parent)].append({"id": identifier, "repository": record["repository"], "revision": record["revision"], "path": file["path"], "file": f"{record['root']}/{file['path']}", "sha256": file["sha256"], "normalized_sha256": digest, "bytes": file["bytes"], "license": record["license"], "tags": tags, "source_url": source_url, 'source_site': source_site})
         queue = []
         for group in groups.values():
             random.Random(20261004).shuffle(group)
-        for index in range(directory_cap):
+        for index in range(max((len(g) for g in groups.values()), default=0) if all_files else directory_cap):
             for directory in sorted(groups):
                 if index < len(groups[directory]):
                     queue.append(groups[directory][index])
-        pools[record["repository"]] = queue[:repo_cap]
-    selected, owners = [], Counter()
-    for index in range(repo_cap):
+        pools[record["repository"]] = queue if all_files else queue[:repo_cap]
+        processed += 1
+        if processed % 500 == 0:
+            print(f'Indexed {processed}/{len(records)} source records', flush=True)
+    selected, owners, sites = [], Counter(), Counter()
+    for index in range(max((len(q) for q in pools.values()), default=0) if all_files else repo_cap):
         for name in sorted(pools):
             owner = name.split("/")[0].lower()
-            if index < len(pools[name]) and owners[owner] < 40:
-                selected.append(pools[name][index])
+            if index < len(pools[name]) and (all_files or owners[owner] < 40):
+                model = pools[name][index]
+                site = model['source_site']
+                if site_cap is not None and sites[site] >= site_cap:
+                    continue
+                selected.append(model)
                 owners[owner] += 1
-                if len(selected) == target:
+                sites[site] += 1
+                if not all_files and len(selected) == target:
                     break
-        if len(selected) == target:
+        if not all_files and len(selected) == target:
             break
-    manifest = {"schema": 1, "seed": 20261004, "requested": target, "caps": {"repository": repo_cap, "directory": directory_cap, "owner": 40}, "selection": "Round-robin repositories and directories; normalized source deduplication; no generated parameter variants. Static candidates, run outcomes retained separately.", "repositories": len(set(m["repository"] for m in selected)), "owners": len(owners), "rejected": dict(rejected), "models": selected}
+    manifest = {"schema": 1, "seed": 20261004, "requested": target, "caps": {"repository": repo_cap, "directory": directory_cap, "owner": 40, 'source_site': site_cap}, "selection": "Round-robin repositories and directories; normalized source deduplication; no generated parameter variants. Static candidates, run outcomes retained separately.", "repositories": len(set(m["repository"] for m in selected)), "owners": len(owners), 'source_sites': dict(sites), "rejected": dict(rejected), "models": selected}
+    if all_files:
+        manifest['requested'] = 'all'
+        manifest['caps'] = None
+        manifest['selection'] = 'All nonempty normalized-source-unique SCAD files; original corpus excluded. No count, owner, repository, directory or geometry-vocabulary culling. All raw downloads retained separately.'
     save(root / "manifest.json", manifest)
     print(json.dumps({k: v for k, v in manifest.items() if k != "models"}), flush=True)
 
@@ -162,8 +204,13 @@ def main():
     parser.add_argument("--target", type=int, default=1000)
     parser.add_argument("--repo-cap", type=int, default=25)
     parser.add_argument("--directory-cap", type=int, default=10)
+    parser.add_argument('--site-cap', type=int, help='Maximum selected candidates from one source site')
+    parser.add_argument('--all', action='store_true', help='Retain all unique nonempty SCAD candidates without diversity or count caps')
     parser.add_argument("--select-only", action="store_true")
     parser.add_argument("--max-repositories", type=int, default=300)
+    parser.add_argument("--query", action="append", help="Repeatable GitHub repository search query")
+    parser.add_argument("--pages", type=int, default=2)
+    parser.add_argument("--exclude-manifest", type=Path, help="Exclude normalized source hashes from a frozen corpus")
     parser.add_argument("--restore", action="store_true", help="Rehydrate missing files from retained sources/*.json using pinned commits, not live branches")
     args = parser.parse_args()
     args.root.mkdir(parents=True, exist_ok=True)
@@ -184,20 +231,26 @@ def main():
     if args.select_only:
         records = [json.loads(p.read_text(encoding="utf-8")) for p in (args.root / "sources").glob("*.json")]
     else:
-        repos = discover(args.root)[:args.max_repositories]
+        repos = discover(args.root, args.query, args.pages)[:args.max_repositories]
         records, errors = [], []
-        with ThreadPoolExecutor(max_workers=6) as pool:
-            futures = {pool.submit(acquire, args.root, r): r["full_name"] for r in repos}
-            for future in as_completed(futures):
-                try:
-                    record = future.result()
-                    records.append(record)
-                    print(f"Fetched {record['repository']}: {sum(f['path'].lower().endswith('.scad') for f in record['files'])} SCAD", flush=True)
-                except Exception as error:
-                    errors.append({"repository": futures[future], "error": str(error)})
-                    print(f"Skipped {futures[future]}: {error}", flush=True)
+        for repo in repos:
+            try:
+                record = acquire(args.root, repo)
+                records.append(record)
+                print(f"Retained {record['repository']}: {sum(f['path'].lower().endswith('.scad') for f in record['files'])} SCAD", flush=True)
+            except Exception as error:
+                errors.append({"repository": repo["full_name"], "error": str(error)})
+                save(args.root / "acquisition-errors.json", errors)
+                print(f"Skipped {repo['full_name']}: {error}", flush=True)
+                if "retries exhausted" in str(error):
+                    raise
+            time.sleep(2)
         save(args.root / "acquisition-errors.json", errors)
-    select(args.root, records, args.target, args.repo_cap, args.directory_cap)
+    excluded = set()
+    if args.exclude_manifest:
+        previous = json.loads(args.exclude_manifest.read_text(encoding="utf-8"))
+        excluded = {model["normalized_sha256"] for model in previous["models"]}
+    select(args.root, records, args.target, args.repo_cap, args.directory_cap, excluded, None if args.all else args.site_cap, args.all)
 
 
 if __name__ == "__main__":

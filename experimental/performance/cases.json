@@ -1,0 +1,118 @@
+{
+  "schema": 1,
+  "description": "Portable integration regression corpus; fixtures authored for SCADMaxx, no external SCAD libraries.",
+  "policy": {
+    "repetitions": 5,
+    "warmups": 1,
+    "timeout_seconds": 90,
+    "relative_limit": 0.15,
+    "absolute_limit_seconds": 0.1,
+    "max_relative_mad": 0.15,
+    "calibration": "Initial conservative limits; require review after the first baseline series. Never auto-promote a baseline."
+  },
+  "arguments": [
+    "--enable=object-function"
+  ],
+  "cases": [
+    {
+      "id": "cube",
+      "file": "cube.scad",
+      "group": "quick",
+      "stages": [
+        "csg",
+        "preview",
+        "off"
+      ]
+    },
+    {
+      "id": "library-heavy",
+      "file": "library-heavy.scad",
+      "group": "quick",
+      "stages": [
+        "csg",
+        "preview",
+        "off"
+      ]
+    },
+    {
+      "id": "interpreter",
+      "file": "interpreter.scad",
+      "group": "quick",
+      "stages": [
+        "csg",
+        "preview",
+        "off"
+      ]
+    },
+    {
+      "id": "brackets",
+      "file": "brackets.scad",
+      "group": "quick",
+      "stages": [
+        "csg",
+        "preview",
+        "off"
+      ]
+    },
+    {
+      "id": "panel",
+      "file": "panel.scad",
+      "group": "quick",
+      "stages": [
+        "csg",
+        "preview",
+        "off"
+      ]
+    },
+    {
+      "id": "curved",
+      "file": "curved.scad",
+      "group": "quick",
+      "stages": [
+        "csg",
+        "preview",
+        "off"
+      ]
+    },
+    {
+      "id": "parts-plain",
+      "file": "parts-plain.scad",
+      "group": "quick",
+      "stages": [
+        "csg",
+        "preview",
+        "off"
+      ]
+    },
+    {
+      "id": "parts-marked",
+      "file": "parts-marked.scad",
+      "group": "quick",
+      "stages": [
+        "csg",
+        "preview",
+        "off"
+      ]
+    },
+    {
+      "id": "hull",
+      "file": "hull.scad",
+      "group": "extended",
+      "stages": [
+        "csg",
+        "preview",
+        "off"
+      ]
+    },
+    {
+      "id": "minkowski",
+      "file": "minkowski.scad",
+      "group": "extended",
+      "stages": [
+        "csg",
+        "preview",
+        "off"
+      ]
+    }
+  ]
+}

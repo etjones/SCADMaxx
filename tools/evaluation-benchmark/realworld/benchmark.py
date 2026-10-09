@@ -149,6 +149,12 @@ def run(args):
         if not re.fullmatch(r"[A-Za-z0-9_-]+", label) or label in builds:
             raise ValueError("Build labels must be unique plain identifiers")
         builds[label] = Path(file).resolve(strict=True)
+    build_arguments = {label: [] for label in builds}
+    for item in args.build_argument:
+        label, argument = item.split("=", 1)
+        if label not in builds or not argument:
+            raise ValueError("Build arguments require a known label and nonempty argument")
+        build_arguments[label].append(argument)
     print("Preparing pinned libraries and verifying corpus inputs before timing", flush=True)
     libraries = prepare_libraries(corpus)
     records = verify_corpus(corpus, manifest)
@@ -156,10 +162,12 @@ def run(args):
     env["OPENSCADPATH"] = str(libraries)
     library_hashes = {p.relative_to(libraries).as_posix(): file_hash(p) for p in sorted(libraries.rglob("*")) if p.is_file()}
     config = {"schema": 1, "corpus": str(corpus), "manifest_sha256": file_hash(corpus / "manifest.json"),
-              "models": models, "builds": {label: runtime_identity(p) for label, p in builds.items()},
+              "models": models, "builds": {label: dict(runtime_identity(p), effective_arguments=build_arguments[label])
+                                           for label, p in builds.items()},
               "sources": records, "library_hashes": library_hashes, "stages": args.stages,
               "repetitions": args.repetitions, "timeout": args.timeout, "seed": args.seed,
               "backend": args.backend, "image_size": "512,512", "scopes": SCOPES,
+              "build_arguments": build_arguments,
               "cache_policy": "Fresh process; OS disk caches uncontrolled; default application caches. No quality overrides.",
               "machine": {"platform": platform.platform(), "processor": platform.processor(), "logical_cpus": os.cpu_count(), "host": platform.node()},
               "runner_sha256": file_hash(__file__)}
@@ -198,7 +206,7 @@ def run(args):
                 folder.mkdir(parents=True, exist_ok=True)
                 result_path = folder / ("model" + STAGES[stage])
                 source = corpus / model["file"]
-                command = [str(builds[label]), "--backend=" + args.backend, "-o", str(result_path),
+                command = [str(builds[label]), *build_arguments[label], "--backend=" + args.backend, "-o", str(result_path),
                            "-d", str(folder / "dependencies.txt")]
                 if stage == "preview":
                     command += ["--preview", "--imgsize=512,512", "--autocenter", "--viewall"]
@@ -249,6 +257,7 @@ def main():
     parser.add_argument("--corpus", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--build", action="append", required=True, help="label=absolute executable path; repeat for paired builds")
+    parser.add_argument("--build-argument", action="append", default=[], help="label=argument; repeat for explicitly enabled experimental features")
     parser.add_argument("--stages", nargs="+", choices=STAGES, default=["ast", "csg", "preview", "stl"])
     parser.add_argument("--repetitions", type=int, default=3)
     parser.add_argument("--timeout", type=float, default=30)

@@ -1,0 +1,372 @@
+{
+  "schema": 1,
+  "integration_head": "f4f87a8eea11172037c459dd5ae9848b566fd044",
+  "selection_sha256": "035804ba877d7092f89c07e2eea1ea105c008baed53b53beb4be1b092d0e7461",
+  "dependencies_sha256": "18efc9b9dac1795bd6e7d06202e8fd2caee15b2652a7b4baceddcaae9e2ad129",
+  "detailed_report": "D:\\openscad\\runs\\scadmaxx-all-features-2026-10-09_19-45\\feature-audit\\feature-tests.json",
+  "features": [
+    {
+      "id": "pr-6878",
+      "revision": "3014fb55405759bfa1871e79f50cbee4c2a2c638",
+      "in_integration_ancestry": true,
+      "source_ready": null,
+      "test_path_count": 0,
+      "suites": [],
+      "coverage_gaps": []
+    },
+    {
+      "id": "pr-6776",
+      "revision": "aab4aed030dd61b80c5f850177f2af93e067eb7d",
+      "in_integration_ancestry": true,
+      "source_ready": null,
+      "test_path_count": 0,
+      "suites": [],
+      "coverage_gaps": []
+    },
+    {
+      "id": "navigation-cube",
+      "revision": "6b42cbf3f95bfe1ad2ff4b845a6dc20f4ed336fe",
+      "in_integration_ancestry": true,
+      "source_ready": true,
+      "test_path_count": 6,
+      "suites": [
+        "gui",
+        "unit"
+      ],
+      "coverage_gaps": []
+    },
+    {
+      "id": "ui-visual-polish",
+      "revision": "e4e9046558d1a836939e63c2d0cc6bd4b353692b",
+      "in_integration_ancestry": true,
+      "source_ready": false,
+      "test_path_count": 2,
+      "suites": [
+        "unit"
+      ],
+      "coverage_gaps": []
+    },
+    {
+      "id": "annotations",
+      "revision": "d670fad09dba45526487e958b90fd553c6e1ace0",
+      "in_integration_ancestry": true,
+      "source_ready": true,
+      "test_path_count": 7,
+      "suites": [
+        "annotations",
+        "gui"
+      ],
+      "coverage_gaps": []
+    },
+    {
+      "id": "http-agent-server",
+      "revision": "f2c9de2c94745b834b5a120fdc5c29a5999128c9",
+      "in_integration_ancestry": true,
+      "source_ready": true,
+      "test_path_count": 12,
+      "suites": [
+        "annotations",
+        "gui",
+        "gui/http-live",
+        "unit"
+      ],
+      "coverage_gaps": []
+    },
+    {
+      "id": "pr-6081",
+      "revision": "07b22af25704af0db39959773751fb5c6e4debbe",
+      "in_integration_ancestry": true,
+      "source_ready": null,
+      "test_path_count": 0,
+      "suites": [],
+      "coverage_gaps": []
+    },
+    {
+      "id": "pr-6642-oep8",
+      "revision": "d77244154cc2c84a26a8a5fdb1ec20ce4a335b7f",
+      "in_integration_ancestry": true,
+      "source_ready": false,
+      "test_path_count": 5,
+      "suites": [
+        "customizer",
+        "gui",
+        "unit"
+      ],
+      "coverage_gaps": []
+    },
+    {
+      "id": "source-editing-foundation",
+      "revision": "0bcafded2a98d98802a8e869e44a658770ebc3b4",
+      "in_integration_ancestry": true,
+      "source_ready": true,
+      "test_path_count": 20,
+      "suites": [
+        "annotations",
+        "cli-deep",
+        "gui",
+        "gui/http-live",
+        "test-definition/helper",
+        "unit"
+      ],
+      "coverage_gaps": []
+    },
+    {
+      "id": "selection-model-inspector",
+      "revision": "bf91e96761251526cd25e5c8f60b93fd26468cb7",
+      "in_integration_ancestry": true,
+      "source_ready": false,
+      "test_path_count": 26,
+      "suites": [
+        "annotations",
+        "cli-deep",
+        "gui",
+        "gui/http-live",
+        "test-definition/helper",
+        "unit"
+      ],
+      "coverage_gaps": []
+    },
+    {
+      "id": "vim-editor-mode",
+      "revision": "f6e316ed43dcaa4726520dbee76980015e681ec7",
+      "in_integration_ancestry": true,
+      "source_ready": true,
+      "test_path_count": 23,
+      "suites": [
+        "annotations",
+        "cli-deep",
+        "gui",
+        "gui/http-live",
+        "test-definition/helper",
+        "unit",
+        "vim"
+      ],
+      "coverage_gaps": []
+    },
+    {
+      "id": "source-geometry-provenance",
+      "revision": "c740cdd0eebefe6622fc0f6f9bd02598ac1f04bd",
+      "in_integration_ancestry": true,
+      "source_ready": false,
+      "test_path_count": 39,
+      "suites": [
+        "annotations",
+        "cli-deep",
+        "customizer",
+        "gui",
+        "gui/http-live",
+        "test-definition/helper",
+        "unit"
+      ],
+      "coverage_gaps": []
+    },
+    {
+      "id": "background-model-evaluation",
+      "revision": "78dc9561b3bc3d3415ba617f2747b13c3a1d4728",
+      "in_integration_ancestry": true,
+      "source_ready": false,
+      "test_path_count": 34,
+      "suites": [
+        "annotations",
+        "cli-deep",
+        "customizer",
+        "gui",
+        "gui/http-live",
+        "test-definition/helper",
+        "unit"
+      ],
+      "coverage_gaps": []
+    },
+    {
+      "id": "design-object-persistence",
+      "revision": "62b512a4ca08296c63b5383a436cc67297476344",
+      "in_integration_ancestry": true,
+      "source_ready": false,
+      "test_path_count": 44,
+      "suites": [
+        "annotations",
+        "cli-deep",
+        "customizer",
+        "gui",
+        "gui/http-live",
+        "source-test-fixture",
+        "test-definition/helper",
+        "unit"
+      ],
+      "coverage_gaps": []
+    },
+    {
+      "id": "live-clipping-sections",
+      "revision": "4fe538595c21f4bb32402fb335f7dfd654769a3a",
+      "in_integration_ancestry": true,
+      "source_ready": false,
+      "test_path_count": 48,
+      "suites": [
+        "annotations",
+        "cli-deep",
+        "customizer",
+        "gui",
+        "gui/http-live",
+        "source-test-fixture",
+        "test-definition/helper",
+        "unit"
+      ],
+      "coverage_gaps": []
+    },
+    {
+      "id": "geometry-services",
+      "revision": "4e1286c7b362f84e920a21ba65e13042178a6fea",
+      "in_integration_ancestry": true,
+      "source_ready": true,
+      "test_path_count": 5,
+      "suites": [
+        "cli-deep",
+        "gui",
+        "test-definition/helper",
+        "unit"
+      ],
+      "coverage_gaps": []
+    },
+    {
+      "id": "component-provider-adapters",
+      "revision": "9d0cb2097efcac6856ae5dafb31a642803ec32d7",
+      "in_integration_ancestry": true,
+      "source_ready": true,
+      "test_path_count": 8,
+      "suites": [
+        "cli-deep",
+        "gui",
+        "test-definition/helper",
+        "unit"
+      ],
+      "coverage_gaps": []
+    },
+    {
+      "id": "semantic-model-hierarchy",
+      "revision": "232e7242abe03480db7bd0361321abefbe1d923d",
+      "in_integration_ancestry": true,
+      "source_ready": false,
+      "test_path_count": 60,
+      "suites": [
+        "annotations",
+        "cli-deep",
+        "customizer",
+        "gui",
+        "gui/http-live",
+        "source-test-fixture",
+        "test-definition/helper",
+        "unit"
+      ],
+      "coverage_gaps": []
+    },
+    {
+      "id": "anchors-attachments",
+      "revision": "bffbafdc447b6251a4e071e14396b03537eba105",
+      "in_integration_ancestry": true,
+      "source_ready": false,
+      "test_path_count": 73,
+      "suites": [
+        "annotations",
+        "cli-deep",
+        "customizer",
+        "gui",
+        "gui/http-live",
+        "source-test-fixture",
+        "test-definition/helper",
+        "unit"
+      ],
+      "coverage_gaps": []
+    },
+    {
+      "id": "contextual-insertion",
+      "revision": "6179d853dfb65c342f466a858234a0d410564f43",
+      "in_integration_ancestry": true,
+      "source_ready": false,
+      "test_path_count": 86,
+      "suites": [
+        "annotations",
+        "cli-deep",
+        "customizer",
+        "gui",
+        "gui/http-live",
+        "source-test-fixture",
+        "test-definition/helper",
+        "unit"
+      ],
+      "coverage_gaps": []
+    },
+    {
+      "id": "geometry-bounds",
+      "revision": "cbf75e737de7f4f36882a23968298bdabdcb699d",
+      "in_integration_ancestry": true,
+      "source_ready": false,
+      "test_path_count": 1,
+      "suites": [
+        "cli-deep/test-fixture"
+      ],
+      "coverage_gaps": []
+    },
+    {
+      "id": "pr-6964",
+      "revision": "b2455385cc04818579fe73f628fdac6c608513c6",
+      "in_integration_ancestry": true,
+      "source_ready": null,
+      "test_path_count": 6,
+      "suites": [
+        "cli-deep",
+        "cli-deep/test-fixture",
+        "test-definition/helper",
+        "unit"
+      ],
+      "coverage_gaps": []
+    },
+    {
+      "id": "pr-6951",
+      "revision": "d072ffc145acfd7bc6f75fde875f979ad7abc796",
+      "in_integration_ancestry": true,
+      "source_ready": null,
+      "test_path_count": 9,
+      "suites": [
+        "cli-deep",
+        "cli-deep/test-fixture",
+        "gui",
+        "test-definition/helper",
+        "unit"
+      ],
+      "coverage_gaps": []
+    },
+    {
+      "id": "pr-7091",
+      "revision": "f281f9226d046d6e34c5619c3ed4294e5832e2d3",
+      "in_integration_ancestry": true,
+      "source_ready": null,
+      "test_path_count": 2,
+      "suites": [
+        "cli-deep/test-fixture",
+        "test-definition/helper"
+      ],
+      "coverage_gaps": []
+    }
+  ],
+  "companion": {
+    "id": "agent-skill-workflows",
+    "source": {
+      "repository": "E:/Dropbox/bare_repos/scadmaxx.git",
+      "ref": "refs/heads/feature/agent-skill-workflows",
+      "ready": true,
+      "pendingReason": "",
+      "validatedHead": "4e5fe1b611d2ec4e6a77337511a71f1c965c3732",
+      "localHead": "4e5fe1b611d2ec4e6a77337511a71f1c965c3732",
+      "deltaBase": "af7a0882deab83c0970360ea343e0689617eacaf",
+      "handoff": ".plans/1_planning/2026-10-03_01_agent-skill-workflows/5_post-implementation-notes.md",
+      "localCommitRecord": "experimental/source-first-local-commits.md",
+      "promotedHead": "4e5fe1b611d2ec4e6a77337511a71f1c965c3732"
+    },
+    "runners": [
+      "experimental/scripts/Test-SkillCompanion.ps1",
+      "experimental/scripts/Test-ScadmaxxSkill.py"
+    ],
+    "status": "PACKAGE_INPUTS_REQUIRED"
+  },
+  "limits": "Feature deltas include inherited dependency tests. Source wiring is not execution evidence. Working-tree changes are separately hashed."
+}
