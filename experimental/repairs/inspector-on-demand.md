@@ -13,6 +13,13 @@ See [the current run report](../../../runs/inspector-on-demand-2026-10-07_22-57/
 for current revisions, exact timing conditions, known integration failures and validation limits.
 No push or packaging has occurred; upstream-equivalent performance is not established.
 
+Measurement correction, 2026-10-08: the native helper's tight `processEvents()` wait competes
+with background evaluation under the two-CPU cap. The [new upstream stage profile](../../../runs/background-upstream-profile-2026-10-08_00-29/report.md)
+replaces it with a signal-driven event loop in both builds and the shared helper. The earlier
+9.07/8.90-second absolute times are retained as historical evidence but are inflated by that
+observer. The corrected Inspector-off medians are 5.25/4.98 seconds against upstream's
+4.42/2.06 seconds. A corrected Inspector-on/off percentage has not been measured in that run.
+
 ## Behavior
 
 - Preferences → 3D View has **Always prepare Inspector data**, default off.

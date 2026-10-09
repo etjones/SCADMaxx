@@ -44,9 +44,34 @@ New-ExperimentalRun enforces the native merge contract and writes `contractVersi
 checkout; it does not merge, build, test, push or promote. `-ValidateOnly` only parses/reports selection metadata;
 it does not establish ancestry or readiness. Historical runs retain their frozen scripts and original contract.
 
+## PRs already merged upstream: ask before changing the stack
+
+Before integrating, check the current GitHub merge status of each selected upstream PR, including
+the original PR behind a selected variant. A closed PR is not necessarily merged. Record the PR URL,
+merge commit and evidence of whether the change is included in this run's locked upstream revision.
+Check ancestry where applicable; squash/rebase merges may require content comparison instead of
+testing whether the original PR head is an ancestor.
+
+If a PR has been merged upstream, flag it to the user and ask what to do with its stack entry
+(normally, remove it from future selections). Stop and end the turn until the user explicitly answers.
+Do not silently remove, disable, replace or reorder the entry, or treat a build/update request as
+permission to retire it. This applies to full integrations and re-integrations.
+
+Do not attempt to merge a change already included in the locked upstream revision; record
+`already-present` with evidence instead. If GitHub has merged it but this run retains an older upstream
+revision, explain that distinction in the question: removal alone does not supply the change to that
+older base. Do not silently advance upstream or omit the feature. For a local PR variant, identify
+any additional local changes not covered by the upstream merge before proposing retirement.
+
+After the user's decision, update the future selection and affected dependency/source records
+consistently, preserving frozen historical runs and existing integration history. Do not remove a
+shared prerequisite record still required by another selected feature without resolving that dependency.
+
 ## Merge one input at a time
 
-Start each release from its freshly frozen upstream master. Do not base a feature on an integrated release.
+For a full new integration, start from freshly frozen upstream master. For
+[re-integration](../workflows/reintegrate-scadmaxx.md), start from the retained successful integration and merge
+only changed inputs; inherit and record unchanged inputs. Do not base a feature on an integrated release.
 For each enabled row, use its retained ref with `git merge --no-ff --no-commit <retained-ref>`. Inspect all changes,
 resolve conflicts without dropping selected behavior, then commit the merge. If the source is already an ancestor,
 record `already-present`; no empty commit is needed. Do not squash, cherry-pick or apply the review patch.

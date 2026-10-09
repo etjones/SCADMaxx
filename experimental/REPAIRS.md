@@ -3,14 +3,25 @@
 This catalog preserves narrowly scoped repairs discovered during experimental runs. It does not select features.
 Existing dirty PR worktrees are not a repair library. Only the individually recorded commits below are candidates.
 
+For background evaluation entering the complete feature stack, see
+[background evaluation and animation/export overlaps](repairs/background-evaluation-all-features.md).
+The current local run retains normal owner merges and separately records integration repairs and validation.
+
+For animation export and transparent capture, see [the three-PR integration record](repairs/animation-export-integration.md).
+Candidate repair `e537c7a7840d249ef5c8c0142320e06dc8633eb0` shares straight-alpha capture after
+#6964 and #6951. It is committed locally; added regression coverage has not been run. Preserve this
+repair when re-integrating and adapt its documented implementation on a fresh composition; do not cherry-pick.
+
 Integration decisions: [PR 6776 camera input policy](repairs/pr-6776-camera-input-policy.md).
 PR behavior approved on 2026-10-02; the recorded checkpoint passed build and tests.
 See also the [annotations/navigation composition recipe](repairs/annotations-navigation-composition.md).
 For the current language/API stack, see the [OEP8, Customizer and HTTP composition recipe](repairs/oep8-customizer-http-composition.md).
 For the newer source-editing/modeling stack, see the [source-first composition recipe](repairs/source-first-composition.md).
+For geometry capture on the current shared-scope tree, see [geometry bounds integration](repairs/geometry-bounds-integration.md).
 For Windows exact-byte insertion fixtures, see [insertion golden line endings](repairs/insertion-golden-line-endings.md).
 For surface selection at fractional DPI, see [logical viewport bounds](repairs/selection-fractional-dpi-bounds.md).
 Promoted viewport performance fixes: [redraw freshness and camera publication](repairs/viewport-redraw-freshness.md).
+For slow first previews with large libraries, see [captured path identity caching](repairs/captured-path-performance.md).
 For PR 6642 with UI polish, see [Customizer group visibility test wiring](repairs/customizer-group-visibility-test.md).
 For anchor tests after Inspector opens, see [pick-time projection snapshots](repairs/anchor-pick-frame-test.md).
 For hierarchy tests after removing geometry attachments, see [world-space cross-section fixtures](repairs/semantic-world-space-section-fixture.md).

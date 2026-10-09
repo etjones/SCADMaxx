@@ -1,5 +1,43 @@
 # Maintained feature ancestry
 
+## Background evaluator forward integration, 2026-10-07
+
+Inspector owns consumed-input observation; Customizer owns parameter-definition comparison. Background
+evaluation now has committed implementation and is a direct prerequisite of persistence. Its worker adapters
+retain design records, provenance and semantic hierarchy as the owner branches merge forward through cross
+sections, anchors and insertion. Current heads and exact direct pins are in `DEPENDENCIES.json`; the ancestry
+audit found every current prerequisite present. The stack places background evaluation before persistence.
+Combined validation and limits are recorded in [the run report](../../runs/20261007-background-forward-integration/report.md).
+These commits are local; old validation/promotion pins remain separate. Unrelated owner working changes are preserved.
+
+## Freshness/Customizer owner build, 2026-10-07
+
+Local fixes were committed in Inspector (`b93c9c219`), Customizer (`13697aa98`), persistence
+(`df5cc797b`) and hierarchy (`803a1512d`), then normally merged through provenance (`d4c2ee5f4`)
+and persistence (`a004cbad1`) into hierarchy. Final hierarchy head `62e869fd7` includes the
+test compilation repair. That standalone Release build and focused native tests pass, but
+Preview performance remains substantially slower than local upstream. See the
+[build/comparison record](../../runs/hierarchy-freshness-2026-10-07_16-57/report.md) and
+[merge repair details](../experimental/repairs/gui-freshness-performance.md).
+
+Current local accepted pins reflect those five heads. Historical validation/promotion is kept
+separate; no push or integrated delivery was made. Cross sections, anchors and insertion still
+need their owner updates merged forward before another complete integration. Unrelated
+title/icon working changes remain separate, and the native benchmark adapter is absent from
+production source.
+
+## Geometry bounds: implementation awaiting validation (2026-10-07)
+
+`feature/geometry-bounds` in `D:/openscad/wt-openscad-geometry-bounds` starts directly at selected
+OEP8 #6081 revision `07b22af25704af0db39959773751fb5c6e4debbe`. Its sole direct prerequisite is
+`pr-6081`; no integrated-build ancestry or copied feature patches are included. Existing core
+bounding-box operations suffice, so `geometry-services` is not currently a prerequisite.
+The branch has uncommitted implementation, no feature implementation commits yet, and has not been built, validated or pushed.
+Before marking it ready, replace its provisional base checkpoint and null feature marker with
+the reviewed implementation head and first feature commit, and record validation and authorized promotion.
+
+## Migration checkpoint
+
 The 2026-10-06 migration replaces copied prerequisite snapshots with real forward merges. Existing branch history
 and worktrees remain in place. No cherry-picks, resets, rebases, pushes, builds or tests were performed.
 Local migration heads are **not validated or promoted**. SOURCES.json retains the older evidence separately.
@@ -129,12 +167,15 @@ flowchart LR
   HTTP --> source[Source editing]
   HTTP --> inspector[Inspector / captured evaluation]
   OEP8 --> Customizer
+  inspector --> background[Background evaluation]
+  Customizer --> background
   source --> provenance
   inspector --> provenance
   Customizer --> provenance
   source --> persistence
   inspector --> persistence
   Customizer --> persistence
+  background --> persistence
   persistence --> sections[Cross sections]
   shortcuts --> sections
   source --> Vim

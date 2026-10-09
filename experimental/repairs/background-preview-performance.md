@@ -1,5 +1,90 @@
 # Background Preview performance: measured handoff, 2026-10-08
 
+## Further attribution after the lookup/snapshot fixes
+
+The [exact-probe and ablation report](../../../runs/evaluator-detail-2026-10-08_10-02/report.md)
+continues the updated diagnostic composition below against the same pinned upstream. No
+owner changes, new production fix, merge, commit, push or promotion were made in this pass.
+Temporary probes and both diagnostic variants were restored; runtime/source identities and
+raw evidence are retained in that run. Existing uncommitted owner fixes below remain intact.
+
+Five measured processes per condition put timer-off first Preview at 4.540 s versus upstream
+4.527 s, and unchanged repeat at 2.344 s versus 2.086 s (+12.3%). The paired repeat excess
+is 274 ms, range 241–363 ms. The previous run measured +17%; profiling/code-layout/machine
+variation is not a newly implemented speedup. These are one model's Preview completion times,
+with Inspector preparation and agent access off, not full-stack/F6/viewport performance.
+
+Concrete remaining costs and priorities:
+
+- Capturing/revalidating inputs and the two worker source checks total about 128 ms. Across
+  all phases, 138 disk reads cost 68 ms, 239 identity resolutions 41 ms and 141 SHA-256 calls
+  27 ms. Those totals overlap the phases; never sum them twice. Optimize checked bulk reads
+  and repeated identity work while retaining exact-byte/editor-generation guarantees.
+- Persistence `DesignCollector::collect()` performs the outer syntax-validation walk 303
+  times per Preview (~28–31 ms), including before the use-library early return. Recreated
+  FileContexts repeatedly revisit the same immutable scope. An evaluation-local cache keyed
+  by scope and validation mode is a concrete target; retain invalid-local diagnostics.
+- Semantic discovery/finalization still costs ~14 ms for this unmarked model. Publication
+  costs ~45 ms, primarily metadata/signals; renderer installation is only ~0.3 ms.
+- Removing all 29 expression cancellation-check sites in an isolated binary gave no useful
+  repeat gain. Do not weaken cancellation. An optional binding-map allocation experiment
+  produced only ~8 ms paired median total benefit with a range spanning zero; it is a small,
+  unproven overall optimization, not the explanation for the remaining slowdown.
+
+Language instantiation's paired excess is ~100 ms (95–140 ms); the identified language
+components explain part, not every millisecond. Preview CSG generation remains fast (~8 ms).
+Agent tree serialization/retention does not run with access off. Sparse collector samples
+were misleading because calls have very different costs; future work should reuse the exact
+collector probes and paired timer-on/off method. All 204 accepted Previews match the same
+geometry hash; one parameter-experiment process contended with another compiler and was excluded.
+
+Implement future fixes in their owners and forward-merge normally; never copy the diagnostic
+composition into a maintained feature branch. The report records the next targets and limits.
+
+## Lookup and demand-driven snapshot follow-up
+
+The next authorized fix/build/test pass is complete in an isolated diagnostic composition.
+New source changes remain **uncommitted** in Inspector (base `7a1149b788ab57e90e800c1c7fc0f18313fe7190`)
+and background evaluation (base `737865b6931676b5095eec15bab053bb0a366c72`). Existing commits below
+remain intact. No maintained forward merge, push, promotion, readiness update or release occurred.
+See the [complete result and reproduction record](../../../runs/lookup-agent-snapshot-2026-10-08_09-31/report.md).
+
+Inspector caches resolved library spellings to stable cache-entry addresses, eliminating the
+second hash lookup. Misses are not cached; clear/reseed, alias resolution and map growth have
+regression coverage. The background owner returns a weak deferred inspection factory instead
+of serializing every model. Agent publication materializes/retains trees only when access is
+enabled, using the exact surviving evaluation's roots, ASTs and captured library cache. Late
+enable requires no reevaluation. Stop/restart resets tree metadata; expired evaluations remain
+unavailable rather than recovering pointers from old renderers. Histories remain bounded and
+factories do not retain old evaluation worlds. This is independent of optional Inspector tracing.
+
+The application and focused tests pass: evaluation-input unit cases, two background cache cases,
+and six annotation/HTTP cases, including enable after source edits and stop/restart. One old
+test expectation was updated: enable adds tree metadata but must preserve result identity;
+subsequent source snapshot operations must preserve the whole result. Exact-source consistency
+checks remain unchanged. Detailed source patches, hashes, failed-attempt evidence and passing
+logs are retained in the linked run.
+
+Five measured processes per condition plus warm-up, same model and pinned upstream:
+
+| Preview | Upstream | Fixed candidate | Remaining regression |
+| --- | ---: | ---: | ---: |
+| First | 4.536 s | 4.631 s | 2.1% |
+| Repeated | 2.091 s | 2.446 s | 17.0% |
+
+All 72 Previews match the same CSG hash with no detected contention. The prior pair was
+6.1% / 26.8%. Sampled lookup excess is now approximately 8 ms rather than 129 ms. Agent
+preparation is 0.043 ms and retention/page generation has zero calls with access off. Publication
+is approximately 44 ms rather than 101 ms. Remaining instantiation excess is approximately
+143 ms; source capture and the two worker byte checks remain measurable. Times are specific
+to this model, and nested/sampled timers are not exact additive accounting.
+
+After a future commit request, retain these two owner changes separately. Forward-merge Inspector
+into background evaluation and provenance, then those prerequisites through persistence,
+hierarchy, Cross sections, anchors and insertion together with the earlier committed cache/display
+repairs. Do not copy the diagnostic composition back into an owner. Keep the published source
+pins and historical validation separate until the resulting composition is validated/promoted.
+
 ## Current local commit checkpoint
 
 The user subsequently requested grouped commits. The performance repairs are now retained

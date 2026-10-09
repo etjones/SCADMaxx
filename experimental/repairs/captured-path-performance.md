@@ -63,3 +63,8 @@ with byte-identical output. Separate PNG previews take 6.43–6.54 s versus 3.82
 normal build, with visually matching images. The remaining roughly 1.7x preview gap is not
 fully attributed. Native GUI first-frame/FPS checks were not rerun. This investigation
 rebuilt and verified integration but did not replace the existing packaged ZIP.
+
+The [further GUI/CLI investigation](gui-freshness-performance.md) isolates repeated GUI freshness
+validation (45 passes), distinguishes shutdown cleanup from preview latency, compares the local
+MSVC baseline, and records a separate Customizer dependency-order failure. These follow-ups are
+measured but not yet implemented as production fixes.

@@ -17,10 +17,13 @@ It defines source synchronization and the handoff required when each feature bec
 - Optional future feature publication: `https://github.com/roel-v/openscad.git` (remote `publish`).
 - Keep all SCADMaxx compositions and workspace controls local; publish a feature only by explicit user choice.
 - Initial target: Windows x64 GUI, Release configuration, portable ZIP.
-- Fetch current upstream master once at run start and lock its exact SHA for the entire run.
+- For a full composition or an update-everything run, fetch upstream master once and lock its SHA. A targeted
+  re-integration inherits the previous upstream SHA unless an upstream update was requested.
 - Resolve every enabled source and accepted dependency before integration and lock their exact SHAs for that run.
-- Merge enabled rows in their written order; commit each integration, then build and commit any required repairs.
-- Never carry a previous run's entire composition forward as the new baseline.
+- Merge enabled rows in their written order; re-integration merges only changed inputs in that order.
+  Commit each integration and any required repairs separately.
+- Full compositions start from upstream. Routine re-integrations preserve the previous successful composition;
+  follow [the re-integration workflow](../workflows/reintegrate-scadmaxx.md).
 - Keep successful ZIPs in `artifacts/<run-id>/`. External publication destination is not configured.
 - Schedule: on demand. No recurring job is configured.
 
@@ -31,24 +34,44 @@ It defines source synchronization and the handoff required when each feature bec
 | 1 | pr-6878 | pr | https://github.com/openscad/openscad/pull/6878 | latest | merge | none declared | Customize keyboard shortcuts through the GUI |
 | 2 | pr-6776 | pr | https://github.com/openscad/openscad/pull/6776 | latest | merge | none declared | Correct switching to and from dark mode while OpenSCAD is running |
 | 3 | navigation-cube | feature | navigation-cube-local | 6b42cbf3f95bfe1ad2ff4b845a6dc20f4ed336fe | merge | none declared | Native viewport navigation cube |
-| 4 | ui-visual-polish | feature | ui-visual-polish-local | d52e03649893fffb487976c36e4e0e028176b701 | merge | pr-6776 | Improved OpenSCAD UI from our UI work branch |
+| 4 | ui-visual-polish | feature | ui-visual-polish-local | e4e9046558d1a836939e63c2d0cc6bd4b353692b | merge | pr-6776 | Improved OpenSCAD UI from our UI work branch |
 | 5 | annotations | feature | annotations-local | d670fad09dba45526487e958b90fd553c6e1ace0 | merge | none declared | Native Blender-style annotation tool |
 | 6 | http-agent-server | feature | http-agent-server-local | f2c9de2c94745b834b5a120fdc5c29a5999128c9 | merge | annotations, navigation-cube | HTTP endpoint / agent server for OpenSCAD automation |
 | 7 | pr-6081 | pr | https://github.com/openscad/openscad/pull/6081 | latest | merge | none declared | OEP8a object literals and object comprehensions |
-| 8 | pr-6642-oep8 | pr-variant | pr-6642-oep8-local | 306c92d39c4cbb7fe82981e179161aa85d44774e | merge | pr-6081 | Native Customizer attributes using fixed OEP8-style key: value entries |
+| 8 | pr-6642-oep8 | pr-variant | pr-6642-oep8-local | d77244154cc2c84a26a8a5fdb1ec20ce4a335b7f | merge | pr-6081 | Native Customizer attributes using fixed OEP8-style key: value entries |
 | 9 | source-editing-foundation | feature | source-editing-foundation-local | 0bcafded2a98d98802a8e869e44a658770ebc3b4 | merge | http-agent-server | Guarded source transactions and source lifecycle |
-| 10 | selection-model-inspector | feature | selection-model-inspector-local | 6440acdfd1c21f979d3074b2cdd60478d0aa8977 | merge | http-agent-server | Geometric picking and shared inspection presentation |
+| 10 | selection-model-inspector | feature | selection-model-inspector-local | bf91e96761251526cd25e5c8f60b93fd26468cb7 | merge | http-agent-server | Geometric picking and shared inspection presentation |
 | 11 | vim-editor-mode | feature | vim-editor-mode-local | f6e316ed43dcaa4726520dbee76980015e681ec7 | merge | source-editing-foundation, pr-6878 | Native Vim editing without GTK or GLib |
-| 12 | source-geometry-provenance | feature | source-geometry-provenance-local | 36e43d75020ebe2ff81cb90ce84aca63c482fd8c | merge | source-editing-foundation, selection-model-inspector, pr-6642-oep8 | Source spans and evaluated instance provenance |
-| 13 | design-object-persistence | feature | design-object-persistence-local | cdfc439c169ead84b91366bca7096348380c1fd1 | merge | source-editing-foundation, selection-model-inspector, pr-6642-oep8 | Typed design objects stored in SCAD source |
-| 14 | live-clipping-sections | feature | live-clipping-sections-local | ce8af12e4b4d4cee14b82f697062f75cf552f0c3 | merge | design-object-persistence, pr-6878 | Live cross section clipping planes and saved cross sections |
-| 15 | geometry-services | feature | geometry-services-local | 4e1286c7b362f84e920a21ba65e13042178a6fea | merge | none declared | Strict in-memory measurement and section services |
-| 16 | component-provider-adapters | feature | component-provider-adapters-local | 9d0cb2097efcac6856ae5dafb31a642803ec32d7 | merge | none declared | Version-matched component catalogs and source generation |
-| 17 | semantic-model-hierarchy | feature | semantic-model-hierarchy-local | aca9bcd54aaa739d6a1d5af4c0e9228618e6ebe0 | merge | source-geometry-provenance, design-object-persistence | Parts Assemblies Components and scoped parameters |
-| 18 | anchors-attachments | feature | anchors-attachments-local | bd0a54c5c0eb8ded39cc3e2d8d5ff79230c9b4ab | merge | semantic-model-hierarchy | Typed anchors references and attachment placement |
-| 19 | contextual-insertion | feature | contextual-insertion-local | 9ba04f92b79fb15715c79c84af677078dafda53f | merge | anchors-attachments, component-provider-adapters, pr-6878 | Searchable insertion palette isolated preview and guarded Commit |
+| 12 | source-geometry-provenance | feature | source-geometry-provenance-local | c740cdd0eebefe6622fc0f6f9bd02598ac1f04bd | merge | source-editing-foundation, selection-model-inspector, pr-6642-oep8 | Source spans and evaluated instance provenance |
+| 13 | background-model-evaluation | feature | background-model-evaluation-local | 78dc9561b3bc3d3415ba617f2747b13c3a1d4728 | merge | selection-model-inspector, pr-6642-oep8 | Background Preview/Render and Customizer evaluation with cooperative cancellation; readiness work in progress |
+| 14 | design-object-persistence | feature | design-object-persistence-local | 62b512a4ca08296c63b5383a436cc67297476344 | merge | source-editing-foundation, selection-model-inspector, pr-6642-oep8, background-model-evaluation | Typed design objects stored in SCAD source |
+| 15 | live-clipping-sections | feature | live-clipping-sections-local | 4fe538595c21f4bb32402fb335f7dfd654769a3a | merge | design-object-persistence, pr-6878 | Live cross section clipping planes and saved cross sections |
+| 16 | geometry-services | feature | geometry-services-local | 4e1286c7b362f84e920a21ba65e13042178a6fea | merge | none declared | Strict in-memory measurement and section services |
+| 17 | component-provider-adapters | feature | component-provider-adapters-local | 9d0cb2097efcac6856ae5dafb31a642803ec32d7 | merge | none declared | Version-matched component catalogs and source generation |
+| 18 | semantic-model-hierarchy | feature | semantic-model-hierarchy-local | 232e7242abe03480db7bd0361321abefbe1d923d | merge | source-geometry-provenance, design-object-persistence | Parts Assemblies Components and scoped parameters |
+| 19 | anchors-attachments | feature | anchors-attachments-local | bffbafdc447b6251a4e071e14396b03537eba105 | merge | semantic-model-hierarchy | Typed anchors references and attachment placement |
+| 20 | contextual-insertion | feature | contextual-insertion-local | 6179d853dfb65c342f466a858234a0d410564f43 | merge | anchors-attachments, component-provider-adapters, pr-6878 | Searchable insertion palette isolated preview and guarded Commit |
+| 21 | geometry-bounds | feature | geometry-bounds-local | latest | merge | pr-6081 | Language-level geometry bounds: min, max, size and box center; validated in local integration, awaiting explicit promotion |
+| 22 | pr-6964 | pr | https://github.com/openscad/openscad/pull/6964 | b2455385cc04818579fe73f628fdac6c608513c6 | merge | none declared | GIF/APNG/MJPEG animation export including #6963, plus parallel worker processes |
+| 23 | pr-6951 | pr | https://github.com/openscad/openscad/pull/6951 | d072ffc145acfd7bc6f75fde875f979ad7abc796 | merge | none declared | Transparent PNG export and optional transparent viewport compositing |
+| 24 | pr-7091 | pr | https://github.com/openscad/openscad/pull/7091 | f281f9226d046d6e34c5619c3ed4294e5832e2d3 | merge | none declared | Preserve model colors in SVG, PDF and DXF exports |
 
-The selected product features are unchanged. The three historical foundation-followup rows have been retired:
+Background evaluation was selected on 2026-10-07. Its source entry remains `ready: false` until the local source
+passes validation and the reviewed revision is explicitly promoted to the declared build-input repository.
+Its committed owner changes have been merged forward through persistence, hierarchy, cross sections, anchors and
+insertion. It precedes persistence because persistence now directly consumes its worker publication interface.
+Exact local revisions and verification progress are in `runs/20261007-background-forward-integration/report.md`.
+See [the implementation handoff](../.plans/2_in-progress/2026-10-07_background-model-evaluation/5_post-implementation-notes.md).
+
+Animation/export selection approved on 2026-10-07: #6963 is supplied through #6964 and must not be
+merged separately. These three heads are integrated locally but not built or tested. Follow the
+[integration and alpha-conversion repair record](repairs/animation-export-integration.md).
+
+Geometry bounds was selected on 2026-10-07 and has an uncommitted implementation awaiting validation and promotion. Its `ready: false`
+source record deliberately stops new integration preparation until the feature is ready or the user explicitly
+defers it. It does not change the contents of existing builds.
+
+The three historical foundation-followup rows have been retired:
 their shared behavior now belongs to the maintained owners listed in [the migration record](../docs/feature-ancestry.md).
 Those original commits remain in consumer histories; do not replay their old patches.
 
@@ -87,12 +110,14 @@ Its promoted source is ready; application to build controls and integrated packa
 ## OEP8 and Customizer syntax
 
 Selected by the user on 2026-10-02. Use OEP8a #6081; the broader #4478 geometry and module-reference
-prototype is not selected. Apply the #6642 variant after OEP8a and preserve both expression classes.
+prototype is not selected as a whole. The separate `geometry-bounds` feature above scopes geometry values and
+bounds queries from that proposal, excluding module references, hybrid literals and mesh-array extraction.
+Apply the #6642 variant after OEP8a and preserve both expression classes.
 Annotations use `@{ key: expression, ... }` with fixed identifier keys and optional trailing commas;
 computed keys, quoted keys, `each`, and comprehensions are not annotation syntax. Ordinary OEP8 objects
 retain their own full syntax. Existing reactive `hidden`/`locked` values remain supported.
 Follow the source readiness record and
-[implementation evidence](../.plans/1_planning/2026-10-02_oep8-customizer-syntax/5_post-implementation-notes.md).
+[implementation evidence](../.plans/3_done/2026-10-02_oep8-customizer-syntax/5_post-implementation-notes.md).
 
 ## Required Windows repairs
 
@@ -139,8 +164,10 @@ replace its row's source with an explicit `pr-variant` source; never infer this 
 
 For each enabled entry, supply a reason and any ordering dependencies. Use `latest` to resolve the declared source
 ref at the start of each new run, or a full SHA to pin it. Record resolved SHAs even when the input says latest.
-Remove or replace obsolete entries manually. A PR already included in upstream must be reported as already present
-with evidence; do not manufacture an empty integration commit or silently rewrite this list.
+Remove or replace obsolete entries only after the user's explicit decision. Follow the
+[merged-upstream PR check](integration-inputs.md#prs-already-merged-upstream-ask-before-changing-the-stack):
+flag merged PRs and ask what to do, then stop until the user answers. Do not merge changes already
+included in the locked upstream base or silently remove their rows from this list.
 
 Reusable build repairs are tracked in [REPAIRS.md](REPAIRS.md), separately from feature selection. Adding a repair
 candidate does not enable another feature or select a different PR source.

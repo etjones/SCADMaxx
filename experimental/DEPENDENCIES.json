@@ -1,9 +1,53 @@
 {
   "schemaVersion": 1,
   "integration": "merge",
-  "recorded": "2026-10-06",
-  "validation": "Selected feature revisions validated through owner and forward-consumer checks and promoted to the declared private source repository. Integrated composition validation remains a new-run obligation.",
+  "recorded": "2026-10-07",
+  "validation": "Previously selected revisions validated and promoted on 2026-10-06. Geometry bounds is committed locally and validated in the 2026-10-07 integration, but remains unpromoted. Consult per-node and SOURCES.json readiness.",
   "nodes": {
+    "background-model-evaluation": {
+      "sourceKey": "background-model-evaluation-local",
+      "ref": "refs/heads/feature/background-model-evaluation",
+      "acceptedHead": "78dc9561b3bc3d3415ba617f2747b13c3a1d4728",
+      "featureMarker": "7b067dfff6d259c016bd087d96cc7ec04a8f3417",
+      "implementationPending": false,
+      "validation": "Local requested meta fixes and normal forward merges; integration validation in runs/scadmaxx-all-features-2026-10-09_19-45/report.md. Native GUI checks not run; no promotion.",
+      "dependencies": {
+        "selection-model-inspector": "bf91e96761251526cd25e5c8f60b93fd26468cb7",
+        "pr-6642-oep8": "d77244154cc2c84a26a8a5fdb1ec20ce4a335b7f"
+      }
+    },
+    "pr-6964": {
+      "sourceRef": "refs/scadmaxx-review/animation-export/pr-6964",
+      "acceptedHead": "b2455385cc04818579fe73f628fdac6c608513c6",
+      "featureMarker": "b2455385cc04818579fe73f628fdac6c608513c6",
+      "validation": "Integrated locally; no build or tests. Supplies #6963 container export without selecting its separately rewritten head. See repairs/animation-export-integration.md.",
+      "dependencies": {}
+    },
+    "pr-6951": {
+      "sourceRef": "refs/scadmaxx-review/animation-export/pr-6951",
+      "acceptedHead": "d072ffc145acfd7bc6f75fde875f979ad7abc796",
+      "featureMarker": "d072ffc145acfd7bc6f75fde875f979ad7abc796",
+      "validation": "Integrated locally with capture API reconciliation; no build or tests. Combined with #6964 requires the alpha-conversion repair.",
+      "dependencies": {}
+    },
+    "pr-7091": {
+      "sourceRef": "refs/scadmaxx-review/animation-export/pr-7091",
+      "acceptedHead": "f281f9226d046d6e34c5619c3ed4294e5832e2d3",
+      "featureMarker": "f281f9226d046d6e34c5619c3ed4294e5832e2d3",
+      "validation": "Integrated locally; no build or tests.",
+      "dependencies": {}
+    },
+    "geometry-bounds": {
+      "sourceKey": "geometry-bounds-local",
+      "ref": "refs/heads/feature/geometry-bounds",
+      "acceptedHead": "cbf75e737de7f4f36882a23968298bdabdcb699d",
+      "featureMarker": "cbf75e737de7f4f36882a23968298bdabdcb699d",
+      "implementationPending": false,
+      "validation": "Validated in integrated commit 80194e4c5467e4d0060610beedd4694dd66ec58d; evidence runs/20261007-geometry-bounds-reintegration. Standalone owner not separately built. Promotion not authorized.",
+      "dependencies": {
+        "pr-6081": "07b22af25704af0db39959773751fb5c6e4debbe"
+      }
+    },
     "pr-6878": {
       "sourceRef": "refs/experimental-runs/20261005-scadmaxx-all-features/pr-6878",
       "acceptedHead": "3014fb55405759bfa1871e79f50cbee4c2a2c638",
@@ -29,9 +73,9 @@
     "ui-visual-polish": {
       "sourceKey": "ui-visual-polish-local",
       "ref": "refs/heads/codex/ui-visual-polish",
-      "acceptedHead": "d52e03649893fffb487976c36e4e0e028176b701",
+      "acceptedHead": "e4e9046558d1a836939e63c2d0cc6bd4b353692b",
       "featureMarker": "2217d2c7d54743c93cefb9418b208825168ddc1c",
-      "validation": "D:/openscad/runs/20261007-customizer-accent/report.md; application build, 77593 ordinary assertions and 320 native checks passed",
+      "validation": "Local requested meta fixes and normal forward merges; integration validation in runs/scadmaxx-all-features-2026-10-09_19-45/report.md. Native GUI checks not run; no promotion.",
       "dependencies": {
         "pr-6776": "aab4aed030dd61b80c5f850177f2af93e067eb7d"
       }
@@ -65,9 +109,9 @@
     "pr-6642-oep8": {
       "sourceKey": "pr-6642-oep8-local",
       "ref": "refs/heads/codex/pr6642",
-      "acceptedHead": "306c92d39c4cbb7fe82981e179161aa85d44774e",
+      "acceptedHead": "d77244154cc2c84a26a8a5fdb1ec20ce4a335b7f",
       "featureMarker": "1dad283e17be06380f2ff6b23daca68719d1f70c",
-      "validation": "owner/consumer evidence in runs/20261006-validation-promotion/report.md",
+      "validation": "Local forward merges and combined Release build pass. Units, smoke/helpers and 3026 CLI cases pass; 11 baseline/tool failures and 75 disabled CLI cases remain recorded. Native/readiness work and promotion are pending. See runs/20261007-background-forward-integration/report.md (workspace relative).",
       "dependencies": {
         "pr-6081": "07b22af25704af0db39959773751fb5c6e4debbe"
       }
@@ -85,9 +129,9 @@
     "selection-model-inspector": {
       "sourceKey": "selection-model-inspector-local",
       "ref": "refs/heads/feature/selection-model-inspector",
-      "acceptedHead": "6440acdfd1c21f979d3074b2cdd60478d0aa8977",
+      "acceptedHead": "bf91e96761251526cd25e5c8f60b93fd26468cb7",
       "featureMarker": "ced629047eaa725a319f0c5a6a3602330b033c6d",
-      "validation": "owner/consumer evidence in runs/20261006-validation-promotion/report.md",
+      "validation": "Performance repairs committed and normally merged forward locally. Prior diagnostic validation retained; full integration validation in runs/scadmaxx-all-features-2026-10-08_15-30/report.md. No promotion.",
       "dependencies": {
         "http-agent-server": "f2c9de2c94745b834b5a120fdc5c29a5999128c9"
       }
@@ -106,35 +150,36 @@
     "source-geometry-provenance": {
       "sourceKey": "source-geometry-provenance-local",
       "ref": "refs/heads/feature/source-geometry-provenance",
-      "acceptedHead": "36e43d75020ebe2ff81cb90ce84aca63c482fd8c",
+      "acceptedHead": "c740cdd0eebefe6622fc0f6f9bd02598ac1f04bd",
       "featureMarker": "bb68db75a8d0fb259d17f50322306007d3750ebe",
-      "validation": "owner/consumer evidence in runs/20261006-validation-promotion/report.md",
+      "validation": "Performance repairs committed and normally merged forward locally. Prior diagnostic validation retained; full integration validation in runs/scadmaxx-all-features-2026-10-08_15-30/report.md. No promotion.",
       "dependencies": {
         "source-editing-foundation": "0bcafded2a98d98802a8e869e44a658770ebc3b4",
-        "selection-model-inspector": "6440acdfd1c21f979d3074b2cdd60478d0aa8977",
-        "pr-6642-oep8": "306c92d39c4cbb7fe82981e179161aa85d44774e"
+        "selection-model-inspector": "bf91e96761251526cd25e5c8f60b93fd26468cb7",
+        "pr-6642-oep8": "d77244154cc2c84a26a8a5fdb1ec20ce4a335b7f"
       }
     },
     "design-object-persistence": {
       "sourceKey": "design-object-persistence-local",
       "ref": "refs/heads/feature/design-object-persistence",
-      "acceptedHead": "cdfc439c169ead84b91366bca7096348380c1fd1",
+      "acceptedHead": "62b512a4ca08296c63b5383a436cc67297476344",
       "featureMarker": "015aa3172759c00979830ab178cc3515b4e7fd50",
-      "validation": "owner/consumer evidence in runs/20261006-validation-promotion/report.md",
+      "validation": "Local requested meta fixes and normal forward merges; integration validation in runs/scadmaxx-all-features-2026-10-09_19-45/report.md. Native GUI checks not run; no promotion.",
       "dependencies": {
         "source-editing-foundation": "0bcafded2a98d98802a8e869e44a658770ebc3b4",
-        "selection-model-inspector": "6440acdfd1c21f979d3074b2cdd60478d0aa8977",
-        "pr-6642-oep8": "306c92d39c4cbb7fe82981e179161aa85d44774e"
+        "selection-model-inspector": "bf91e96761251526cd25e5c8f60b93fd26468cb7",
+        "pr-6642-oep8": "d77244154cc2c84a26a8a5fdb1ec20ce4a335b7f",
+        "background-model-evaluation": "78dc9561b3bc3d3415ba617f2747b13c3a1d4728"
       }
     },
     "live-clipping-sections": {
       "sourceKey": "live-clipping-sections-local",
       "ref": "refs/heads/feature/live-clipping-sections",
-      "acceptedHead": "ce8af12e4b4d4cee14b82f697062f75cf552f0c3",
+      "acceptedHead": "4fe538595c21f4bb32402fb335f7dfd654769a3a",
       "featureMarker": "06d073f73720a391f5d806911a3d91a27b1ebd4e",
-      "validation": "owner/consumer evidence in runs/20261006-validation-promotion/report.md",
+      "validation": "Local requested meta fixes and normal forward merges; integration validation in runs/scadmaxx-all-features-2026-10-09_19-45/report.md. Native GUI checks not run; no promotion.",
       "dependencies": {
-        "design-object-persistence": "cdfc439c169ead84b91366bca7096348380c1fd1",
+        "design-object-persistence": "62b512a4ca08296c63b5383a436cc67297476344",
         "pr-6878": "3014fb55405759bfa1871e79f50cbee4c2a2c638"
       }
     },
@@ -157,32 +202,32 @@
     "semantic-model-hierarchy": {
       "sourceKey": "semantic-model-hierarchy-local",
       "ref": "refs/heads/feature/semantic-model-hierarchy",
-      "acceptedHead": "aca9bcd54aaa739d6a1d5af4c0e9228618e6ebe0",
+      "acceptedHead": "232e7242abe03480db7bd0361321abefbe1d923d",
       "featureMarker": "966b68b98fc21308d1fd1d40dbcb8eebeda7cc2f",
-      "validation": "owner/consumer evidence in runs/20261006-validation-promotion/report.md",
+      "validation": "Local requested meta fixes and normal forward merges; integration validation in runs/scadmaxx-all-features-2026-10-09_19-45/report.md. Native GUI checks not run; no promotion.",
       "dependencies": {
-        "source-geometry-provenance": "36e43d75020ebe2ff81cb90ce84aca63c482fd8c",
-        "design-object-persistence": "cdfc439c169ead84b91366bca7096348380c1fd1"
+        "source-geometry-provenance": "c740cdd0eebefe6622fc0f6f9bd02598ac1f04bd",
+        "design-object-persistence": "62b512a4ca08296c63b5383a436cc67297476344"
       }
     },
     "anchors-attachments": {
       "sourceKey": "anchors-attachments-local",
       "ref": "refs/heads/feature/anchors-attachments",
-      "acceptedHead": "bd0a54c5c0eb8ded39cc3e2d8d5ff79230c9b4ab",
+      "acceptedHead": "bffbafdc447b6251a4e071e14396b03537eba105",
       "featureMarker": "56ceab74239507093067f11d078d73c12ae431c4",
-      "validation": "owner/consumer evidence in runs/20261006-validation-promotion/report.md",
+      "validation": "Local requested meta fixes and normal forward merges; integration validation in runs/scadmaxx-all-features-2026-10-09_19-45/report.md. Native GUI checks not run; no promotion.",
       "dependencies": {
-        "semantic-model-hierarchy": "aca9bcd54aaa739d6a1d5af4c0e9228618e6ebe0"
+        "semantic-model-hierarchy": "232e7242abe03480db7bd0361321abefbe1d923d"
       }
     },
     "contextual-insertion": {
       "sourceKey": "contextual-insertion-local",
       "ref": "refs/heads/feature/contextual-insertion",
-      "acceptedHead": "9ba04f92b79fb15715c79c84af677078dafda53f",
+      "acceptedHead": "6179d853dfb65c342f466a858234a0d410564f43",
       "featureMarker": "b298c802905289b4fb94178d9127c6a8283342b7",
-      "validation": "owner/consumer evidence in runs/20261006-validation-promotion/report.md",
+      "validation": "Local requested meta fixes and normal forward merges; integration validation in runs/scadmaxx-all-features-2026-10-09_19-45/report.md. Native GUI checks not run; no promotion.",
       "dependencies": {
-        "anchors-attachments": "bd0a54c5c0eb8ded39cc3e2d8d5ff79230c9b4ab",
+        "anchors-attachments": "bffbafdc447b6251a4e071e14396b03537eba105",
         "component-provider-adapters": "9d0cb2097efcac6856ae5dafb31a642803ec32d7",
         "pr-6878": "3014fb55405759bfa1871e79f50cbee4c2a2c638"
       }

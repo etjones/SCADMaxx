@@ -1,5 +1,50 @@
 # Checkout inventory
 
+## Current retention policy, 2026-10-08
+
+Keep the shared `openscad-master` checkout, one current integration checkout, and feature checkouts
+needed for active editing, builds or investigations. Retain committed history as branches; historical
+evidence does not require a permanent checked-out directory. Reuse suitable checkouts before creating new ones.
+
+Retire temporary repair and verification checkouts at handoff after their owner changes are incorporated
+and their evidence is secured. Before removal, inspect current usage, tracked/untracked/ignored files and
+submodules; preserve unique files and any detached HEAD. Keep required build dependencies and packaged
+releases. Do not remove an occupied checkout or discard changes. Recreate retired checkouts only when needed.
+
+The user approved retirement of 21 reviewed checkouts on 2026-10-08, reducing the shared source repository
+from 44 worktrees to 23. Branches remain intact. The exact paths, heads, recovery reference, verified local-file
+archives and removal results are in the [retirement record](../../runs/20261008-worktree-retirement/report.md).
+
+Retired groups:
+
+- Integrations `wt-scadmaxx-20260930`, `wt-scadmaxx-20261001`, `wt-scadmaxx-20261002`,
+  `wt-scadmaxx-20261004`, and `wt-scadmaxx-20261005`.
+- `wt-openscad-readme-baseline` and `wt-openscad-readme-captures`.
+- The anchors, insertion and semantic `*-composition-check` worktrees, plus
+  `wt-openscad-navigation-annotations-check` and `wt-openscad-oep8-customizer-check`.
+- `wt-openscad-background-native-repair`, `wt-openscad-clipping-native-repair`, and
+  `wt-openscad-insertion-native-repair`; all three repair heads are merged into their owner branches.
+- `wt-openscad-fix-windows-unicode`, `wt-openscad-issue-5425-path-after-2024-10-28`,
+  `wt-openscad-pr-6776-dynamic-dark-mode-switching`, both PR 6871 worktrees, and
+  `wt-openscad-pr-6999-customizer-header-text-contrast`.
+
+Retained: `openscad-master`, `wt-scadmaxx-20261006`, the 18 maintained feature/PR owner checkouts,
+`wt-openscad-edit-evaluation-performance`, `wt-openscad-background-consumer-check`, and
+`wt-openscad-native-consumer-repair`. The two current verification checkouts remain useful until their
+pending work is incorporated and validated in the full integration. The separate `openscad-6991` clone
+and its shared vcpkg packages are outside this retirement and remain in place.
+
+Use `git worktree list` for live paths and inspect current Git status before use. The sections below are
+historical observations; their old "preserve" wording does not override this approved retirement.
+
+## Historical observations
+
+New on 2026-10-07: `D:/openscad/wt-openscad-geometry-bounds`, branch `feature/geometry-bounds`,
+created from the shared `openscad-master` clone at accepted OEP8 #6081 head
+`07b22af25704af0db39959773751fb5c6e4debbe`. Submodules are initialized. The feature now has a local
+uncommitted implementation; no build, validation or promotion is claimed. See its
+[exploration](../.plans/3_done/2026-10-07_geometry-bounds/1_exploration.md).
+
 Current ancestry and source revisions are in [maintained feature ancestry](feature-ancestry.md) and
 [DEPENDENCIES.json](../experimental/DEPENDENCIES.json). Historical inventory entries below retain earlier evidence.
 
@@ -7,7 +52,8 @@ The current integrated source is `wt-scadmaxx-20261006`, branch `scadmaxx-202610
 `569220a50377c705a4c3af5cc21fd106b2e91662`. It includes all 19 frozen entries from
 `runs/20261006-scadmaxx-all-features`, on upstream `c0ac8289f1c9db6f70891da5df3b4085b7eaf8b6`.
 Its build uses `scadmaxx.exe`/`scadmaxx.com`; see that run's report for current acceptance
-and delivery evidence. Preserve the older integration worktrees as historical checkpoints.
+and delivery evidence. The older integration branches remain as historical checkpoints; their checkouts
+were retired on 2026-10-08.
 Recheck live status before using any checkout.
 
 The historical records below describe their observation dates, not current Git status.
@@ -61,16 +107,16 @@ Read it when advancing the Customizer work. Preserve its local-only planning sco
 repository references from current state. Do not merge its changes with the similar worktree without comparison.
 
 The HTTP agent-server checkout now contains the validated, privately retained
-[v1-only follow-up](../.plans/2_in-progress/2026-10-02_agent-api-v1-only/5_post-implementation-notes.md).
+[v1-only follow-up](../.plans/3_done/2026-10-02_agent-api-v1-only/5_post-implementation-notes.md).
 Its committed head is `991bb09aee1c5d3f432b4e4352ff96254821b4b5`; the table above records the previous baseline.
-The [direct-HTTP follow-up](../.plans/2_in-progress/2026-10-02_agent-direct-http/5_post-implementation-notes.md)
+The [direct-HTTP follow-up](../.plans/3_done/2026-10-02_agent-direct-http/5_post-implementation-notes.md)
 is validated and retained privately at `6a5dc9d1555cbcf9f1f8a359f37f68f5448f44a1`; selected-source readiness is true.
 Preserve its edits and validation outputs.
 
 The `OpenSCAD-*` directories and `PythonSCAD` contain installed/extracted applications, not registered worktrees of
 `openscad-master`. Dependency and application directories are not available scratch space.
 
-For new worktrees, follow the [standard clone and worktree workflow](../docs/workspace.md#standard-clone-and-worktree-workflow).
+For new worktrees, follow the [standard clone and worktree workflow](workspace.md#standard-clone-and-worktree-workflow).
 Use `openscad-master` as the shared repository and create the separate checkout alongside it under `D:/openscad`.
 Inspect existing worktrees first and reuse only an available, suitable checkout. Record the actual path here.
 Preserve existing independent clones and worktrees; do not rename or migrate them merely to match this convention.
@@ -222,3 +268,42 @@ comparisons pass their recorded expectations; 8,000 corpus executions and 3,210 
 `runs/20261004-realworld-upstream-speedups`. Typical-model gains remain near zero; evaluator-heavy examples show
 larger gains, while incremental upstream attribution is limited by timing variation. Read that run's `results.md`.
 The source stays uncommitted on the same base. Preserve the worktree; no promotion or selected-stack change.
+
+## Background evaluation source implementation, 2026-10-07
+
+Current forward-integration checkpoint: feature `f4b6d0c3d51c672df4dc1525eb912f7565692167` is committed,
+with extracted owner contracts and normal downstream merges. `wt-openscad-background-consumer-check`, branch
+`codex/background-consumer-check`, is the isolated insertion/hierarchy/anchor/cross-section verification
+composition. Source/build evidence belongs to `runs/20261007-background-forward-integration`; it is not a
+release input and must never be merged back into owners. Preserve existing owner branding/provenance edits.
+The following source-only description is historical; use the current run report and manifests for exact heads.
+
+`wt-openscad-background-model-evaluation`, branch `feature/background-model-evaluation`, is occupied by the initial
+background evaluator implementation. HEAD is Inspector `b93c9c219198630a2fde3822f2b90c29d88d9180`, with a resolved,
+staged normal merge of Customizer `13697aa98f18e1d1b26187d2cf5a253e8b6dce07` still pending. Feature changes are
+unstaged/untracked; preserve the merge index and new files. All six submodules are initialized at recorded revisions.
+
+Initial source-only evidence is in `runs/20261007-background-evaluation`. Subsequent Windows build, focused native
+tests, all 94 unit cases and real-model benchmark evidence are in `runs/20261007-background-integration-readiness`.
+The corrected heartbeat measurement exposes an initial Customizer construction pause above the target; strict-action
+admission and downstream owner composition remain unfinished. No commit, push or promotion was made. Stack row 24 is
+selected but its source remains `ready: false`. The feature remains in progress; remaining work and limits are in
+[the handoff](../.plans/2_in-progress/2026-10-07_background-model-evaluation/5_post-implementation-notes.md).
+
+## Native integration repair worktrees, 2026-10-08
+
+The background-evaluation source-only entry above is historical. Its implementation and native repairs are
+committed locally and merged forward through persistence, hierarchy, anchors, insertion and clipping.
+Current owner heads and validation are recorded in
+[`runs/20261008-native-integration-repairs`](../../runs/20261008-native-integration-repairs/report.md).
+Preserve these isolated repair checkouts and runtimes:
+
+| Checkout | Branch | Role |
+| --- | --- | --- |
+| `wt-openscad-background-native-repair` | `repair/background-native` | Background controller and native consumer/test repairs |
+| `wt-openscad-clipping-native-repair` | `repair/clipping-native` | Clipping test-provider registration repair |
+| `wt-openscad-insertion-native-repair` | `repair/insertion-native` | Insertion completion and viewport gesture tests |
+| `wt-openscad-native-consumer-repair` | `repair/native-consumer-check` | Frozen combined verification; never merge back into owners |
+
+The separate checkouts avoided concurrent use of `wt-openscad-background-consumer-check`. Normal owner
+merges preserve pre-existing build branding and submodule changes. No push or promotion is authorized by this run.

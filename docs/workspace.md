@@ -1,26 +1,38 @@
 # SCADMaxx workspace guide
 
 For feature dependencies and forward-only maintenance, read [maintained feature ancestry](feature-ancestry.md).
+For the separate maintenance, build, Dropbox-storage and GitHub-publication operations, read
+[repository operations](../workflows/repository-operations.md). A build alone does not refresh upstream or feature bases.
 The 2026-10-06 local migration supersedes historical snapshot/delta instructions below.
 
 *OpenSCAD, with the sliders turned up.*
 
-Latest local delivery: [scadmaxx-2026100-windows-x64.zip](../../artifacts/scadmaxx-all-features/20261006T230852571Z/scadmaxx-2026100-windows-x64.zip).
+Latest local delivery: [scadmaxx-2026100-windows-x64.zip](../../artifacts/scadmaxx-all-features/2026-10-09_20-00/scadmaxx-2026100-windows-x64.zip).
 Extract the complete ZIP and launch `scadmaxx.exe`; `scadmaxx.com` provides console invocation.
-Both names are CMake outputs, with no `openscad.exe`/`openscad.com` aliases. This delivery includes all
-19 native entries frozen for the 2026-10-06 integration run, plus the selected skill companion.
-Final source is `569220a50377c705a4c3af5cc21fd106b2e91662`. Unit, native/DPI, rendering,
-experimental/Minkowski, extracted Unicode and library/catalog checks passed. Matching source and
-skill archives sit beside the Windows ZIP. See the
-[run report](../../runs/20261006-scadmaxx-all-features/report.md) for checksums, frozen inputs and limits:
-live Windows theme switching and clean-machine portability remain unverified. Selected feature inputs
-were promoted to Dropbox under the user's earlier explicit authorization; this new integration branch,
-release tag and control updates remain local. No GitHub publication was made.
+The complete frozen 24-input composition retains the background evaluation/performance and
+colored geometry/DXF repairs, adding initial File > Open/startup Preview and Console font-size inheritance.
+Final source is `f4f87a8eea11172037c459dd5ae9848b566fd044` on
+`scadmaxx-20261006`; the existing integration cache and shared dependencies were reused.
+Everyday checks passed (516 unit case rows, Vim, CLI smoke/critical), along with control tooling,
+clean-PATH package checks and extracted-distribution language examples. Compile/link took 228 seconds.
+Quick performance comparison against the accepted October 8 delivery was interrupted twice by an unrelated
+artcraft-hub MSVC linker; it remains incomplete. Preserve that user's work and rerun the recorded profile
+after external compilation finishes, without rebuilding or changing the baseline.
+The [run report](../../runs/scadmaxx-all-features-2026-10-09_19-45/report.md),
+[initial-preview repair](../experimental/repairs/open-initial-preview.md) and
+[Console inheritance repair](../experimental/repairs/console-font-size-inheritance.md) retain exact
+commands, source identities and inherited coverage. Deep/corpus checks were not rerun for these UI changes.
+Inherited broad-suite evidence still includes seven
+baseline-equivalent failures and five image comparisons lacking Ghostscript; those are not passes.
+Native GUI evidence is inherited; new initial-open GUI tests were not compiled/run in the release configuration.
+Clean-machine portability remains unverified. Matching source
+and skill archives/checksums sit beside the Windows ZIP. No release notes were added. All commits
+remain local; no push, full-validation release tag or launcher setting change was made.
 
 The control repository is `D:/openscad/scadmaxx`; the container is `D:/openscad`. The source experiments, integration branches and
 workspace control history stay local. Publish an individual feature to GitHub only when the user explicitly
 chooses to make it public. The two bare origins live in `E:/Dropbox/bare_repos`; see the
-[local Git layout](../docs/git-layout.md) for the installed repositories and publication workflow.
+[local Git layout](git-layout.md) for the installed repositories and publication workflow.
 
 This workspace supports three kinds of work:
 
@@ -60,7 +72,7 @@ and dependency directories live alongside it in `D:/openscad`. See [the Git layo
 
 Use a UTC run ID such as `20260930T120000Z`; add a suffix if necessary to make it unique.
 Use a separate `scadmaxx-YYYYMMDD` source branch and `wt-scadmaxx-YYYYMMDD` worktree for every fresh composition,
-following the [integration naming rule](../docs/git-layout.md#integration-branch-and-worktree-names).
+following the [integration naming rule](git-layout.md#integration-branch-and-worktree-names).
 Annotations should have their
 own `feature/annotations` branch, and each PR investigation should retain its own branch and checkout.
 The annotations branch is now prepared in `wt-openscad-annotations`, based on freshly fetched upstream master
@@ -70,6 +82,17 @@ six commits end at `d670fad09`, verified in the private origin and marked ready 
 See the linked verification notes for test evidence, build commands and limitations.
 
 ## Standard clone and worktree workflow
+
+### Two integrated-build workflows
+
+Use [full new integration](../workflows/experimental-builds.md) to compose the complete stack from upstream,
+or [re-integration](../workflows/reintegrate-scadmaxx.md) to merge changed branches into an existing successful
+integration. Routine updates use re-integration: retain previous merges and fixes, reuse the compatible build
+directory, and create a separately recorded and packaged delivery. A fresh composition remains available for
+explicit clean integrations and feature removal/replacement. The
+[build entry point](../workflows/update-and-build-scadmaxx.md#choose-the-integration-workflow-first) selects the route.
+
+### Feature worktrees
 
 Use the existing `D:/openscad/openscad-master` clone as the shared repository for new OpenSCAD worktrees.
 Keep its main checkout on `master` as the baseline, and do feature development, PR testing, and experimental
@@ -87,7 +110,9 @@ worktree, not another clone or GitHub fork.
    (`E:/Dropbox/bare_repos/openscad.git`) only for explicitly user-requested pushes/promotions. Neither a commit
    nor a build request authorizes a push. GitHub is the explicit `publish` remote, used only when
    the user chooses to publish an individual feature. Creating a worktree does not push a branch or create a PR.
-5. Record the worktree in `docs/worktrees.md` and link it from the relevant plan.
+5. Record the worktree in `docs/worktrees.md` and link it from the relevant plan. Follow its
+   [retention policy](worktrees.md#current-retention-policy-2026-10-08) when work is handed off;
+   retain history and evidence without accumulating permanent temporary checkouts.
 
 Example for a new feature (replace `example` with its name; run commands one at a time and stop on failure):
 
@@ -172,7 +197,7 @@ annotation/HTTP results above are from preceding validation of the same source r
 before enabling experimental features and Manifold Minkowski. The ZIP retains its flat layout
 and contains no release notes. See the [compile-time feature audit](../experimental/scripts/README.md).
 Windows desktop theme switching, full-process shortcut persistence and clean-machine portability remain unverified;
-the [experimental-build feature](../.plans/2_in-progress/2026-09-30_experimental-windows-builds/1_exploration.md)
+the [experimental-build feature](../.plans/3_done/2026-09-30_experimental-windows-builds/1_exploration.md)
 retains those acceptance checks. No successful-release tag, external publication or recurring job was created.
 
 The `scadmaxx` directory is a separate Git control repository on `main`, with local origin
