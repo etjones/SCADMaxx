@@ -6,7 +6,8 @@
     "Window 1280x820, scale 1, same model and camera; baseline and SCADMaxx use their default Customizer presentation.",
     "Light and dark use Tomorrow and Tomorrow Night viewport backgrounds; the harness selects these explicitly.",
     "Separate top-level popup/dialog pixels are composed at their actual positions; navigation cube is cropped from the viewport.",
-    "Superseded README screenshots were removed from docs/screenshots. Original run evidence remains outside the repository."
+    "Superseded README screenshots were removed from docs/screenshots. Original run evidence remains outside the repository.",
+    "2026-10-10 refresh: five genuine shipped-release captures use source 659f5abf0 and retain filenames; historical comparison baselines and other unchanged captures retain their original provenance. Temporary viewport palette restored to Nord Light; bindings and source files unchanged."
   ],
   "images": [
     {
@@ -43,36 +44,6 @@
       "image": "agent-access.png",
       "source": "D:/openscad/runs/readme-captures/integrated-final/agent-access.png",
       "sha256": "4611C1E97D3752D0227620FF89CCFC1A4A2A2A24117A8E9A4C4D86273FDC4579",
-      "build": "integrated",
-      "sourceHead": "bcf48145d9ebc7ffdcde0414ddde38ceb62f0b6a",
-      "binarySha256": "B1E32F6C57E29F5233FECEBC63F3D7712945AAD5492197E2FA4FABD26991EC08",
-      "modelSha256": "704CC89912B08EE23C4279D6FE4A9705FE206CEF75A069F377422D3916A2F27C",
-      "captureProvenance": "D:/openscad/runs/readme-captures/integrated-final/provenance.json"
-    },
-    {
-      "image": "ui-after.png",
-      "source": "D:/openscad/runs/readme-captures/integrated-final/ui-after.png",
-      "sha256": "65B0A45AA44E49421380A48FB25F11AC8EA617FED9801E153E6F64849A0CF701",
-      "build": "integrated",
-      "sourceHead": "bcf48145d9ebc7ffdcde0414ddde38ceb62f0b6a",
-      "binarySha256": "B1E32F6C57E29F5233FECEBC63F3D7712945AAD5492197E2FA4FABD26991EC08",
-      "modelSha256": "704CC89912B08EE23C4279D6FE4A9705FE206CEF75A069F377422D3916A2F27C",
-      "captureProvenance": "D:/openscad/runs/readme-captures/integrated-final/provenance.json"
-    },
-    {
-      "image": "preferences-after.png",
-      "source": "D:/openscad/runs/readme-captures/integrated-final/preferences-after.png",
-      "sha256": "35AD7F1F15BDA5D63BA8084A9D606A64EAA0D42E3DDF7CF0F1B7E123D56962E7",
-      "build": "integrated",
-      "sourceHead": "bcf48145d9ebc7ffdcde0414ddde38ceb62f0b6a",
-      "binarySha256": "B1E32F6C57E29F5233FECEBC63F3D7712945AAD5492197E2FA4FABD26991EC08",
-      "modelSha256": "704CC89912B08EE23C4279D6FE4A9705FE206CEF75A069F377422D3916A2F27C",
-      "captureProvenance": "D:/openscad/runs/readme-captures/integrated-final/provenance.json"
-    },
-    {
-      "image": "shortcuts.png",
-      "source": "D:/openscad/runs/readme-captures/integrated-final/shortcuts.png",
-      "sha256": "004EC7E4D6587B47BE3FE3C6DA9CF8CED32A6BABF926E3A0A3156733B1A49B30",
       "build": "integrated",
       "sourceHead": "bcf48145d9ebc7ffdcde0414ddde38ceb62f0b6a",
       "binarySha256": "B1E32F6C57E29F5233FECEBC63F3D7712945AAD5492197E2FA4FABD26991EC08",
@@ -199,20 +170,6 @@
       "notes": "Object literal fields drive the dimensions and material of the enclosure."
     },
     {
-      "image": "customizer-attributes.png",
-      "captured": "2026-10-07",
-      "source": "D:/openscad/scadmaxx/docs/screenshots/customizer-attributes.png",
-      "sha256": "168869E1F777011CCE12FD6DF1BE64A53C6BD440E1255D7565367F7B352402D1",
-      "build": "integrated-release",
-      "sourceHead": "569220a50377c705a4c3af5cc21fd106b2e91662",
-      "executable": "D:/openscad/artifacts/scadmaxx-all-features/20261006T230852571Z/staging/scadmaxx.exe",
-      "binarySha256": "155F7ADB51F9DA3BCC1A9603FC384B5D687A0D2EB64B2568B1854EE68220DCFB",
-      "model": "models/reactive-enclosure.scad",
-      "modelSha256": "77C7B5EF6D04F14C67407210802D35537EDBB75CA092893D011194DE2D993396",
-      "captureMethod": "Native Windows application capture through computer-use; shipped release binary, no test harness or pixel editing.",
-      "notes": "Native attributes expose grouped dimensions and a conditional lid thickness control. Disabling the lid was observed to hide thickness."
-    },
-    {
       "image": "vim-editor.png",
       "captured": "2026-10-07",
       "source": "D:/openscad/scadmaxx/docs/screenshots/vim-editor.png",
@@ -253,6 +210,86 @@
       "modelSha256": "55DA405C17607BF6A13027908BB2BF16B9E92791E890E39A6DF2EC5EBB5F18EE",
       "captureMethod": "Native Windows application capture through computer-use; shipped release binary, no test harness or pixel editing.",
       "notes": "Actual uncommitted cylinder insertion preview on housing face, source destination and enabled Commit control. Started via Design > Add, then picked surface and selected Cylinder. Preview cancelled after capture."
+    },
+    {
+      "image": "ui-after.png",
+      "captured": "2026-10-10",
+      "source": "D:/openscad/runs/scadmaxx-all-features-2026-10-09_22-34/readme-captures/ui-after.png",
+      "sha256": "FE55B5A50153B720C038F2D3D387015D05D0BB3DB4E1779028356DE7E63581AD",
+      "build": "integrated-release",
+      "sourceHead": "659f5abf0e8959bc03c62155b436b1b6b44a8aca",
+      "executable": "D:/openscad/artifacts/scadmaxx-all-features/2026-10-09_23-06/staging/scadmaxx.exe",
+      "binarySha256": "C251CBBECA4BC260B00FC5103FF67DFCA92006E18390ACC1D8F2C8C22AF2368D",
+      "model": "models/mounting-bracket.scad",
+      "modelSha256": "704CC89912B08EE23C4279D6FE4A9705FE206CEF75A069F377422D3916A2F27C",
+      "width": 1280,
+      "height": 820,
+      "captureMethod": "Computer-use native Windows application capture; crop removes window chrome only. No recoloring, reconstruction or synthesized widgets.",
+      "notes": "Matched baseline model, camera [62,0,32], translation [0,0,12], distance 190, Tomorrow palette; Editor and Console hidden. Both parameter groups expanded. Selected E: dock 16%, groups 4%."
+    },
+    {
+      "image": "preferences-after.png",
+      "captured": "2026-10-10",
+      "source": "D:/openscad/runs/scadmaxx-all-features-2026-10-09_22-34/readme-captures/preferences-after.png",
+      "sha256": "670694B768FA593B07E2B02155CB6680CA18D994F668F1C01A61DF9DA6923055",
+      "build": "integrated-release",
+      "sourceHead": "659f5abf0e8959bc03c62155b436b1b6b44a8aca",
+      "executable": "D:/openscad/artifacts/scadmaxx-all-features/2026-10-09_23-06/staging/scadmaxx.exe",
+      "binarySha256": "C251CBBECA4BC260B00FC5103FF67DFCA92006E18390ACC1D8F2C8C22AF2368D",
+      "model": "models/mounting-bracket.scad",
+      "modelSha256": "704CC89912B08EE23C4279D6FE4A9705FE206CEF75A069F377422D3916A2F27C",
+      "width": 865,
+      "height": 860,
+      "captureMethod": "Computer-use native Windows application capture; crop removes window chrome only. No recoloring, reconstruction or synthesized widgets.",
+      "notes": "Advanced category selected. Framed groups and application/console font controls visible. Native UI defaults, scale 1."
+    },
+    {
+      "image": "shortcuts.png",
+      "captured": "2026-10-10",
+      "source": "D:/openscad/runs/scadmaxx-all-features-2026-10-09_22-34/readme-captures/shortcuts.png",
+      "sha256": "A860356CCAEAB974C7C052B0BD5931788315BA808C05E4FB86BE5946F6DCA805",
+      "build": "integrated-release",
+      "sourceHead": "659f5abf0e8959bc03c62155b436b1b6b44a8aca",
+      "executable": "D:/openscad/artifacts/scadmaxx-all-features/2026-10-09_23-06/staging/scadmaxx.exe",
+      "binarySha256": "C251CBBECA4BC260B00FC5103FF67DFCA92006E18390ACC1D8F2C8C22AF2368D",
+      "model": "models/mounting-bracket.scad",
+      "modelSha256": "704CC89912B08EE23C4279D6FE4A9705FE206CEF75A069F377422D3916A2F27C",
+      "width": 865,
+      "height": 860,
+      "captureMethod": "Computer-use native Windows application capture; crop removes window chrome only. No recoloring, reconstruction or synthesized widgets.",
+      "notes": "Real integrated application actions and bindings; complete preset Save as, Load, Import and Export controls. No user bindings changed."
+    },
+    {
+      "image": "customizer-attributes.png",
+      "captured": "2026-10-10",
+      "source": "D:/openscad/runs/scadmaxx-all-features-2026-10-09_22-34/readme-captures/customizer-attributes.png",
+      "sha256": "4AF191D3D97054342215A28FF62D6CE6C87AAA3047EC2050E34C7431F20BA3BB",
+      "build": "integrated-release",
+      "sourceHead": "659f5abf0e8959bc03c62155b436b1b6b44a8aca",
+      "executable": "D:/openscad/artifacts/scadmaxx-all-features/2026-10-09_23-06/staging/scadmaxx.exe",
+      "binarySha256": "C251CBBECA4BC260B00FC5103FF67DFCA92006E18390ACC1D8F2C8C22AF2368D",
+      "model": "models/reactive-enclosure.scad",
+      "modelSha256": "77C7B5EF6D04F14C67407210802D35537EDBB75CA092893D011194DE2D993396",
+      "width": 1280,
+      "height": 820,
+      "captureMethod": "Computer-use native Windows application capture; crop removes window chrome only. No recoloring, reconstruction or synthesized widgets.",
+      "notes": "Attribute declarations in Editor, housing and lid in viewport, Housing/Lid expanded and Parameters collapsed. Include lid true. Tomorrow palette; model zoomed to fit, camera rotation [62,0,32]."
+    },
+    {
+      "image": "preferences-3d-view.png",
+      "captured": "2026-10-10",
+      "source": "D:/openscad/runs/scadmaxx-all-features-2026-10-09_22-34/readme-captures/preferences-3d-view.png",
+      "sha256": "490621AAA63EB05199B4B1692A387D4CFDE2B4556E2E402A703ADCFF5F342B93",
+      "build": "integrated-release",
+      "sourceHead": "659f5abf0e8959bc03c62155b436b1b6b44a8aca",
+      "executable": "D:/openscad/artifacts/scadmaxx-all-features/2026-10-09_23-06/staging/scadmaxx.exe",
+      "binarySha256": "C251CBBECA4BC260B00FC5103FF67DFCA92006E18390ACC1D8F2C8C22AF2368D",
+      "model": "models/mounting-bracket.scad",
+      "modelSha256": "704CC89912B08EE23C4279D6FE4A9705FE206CEF75A069F377422D3916A2F27C",
+      "width": 865,
+      "height": 860,
+      "captureMethod": "Computer-use native Windows application capture; crop removes window chrome only. No recoloring, reconstruction or synthesized widgets.",
+      "notes": "Supplementary full-width Appearance, Viewport navigation and Inspector groups; selected category highlight. Tomorrow palette."
     }
   ],
   "supplementalCaptureNotes": [
