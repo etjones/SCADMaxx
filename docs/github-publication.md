@@ -41,7 +41,7 @@ were requested as part of publication.
 
 The user explicitly authorized necessary pushes for this implementation/build. UI polish, the maintained
 shortcut-preset variant, Vim, cross sections, insertion and integration `scadmaxx-20261006` were pushed
-to both source remotes and verified by exact SHA. Current integration is `eeccd2a7bdecaf8a14f820272795e91b3290c0d8`.
+to both source remotes and verified by exact SHA. Current integration is `659f5abf0e8959bc03c62155b436b1b6b44a8aca`.
 The source manifest records these updates; temporary standalone build compositions remain local.
 Source publication does not publish ZIPs or turn incomplete performance/desktop coverage into passes.
 Evidence: `D:/openscad/runs/scadmaxx-all-features-2026-10-09_22-34/publication.json`.

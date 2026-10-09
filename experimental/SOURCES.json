@@ -49,15 +49,15 @@
     "ready": false,
     "pendingReason": "Pushed and verified in Dropbox and GitHub; readiness remains limited by recorded validation, see current run report.",
     "validatedHead": "d52e03649893fffb487976c36e4e0e028176b701",
-    "localHead": "08b0f6e42998467365fe2689661204935b420436",
+    "localHead": "37cb691d953146c6d897722bdc57a53d44b0e745",
     "localCommitRecord": "runs/scadmaxx-all-features-2026-10-09_22-34/report.md (workspace relative)",
-    "handoff": ".plans/3_done/2026-10-07_customizer-accent-surface/5_post-implementation-notes.md",
-    "promotedHead": "08b0f6e42998467365fe2689661204935b420436",
-    "acceptedHead": "08b0f6e42998467365fe2689661204935b420436",
+    "handoff": ".plans/2_in-progress/2026-10-10_preferences-and-dock-consistency/5_post-implementation-notes.md",
+    "promotedHead": "37cb691d953146c6d897722bdc57a53d44b0e745",
+    "acceptedHead": "37cb691d953146c6d897722bdc57a53d44b0e745",
     "integration": "merge",
     "validationEvidence": "D:/openscad/runs/20261007-customizer-accent/report.md; application build, 77593 ordinary assertions and 320 native checks passed",
-    "integratedValidationHead": "eeccd2a7bdecaf8a14f820272795e91b3290c0d8",
-    "integratedValidationEvidence": "runs/scadmaxx-all-features-2026-10-09_22-34/report.md (workspace relative); ordinary correctness and focused surface/preset checks pass; desktop and delivery pending, timing interrupted by unrelated compilation."
+    "integratedValidationHead": "659f5abf0e8959bc03c62155b436b1b6b44a8aca",
+    "integratedValidationEvidence": "runs/scadmaxx-all-features-2026-10-09_22-34/report.md (workspace relative); ordinary correctness, tools, focused surface/preset and all four native visual suites pass. Timing interrupted by unrelated compilation; full native feature sequence and clean-machine portability unverified."
   },
   "annotations-local": {
     "repository": "E:/Dropbox/bare_repos/openscad.git",
@@ -132,8 +132,8 @@
     "acceptedHead": "63931fb745856a913609db0c67e21215944b139d",
     "integration": "merge",
     "validationEvidence": "runs/20261006-validation-promotion/report.md (workspace relative); owner and forward-consumer checks, with recorded limitations",
-    "integratedValidationHead": "eeccd2a7bdecaf8a14f820272795e91b3290c0d8",
-    "integratedValidationEvidence": "runs/scadmaxx-all-features-2026-10-09_22-34/report.md (workspace relative); ordinary correctness and focused surface/preset checks pass; desktop and delivery pending, timing interrupted by unrelated compilation."
+    "integratedValidationHead": "659f5abf0e8959bc03c62155b436b1b6b44a8aca",
+    "integratedValidationEvidence": "runs/scadmaxx-all-features-2026-10-09_22-34/report.md (workspace relative); ordinary correctness, tools, focused surface/preset and all four native visual suites pass. Timing interrupted by unrelated compilation; full native feature sequence and clean-machine portability unverified."
   },
   "source-geometry-provenance-local": {
     "repository": "E:/Dropbox/bare_repos/openscad.git",
@@ -186,8 +186,8 @@
     "validationEvidence": "runs/20261006-validation-promotion/report.md (workspace relative); owner and forward-consumer checks, with recorded limitations",
     "integrationValidatedHead": "3e3c2c36e6542d175dfc49597a5daa4751f9e4b7",
     "integrationValidationEvidence": "runs/scadmaxx-all-features-2026-10-07_11-06/report.md",
-    "integratedValidationHead": "eeccd2a7bdecaf8a14f820272795e91b3290c0d8",
-    "integratedValidationEvidence": "runs/scadmaxx-all-features-2026-10-09_22-34/report.md (workspace relative); ordinary correctness and focused surface/preset checks pass; desktop and delivery pending, timing interrupted by unrelated compilation."
+    "integratedValidationHead": "659f5abf0e8959bc03c62155b436b1b6b44a8aca",
+    "integratedValidationEvidence": "runs/scadmaxx-all-features-2026-10-09_22-34/report.md (workspace relative); ordinary correctness, tools, focused surface/preset and all four native visual suites pass. Timing interrupted by unrelated compilation; full native feature sequence and clean-machine portability unverified."
   },
   "geometry-services-local": {
     "repository": "E:/Dropbox/bare_repos/openscad.git",
@@ -268,8 +268,8 @@
     "validationEvidence": "runs/20261006-validation-promotion/report.md (workspace relative); owner and forward-consumer checks, with recorded limitations",
     "integrationValidatedHead": "77911002e5e1e5a7aa9c113b76b7f42347e2ab4a",
     "integrationValidationEvidence": "runs/scadmaxx-all-features-2026-10-07_11-06/report.md",
-    "integratedValidationHead": "eeccd2a7bdecaf8a14f820272795e91b3290c0d8",
-    "integratedValidationEvidence": "runs/scadmaxx-all-features-2026-10-09_22-34/report.md (workspace relative); ordinary correctness and focused surface/preset checks pass; desktop and delivery pending, timing interrupted by unrelated compilation."
+    "integratedValidationHead": "659f5abf0e8959bc03c62155b436b1b6b44a8aca",
+    "integratedValidationEvidence": "runs/scadmaxx-all-features-2026-10-09_22-34/report.md (workspace relative); ordinary correctness, tools, focused surface/preset and all four native visual suites pass. Timing interrupted by unrelated compilation; full native feature sequence and clean-machine portability unverified."
   },
   "geometry-bounds-local": {
     "repository": "E:/Dropbox/bare_repos/openscad.git",
@@ -307,9 +307,9 @@
     "localHead": "974c2f6f5fe689266ca1a05adf1724eda18f68e4",
     "promotedHead": "974c2f6f5fe689266ca1a05adf1724eda18f68e4",
     "validatedHead": null,
-    "handoff": ".plans/2_in-progress/2026-10-10_preferences-and-dock-consistency/1_exploration.md",
+    "handoff": ".plans/2_in-progress/2026-10-10_preferences-and-dock-consistency/5_post-implementation-notes.md",
     "localCommitRecord": "runs/scadmaxx-all-features-2026-10-09_22-34/report.md (workspace relative)",
-    "integratedValidationHead": "eeccd2a7bdecaf8a14f820272795e91b3290c0d8",
-    "integratedValidationEvidence": "runs/scadmaxx-all-features-2026-10-09_22-34/report.md (workspace relative); ordinary correctness and focused surface/preset checks pass; desktop and delivery pending, timing interrupted by unrelated compilation."
+    "integratedValidationHead": "659f5abf0e8959bc03c62155b436b1b6b44a8aca",
+    "integratedValidationEvidence": "runs/scadmaxx-all-features-2026-10-09_22-34/report.md (workspace relative); ordinary correctness, tools, focused surface/preset and all four native visual suites pass. Timing interrupted by unrelated compilation; full native feature sequence and clean-machine portability unverified."
   }
 }

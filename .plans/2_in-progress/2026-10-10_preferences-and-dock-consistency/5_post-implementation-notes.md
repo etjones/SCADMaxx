@@ -7,7 +7,7 @@ Vim, cross sections and insertion. No integration history is merged back into ow
 
 Standalone composition: wt-openscad-ui-consistency-build / codex/ui-consistency-build.
 Full integration: wt-scadmaxx-20261006 / scadmaxx-20261006, source
-eeccd2a7bdecaf8a14f820272795e91b3290c0d8. Existing integration cache is reused.
+659f5abf0e8959bc03c62155b436b1b6b44a8aca. Existing integration cache is reused.
 Exact 24-input composition, checks and delivery are in
 ../../../../runs/scadmaxx-all-features-2026-10-09_22-34/report.md.
 

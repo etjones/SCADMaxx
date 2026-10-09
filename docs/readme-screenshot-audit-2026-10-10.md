@@ -3,7 +3,7 @@
 All 20 unique README image references, including commented slots and comparison baselines, were
 checked against the coordinated UI integration. README prose and image-slot activation are unchanged.
 The contact sheet and capture evidence are in `D:/openscad/runs/ui-consistency-2026-10-10`.
-Current captures must use final integration `eeccd2a7bdecaf8a14f820272795e91b3290c0d8`.
+Current captures must use final integration `659f5abf0e8959bc03c62155b436b1b6b44a8aca`.
 
 | Image | Finding / action |
 | --- | --- |

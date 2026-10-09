@@ -17,7 +17,7 @@
   {
     "id": "ui-visual-polish-local",
     "ref": "refs/heads/codex/ui-visual-polish",
-    "revision": "08b0f6e42998467365fe2689661204935b420436"
+    "revision": "37cb691d953146c6d897722bdc57a53d44b0e745"
   },
   {
     "id": "annotations-local",
@@ -92,7 +92,7 @@
   {
     "id": "current-integration",
     "ref": "refs/heads/scadmaxx-20261006",
-    "revision": "eeccd2a7bdecaf8a14f820272795e91b3290c0d8"
+    "revision": "659f5abf0e8959bc03c62155b436b1b6b44a8aca"
   },
   {
     "id": "shortcut-presets-local",
