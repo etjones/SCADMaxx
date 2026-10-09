@@ -35,6 +35,14 @@ Legitimate lofted bodies and ordinary 2D outlines are separate uses. Read
 instead of using either workaround.
 The two passes do not require an intervening user approval when the requested shape is clear.
 
+## 3D print design tips
+
+For parts intended for FDM printing, read [3D print design](references/3d-print-design.md).
+Select relevant techniques from its sourced inventory before choosing geometry: support and build orientation,
+fits and compliance, strength, mechanisms, finish, assembly and product-specific details.
+Keep process-dependent dimensions configurable and retain the distinction between Slant 3D's production
+recommendations and design choices for the user's printer. Preserve the two-pass edge-treatment workflow above.
+
 ## Choose the relevant workflow
 
 Read [task routing](references/task-routing.md) to separate intent, operating surface, required evidence and
