@@ -4,9 +4,9 @@ Status: done; all four phases implemented and committed, moved to done at the us
 See [results and limits](5_post-implementation-notes.md). The accepted Customizer preview is the visual reference.
 Delivery: part 3 of 4, after the icon system, on `codex/ui-visual-polish` in
 `D:/openscad/wt-openscad-ui-visual-polish`. No separate branch or worktree for this part.
-Reference and historical evidence: [UI visual polish](../../3_done/2026-10-01_ui-visual-polish/1_exploration.md).
-Prerequisite: [Qt foundation](../../3_done/2026-10-01_ui-qt-foundation-typography/1_exploration.md), including #6776;
-reuse [icon-system](../../3_done/2026-10-01_ui-icon-system/1_exploration.md) help artwork and color handling.
+Reference and historical evidence: [UI visual polish](../2026-10-01_ui-visual-polish/1_exploration.md).
+Prerequisite: [Qt foundation](../2026-10-01_ui-qt-foundation-typography/1_exploration.md), including #6776;
+reuse [icon-system](../2026-10-01_ui-icon-system/1_exploration.md) help artwork and color handling.
 Icon implementation is complete at `67101788f`: use `Icons::icon("help", widget)` and its palette/state handling.
 
 ## Outcome

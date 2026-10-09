@@ -30,7 +30,7 @@ failed. After the user opened both chats and scrolled to their beginnings, their
 responses were recovered from the local app's Chromium cache on 2026-10-03. The older responses report no previous
 page and connect to the recent windows, resolving the earlier coverage gap. Only user messages and visible assistant
 replies were used as discussion evidence. The original widget is preserved with
-[the clipping plan](../2026-10-03_04_live-clipping-sections/assets/clipping-dock-mockup.original.html).
+[the clipping plan](../../3_done/2026-10-03_04_live-clipping-sections/assets/clipping-dock-mockup.original.html).
 
 Later user corrections take precedence over earlier assistant proposals. Explicit requests are recorded as decisions;
 useful assistant elaborations remain proposed design. External repositories, PR status, library capabilities and
@@ -66,12 +66,12 @@ discussion. Feature 15 extracts shared geometry work after reviewing branch boun
 
 | No. | Feature | Responsibility |
 | --- | --- | --- |
-| 01 | [Agent skill enrichment](../2026-10-03_01_agent-skill-workflows/1_exploration.md) | Task reasoning, reconstruction and evidence workflows. |
-| 02 | [Source editing foundation](../2026-10-03_02_source-editing-foundation/1_exploration.md) | Live buffer, minimal patch transactions, save conflicts. |
-| 03 | [Selection and Model Inspector](../2026-10-03_03_selection-model-inspector/1_exploration.md) | Geometric picking, basic inspection UI and viewport tool routing. |
-| 04 | [Live clipping and sections](../2026-10-03_04_live-clipping-sections/1_exploration.md) | Render-side clipping and persistent inspection planes. |
-| 05 | [Vim editor mode](../2026-10-03_05_vim-editor-mode/1_exploration.md) | Optional editor interaction over the same buffer. |
-| 06 | [Source/geometry provenance](../2026-10-03_06_source-geometry-provenance/1_exploration.md) | Syntax spans, instances and trustworthy correspondence. |
+| 01 | [Agent skill enrichment](../../3_done/2026-10-03_01_agent-skill-workflows/1_exploration.md) | Task reasoning, reconstruction and evidence workflows. |
+| 02 | [Source editing foundation](../../3_done/2026-10-03_02_source-editing-foundation/1_exploration.md) | Live buffer, minimal patch transactions, save conflicts. |
+| 03 | [Selection and Model Inspector](../../3_done/2026-10-03_03_selection-model-inspector/1_exploration.md) | Geometric picking, basic inspection UI and viewport tool routing. |
+| 04 | [Live clipping and sections](../../3_done/2026-10-03_04_live-clipping-sections/1_exploration.md) | Render-side clipping and persistent inspection planes. |
+| 05 | [Vim editor mode](../../3_done/2026-10-03_05_vim-editor-mode/1_exploration.md) | Optional editor interaction over the same buffer. |
+| 06 | [Source/geometry provenance](../../3_done/2026-10-03_06_source-geometry-provenance/1_exploration.md) | Syntax spans, instances and trustworthy correspondence. |
 | 07 | [Semantic model hierarchy](../2026-10-03_07_semantic-model-hierarchy/1_exploration.md) | Typed hierarchy, identities, semantic tree and Customizer binding. |
 | 08 | [Anchors and attachments](../2026-10-03_08_anchors-attachments/1_exploration.md) | Geometric/named anchors and reusable placement frames. |
 | 09 | [Technical drawings](../2026-10-03_09_technical-drawings/1_exploration.md) | Postponed by user; retain views, sections, dimensions, sheets and output research. |
@@ -79,8 +79,8 @@ discussion. Feature 15 extracts shared geometry work after reviewing branch boun
 | 11 | [Component providers/adapters](../2026-10-03_11_component-provider-adapters/1_exploration.md) | Catalogs, parameters, placement metadata and source fragments. |
 | 12 | [Contextual insertion](../2026-10-03_12_contextual-insertion/1_exploration.md) | Shift-A, configure/preview/place/commit new source. |
 | 13 | [Agent geometry tools](../2026-10-03_13_agent-geometry-analysis/1_exploration.md) | Postponed by user; establish a concrete API/numerical need before adding capabilities. |
-| 14 | [Shared design objects and persistence](../2026-10-03_14_design-object-persistence/1_exploration.md) | Section/view lifecycle, editable declarations, stable references and dependency persistence. |
-| 15 | [Shared geometry services](../2026-10-03_15_geometry-services/1_exploration.md) | Numerical measurements and section contours used by drawings and agent tools. |
+| 14 | [Shared design objects and persistence](../../3_done/2026-10-03_14_design-object-persistence/1_exploration.md) | Section/view lifecycle, editable declarations, stable references and dependency persistence. |
+| 15 | [Shared geometry services](../../3_done/2026-10-03_15_geometry-services/1_exploration.md) | Numerical measurements and section contours used by drawings and agent tools. |
 
 A presents five user-facing feature families and also describes a Model Inspector. This split retains the inspector
 and separately owned foundations. E adds two tracks omitted from A's diagram: skill instructions and actual tools.

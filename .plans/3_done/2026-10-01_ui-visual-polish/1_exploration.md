@@ -2,7 +2,7 @@
 
 Status: done for this pass, accepted by the user on 2026-10-02. All four UI features are in done.
 Future UI work will be a larger fixup pass; no further implementation is requested here.
-The final [audit and cumulative handoff](../../3_done/2026-10-01_ui-preferences-dialog-polish/5_post-implementation-notes.md)
+The final [audit and cumulative handoff](../2026-10-01_ui-preferences-dialog-polish/5_post-implementation-notes.md)
 records the authoritative implementation state; design investigations below retain their historical context.
 Direction constrained to native Qt styling after user review.
 
@@ -35,15 +35,15 @@ in the foundation plan; the later Customizer/dialog parts reuse its result.
 
 Four focused briefs own the work. This file retains the shared evidence and historical discussion.
 
-1. [Qt foundation and typography](../../3_done/2026-10-01_ui-qt-foundation-typography/1_exploration.md)
+1. [Qt foundation and typography](../2026-10-01_ui-qt-foundation-typography/1_exploration.md)
    (done): #6776 applied; font inheritance, Segoe UI 10 pt Windows default and native Customizer spacing implemented.
    Native Windows light/dark captures and regression results are recorded in its implementation notes.
-2. [Icon system](../../3_done/2026-10-01_ui-icon-system/1_exploration.md)
+2. [Icon system](../2026-10-01_ui-icon-system/1_exploration.md)
    (done): Tabler, custom CAD gaps, size and state-aware coloring; three status treatments with native Qt
    status icons as the default. Four sequential commits and Windows evidence are recorded in that feature.
-3. [Customizer polish](../../3_done/2026-10-01_ui-customizer-polish/1_exploration.md)
+3. [Customizer polish](../2026-10-01_ui-customizer-polish/1_exploration.md)
    (done): quiet native headers, default hover-only help, conservative display casing and native metrics.
-4. [Preferences and dialog polish](../../3_done/2026-10-01_ui-preferences-dialog-polish/1_exploration.md)
+4. [Preferences and dialog polish](../2026-10-01_ui-preferences-dialog-polish/1_exploration.md)
    (implemented, awaiting completion review): native Preferences tabs, native dialog spacing/palette/font treatment,
    residual stylesheet removal and a complete application-owned surface audit.
 

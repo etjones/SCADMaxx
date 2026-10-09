@@ -71,12 +71,12 @@ The IDs below are identifiers, not implementation order. The user wants 01-06 fi
 
 | ID | Feature | Requirements | Current implementation / planning state | Next obligation / constraint |
 | --- | --- | --- | --- | --- |
-| 01 | [Agent skill workflows](../2026-10-03_01_agent-skill-workflows/5_post-implementation-notes.md) | Ready | Bounded local implementation and portable verification complete | Source uncommitted. Real application Stage/Package acceptance remains for the next requested composition. |
-| 02 | [Source editing foundation](../2026-10-03_02_source-editing-foundation/5_post-implementation-notes.md) | Ready | Bounded local implementation and final patch/hash handoff complete | Consume the recorded uncommitted delta before 05/06/14; synchronous pre-group edit API is verified. |
-| 03 | [Selection / Inspector](../2026-10-03_03_selection-model-inspector/5_post-implementation-notes.md) | Ready | Original bounded implementation and shared presentation complete locally | Preserve frozen feature patch; implement the separate generic draft-display/sealed-input/focus follow-up before 12. It is not needed to start 04/07. |
-| 04 | [Live clipping](../2026-10-03_04_live-clipping-sections/3_overall-plan.md) | Ready | Planned; four phases; implementation not started | Wait for implemented 03/14. Verify prepared inspection meshes and eight GPU planes; no caps in this delivery. |
-| 05 | [Vim mode](../2026-10-03_05_vim-editor-mode/3_overall-plan.md) | Ready; user choices settled | Planned; command matrix and four phases; implementation not started | Wait for verified 02 handoff. Port the pinned engine without GTK/GLib; prove commands/undo before Qt UI completion. |
-| 06 | [Source / geometry provenance](../2026-10-03_06_source-geometry-provenance/3_overall-plan.md) | Ready | Planned; three phases; implementation not started | Wait for implemented 02/03. Verify UTF-8 spans and instance mapping; no invented final-face identities. |
+| 01 | [Agent skill workflows](../../3_done/2026-10-03_01_agent-skill-workflows/5_post-implementation-notes.md) | Ready | Bounded local implementation and portable verification complete | Source uncommitted. Real application Stage/Package acceptance remains for the next requested composition. |
+| 02 | [Source editing foundation](../../3_done/2026-10-03_02_source-editing-foundation/5_post-implementation-notes.md) | Ready | Bounded local implementation and final patch/hash handoff complete | Consume the recorded uncommitted delta before 05/06/14; synchronous pre-group edit API is verified. |
+| 03 | [Selection / Inspector](../../3_done/2026-10-03_03_selection-model-inspector/5_post-implementation-notes.md) | Ready | Original bounded implementation and shared presentation complete locally | Preserve frozen feature patch; implement the separate generic draft-display/sealed-input/focus follow-up before 12. It is not needed to start 04/07. |
+| 04 | [Live clipping](../../3_done/2026-10-03_04_live-clipping-sections/3_overall-plan.md) | Ready | Planned; four phases; implementation not started | Wait for implemented 03/14. Verify prepared inspection meshes and eight GPU planes; no caps in this delivery. |
+| 05 | [Vim mode](../../3_done/2026-10-03_05_vim-editor-mode/3_overall-plan.md) | Ready; user choices settled | Planned; command matrix and four phases; implementation not started | Wait for verified 02 handoff. Port the pinned engine without GTK/GLib; prove commands/undo before Qt UI completion. |
+| 06 | [Source / geometry provenance](../../3_done/2026-10-03_06_source-geometry-provenance/3_overall-plan.md) | Ready | Planned; three phases; implementation not started | Wait for implemented 02/03. Verify UTF-8 spans and instance mapping; no invented final-face identities. |
 | 07 | [Semantic hierarchy](../2026-10-03_07_semantic-model-hierarchy/3_overall-plan.md) | Ready; all seven choices accepted | Handoff prepared: source-reviewed technical design and six implementation phases | Wait for verified 03/06/14, including 03's shared presentation refinement. No 04 dependency; minimal-base and later 04 composition tests are specified. |
 | 08 | [Anchors / attachments](../2026-10-03_08_anchors-attachments/3_overall-plan.md) | Ready; all six decisions accepted | Handoff prepared: source contract, numerical/evaluation design, six phases and executed pinned BOSL2 mapping probe | Wait for verified 03/07/14 and their closure, including scoped declaration/lifecycle and pre-publication placement hooks. Native implementation/bridge/runtime tests remain outstanding. |
 | 09 | [Technical drawings](../2026-10-03_09_technical-drawings/1_exploration.md) | Partial | Postponed by user | Preserve exploration; resume projection, dimensions, layout and output decisions when requested. |
@@ -84,8 +84,8 @@ The IDs below are identifiers, not implementation order. The user wants 01-06 fi
 | 11 | [Component providers](../2026-10-03_11_component-provider-adapters/3_overall-plan.md) | Ready; all three choices accepted | Handoff prepared: provider/version contract, exact tested library profiles and five phases | Independent of new-feature implementations. Ship catalogs without libraries; implement and verify the real schema/matcher/generator, discovery and packaging. |
 | 12 | [Contextual insertion](../2026-10-03_12_contextual-insertion/3_overall-plan.md) | Ready; all five choices accepted | Handoff prepared: source/preview contracts, source audit, examples and six phases | Wait for verified 02/03/06/08/11 closure, including 03's generic follow-up and 11 role metadata. First prove isolated deterministic candidate evaluation, then source/UI/Commit. |
 | 13 | [Agent geometry analysis](../2026-10-03_13_agent-geometry-analysis/1_exploration.md) | Scope unaccepted | Postponed by user | Establish a concrete missing capability/consumer before resuming; reuse existing in-memory services and keep agent guidance in 01. |
-| 14 | [Design objects / persistence](../2026-10-03_14_design-object-persistence/3_overall-plan.md) | Ready; source storage selected | Planned; four phases; implementation not started | Wait for implemented 02/03. Verify typed declarations, the generic host hooks refined for 07, parametric fields, lossless edits and source/lifecycle undo. |
-| 15 | [Geometry services](../2026-10-03_15_geometry-services/5_post-implementation-notes.md) | Bounded shared core | Bounded local implementation complete; numerical, backend-disabled, build and regression checks recorded | Changes remain uncommitted and unintegrated; consume its recorded API and verified delta, not the unchanged base SHA alone. |
+| 14 | [Design objects / persistence](../../3_done/2026-10-03_14_design-object-persistence/3_overall-plan.md) | Ready; source storage selected | Planned; four phases; implementation not started | Wait for implemented 02/03. Verify typed declarations, the generic host hooks refined for 07, parametric fields, lossless edits and source/lifecycle undo. |
+| 15 | [Geometry services](../../3_done/2026-10-03_15_geometry-services/5_post-implementation-notes.md) | Bounded shared core | Bounded local implementation complete; numerical, backend-disabled, build and regression checks recorded | Changes remain uncommitted and unintegrated; consume its recorded API and verified delta, not the unchanged base SHA alone. |
 
 For planned features, prepared handoffs are source-reviewed designs, not claims that future code was compiled or
 tested. The shared [implementation handoff standard](implementation-handoff.md) applies to every phase. No numeric
@@ -108,9 +108,9 @@ record was read on 2026-10-04 and supersedes references to active 03 work. This 
 Its source is in `wt-scadmaxx-agent-skill-workflows`; actual integrated application Stage/Package acceptance is deferred.
 15's completion record reports 12 numerical cases, five no-Manifold cases, eight projection/export regressions and
 the supported Release application/console build passing, in `wt-openscad-geometry-services`. Its verified technical
-replan is recorded in [status.md](../2026-10-03_15_geometry-services/status.md).
+replan is recorded in [status.md](../../3_done/2026-10-03_15_geometry-services/status.md).
 
-02's [completion handoff](../2026-10-03_02_source-editing-foundation/5_post-implementation-notes.md) is now present,
+02's [completion handoff](../../3_done/2026-10-03_02_source-editing-foundation/5_post-implementation-notes.md) is now present,
 including synchronous edit-boundary verification, separable patches and exact source hashes under
 `runs/20261003-source-editing-foundation`. Its occupied checkout is `wt-openscad-source-editing-foundation`.
 The first chat's completed response confirms seven unit cases, the native suite and native application build passed.
@@ -176,7 +176,7 @@ Each prepared overall plan names its exact existing symbols and proposed new fil
 The [Geany vimode README](https://github.com/geany/geany-plugins/blob/master/vimode/README) confirms a Scintilla-based
 engine with GTK event glue and a GPLv2-or-later license. It also documents missing named registers/visual-block mode
 and differences from Vim search behavior. This supports reuse investigation, not a claim of a proven Qt/Windows port.
-The subsequent [Vim port investigation](../2026-10-03_05_vim-editor-mode/port-investigation.md) retrieved the public
+The subsequent [Vim port investigation](../../3_done/2026-10-03_05_vim-editor-mode/port-investigation.md) retrieved the public
 interfaces, state, command runner, motion, text-object, edit and undo sources at a pinned revision through GitHub's API.
 It found GTK/GLib dependencies, global state and Visual-selection differences requiring adaptation. The technical plan
 now specifies selected source files, replacements, per-editor state and the bounded command contract. The user selected

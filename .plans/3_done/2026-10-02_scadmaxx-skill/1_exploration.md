@@ -32,7 +32,7 @@ Document a repeatable discover -> target -> inspect -> edit -> preview -> render
 workflow, choosing the HTTP API, CLI or UI according to the actual available capabilities. Verify
 document and operation semantics against the shipped implementation rather than assuming API support.
 The full agent API uses `/v1` with direct HTTP access and no shipped Python client; use the
-[direct-HTTP follow-up](../../2_in-progress/2026-10-02_agent-direct-http/5_post-implementation-notes.md)
+[direct-HTTP follow-up](../2026-10-02_agent-direct-http/5_post-implementation-notes.md)
 as the current source handoff. It has no source-write, tab-switch, save or forced preview/render endpoint.
 Explain how file-based editing and observed native reload fit those limits; do not invent HTTP operations.
 
@@ -176,6 +176,6 @@ verify that an agent does not assume experimental capabilities exist in every Op
 Test the packaged bundle from a directory outside the development workspace.
 
 Existing implementation and test evidence:
-[OEP8/Customizer handoff](../../1_planning/2026-10-02_oep8-customizer-syntax/5_post-implementation-notes.md).
+[OEP8/Customizer handoff](../2026-10-02_oep8-customizer-syntax/5_post-implementation-notes.md).
 The language patch is already selected and verified; this skill/documentation feature is separate work
 and does not reopen its implementation or delay existing selected builds.

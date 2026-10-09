@@ -47,7 +47,7 @@ that arbitrary OpenSCAD programs have a unique inverse edit.
 D's opening discussion adds optional actions starting from an inspection section: copy its position/normal, create
 source parameters, generate a 2D projection or deliberate CSG cut, or create a construction reference. These need a
 known target, local/world frame and explicit source transaction. They are later authoring actions, distinct from
-saving the Section declaration through [14](../2026-10-03_14_design-object-persistence/1_exploration.md), and must
+saving the Section declaration through [14](../../3_done/2026-10-03_14_design-object-persistence/1_exploration.md), and must
 not make ordinary clipping gestures rewrite geometry.
 
 ## Editing constraints
@@ -64,8 +64,8 @@ not make ordinary clipping gestures rewrite geometry.
 
 ## Dependencies and boundaries
 
-Consume [02](../2026-10-03_02_source-editing-foundation/1_exploration.md),
-[06](../2026-10-03_06_source-geometry-provenance/1_exploration.md), shared picking,
+Consume [02](../../3_done/2026-10-03_02_source-editing-foundation/1_exploration.md),
+[06](../../3_done/2026-10-03_06_source-geometry-provenance/1_exploration.md), shared picking,
 [07](../2026-10-03_07_semantic-model-hierarchy/1_exploration.md), and
 [08](../2026-10-03_08_anchors-attachments/1_exploration.md) for attachment-aware operations.
 
@@ -73,7 +73,7 @@ Clipping remains inspection state; drawing dimensions do not automatically edit 
 separate in [12](../2026-10-03_12_contextual-insertion/1_exploration.md), sharing this source-action infrastructure
 without depending on completion of every manipulation tool. Vim remains an independent editor interaction layer.
 
-Research described in [06](../2026-10-03_06_source-geometry-provenance/1_exploration.md) supplies precedents, not a
+Research described in [06](../../3_done/2026-10-03_06_source-geometry-provenance/1_exploration.md) supplies precedents, not a
 verified ready-to-integrate implementation. External editors interoperate through normal file semantics; no broker
 is required by the final user decision.
 

@@ -7,7 +7,7 @@ No scope choice was accepted, no implementation is scheduled and no other active
 
 Preserve the exploration and [unresolved decision review](0_conversation.md) for a user-requested resumption.
 The proposals below are dormant, not an active work queue. Shared basic algorithms have a local implementation handoff
-in [15](../2026-10-03_15_geometry-services/5_post-implementation-notes.md). See the
+in [15](../../3_done/2026-10-03_15_geometry-services/5_post-implementation-notes.md). See the
 [readiness audit](../2026-10-03_00_source-first-cad-overview/planning-readiness.md).
 
 Source: chat E in the [overview](../2026-10-03_00_source-first-cad-overview/1_exploration.md).
@@ -66,13 +66,13 @@ operations and numerical definitions during requirements work; preserve every fa
 
 E identifies andreahaku's scripts for slicing/reconstruction/comparison and RobertCoop's OpenSCAD MCP operations for
 measurements/cavities/sections/clearance as useful leads. See the links in
-[01](../2026-10-03_01_agent-skill-workflows/1_exploration.md). Verify implementation, reuse terms and platform/dependency
+[01](../../3_done/2026-10-03_01_agent-skill-workflows/1_exploration.md). Verify implementation, reuse terms and platform/dependency
 cost before choosing a backend or copying tools. Other MCP implementations were mentioned as mostly render/export
 wrappers; their inclusion was not a decision to install or expose multiple servers.
 
 Live clipping (04) is a viewer facility. Shared geometry measurements and section computation belong to
-[15](../2026-10-03_15_geometry-services/1_exploration.md), with Section/View definitions in
-[14](../2026-10-03_14_design-object-persistence/1_exploration.md). This feature consumes those APIs independently of
+[15](../../3_done/2026-10-03_15_geometry-services/1_exploration.md), with Section/View definitions in
+[14](../../3_done/2026-10-03_14_design-object-persistence/1_exploration.md). This feature consumes those APIs independently of
 drawings (09), exposing guarded tool operations and analysis/reconstruction workflows. Semantic assembly inspection
 uses 07/08. Basic numerical work can ship first as 15 rather than making this feature own an early shared kernel.
 

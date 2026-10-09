@@ -15,7 +15,7 @@ Core phases 1–6 precede independent phase 7. See [execution evidence](5_post-i
 - Choose the smallest reviewed prerequisite delta. Record ancestry and stack overlap so annotations are integrated
   once. Reuse the existing clone/worktree; do not base this branch on a composed experimental build.
 - Navigation is required only for phase 7. No root dependency graph existed at planning time; keep sequencing here.
-  Its completed plan is [navigation](../../3_done/2026-10-01_navigation-cube/3_overall-plan.md); the integrated
+  Its completed plan is [navigation](../2026-10-01_navigation-cube/3_overall-plan.md); the integrated
   revision is 0947b9e3a840209153d0ad791df27f38ec86858c. Exact retained boundaries are in the implementation notes.
 - Proposed build directory: `build-http-agent-server` within the dedicated checkout; verify it is available first.
   Evidence: `D:/openscad/runs/http-agent-server/<attempt>/`; local staging, when requested/needed for validation:

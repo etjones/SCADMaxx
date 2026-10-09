@@ -46,8 +46,8 @@ Define a canonical drawing frame for a part/assembly, with a clear local/world d
 top and bottom must derive consistently from that frame. Named points, axes, planes, profiles and interfaces in
 [08](../2026-10-03_08_anchors-attachments/1_exploration.md) provide meaningful directions and attachment references.
 
-Reuse the Section object owned by [14](../2026-10-03_14_design-object-persistence/1_exploration.md) and also consumed by
-[04](../2026-10-03_04_live-clipping-sections/1_exploration.md): stable identity, target/frame, origin, normal and
+Reuse the Section object owned by [14](../../3_done/2026-10-03_14_design-object-persistence/1_exploration.md) and also consumed by
+[04](../../3_done/2026-10-03_04_live-clipping-sections/1_exploration.md): stable identity, target/frame, origin, normal and
 an up direction defining the 2D section orientation. A section through an axis plus a named offset is preferable to
 an unrelated world coordinate when that relationship expresses the design intent. A drawing must not make a second
 independent copy of an inspection section. Section targets and component identity can support separate hatch
@@ -75,18 +75,18 @@ exact section boundaries and hatching, then composes 2D primitives, dimensions, 
 title blocks. SVG, PDF and DXF are the proposed output formats. Define which features each format preserves.
 
 Live GPU clipping does not itself produce exact section contours. Consume reusable numerical sections/measurements
-from [15](../2026-10-03_15_geometry-services/1_exploration.md); own drawing-specific projection/edge styling and layout
+from [15](../../3_done/2026-10-03_15_geometry-services/1_exploration.md); own drawing-specific projection/edge styling and layout
 here. Keep enough component information for vector drawings. Rendered/isometric images can supplement line drawings,
 but a screenshot with overlaid arrows alone does not fulfil the repeatable technical-output intent.
 
 ## Persistence and editing
 
-[14](../2026-10-03_14_design-object-persistence/1_exploration.md) owns shared design objects, persistence closure and
+[14](../../3_done/2026-10-03_14_design-object-persistence/1_exploration.md) owns shared design objects, persistence closure and
 reference resolution. Saving a drawing also persists its referenced unsaved sections/views without duplicating them.
 Layout, dimensions, semantic references and deliverable notes must travel with the design and reproduce the output.
 
 Graphical edits update the `.scad` buffer containing the declaration, with undo, dirty/save and ordinary external-file
-conflict handling from [02](../2026-10-03_02_source-editing-foundation/1_exploration.md). Expressions can refer to model
+conflict handling from [02](../../3_done/2026-10-03_02_source-editing-foundation/1_exploration.md). Expressions can refer to model
 parameters and must retain their parametric relationships. Included files have explicit editor ownership and normal
 save/reload protection. No VS Code broker, CRDT or separate drawing-sidecar grammar is required.
 

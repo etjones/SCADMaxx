@@ -2,7 +2,7 @@
 
 Status: implemented and verified on Windows on 2026-10-01. See [implementation results](5_post-implementation-notes.md).
 Shared evidence and accepted reference:
-[UI visual polish](../../3_done/2026-10-01_ui-visual-polish/1_exploration.md).
+[UI visual polish](../2026-10-01_ui-visual-polish/1_exploration.md).
 Readiness review: all three product decisions resolved. See [requirements](2_requirements.md) and
 [implementation plan](3_overall-plan.md).
 The user subsequently authorized sequential implementation of all phases of this feature.
