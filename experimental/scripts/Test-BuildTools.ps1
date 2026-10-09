@@ -15,16 +15,17 @@ function Expect-Failure([scriptblock]$Action, [string]$Pattern) {
     try { & $Action } catch { if ($_.ToString() -notmatch $Pattern) { throw }; return }
     throw "Expected failure matching $Pattern"
 }
-Assert-DeliveryStagingPath "$case/artifacts/example/20261005T142530123Z/staging" $case 'example'
-Assert-DeliveryStagingPath "$case/artifacts/example/20261006T091215456Z/staging" $case 'example'
+Assert-DeliveryStagingPath "$case/artifacts/example/2026-10-05_14-25/staging" $case 'example'
+Assert-DeliveryStagingPath "$case/artifacts/example/2026-10-06_09-12/staging" $case 'example'
 foreach ($badCollection in @('20261005-scadmaxx-all-features','scadmaxx-20261005','attempt-5','../outside','')) {
-    Expect-Failure { Assert-DeliveryStagingPath "$case/artifacts/$badCollection/20261005T142530123Z/staging" $case $badCollection } 'Delivery collection'
+    Expect-Failure { Assert-DeliveryStagingPath "$case/artifacts/$badCollection/2026-10-05_14-25/staging" $case $badCollection } 'Delivery collection'
 }
-foreach ($bad in @('attempt-1/staging','20261005T142530123Z/runtime','20261305T142530123Z/staging',
-        '20261005T142530123Z/extra/staging')) {
+foreach ($bad in @('attempt-1/staging','2026-10-05_14-25/runtime','2026-13-05_14-25/staging',
+        '2026-10-05_14-25/extra/staging','20261005T142530123Z/staging',
+        '2026-10-05_14-25-30/staging','2026-10-05_14-25Z/staging','2026-10-05_25-00/staging')) {
     Expect-Failure { Assert-DeliveryStagingPath "$case/artifacts/example/$bad" $case 'example' } 'Delivery'
 }
-Expect-Failure { Assert-DeliveryStagingPath "$case/artifacts/other/20261005T142530123Z/staging" $case 'example' } 'Delivery'
+Expect-Failure { Assert-DeliveryStagingPath "$case/artifacts/other/2026-10-05_14-25/staging" $case 'example' } 'Delivery'
 $count++
 Assert-ChildPath (Join-Path $root 'child') $root
 Expect-Failure { Assert-ChildPath "$root-other/child" $root } 'Path must be inside'
@@ -51,10 +52,10 @@ Set-Content (Join-Path $inventoryDir 'file.txt') 'after'
 $after = @(Get-FileInventory $inventoryDir)
 if ($before[0].sha256 -eq $after[0].sha256) { throw 'Staging content modification was not detected.' }
 $count++
-Expect-Failure { & "$PSScriptRoot/New-ExperimentalRun.ps1" -RunId '../invalid' } 'Run ID must contain'
+Expect-Failure { & "$PSScriptRoot/New-ExperimentalRun.ps1" -RunId '../invalid' } 'Run ID must be'
 $count++
-New-Item -ItemType Directory -Force (Join-Path $case 'runs/existing') | Out-Null
-Expect-Failure { & "$PSScriptRoot/New-ExperimentalRun.ps1" -Workspace $case -ControlRoot $case -RunId 'existing' } 'Run or worktree already exists'
+New-Item -ItemType Directory -Force (Join-Path $case 'runs/scadmaxx-all-features-2026-10-07_00-00') | Out-Null
+Expect-Failure { & "$PSScriptRoot/New-ExperimentalRun.ps1" -Workspace $case -ControlRoot $case -RunId 'scadmaxx-all-features-2026-10-07_00-00' } 'Run or worktree already exists'
 $count++
 $fixtureRepo = Join-Path $case 'openscad-master'
 Invoke-Logged 'git' @('init','-b','main',$fixtureRepo)
@@ -77,11 +78,11 @@ Save-Json (Join-Path $case 'experimental/DEPENDENCIES.json') @{
 ## Candidates
 | 3 | unselected | pr | https://github.com/openscad/openscad/pull/6871 | latest | merge | none declared | Must stay unselected |
 '@ | Set-Content (Join-Path $case 'experimental/PR_STACK.md')
-$selected = & "$PSScriptRoot/New-ExperimentalRun.ps1" -Workspace $case -ControlRoot $case -RunId 'validation' -ValidateOnly | ConvertFrom-Json
+$selected = & "$PSScriptRoot/New-ExperimentalRun.ps1" -Workspace $case -ControlRoot $case -RunId 'scadmaxx-all-features-2026-10-07_00-01' -ValidateOnly | ConvertFrom-Json
 if ($selected.Count -ne 2 -or $selected[0].id -ne 'first' -or $selected[1].dependencies.Count -ne 0) {
     throw 'Enabled selection parsing failed or included an unselected candidate.'
 }
-if (Test-Path (Join-Path $case 'runs/validation')) { throw 'Read-only validation created a run.' }
+if (Test-Path (Join-Path $case 'runs/scadmaxx-all-features-2026-10-07_00-01')) { throw 'Read-only validation created a run.' }
 $count++
 @'
 ## Enabled stack (ordered)
@@ -97,19 +98,19 @@ Save-Json (Join-Path $case 'experimental/DEPENDENCIES.json') @{
         'local-feature'=@{sourceKey='local-feature';ref='refs/heads/feature/example';dependencies=@{}}
     }
 }
-$selected = & "$PSScriptRoot/New-ExperimentalRun.ps1" -Workspace $case -ControlRoot $case -RunId 'pending-feature' -ValidateOnly | ConvertFrom-Json
+$selected = & "$PSScriptRoot/New-ExperimentalRun.ps1" -Workspace $case -ControlRoot $case -RunId 'scadmaxx-all-features-2026-10-07_00-02' -ValidateOnly | ConvertFrom-Json
 if ($selected.ready -ne $false -or !$selected.pendingReason) { throw 'Validation lost pending feature state.' }
-Expect-Failure { & "$PSScriptRoot/New-ExperimentalRun.ps1" -Workspace $case -ControlRoot $case -RunId 'pending-feature' } 'Selected features are not ready'
-if (Test-Path (Join-Path $case 'runs/pending-feature')) { throw 'Pending feature created a run.' }
+Expect-Failure { & "$PSScriptRoot/New-ExperimentalRun.ps1" -Workspace $case -ControlRoot $case -RunId 'scadmaxx-all-features-2026-10-07_00-02' } 'Selected features are not ready'
+if (Test-Path (Join-Path $case 'runs/scadmaxx-all-features-2026-10-07_00-02')) { throw 'Pending feature created a run.' }
 if (Read-Git $fixtureRepo @('for-each-ref','--format=%(refname)')) { throw 'Pending feature changed Git refs.' }
 $count++
 $featureDefinition['local-feature'].ready = 'false'
 Save-Json (Join-Path $case 'experimental/SOURCES.json') $featureDefinition
-Expect-Failure { & "$PSScriptRoot/New-ExperimentalRun.ps1" -Workspace $case -ControlRoot $case -RunId 'invalid-ready' -ValidateOnly } 'JSON boolean'
+Expect-Failure { & "$PSScriptRoot/New-ExperimentalRun.ps1" -Workspace $case -ControlRoot $case -RunId 'scadmaxx-all-features-2026-10-07_00-03' -ValidateOnly } 'JSON boolean'
 $count++
 $featureDefinition['local-feature'].ready = $true
 Save-Json (Join-Path $case 'experimental/SOURCES.json') $featureDefinition
-$selected = & "$PSScriptRoot/New-ExperimentalRun.ps1" -Workspace $case -ControlRoot $case -RunId 'ready-feature' -ValidateOnly | ConvertFrom-Json
+$selected = & "$PSScriptRoot/New-ExperimentalRun.ps1" -Workspace $case -ControlRoot $case -RunId 'scadmaxx-all-features-2026-10-07_00-04' -ValidateOnly | ConvertFrom-Json
 if (!$selected.ready) { throw 'Ready feature remained pending.' }
 $count++
 $testSource = Join-Path $case 'generated-header-fixture'

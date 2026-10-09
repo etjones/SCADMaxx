@@ -7,10 +7,10 @@ function Assert-DeliveryStagingPath([string]$Staging, [string]$Workspace, [strin
     $delivery = Split-Path ([IO.Path]::GetFullPath($Staging)) -Parent
     $stamp = Split-Path $delivery -Leaf
     $parsed = [DateTime]::MinValue
-    if ($stamp -cnotmatch '^\d{8}T\d{9}Z$' -or
-        ![DateTime]::TryParseExact($stamp, "yyyyMMdd'T'HHmmssfff'Z'",
+    if ($stamp -cnotmatch '^\d{4}-\d{2}-\d{2}_\d{2}-\d{2}$' -or
+        ![DateTime]::TryParseExact($stamp, 'yyyy-MM-dd_HH-mm',
             [Globalization.CultureInfo]::InvariantCulture, [Globalization.DateTimeStyles]::None, [ref]$parsed)) {
-        throw 'Delivery ID must be a UTC timestamp: yyyyMMddTHHmmssfffZ; do not use attempt-N.'
+        throw 'Delivery ID must be YYYY-MM-DD_HH-mm (UTC, without seconds or timezone suffix); do not use attempt-N.'
     }
     $expected = [IO.Path]::GetFullPath((Join-Path $Workspace "artifacts/$Collection/$stamp/staging"))
     if (![string]::Equals([IO.Path]::GetFullPath($Staging), $expected, [StringComparison]::OrdinalIgnoreCase)) {
@@ -162,7 +162,8 @@ function Save-ControlSnapshot([string]$Workspace, [string]$RunDirectory, [string
             [IO.Path]::GetRelativePath($Workspace,$_.FullName)
         })
     }
-    $files += @('workflows/scadmaxx-branding.md','workflows/feature-builds.md')
+    $files += @('workflows/scadmaxx-branding.md','workflows/feature-builds.md','workflows/testing.md',
+        'experimental/testing/catalog.json','experimental/testing/feature-coverage.json','experimental/testing/test_profiles.py')
     foreach ($assetDirectory in @('assets/icons','experimental/patches')) {
         $files += @(Get-ChildItem -LiteralPath (Join-Path $Workspace $assetDirectory) -File | ForEach-Object {
             [IO.Path]::GetRelativePath($Workspace, $_.FullName)
@@ -330,8 +331,10 @@ function Invoke-Smoke([string]$Executable, [string]$Directory, [string]$Version,
     $oldPath = $env:PATH
     $oldQt = $env:QT_PLUGIN_PATH
     $oldQpa = $env:QT_QPA_PLATFORM_PLUGIN_PATH
+    $oldPlatform = $env:QT_QPA_PLATFORM
     Push-Location (Split-Path $Executable)
     try {
+        $env:QT_QPA_PLATFORM = 'offscreen'
         if ($CleanPath) {
             $env:PATH = "$env:SystemRoot/System32;$env:SystemRoot"
             $env:QT_PLUGIN_PATH = ''
@@ -358,7 +361,10 @@ function Invoke-Smoke([string]$Executable, [string]$Directory, [string]$Version,
         $png = Join-Path $Directory 'preview.png'
         Invoke-Logged $Executable @('--viewall','--autocenter','--imgsize=640,480','-o',$png,$fixture) -RejectErrors
         if (!(Test-Path $png) -or (Get-Item $png).Length -lt 100) { throw 'CLI preview produced no PNG.' }
-    } finally { $env:PATH = $oldPath; $env:QT_PLUGIN_PATH = $oldQt; $env:QT_QPA_PLATFORM_PLUGIN_PATH = $oldQpa; Pop-Location }
+    } finally {
+        $env:PATH = $oldPath; $env:QT_PLUGIN_PATH = $oldQt; $env:QT_QPA_PLATFORM_PLUGIN_PATH = $oldQpa
+        $env:QT_QPA_PLATFORM = $oldPlatform; Pop-Location
+    }
 }
 
 function Export-SourceTree([string]$Repository, [string]$Destination, [string]$ArchiveDirectory, [string]$CMake) {

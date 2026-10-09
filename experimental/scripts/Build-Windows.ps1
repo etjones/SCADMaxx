@@ -8,6 +8,7 @@ param(
     [Parameter(Mandatory)][Alias('Profile')][string]$BuildProfile,
     [string]$Staging,
     [string]$DeliveryCollection,
+    [string]$ReuseBuildFromRun,
     [ValidateRange(1,64)][int]$Jobs = 4
 )
 Set-StrictMode -Version Latest
@@ -20,7 +21,25 @@ $Run = [IO.Path]::GetFullPath($Run)
 $controlRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../..'))
 $workspace = Split-Path $controlRoot -Parent
 Assert-ChildPath $Run (Join-Path $workspace 'runs')
-Assert-ChildPath $Build $Run
+if ($ReuseBuildFromRun) {
+    $ReuseBuildFromRun = [IO.Path]::GetFullPath($ReuseBuildFromRun)
+    Assert-ChildPath $ReuseBuildFromRun (Join-Path $workspace 'runs')
+    Assert-ChildPath $Build $ReuseBuildFromRun
+    $parentInputs = Get-Content (Join-Path $ReuseBuildFromRun 'inputs.json') -Raw | ConvertFrom-Json -AsHashtable
+    $updateInputs = Get-Content (Join-Path $Run 'inputs.json') -Raw | ConvertFrom-Json -AsHashtable
+    $checkpointRun = [IO.Path]::GetFullPath((Join-Path (Join-Path $workspace 'runs') $updateInputs.parentRunId))
+    Assert-ChildPath $checkpointRun (Join-Path $workspace 'runs')
+    $checkpointInputs = Get-Content (Join-Path $checkpointRun 'inputs.json') -Raw | ConvertFrom-Json -AsHashtable
+    if ([IO.Path]::GetFullPath($parentInputs.source) -ne $Source -or
+        [IO.Path]::GetFullPath($checkpointInputs.source) -ne $Source -or
+        $updateInputs.parentRunId -ne $checkpointInputs.runId -or !$updateInputs.parentIntegrationSha) {
+        throw 'Reused build must belong to the recorded parent integration and the same source checkout.'
+    }
+    & git -C $Source merge-base --is-ancestor $updateInputs.parentIntegrationSha HEAD
+    if ($LASTEXITCODE -ne 0) { throw 'Current source does not preserve the parent integration checkpoint.' }
+} else {
+    Assert-ChildPath $Build $Run
+}
 if ($Staging) {
     $Staging = [IO.Path]::GetFullPath($Staging)
     Assert-ChildPath $Staging (Join-Path $workspace 'artifacts')
@@ -79,13 +98,19 @@ try {
     $record.toolHashes = $toolHashes
     $runInfo = Read-RunInputs $Run
     if ($Step -in @('Stage','Package')) {
-        if (!$Staging) { throw 'Specify -Staging artifacts/<collection>/<UTC-delivery-id>/staging.' }
+        if (!$Staging) { throw 'Specify -Staging artifacts/<collection>/<YYYY-MM-DD_HH-mm>/staging (UTC).' }
         if (!$DeliveryCollection) { throw 'Specify a stable -DeliveryCollection (for example scadmaxx-all-features) for Stage and Package.' }
         Assert-DeliveryStagingPath $Staging $workspace $DeliveryCollection
         $record.deliveryCollection = $DeliveryCollection
         $record.staging = $Staging
     }
-    if ($runInfo.runId -notmatch '^[A-Za-z0-9][A-Za-z0-9-]*$') { throw 'Invalid frozen run ID.' }
+    if (!$runInfo.buildName -or $runInfo.buildName -notmatch '^[a-z0-9][a-z0-9-]*$' -or
+        $runInfo.runId -notmatch ('^' + [regex]::Escape($runInfo.buildName) + '-\d{4}-\d{2}-\d{2}_\d{2}-\d{2}$')) {
+        throw 'Frozen inputs require buildName and runId=<build-name>-YYYY-MM-DD_HH-mm.'
+    }
+    if ($DeliveryCollection -and $DeliveryCollection -ne $runInfo.buildName) {
+        throw 'Delivery collection must match the frozen stable build name.'
+    }
     if ((Get-FileHash (Join-Path $Run 'PR_STACK.md')).Hash -ne $runInfo.stackSha256) {
         throw 'The frozen selection was modified after preparation.'
     }
@@ -112,6 +137,7 @@ try {
     $state = if (Test-Path $statePath) { Get-Content $statePath -Raw | ConvertFrom-Json -AsHashtable } else { $null }
     if ($state -and $state.fingerprint -ne $fingerprint) { throw 'Build inputs changed incompatibly; use a fresh build directory.' }
     if ($Step -ne 'Configure' -and (!$state -or $state.configuredSha -ne $head)) { throw 'Configure this source revision before proceeding.' }
+    if ($Step -ne 'Configure' -and $state.version -ne $version) { throw 'Build identity changed; configure and rebuild before proceeding.' }
     if ($Step -ne 'Configure' -and (Get-FileHash (Join-Path $installed 'vcpkg/status')).Hash -ne $state.dependencyStatusHash) {
         throw 'Installed dependency records changed; reconfigure and verify the dependency profile.'
     }
@@ -170,14 +196,23 @@ try {
                 $env:QT_PLUGIN_PATH = Join-Path $triplet 'Qt6/plugins'
                 $env:QT_QPA_PLATFORM_PLUGIN_PATH = Join-Path $triplet 'Qt6/plugins/platforms'
                 $record.testPluginPath = $env:QT_PLUGIN_PATH
-                Invoke-Logged $unit @('--reporter','junit','--out',(Join-Path $Run "$attemptId-unit.xml"))
                 $testRuntime = Join-Path $Run "$attemptId-runtime"
                 New-Item -ItemType Directory $testRuntime | Out-Null
                 Invoke-Logged $cmake @('--install',$Build,'--config','Release','--prefix',$testRuntime)
                 Copy-QtRuntime $triplet $testRuntime
                 Get-ChildItem -LiteralPath $Build -Filter '*.dll' -File | Copy-Item -Destination $testRuntime
                 Invoke-Logged $cmake @("-DSTAGING=$testRuntime","-DDEPENDENCY_BIN=$triplet/bin",'-P',"$PSScriptRoot/Deploy-Runtime.cmake")
-                Invoke-Smoke (Join-Path $testRuntime 'scadmaxx.exe') (Join-Path $Run $attemptId) $version -CleanPath
+                # The profile owns unit/Vim/critical CLI/smoke coverage and records exact runtime identities.
+                # Test remains windowless; native GUI and timing profiles require separate explicit selection.
+                $testPython = Join-Path $controlRoot 'tools/evaluation-benchmark/realworld/.venv/Scripts/python.exe'
+                if (!(Test-Path $testPython)) { throw 'Provision the existing realworld uv environment before running Test.' }
+                $testEvidence = Join-Path $Run "$attemptId-everyday"
+                $testCtest = Join-Path (Split-Path $cmake) 'ctest.exe'
+                Invoke-Logged $testPython @("$PSScriptRoot/Test-Profiles.py",'--profile','everyday','--run',
+                    '--source',$Source,'--build',$Build,'--runtime',$testRuntime,'--output',$testEvidence,
+                    '--ctest',$testCtest,'--expected-version',$version)
+                $record.testProfile = 'everyday'
+                $record.testEvidence = $testEvidence
             } finally {
                 $env:PATH = $previousTestPath
                 $env:QT_PLUGIN_PATH = $previousTestPlugins

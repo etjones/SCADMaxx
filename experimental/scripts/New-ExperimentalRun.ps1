@@ -3,7 +3,9 @@
 param(
     [string]$Workspace = ([IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../../..'))),
     [string]$ControlRoot = ([IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../..'))),
-    [string]$RunId = (Get-Date -AsUTC -Format yyyyMMddTHHmmssZ),
+    [ValidatePattern('^[a-z0-9][a-z0-9-]*$')][string]$BuildName = 'scadmaxx-all-features',
+    [string]$RunId,
+    [string]$Purpose = 'Full integration of the selected stack',
     [string]$SourceDefinitions,
     [switch]$ValidateOnly
 )
@@ -11,7 +13,10 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 $PSNativeCommandUseErrorActionPreference = $false
 . "$PSScriptRoot/Common.ps1"
-if ($RunId -notmatch '^[A-Za-z0-9][A-Za-z0-9-]*$') { throw 'Run ID must contain only letters, digits, and hyphens.' }
+if (!$RunId) { $RunId = "$BuildName-$(Get-Date -AsUTC -Format yyyy-MM-dd_HH-mm)" }
+if ($RunId -notmatch ('^' + [regex]::Escape($BuildName) + '-\d{4}-\d{2}-\d{2}_\d{2}-\d{2}$')) {
+    throw 'Run ID must be <build-name>-YYYY-MM-DD_HH-mm (UTC, without seconds or timezone suffix); put the work description in Purpose.'
+}
 $Workspace = [IO.Path]::GetFullPath($Workspace)
 $ControlRoot = [IO.Path]::GetFullPath($ControlRoot)
 $repo = Join-Path $Workspace 'openscad-master'
@@ -96,7 +101,7 @@ if ($pending.Count) {
 New-Item -ItemType Directory -Path $run,(Join-Path $run 'logs') | Out-Null
 $script:LogPath = Join-Path $run 'logs/prepare.log'
 $script:CommandRecords = [Collections.Generic.List[object]]::new()
-$info = [ordered]@{contractVersion=2; runId=$RunId; versionDate=(Get-Date -AsUTC -Format yyyy.MM.dd); status='preparing'; source=$source; branch=$branch; controlRoot=$ControlRoot; entries=@($entries)}
+$info = [ordered]@{contractVersion=2; buildName=$BuildName; runId=$RunId; purpose=$Purpose; versionDate=(Get-Date -AsUTC -Format yyyy.MM.dd); status='preparing'; source=$source; branch=$branch; controlRoot=$ControlRoot; entries=@($entries)}
 try {
     Copy-Item (Join-Path $ControlRoot 'experimental/PR_STACK.md') (Join-Path $run 'PR_STACK.md')
     Copy-Item (Join-Path $ControlRoot 'experimental/templates/run-report.md') (Join-Path $run 'report.md')
@@ -148,6 +153,8 @@ try {
         foreach ($known in $manifest.nodes.Keys) {
             if ($selected.ContainsKey($known)) { continue }
             $marker = $manifest.nodes[$known].featureMarker
+            # A planned branch has no feature commit to detect in another branch's ancestry yet.
+            if (!$marker -and $manifest.nodes[$known].implementationPending -eq $true) { continue }
             & git -C $repo merge-base --is-ancestor $marker $info.upstream
             if ($LASTEXITCODE -eq 0) { continue }
             if ($LASTEXITCODE -ne 1) { throw "Cannot inspect upstream ancestry for $known" }

@@ -143,7 +143,7 @@ upstream. Record verification and limitations in the run report. Do not create o
 ```powershell
 $buildArgs.Build = 'D:/openscad/runs/<run-id>/integration-build'
 $collection = 'scadmaxx-all-features' # Stable across daily runs.
-$deliveryId = Get-Date -AsUTC -Format yyyyMMddTHHmmssfffZ
+$deliveryId = Get-Date -AsUTC -Format yyyy-MM-dd_HH-mm
 $staging = "D:/openscad/artifacts/$collection/$deliveryId/staging" # Reuse for Stage and Package.
 ./experimental/scripts/Build-Windows.ps1 @buildArgs -Step Stage -Staging $staging -DeliveryCollection $collection
 ./experimental/scripts/Build-Windows.ps1 @buildArgs -Step Package -Staging $staging -DeliveryCollection $collection
@@ -162,7 +162,9 @@ These automated checks do not claim GUI interactions, selected feature behavior,
 Complete those checks in the run report before marking the profile/release verified or creating its success tag.
 
 For a failed staging attempt, use a new staging path; for a failed Package attempt, preserve its outputs and use a
-new UTC-timestamped delivery directory in the same stable collection. Never use attempt-N or runtime for new deliveries. Final verification evidence and profile/dependency metadata must accompany source delivery.
+new `YYYY-MM-DD_HH-mm` UTC delivery directory in the same stable collection. If the minute is already
+occupied, start in a later minute; never overwrite output or append seconds/a numbered suffix.
+Never use attempt-N or runtime for new deliveries. Final verification evidence and profile/dependency metadata must accompany source delivery.
 
 ## Tool checks
 

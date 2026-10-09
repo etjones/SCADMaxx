@@ -29,8 +29,23 @@ identify the revision used to produce and verify the delivered package.
 
 - Name integration branches/worktrees using the
   [creation-date naming rule](../docs/git-layout.md#integration-branch-and-worktree-names), and record their mapping
-  to the unique run ID. Use the unique run ID throughout logs, package, and application identity. The application should display
-  `experimental-<run-id>` alongside its OpenSCAD version and source revision in About/version information.
+  to the unique run ID. Keep three distinct fields in frozen `inputs.json`:
+  - `buildName`: stable edition name, `scadmaxx-all-features` for the maintained full stack. Inherit it on re-integration.
+  - `runId`: `<buildName>-YYYY-MM-DD_HH-mm`, for example `scadmaxx-all-features-2026-10-07_08-53`.
+    Use UTC for the clock value, but omit seconds and the timezone suffix from the name. Use hyphens between
+    date components, an underscore before the time, and a hyphen between hour and minute.
+    Never use a feature name or task description as the edition/run name. If that minute's ID already exists,
+    resume that run when appropriate or start the new run in a later minute; never overwrite it or add seconds.
+    Apply this format to future run IDs, displayed versions and packaged output directory timestamps;
+    preserve existing run/delivery names and evidence. Delivery timestamps are generated separately at staging
+    start; follow the [packaging contract](../workflows/experimental-builds.md#package-and-verify).
+  - `purpose`: human description such as "Re-integrate geometry bounds"; this belongs in evidence, not the version.
+  The source branch/worktree retains its creation-date name, independently of the build name and run timestamp.
+  Display `<versionDate>-experimental-<runId>` alongside the source revision in About/version information.
+  Use the stable build name as the artifact collection. Keep the requested application ZIP filename unchanged.
+  For a naming correction to a delivered build, prepare a new run from the same frozen source and inputs; preserve
+  old runs and archives. Reconfigure and incrementally rebuild before packaging: renaming files or editing JSON
+  alone cannot change the version embedded in the executable. Obtain build authorization under the workspace rule.
 - Implement this through the locked source's supported version mechanism where possible. Any needed source change
   is a separate packaging-metadata commit before the final build; do not put a self-referential commit SHA into a
   source commit. Generate final-SHA metadata at build time.
