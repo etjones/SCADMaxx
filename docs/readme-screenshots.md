@@ -71,6 +71,10 @@ or restore a text-only feature section for them.
 
 ## Resume point
 
+For an existing shipped release, follow [the release capture recipe](readme-release-captures.md)
+for reusable models, shot interactions, layout pitfalls and pending-asset inventory. Use
+`sources.json` to distinguish missing captures from existing assets still commented out in README.
+
 Once the integrated build works and screenshot work resumes, read this brief first. Record the build revision
 used for captures and replace the rejected placeholders with deliberate demonstrations meeting the requirements
 above. Do not silently relax a shot requirement if the UI cannot show the requested state; report that limitation.

@@ -1,7 +1,12 @@
 # Native README captures
 
-The reusable capture harness lives on source branch `codex/readme-captures`, in
-`D:/openscad/wt-openscad-readme-captures`. Its starting point is the integrated SCADMaxx
+For screenshots from an **already shipped executable**, start with
+[the release capture recipe](readme-release-captures.md). The harness below requires a separate
+test-enabled binary and is not the default path for capturing the shipped release.
+
+The reusable capture harness is retained on source branch `codex/readme-captures`.
+Its former checkout `D:/openscad/wt-openscad-readme-captures` was retired on 2026-10-08.
+Its starting point is the integrated SCADMaxx
 revision `bcf48145d9ebc7ffdcde0414ddde38ceb62f0b6a`. It shares the source repository in
 `openscad-master`; its default push destination is the private OpenSCAD origin.
 The runner, model and shot recipe belong to this SCADMaxx control repository.
@@ -12,6 +17,22 @@ Separate top-level popup/dialog pixels are included at their real positions in t
 capture because `QWidget::grab()` alone omits those windows. No mock UI is drawn.
 
 ## Run
+
+The capture and baseline checkouts are created on demand. For historical replay, first verify the target
+path is absent and the branch is not checked out elsewhere with `git worktree list`, then recreate the
+required checkout from the retained branch:
+
+```powershell
+git -C D:/openscad/openscad-master worktree add D:/openscad/wt-openscad-readme-captures codex/readme-captures
+git -C D:/openscad/wt-openscad-readme-captures submodule update --init --recursive
+```
+
+For the matching old-UI baseline, substitute `wt-openscad-readme-baseline` and `codex/readme-baseline`.
+The [retirement record](../../runs/20261008-worktree-retirement/report.md) retains ignored files and
+submodule working state if exact historical reconstruction is needed. The runner defaults to the former
+capture path and reports a missing checkout before initializing build tools. For current-release screenshots,
+use the release recipe above; for a new test-enabled harness build, follow the reuse section below.
+Creating a checkout does not authorize a build or desktop capture.
 
 From `D:/openscad/scadmaxx`, using the existing local Windows build profile:
 
@@ -72,4 +93,5 @@ The light/dark pair uses Tomorrow/Tomorrow Night viewport backgrounds selected b
 OS palette switching does not itself select a viewport color scheme. The annotation dock is floated and
 hidden while its drawing palette remains visible, giving the model and comment dialog the available space.
 
-The harness changes are currently uncommitted in their dedicated worktrees. No branch was pushed.
+The harness changes were subsequently committed: `e5991ad0a` on `codex/readme-captures` and
+`f65fe98dd` on `codex/readme-baseline`. Both branches remain after checkout retirement.

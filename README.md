@@ -4,14 +4,17 @@
 
 SCADMaxx is not a fork of OpenSCAD. It is a build of openscad-master with a collection of experimental patches. These
 patches are PR's from OpenSCAD's Github as well as other features that (source code wise) aren't in a state to be merged
-and are only to be taken as implementations to investigate in terms of functionality, usability and so on.
+and are only to be taken as implementations to investigate in terms of functionality, usability and so on; not as
+'proposals' and certainly not integration-ready PR's.
 
-SCADMaxx makes no promises on language compatibility or what features will be in the next version.
+SCADMaxx makes no promises on language compatibility or what features will be in the next version.  That said, I
+personally use SCADMaxx for everything I do with OpenSCAD. Its agentic implementation roots range from 'obvious' to
+'still visible', but it's perfectly usable in terms of stability, and to me the added functionality more than makes up
+for issues.
 
-That said, I personally use SCADMaxx for everything I do with OpenSCAD. Its agentic implementation details range from
-'obvious' to 'still visible', but it's perfectly usable in terms of stability.
-
-This repository holds the build recipes, tools, prompts and documentation used to assemble it.
+This repository holds the build recipes, tools, prompts and documentation used to assemble it. Features are all in their
+own branches, so are branches that hold upstream PR's and integration fixes for them. So this repo has instructions for
+how to integrate/merge those dozens of branches.
 
 <!-- Hand-maintained by the user. Agents must not regenerate or update this README unless explicitly asked. -->
 
@@ -27,6 +30,17 @@ New screenshot slots stay commented out until real captures are available.
 
 ## Agentic use
 
+### Agent access
+
+<a href="docs/screenshots/agent-access.png"><img align="right" hspace="16" width="320" src="docs/screenshots/agent-access.png" alt="Agent access connection dialog with enable, stop and copy connection controls"></a>
+
+- Enable a local HTTP API for inspecting open documents and application state.
+- Read source snapshots, syntax trees, diagnostics and annotations.
+- Control the camera, capture viewport images and access native saved views.
+- Work through external file edits and reloads; the API does not write source files or force evaluation.
+
+<br clear="both">
+
 ### Annotations
 
 <a href="docs/screenshots/annotations.png"><img align="left" hspace="16" width="320" src="docs/screenshots/annotations.png" alt="Red annotation around a mounting hole that breaks through the bracket edge, with drawing tools and defect comment dialog visible"></a>
@@ -39,17 +53,6 @@ then pasting that back into your agent? Well, no more! Annotate your views strai
 - Browse, search and edit annotations, or restore an annotation's camera view.
 - Save annotations alongside the SCAD document.
 - Local agents directly access your annotations through an HTTP API, and remove it when the issue is fixed, if you want.
-
-<br clear="both">
-
-### Agent access
-
-<a href="docs/screenshots/agent-access.png"><img align="right" hspace="16" width="320" src="docs/screenshots/agent-access.png" alt="Agent access connection dialog with enable, stop and copy connection controls"></a>
-
-- Enable a local HTTP API for inspecting open documents and application state.
-- Read source snapshots, syntax trees, diagnostics and annotations.
-- Control the camera, capture viewport images and access native saved views.
-- Work through external file edits and reloads; the API does not write source files or force evaluation.
 
 <br clear="both">
 
@@ -103,36 +106,29 @@ Uncomment after adding the full-size image; keep the same file in href and src.
 
 ### Model inspection and source navigation
 
-<!-- Screenshot pending: Selected surface with Inspector information and source navigation choices.
-Uncomment after adding the full-size image; keep the same file in href and src.
 <a href="docs/screenshots/model-inspection.png"><img align="left" hspace="16" width="320" src="docs/screenshots/model-inspection.png" alt="Selected surface with Inspector information and source navigation choices."></a>
--->
 
 - Pick a surface in the viewport and inspect its position and orientation.
 - Find the source call or module definition behind selected geometry and jump to it in the editor.
 - See candidate source locations when a rendered surface has more than one possible origin.
+- Prepare Inspector data on demand, or enable 'Always prepare Inspector data' in Preferences to collect it during every preview.
 
 <br clear="both">
 
-### Live clipping sections
+### Cross sections
 
-<!-- Screenshot pending: A model interior exposed by a clipping plane, with handles and Sections controls visible.
-Uncomment after adding the full-size image; keep the same file in href and src.
-<a href="docs/screenshots/live-sections.png"><img align="right" hspace="16" width="320" src="docs/screenshots/live-sections.png" alt="A model interior exposed by a clipping plane, with handles and Sections controls visible."></a>
--->
+<a href="docs/screenshots/live-sections.png"><img align="right" hspace="16" width="320" src="docs/screenshots/live-sections.png" alt="Enclosure interior exposed by a cutting plane, with Cross sections direction and position controls visible."></a>
 
-- Look inside a model with movable clipping planes, without cutting the actual geometry.
-- Position and rotate section planes graphically.
-- Save named cross sections in the SCAD source.
+- Look inside a model with cutting planes that clip the viewport without modifying the model geometry.
+- Choose which side to cut away and set the plane position numerically, or enter a custom direction.
+- Pick a surface point to set the cutting-plane origin, optionally aligning its direction to the surface.
+- Keep named cross sections for the session or save their definitions in the SCAD source.
 
 <br clear="both">
 
 ### Contextual insertion
 
-<!-- Screenshot pending: Insertion palette and an uncommitted component preview positioned on a model.
-Uncomment after adding the full-size image; keep the same file in href and src.
 <a href="docs/screenshots/contextual-insertion.png"><img align="left" hspace="16" width="320" src="docs/screenshots/contextual-insertion.png" alt="Insertion palette and an uncommitted component preview positioned on a model."></a>
--->
 
 - Pick a surface and press **Shift+A** to add a primitive, hole or hardware component attached to that surface.
 - Search the insertion palette, set dimensions, and preview the proposed geometry before committing.
@@ -144,10 +140,7 @@ Uncomment after adding the full-size image; keep the same file in href and src.
 
 ### Vim editor mode
 
-<!-- Screenshot pending: Source editor with a useful selection and the Vim mode indicator visible.
-Uncomment after adding the full-size image; keep the same file in href and src.
 <a href="docs/screenshots/vim-editor.png"><img align="right" hspace="16" width="320" src="docs/screenshots/vim-editor.png" alt="Source editor with a useful selection and the Vim mode indicator visible."></a>
--->
 
 - Enable optional Normal, Insert, Visual and Visual Line modes in the source editor.
 - Use familiar motions, text objects, delete/change/yank commands and dot repeat.
@@ -192,14 +185,50 @@ Uncomment after adding the full-size image; keep the same file in href and src.
 
 <br clear="both">
 
+
+
+### Background preview and rendering
+
+- Calculate previews and rendered geometry in the background while keeping the application responsive.
+- Continue editing, navigating the viewport and switching tabs while evaluation runs.
+- Cancel evaluations; some geometry operations need to finish before cancellation takes effect.
+- Keep the last successful model visible while a replacement is calculated, or when evaluation fails or is cancelled.
+
+<br clear="both">
+
+### Animation export and parallel rendering — [#6963](https://github.com/openscad/openscad/pull/6963) and [#6964](https://github.com/openscad/openscad/pull/6964)
+
+- Export animations directly as animated GIF, APNG or MJPEG/AVI, alongside numbered PNG frames.
+- Export from the animation controls or the command line.
+- Render command-line animation frames in parallel worker processes using `--animate-processes`.
+
+<br clear="both">
+
+### Transparent image export — [#6951](https://github.com/openscad/openscad/pull/6951)
+
+- Export PNG images with a transparent background for documents, websites and image editors.
+- Use transparent backgrounds in command-line exports with `--view=transparent`.
+- Combine transparency with APNG animation export.
+
+<br clear="both">
+
+### Colored vector exports — [#7091](https://github.com/openscad/openscad/pull/7091)
+
+- Preserve colors assigned with `color()` when exporting 2D geometry to SVG, PDF and DXF.
+- Produce colored drawings directly from the model without recoloring the exported shapes manually.
+
+<br clear="both">
+
+
+
+
 ## OpenSCAD language additions
 
 ### Object literals and comprehensions — [#6081](https://github.com/openscad/openscad/pull/6081)
 
-<!-- Screenshot pending: A short object-literal example and its evaluated output.
-Uncomment after adding the full-size image; keep the same file in href and src.
+[Usage and examples](docs/language-objects.md)
+
 <a href="docs/screenshots/objects.png"><img align="left" hspace="16" width="320" src="docs/screenshots/objects.png" alt="A short object-literal example and its evaluated output."></a>
--->
 
 - Group named values in objects using `{key: value}` literals.
 - Read members with dot or bracket notation.
@@ -209,10 +238,9 @@ Uncomment after adding the full-size image; keep the same file in href and src.
 
 ### Native Customizer attributes — [#6642 variant](https://github.com/openscad/openscad/pull/6642)
 
-<!-- Screenshot pending: A reactive Customizer example beside the attribute declaration that drives it.
-Uncomment after adding the full-size image; keep the same file in href and src.
+[Usage and examples](docs/language-customizer-attributes.md)
+
 <a href="docs/screenshots/customizer-attributes.png"><img align="right" hspace="16" width="320" src="docs/screenshots/customizer-attributes.png" alt="A reactive Customizer example beside the attribute declaration that drives it."></a>
--->
 
 - Describe parameters with `@{key: value}` blocks directly above their assignments.
 - Set groups, descriptions, ranges and numeric widget options in source.
@@ -222,10 +250,9 @@ Uncomment after adding the full-size image; keep the same file in href and src.
 
 ### Parts, assemblies and components
 
-<!-- Screenshot pending: An assembly with named components in the Model tree and selected-part parameters visible.
-Uncomment after adding the full-size image; keep the same file in href and src.
+[Usage and examples](docs/language-parts-assemblies.md)
+
 <a href="docs/screenshots/parts-assemblies.png"><img align="left" hspace="16" width="320" src="docs/screenshots/parts-assemblies.png" alt="An assembly with named components in the Model tree and selected-part parameters visible."></a>
--->
 
 - Mark module definitions as Parts or Assemblies, and their placed calls as Components.
 - Give instances explicit identities and browse them in the Model tree.
@@ -236,10 +263,9 @@ Uncomment after adding the full-size image; keep the same file in href and src.
 
 ### Anchors and attachments
 
-<!-- Screenshot pending: Two components attached through named anchors, with reference and placement controls visible.
-Uncomment after adding the full-size image; keep the same file in href and src.
+[Usage and examples](docs/language-anchors-attachments.md)
+
 <a href="docs/screenshots/anchors-attachments.png"><img align="right" hspace="16" width="320" src="docs/screenshots/anchors-attachments.png" alt="Two components attached through named anchors, with reference and placement controls visible."></a>
--->
 
 - Declare named points, axes, planes and oriented anchors in SCAD source.
 - Mate or align components through anchor references, with offset and spin adjustments.
@@ -247,6 +273,15 @@ Uncomment after adding the full-size image; keep the same file in href and src.
 - Pick a surface to create an anchor draft, then save its declaration into the source.
 
 <br clear="both">
+
+### Geometry bounds - [selected from #4478](https://github.com/openscad/openscad/pull/4478)
+
+[Usage and examples](docs/language-geometry-bounds.md)
+
+- Capture a shape with `{{ ... }}` and query it from SCAD code using `geometry_bounds()`.
+- Read its bounding-box `min`, `max`, `size`, and `center` as ordinary object members.
+- Use these values to position other geometry, calculate clearances, or size an enclosure without repeating dimensions.
+- `center` is the bounding-box midpoint, not the center of mass.
 
 ## Installation
 

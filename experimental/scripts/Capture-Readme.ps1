@@ -10,6 +10,9 @@ param(
     [string]$Recipe = (Join-Path $PSScriptRoot '../readme-captures.json')
 )
 $ErrorActionPreference = 'Stop'
+if (-not (Test-Path -LiteralPath (Join-Path $Source 'CMakeLists.txt') -PathType Leaf)) {
+    throw "Capture source checkout is missing: $Source. Recreate it from its retained branch or pass -Source; see docs/readme-capture-tool.md."
+}
 $profile = Get-Content -LiteralPath $BuildProfile -Raw | ConvertFrom-Json
 $triplet = "$($profile.vcpkgInstalled)/x64-windows"
 Import-Module (Join-Path $profile.visualStudio 'Common7/Tools/Microsoft.VisualStudio.DevShell.dll')
