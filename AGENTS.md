@@ -7,6 +7,8 @@ the parent container `D:/openscad`. See `docs/layout-migration.md` when resuming
 - Whenever you ask the user a question, stop and end your turn. Resume only after an explicit answer.
   Do not use a timeout, choose a default, or interpret silence as permission.
 - Do not build or run tests unless the user explicitly requests them. Editing or fixing code alone does not authorize either.
+- Before choosing or running validation, read `workflows/testing.md`. Use its test profiles and desktop authorization rules;
+  deep/background checks must not launch GUI windows. Keep full internet-corpus verification outside regular acceptance.
 - `README.md` is hand-maintained by the user. Do not regenerate or update it unless the user explicitly requests an edit.
 - Do not add or retain backward-compatibility code, aliases, shims, fallbacks or migrations unless the user explicitly
   authorizes that compatibility. When replacing behavior, remove its obsolete paths and update the affected consumers.
@@ -15,6 +17,8 @@ the parent container `D:/openscad`. See `docs/layout-migration.md` when resuming
 - Read `docs/workspace.md` for the workspace layout and `docs/worktrees.md` before selecting a checkout.
 - Before feature maintenance or standalone builds, read `docs/feature-ancestry.md`; preserve dependencies with normal
   forward merges, never cherry-picks or squash copies. Accepted pins live in `experimental/DEPENDENCIES.json`.
+- Route maintenance, integration/builds, Dropbox pushes and GitHub publication separately using
+  `workflows/repository-operations.md`; a build does not automatically refresh upstream or feature bases.
 - Create new OpenSCAD worktrees from the sibling `openscad-master` clone; follow `docs/workspace.md`.
 - For annotations, read `workflows/annotations.md` and its linked feature exploration.
 - For SCADMaxx update/build requests, including "update everything and build a new SCADMaxx", start with
@@ -34,3 +38,11 @@ the parent container `D:/openscad`. See `docs/layout-migration.md` when resuming
   Preserve existing changes and worktrees; never repurpose an occupied checkout for a build run.
 - Follow the shared `plans-workflow` skill for `.plans` and `git-workflow` skill for commits.
 - A request to arrange this workspace does not start a build, publish artifacts, or schedule recurring runs.
+
+## 3D print design tips
+
+For printable-part design, read the companion skill's
+[3D print design guidance](skills/scadmaxx/references/3d-print-design.md).
+Choose techniques by function, build orientation, load direction and manufacturing context.
+Keep nominal dimensions, fit allowances and process-dependent values separate. Use the linked trick inventory
+and timestamped source evidence; do not treat a print-farm optimization as a requirement for every printer.

@@ -1,4 +1,11 @@
-# Experimental Windows build workflow
+# Full new SCADMaxx integration
+
+This is the full-composition workflow: start from the chosen recorded upstream baseline and reconstruct the selected stack. For routine updates
+to an existing successful integration, use [reintegrate-scadmaxx.md](reintegrate-scadmaxx.md) instead. Its final
+delivery follows this document's packaging contract, without replaying the baseline and unchanged merges.
+
+Apply [repository operations](repository-operations.md) first. A full new composition does not itself request
+an upstream refresh or feature-base maintenance; perform those separately only when explicitly requested.
 
 Use this workflow only when a build run is requested. First follow
 [the fresh-chat update/build runbook](update-and-build-scadmaxx.md) for the full branch inventory and promoted-input checks.
@@ -24,7 +31,10 @@ Read the [input and integration contract](../experimental/integration-inputs.md)
    `experimental/PR_STACK.md` there. Snapshot consumed control files, profile/scripts, and repair records with hashes
    and their control-repository identity. Resolve the enabled order and dependencies; reject ambiguous or duplicate rows.
    With no enabled rows, report that selection is needed unless the user requested a baseline-only build.
-3. Verify the upstream remote URL, fetch `master`, and record its SHA. Resolve `pr` entries from upstream PR head
+3. Verify the upstream remote URL and record the chosen baseline SHA. Fetch/adopt newer `master` only when
+   that operation was explicitly requested; otherwise retain the recorded baseline. For fixed-baseline preparation,
+   follow the manual route in [repository operations](repository-operations.md), since `New-ExperimentalRun.ps1`
+   always fetches upstream master. Resolve `pr` entries from upstream PR head
    refs (`refs/pull/<number>/head`), not GitHub's synthetic merge refs. Resolve `feature` and `pr-variant` entries
    from their explicitly declared repository/ref. Record source identity, PR URL where applicable, base branch,
    head SHA, source commits, and status. Freeze `DEPENDENCIES.json` and require each accepted prerequisite to match
@@ -34,6 +44,8 @@ Read the [input and integration contract](../experimental/integration-inputs.md)
    force-pushes do not change the recorded source. Check merged/closed PRs and overlapping/dependent changes,
    including selected variants and partially integrated upstream changes. Review any content overlap explicitly.
    If an entry cannot be applied as selected, record the reason and stop rather than silently omitting it.
+   Follow the [merged-upstream PR check](../experimental/integration-inputs.md#prs-already-merged-upstream-ask-before-changing-the-stack):
+   flag merged PRs, ask the user about retiring their stack entries, and stop for the answer.
    An entry proven to be contained in the locked upstream base is recorded as already present and needs no replay.
    Present the exact frozen composition and excluded local work to the user as required by the runbook before
    integrating or compiling anything, including the baseline. Resolve ambiguous revision choices before proceeding.
@@ -90,6 +102,14 @@ feature B integration, feature B repairs, and so on. A repair-free entry has onl
 
 ## Package and verify
 
+Select correctness coverage using [testing profiles](testing.md). Build-Windows Test runs everyday; select
+deep-background for shared evaluator/geometry/export changes. Record native GUI coverage as separate, explicitly
+authorized desktop work. Do not fold full internet-corpus verification into regular acceptance.
+
+Before packaging, run the [integration performance regression suite](../experimental/performance/USAGE.md)
+against the last accepted delivery. Retain per-case correctness/timing evidence under the new run and investigate
+regressions or inconclusive results. Its CLI/PNG coverage does not establish native GUI responsiveness or first-frame time.
+
 After the complete stack passes, prepare the experimental version identity and any separate packaging-metadata
 commit required by the release rules. Build/package from the final committed source with clean recorded submodules.
 Apply the shared [SCADMaxx icon patch](scadmaxx-branding.md) after stack composition and before the final source checkpoint.
@@ -100,8 +120,9 @@ Exercise the selected behaviors, including the focused checks in the selection l
 any limits to verification.
 
 Use exactly `artifacts/<collection>/<delivery-id>/staging/` for every new portable delivery.
-Generate `<delivery-id>` once at staging start with `Get-Date -AsUTC -Format yyyyMMddTHHmmssfffZ`
-(for example `20261005T142530123Z`). Reuse it for Stage, Package and validation. It identifies
+Generate `<delivery-id>` once at staging start with `Get-Date -AsUTC -Format yyyy-MM-dd_HH-mm`
+(for example `2026-10-09_14-25`). Use UTC, with no seconds or timezone suffix, matching the readable
+timestamp format used in run IDs. Reuse it for Stage, Package and validation. It identifies
 this delivery, not the source version. Use a stable build-family collection such as `scadmaxx-all-features`
 across daily runs; select it once as the launcher's search folder. Separate release channels or feature
 branches may have separate stable collection slugs. Never derive the collection from a dated run ID.
@@ -110,8 +131,10 @@ frozen inputs, build-info.json, logs and source-archive provenance. Do not repea
 branch names in the delivery ID. Never use numbered `attempt-N` directories or substitute
 `runtime`, `release`, or another name for `staging`. Disposable test runtimes under `runs/`
 are separate from this final-delivery contract. Put ZIPs/checksums and `extracted-check/`
-beside `staging/`. For retries requiring new output, generate a fresh timestamp and preserve
-prior outputs. Do not rename or move historical deliveries.
+beside `staging/`. If that minute's delivery directory already exists, resume it only when its
+recorded checkpoint permits; otherwise start in a later minute. For retries requiring new output,
+use a later minute and preserve prior outputs. Never overwrite a delivery or append seconds or a
+numbered suffix to resolve a collision. Do not rename or move historical deliveries.
 
 Stage the portable application there, using the checkout's packaging support where
 applicable. Include required runtime libraries, Qt plugins, resources, fonts, examples, licenses/notices, and other
@@ -121,7 +144,8 @@ Do not claim portability if testing depends on developer-only PATH entries or in
 Apply the [Windows executable naming support](../experimental/repairs/windows-executable-name.md) for the SCADMaxx profile.
 Create `scadmaxx-2026100-windows-x64.zip` from the contents of the staging directory, preserving the collection/delivery layout above.
 Put `scadmaxx.exe`, `scadmaxx.com`, DLLs and resource folders directly at the ZIP root, without a `staging/` or other wrapper folder.
-After extraction, launch `scadmaxx.exe` directly in the extraction directory. Extract into a separate test directory and repeat the
+After extraction, check `scadmaxx.exe --version` directly in the extraction directory. Launch the visible application only
+when desktop testing is explicitly authorized under [testing profiles](testing.md). Extract into a separate test directory and repeat the
 smoke checks with a controlled runtime PATH. Prefer a clean Windows test environment for a distribution release.
 Record the exact environment and limitations if only the development machine was available.
 Verify the run identifier in the application's About/version information. Do not create or bundle release notes. Include a build-info

@@ -47,22 +47,26 @@ The workspace checkout has only its local origin.
 
 ## Build composition
 
+Keep branch maintenance, integration/building, pushing to Dropbox and publishing to GitHub separate.
+The canonical [repository operations](../workflows/repository-operations.md) defines their scope and the
+intended public two-repository layout. A build alone does not advance straight master or feature bases.
+
 For the full fresh-chat procedure, source synchronization decisions and replay semantics, follow
 [Update everything and build a new SCADMaxx](../workflows/update-and-build-scadmaxx.md).
 
 `experimental/PR_STACK.md` remains the manually maintained selection; `experimental/SOURCES.json` maps feature
 IDs to repositories and full refs. A feature's source can be the local bare repository or a GitHub branch.
 
-1. Fetch OpenSCAD master and lock its SHA. Create a fresh local `scadmaxx-YYYYMMDD` branch from that commit,
-   following the naming rule below.
-2. Resolve the two selected upstream PR heads (#6878 and #6776), local feature heads, and any selected published
+1. Lock the chosen upstream baseline SHA; refresh it only when explicitly requested. Reuse the maintained
+   integration for routine builds, or create a fresh local `scadmaxx-YYYYMMDD` branch for a full new composition.
+2. Resolve the selected upstream PR heads, local feature heads, and any selected published
    feature heads. Lock all source and accepted dependency SHAs before integrating with normal merges; see
    [maintained feature ancestry](feature-ancestry.md).
 3. Apply applicable Windows baseline repairs, then each selected feature/PR as its own integration commit,
    followed by separate build-fix commits and verification. Include the required Unicode filename repair unless
    upstream already supplies the behavior; retain its regression checks.
-4. Package from the verified final source, retaining source, provenance and run evidence. Store integration and
-   repair refs in the local bare repository. Never merge an entire previous composed build back into master.
+4. Package from the verified final source, retaining source, provenance and run evidence. Push integration and
+   repair refs to the local bare repository only when explicitly requested. Never merge a composed build back into master.
 
 Example of the selected annotations source (the real definition also records readiness):
 

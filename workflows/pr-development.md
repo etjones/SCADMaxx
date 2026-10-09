@@ -11,6 +11,7 @@
 3. Reproduce the reported behavior and record the base/head revision, toolchain, commands, and observations.
    Keep feature-specific evidence and plans outside the patch sent upstream.
 4. Implement a focused change and verify both the intended behavior and relevant regression coverage.
+   Choose the smallest applicable [test profile](testing.md); desktop tests require explicit desktop authorization.
    Use the shared git-workflow skill for scoped commits. Keep environment/build repairs distinct from behavior
    changes when they are independent so maintainers can review them separately.
 5. Prepare a reviewable diff and concise PR description or follow-up evidence. Preserve original PR author

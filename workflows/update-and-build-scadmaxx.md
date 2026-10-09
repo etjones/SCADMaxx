@@ -1,9 +1,29 @@
 # Update everything and build a new SCADMaxx
 
 This is the entry point for a fresh chat receiving that request, or equivalent wording. No previous chat history
-is needed. It requests a new Windows composition from current selected sources, including integration/repair
+is needed. It requests a new Windows delivery from selected sources, including integration/repair
 commits, tests and local ZIP delivery. It does not request pushes to Dropbox origins or GitHub publication,
 dependency upgrades, or rebasing all feature worktrees. A documentation-only request does not start a build.
+
+First apply [the separate-operation rules](repository-operations.md). "Make a new build" requests
+integration/build only. "Update everything and build" explicitly combines branch maintenance and a build;
+record them separately, complete authorized maintenance first, and then freeze its eligible build inputs.
+Neither request authorizes a Dropbox push or GitHub publication.
+
+## Choose the integration workflow first
+
+- **Full new integration:** start from the chosen frozen baseline and merge the complete selected stack. Use this
+  for an explicit full/clean composition request, the first integration, or removing/replacing incompatible history.
+  Follow the numbered preparation/composition steps below and `experimental-builds.md`.
+- **Re-integration:** advance an existing successful integration with changed selected branches, preserving its
+  merges, repairs and compatible build directory. Follow [reintegrate-scadmaxx.md](reintegrate-scadmaxx.md), which
+  replaces fresh-worktree/baseline preparation while retaining the inventory, promotion and delivery contracts.
+
+Default routine "new build" or "update everything and build" requests to re-integration when a suitable maintained
+integration exists. A build-only request retains the recorded upstream baseline. Explicit maintenance may select
+newer upstream and selected unpinned sources; a named branch update leaves unrelated inputs frozen.
+A new delivery does not by itself require a new Git composition or feature-base maintenance.
+If the correct existing integration is ambiguous, ask and stop. Never silently remove an already integrated feature.
 
 Read `docs/workspace.md`, `docs/git-layout.md`, `docs/worktrees.md`, `experimental/PR_STACK.md`,
 `experimental/SOURCES.json`, `experimental/DEPENDENCIES.json`, `docs/feature-ancestry.md`, and `workflows/experimental-builds.md`. Follow the linked integration, repair,
@@ -19,7 +39,7 @@ addresses that blocker, then Luna resumes the same frozen run. Switching models 
 | Input or output | Authority | Update operation |
 | --- | --- | --- |
 | Workspace instructions and selection | `D:/openscad/scadmaxx`; origin `E:/Dropbox/bare_repos/scadmaxx.git` | Fetch control `origin`; reconcile as described below |
-| OpenSCAD baseline | `https://github.com/openscad/openscad.git`, `refs/heads/master` | Fetch once into a new run-specific ref |
+| OpenSCAD baseline | Official OpenSCAD history at the chosen recorded SHA | Retain the previous baseline for build-only re-integration; fetch/adopt newer master only when explicitly requested |
 | Enabled upstream PR | That row's PR URL, resolved as `refs/pull/<number>/head` | Fetch the actual PR head from OpenSCAD GitHub |
 | Private feature | Exact `repository` and `ref` in `SOURCES.json`; currently the Dropbox source bare repo | Fetch the already-promoted source into a run-specific ref; do not push newer local commits |
 | Published feature or PR variant | Exact GitHub repository/ref explicitly selected in `SOURCES.json` | Fetch that declared source, regardless of the local branch's tracking configuration |
@@ -126,14 +146,18 @@ If the requested revision is not available in the declared repository, report th
 promotion. Do not silently substitute the local checkout, change the declared source, or push to make it available.
 After an explicitly authorized push, re-read the declared ref before freezing it; never force a conflicting update.
 
-Do not pull upstream master into all feature branches before composing. The integration branch starts from fresh
-upstream and resolves compatibility there. Updating a feature's own base is separate feature-maintenance work.
+Do not pull upstream master into all feature branches merely because a build was requested. The integration uses
+its chosen frozen baseline. Updating straight master and feature bases is separate maintenance under
+[repository operations](repository-operations.md); an explicitly combined request performs that operation first.
 An explicitly pinned `Revision` remains pinned even during an "update everything" request; never replace it with latest.
 
 ## 3. Fetch and freeze the selected composition
 
 Choose a new run ID and follow the [integration naming rule](../docs/git-layout.md#integration-branch-and-worktree-names).
-Invoke `experimental/scripts/New-ExperimentalRun.ps1` from the control repository. Its defaults locate controls
+For an explicitly requested fresh-upstream composition, invoke `experimental/scripts/New-ExperimentalRun.ps1`
+from the control repository. It always fetches upstream master; it is not a fixed-baseline build-only preparer.
+For that case, follow the manual preparation route in [repository operations](repository-operations.md).
+Its defaults locate controls
 in `D:/openscad/scadmaxx` and source/run directories in `D:/openscad`. It fetches master and each selected
 repository/ref, locks full head and accepted dependency SHAs, retains refs under `refs/experimental-runs/<run-id>/`, saves binary-capable
 review patches and original commit identities, checks dependency ancestry, and creates the isolated integration worktree. It does not perform the
@@ -158,6 +182,8 @@ Record promoted and excluded local source revisions in the run report. Freeze `P
 `DEPENDENCIES.json`, repair records, profile, scripts and instructions with hashes. Do not refetch or change selections halfway through
 a run. If inputs must change, preserve the failed/abandoned attempt and start a new run ID.
 
+Before integration, follow the [merged-upstream PR check](../experimental/integration-inputs.md#prs-already-merged-upstream-ask-before-changing-the-stack):
+flag merged PRs, ask the user about retiring their stack entries, and stop for the answer.
 Review dependencies and overlapping changes before integration. Use normal merges of the frozen source heads;
 never squash, cherry-pick or apply feature-only deltas. The UI branch has real ancestry from #6776, so Git retains
 the shared history. If an upstream PR has advanced beyond a consumer's accepted pin, stop for feature maintenance:
@@ -192,6 +218,14 @@ Push only the refs explicitly requested by the user, following the authorization
 requires its validation before an authorized push. Ordinary branch pushes do not retain custom refs. Keep unrelated
 staged edits out of control commits; committing controls does not authorize pushing the workspace origin.
 
+## Optional screenshots after delivery
+
+When the user requests README screenshots, use [the release capture recipe](../docs/readme-release-captures.md)
+with the delivered executable and its recorded revision. Reuse its demo models and shot recipes;
+do not rebuild or port the old test harness just to capture the shipped UI. Screenshot work is
+not an automatic build step. Keep the delivery path, final source revision and run-report link
+current in `docs/workspace.md` so a later capture task can find the exact application directly.
+
 ## Feature completion and later GitHub publication
 
 Each feature-development task must leave a reproducible local handoff: source state (committed when requested),
@@ -210,7 +244,7 @@ Do not enable both copies or publish the private combined history.
 
 ## Replaying an earlier build
 
-"Build a new SCADMaxx" resolves current selected sources. "Rebuild run <id>" uses that run's frozen inputs and
+"Build a new SCADMaxx" follows the workflow selection above. "Rebuild run <id>" uses that run's frozen inputs and
 recorded final source; do not run fresh preparation or reinterpret `latest` against today's branches.
 
 Use retained run refs/commits or the matching source archive, exact submodule contents, control snapshots,
