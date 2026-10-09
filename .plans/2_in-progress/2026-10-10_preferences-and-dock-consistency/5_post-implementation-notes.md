@@ -12,9 +12,9 @@ Exact 24-input composition, checks and delivery are in
 ../../../../runs/scadmaxx-all-features-2026-10-09_22-34/report.md.
 
 Focused native surface and preset checks pass. Ordinary integrated correctness passes.
-The tools profile's descendant-timeout cleanup test failed once with a Windows sharing violation;
-all 19 focused harness checks pass on retry. Performance evidence was interrupted by an unrelated
-link.exe process; do not call it a successful speed comparison. Desktop and package evidence follows
+The tools profile's descendant-timeout cleanup race was repaired in the runner; the complete tools
+profile now passes. Performance evidence was interrupted by an unrelated
+link.exe process; do not call it a successful speed comparison. Four native visual cases and package checks pass
 in the run report. Preserve existing owner branding and concurrent control research edits.
 
 Native startup inspection found the existing Dock visibility path restored a default Qt title.
@@ -27,3 +27,12 @@ Presets retain alternative bindings, explicit unbound actions and unknown option
 new actions use defaults. Invalid/conflicting imports are rejected before activating anything.
 Import stores a named preset; Load activates it. Active binding changes continue to persist automatically.
 Saved sets and exports use portable JSON and atomic QSaveFile writes.
+
+Final delivery is artifacts/scadmaxx-all-features/2026-10-09_23-06, source 659f5abf0.
+The fixed-name Windows ZIP has application files at its root. Both Stage and Package pass;
+distribution-final passes all six CLI probes plus the language suite from the extracted ZIP.
+Five native release screenshots refresh UI, Advanced Preferences, shortcuts and reactive Customizer,
+with a supplementary 3D View Preferences capture. Filenames and README prose remain unchanged.
+Other screenshot provenance and historical baselines are retained; remaining cosmetic refreshes
+are explicitly listed in docs/readme-screenshot-audit-2026-10-10.md.
+User viewport palette was restored to Nord Light. No source buffers or shortcut bindings were changed.

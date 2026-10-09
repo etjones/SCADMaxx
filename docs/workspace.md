@@ -7,31 +7,36 @@ The 2026-10-06 local migration supersedes historical snapshot/delta instructions
 
 *OpenSCAD, with the sliders turned up.*
 
-Latest local delivery: [scadmaxx-2026100-windows-x64.zip](../../artifacts/scadmaxx-all-features/2026-10-09_20-00/scadmaxx-2026100-windows-x64.zip).
+Latest local delivery: [scadmaxx-2026100-windows-x64.zip](../../artifacts/scadmaxx-all-features/2026-10-09_23-06/scadmaxx-2026100-windows-x64.zip).
 Extract the complete ZIP and launch `scadmaxx.exe`; `scadmaxx.com` provides console invocation.
 The complete frozen 24-input composition retains the background evaluation/performance and
-colored geometry/DXF repairs, adding initial File > Open/startup Preview and Console font-size inheritance.
-Final source is `f4f87a8eea11172037c459dd5ae9848b566fd044` on
+colored geometry/DXF, initial-preview and Console font-size repairs. This delivery adds the selected E
+dock/Customizer hierarchy, consistent full-width Preferences and complete keyboard-shortcut presets.
+Final source is `659f5abf0e8959bc03c62155b436b1b6b44a8aca` on
 `scadmaxx-20261006`; the existing integration cache and shared dependencies were reused.
-Everyday checks passed (516 unit case rows, Vim, CLI smoke/critical), along with control tooling,
-clean-PATH package checks and extracted-distribution language examples. Compile/link took 228 seconds.
-Quick performance comparison against the accepted October 8 delivery was interrupted twice by an unrelated
-artcraft-hub MSVC linker; it remains incomplete. Preserve that user's work and rerun the recorded profile
+Everyday checks passed (unit, Vim, CLI smoke/critical), along with the complete control tooling profile,
+four native visual cases, clean-PATH package checks and extracted-distribution language examples.
+Quick performance comparison was interrupted after 19 samples by an unrelated MSVC linker;
+it remains incomplete. Preserve that user's work and rerun the recorded profile
 after external compilation finishes, without rebuilding or changing the baseline.
-The [run report](../../runs/scadmaxx-all-features-2026-10-09_19-45/report.md),
+The [run report](../../runs/scadmaxx-all-features-2026-10-09_22-34/report.md),
 [initial-preview repair](../experimental/repairs/open-initial-preview.md) and
 [Console inheritance repair](../experimental/repairs/console-font-size-inheritance.md) retain exact
 commands, source identities and inherited coverage. Deep/corpus checks were not rerun for these UI changes.
 Inherited broad-suite evidence still includes seven
 baseline-equivalent failures and five image comparisons lacking Ghostscript; those are not passes.
-Native GUI evidence is inherited; new initial-open GUI tests were not compiled/run in the release configuration.
+New native typography/dialog/Customizer/icon evidence passed; the complete feature GUI sequence
+was not compiled/run in the release configuration.
 Clean-machine portability remains unverified. Matching source
 and skill archives/checksums sit beside the Windows ZIP. No release notes were added. All commits
-remain local; no push, full-validation release tag or launcher setting change was made.
+are pushed to the Dropbox bare repos and private GitHub mirrors. No full-validation release tag or
+launcher setting change was made. [Screenshot audit](readme-screenshot-audit-2026-10-10.md) records
+five refreshed images from this exact executable; README prose and historical baselines are unchanged.
 
-The control repository is `D:/openscad/scadmaxx`; the container is `D:/openscad`. The source experiments, integration branches and
-workspace control history stay local. Publish an individual feature to GitHub only when the user explicitly
-chooses to make it public. The two bare origins live in `E:/Dropbox/bare_repos`; see the
+The control repository is `D:/openscad/scadmaxx`; the container is `D:/openscad`. Dropbox bare repos
+remain the local origins; maintained source branches and control history also have private GitHub mirrors.
+Publishing to those mirrors is separate from making anything public and from uploading build artifacts.
+Public publication requires the user's explicit choice. The two bare origins live in `E:/Dropbox/bare_repos`; see the
 [local Git layout](git-layout.md) for the installed repositories and publication workflow.
 
 This workspace supports three kinds of work:
