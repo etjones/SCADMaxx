@@ -31,26 +31,26 @@ It defines source synchronization and the handoff required when each feature bec
 
 | Order | ID | Kind | Source | Revision | Integration | Depends on | Reason for inclusion |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | pr-6878 | pr | https://github.com/openscad/openscad/pull/6878 | latest | merge | none declared | Customize keyboard shortcuts through the GUI |
+| 1 | pr-6878 | pr-variant | shortcut-presets-local | 974c2f6f5fe689266ca1a05adf1724eda18f68e4 | merge | none declared | Customizable keyboard shortcuts with complete named presets and portable import/export |
 | 2 | pr-6776 | pr | https://github.com/openscad/openscad/pull/6776 | latest | merge | none declared | Correct switching to and from dark mode while OpenSCAD is running |
 | 3 | navigation-cube | feature | navigation-cube-local | 6b42cbf3f95bfe1ad2ff4b845a6dc20f4ed336fe | merge | none declared | Native viewport navigation cube |
-| 4 | ui-visual-polish | feature | ui-visual-polish-local | e4e9046558d1a836939e63c2d0cc6bd4b353692b | merge | pr-6776 | Improved OpenSCAD UI from our UI work branch |
+| 4 | ui-visual-polish | feature | ui-visual-polish-local | edf27c31cae46383114e6af2cb72284abc788c74 | merge | pr-6776, pr-6878 | Improved OpenSCAD UI from our UI work branch |
 | 5 | annotations | feature | annotations-local | d670fad09dba45526487e958b90fd553c6e1ace0 | merge | none declared | Native Blender-style annotation tool |
 | 6 | http-agent-server | feature | http-agent-server-local | f2c9de2c94745b834b5a120fdc5c29a5999128c9 | merge | annotations, navigation-cube | HTTP endpoint / agent server for OpenSCAD automation |
 | 7 | pr-6081 | pr | https://github.com/openscad/openscad/pull/6081 | latest | merge | none declared | OEP8a object literals and object comprehensions |
 | 8 | pr-6642-oep8 | pr-variant | pr-6642-oep8-local | d77244154cc2c84a26a8a5fdb1ec20ce4a335b7f | merge | pr-6081 | Native Customizer attributes using fixed OEP8-style key: value entries |
 | 9 | source-editing-foundation | feature | source-editing-foundation-local | 0bcafded2a98d98802a8e869e44a658770ebc3b4 | merge | http-agent-server | Guarded source transactions and source lifecycle |
 | 10 | selection-model-inspector | feature | selection-model-inspector-local | bf91e96761251526cd25e5c8f60b93fd26468cb7 | merge | http-agent-server | Geometric picking and shared inspection presentation |
-| 11 | vim-editor-mode | feature | vim-editor-mode-local | f6e316ed43dcaa4726520dbee76980015e681ec7 | merge | source-editing-foundation, pr-6878 | Native Vim editing without GTK or GLib |
+| 11 | vim-editor-mode | feature | vim-editor-mode-local | 63931fb745856a913609db0c67e21215944b139d | merge | source-editing-foundation, pr-6878 | Native Vim editing without GTK or GLib |
 | 12 | source-geometry-provenance | feature | source-geometry-provenance-local | c740cdd0eebefe6622fc0f6f9bd02598ac1f04bd | merge | source-editing-foundation, selection-model-inspector, pr-6642-oep8 | Source spans and evaluated instance provenance |
 | 13 | background-model-evaluation | feature | background-model-evaluation-local | 78dc9561b3bc3d3415ba617f2747b13c3a1d4728 | merge | selection-model-inspector, pr-6642-oep8 | Background Preview/Render and Customizer evaluation with cooperative cancellation; readiness work in progress |
 | 14 | design-object-persistence | feature | design-object-persistence-local | 62b512a4ca08296c63b5383a436cc67297476344 | merge | source-editing-foundation, selection-model-inspector, pr-6642-oep8, background-model-evaluation | Typed design objects stored in SCAD source |
-| 15 | live-clipping-sections | feature | live-clipping-sections-local | 4fe538595c21f4bb32402fb335f7dfd654769a3a | merge | design-object-persistence, pr-6878 | Live cross section clipping planes and saved cross sections |
+| 15 | live-clipping-sections | feature | live-clipping-sections-local | e9c29f8ab55dc8a33f54075612951a871e038997 | merge | design-object-persistence, pr-6878 | Live cross section clipping planes and saved cross sections |
 | 16 | geometry-services | feature | geometry-services-local | 4e1286c7b362f84e920a21ba65e13042178a6fea | merge | none declared | Strict in-memory measurement and section services |
 | 17 | component-provider-adapters | feature | component-provider-adapters-local | 9d0cb2097efcac6856ae5dafb31a642803ec32d7 | merge | none declared | Version-matched component catalogs and source generation |
 | 18 | semantic-model-hierarchy | feature | semantic-model-hierarchy-local | 232e7242abe03480db7bd0361321abefbe1d923d | merge | source-geometry-provenance, design-object-persistence | Parts Assemblies Components and scoped parameters |
 | 19 | anchors-attachments | feature | anchors-attachments-local | bffbafdc447b6251a4e071e14396b03537eba105 | merge | semantic-model-hierarchy | Typed anchors references and attachment placement |
-| 20 | contextual-insertion | feature | contextual-insertion-local | 6179d853dfb65c342f466a858234a0d410564f43 | merge | anchors-attachments, component-provider-adapters, pr-6878 | Searchable insertion palette isolated preview and guarded Commit |
+| 20 | contextual-insertion | feature | contextual-insertion-local | fe46704704b0091cfc68a387bfd521ed5d94acb5 | merge | anchors-attachments, component-provider-adapters, pr-6878 | Searchable insertion palette isolated preview and guarded Commit |
 | 21 | geometry-bounds | feature | geometry-bounds-local | latest | merge | pr-6081 | Language-level geometry bounds: min, max, size and box center; validated in local integration, awaiting explicit promotion |
 | 22 | pr-6964 | pr | https://github.com/openscad/openscad/pull/6964 | b2455385cc04818579fe73f628fdac6c608513c6 | merge | none declared | GIF/APNG/MJPEG animation export including #6963, plus parallel worker processes |
 | 23 | pr-6951 | pr | https://github.com/openscad/openscad/pull/6951 | d072ffc145acfd7bc6f75fde875f979ad7abc796 | merge | none declared | Transparent PNG export and optional transparent viewport compositing |

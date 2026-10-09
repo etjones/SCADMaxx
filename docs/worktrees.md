@@ -307,3 +307,17 @@ Preserve these isolated repair checkouts and runtimes:
 
 The separate checkouts avoided concurrent use of `wt-openscad-background-consumer-check`. Normal owner
 merges preserve pre-existing build branding and submodule changes. No push or promotion is authorized by this run.
+
+## Coordinated UI and shortcut presets, 2026-10-10
+
+`wt-openscad-shortcut-presets`, branch `feature/shortcut-presets`, maintains PR #6878 plus named,
+portable shortcut presets. It starts at the existing accepted PR checkpoint. The stack retains the
+`pr-6878` input identity and now selects this maintained variant.
+
+`wt-openscad-ui-visual-polish` remains the UI owner. Its existing uncommitted branding and submodule
+changes are preserved. `wt-openscad-ui-consistency-build`, branch `codex/ui-consistency-build`, is an
+isolated standalone build composition with canonical SCADMaxx branding; never merge it into an owner.
+UI, Vim, cross sections and insertion receive shortcut updates through normal forward merges.
+The complete integration remains `wt-scadmaxx-20261006` / `scadmaxx-20261006`; its compatible build
+cache is reused. Exact composition and checks are recorded in
+[`runs/scadmaxx-all-features-2026-10-09_22-34`](../../runs/scadmaxx-all-features-2026-10-09_22-34/report.md).

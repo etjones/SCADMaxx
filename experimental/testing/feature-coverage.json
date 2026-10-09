@@ -1,17 +1,19 @@
 {
   "schema": 1,
-  "integration_head": "f4f87a8eea11172037c459dd5ae9848b566fd044",
-  "selection_sha256": "035804ba877d7092f89c07e2eea1ea105c008baed53b53beb4be1b092d0e7461",
-  "dependencies_sha256": "18efc9b9dac1795bd6e7d06202e8fd2caee15b2652a7b4baceddcaae9e2ad129",
-  "detailed_report": "D:\\openscad\\runs\\scadmaxx-all-features-2026-10-09_19-45\\feature-audit\\feature-tests.json",
+  "integration_head": "29c325d9b5ffe12b48a26799b83653288d8fc298",
+  "selection_sha256": "f9e9ff0a90baf8207b0edad9eb75c9800b5461e19d723cb35bcab958021848a9",
+  "dependencies_sha256": "142c175aae4920d7459b2de5e727c71fce58d492f5191ad3a2a08f19345b817f",
+  "detailed_report": "D:\\openscad\\runs\\scadmaxx-all-features-2026-10-09_22-34\\feature-audit\\feature-tests.json",
   "features": [
     {
       "id": "pr-6878",
-      "revision": "3014fb55405759bfa1871e79f50cbee4c2a2c638",
+      "revision": "974c2f6f5fe689266ca1a05adf1724eda18f68e4",
       "in_integration_ancestry": true,
-      "source_ready": null,
-      "test_path_count": 0,
-      "suites": [],
+      "source_ready": false,
+      "test_path_count": 2,
+      "suites": [
+        "test-definition/helper"
+      ],
       "coverage_gaps": []
     },
     {
@@ -37,11 +39,12 @@
     },
     {
       "id": "ui-visual-polish",
-      "revision": "e4e9046558d1a836939e63c2d0cc6bd4b353692b",
+      "revision": "edf27c31cae46383114e6af2cb72284abc788c74",
       "in_integration_ancestry": true,
       "source_ready": false,
-      "test_path_count": 2,
+      "test_path_count": 6,
       "suites": [
+        "test-definition/helper",
         "unit"
       ],
       "coverage_gaps": []
@@ -128,10 +131,10 @@
     },
     {
       "id": "vim-editor-mode",
-      "revision": "f6e316ed43dcaa4726520dbee76980015e681ec7",
+      "revision": "63931fb745856a913609db0c67e21215944b139d",
       "in_integration_ancestry": true,
-      "source_ready": true,
-      "test_path_count": 23,
+      "source_ready": false,
+      "test_path_count": 25,
       "suites": [
         "annotations",
         "cli-deep",
@@ -197,10 +200,10 @@
     },
     {
       "id": "live-clipping-sections",
-      "revision": "4fe538595c21f4bb32402fb335f7dfd654769a3a",
+      "revision": "e9c29f8ab55dc8a33f54075612951a871e038997",
       "in_integration_ancestry": true,
       "source_ready": false,
-      "test_path_count": 48,
+      "test_path_count": 50,
       "suites": [
         "annotations",
         "cli-deep",
@@ -279,10 +282,10 @@
     },
     {
       "id": "contextual-insertion",
-      "revision": "6179d853dfb65c342f466a858234a0d410564f43",
+      "revision": "fe46704704b0091cfc68a387bfd521ed5d94acb5",
       "in_integration_ancestry": true,
       "source_ready": false,
-      "test_path_count": 86,
+      "test_path_count": 88,
       "suites": [
         "annotations",
         "cli-deep",

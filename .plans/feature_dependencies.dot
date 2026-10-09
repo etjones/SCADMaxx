@@ -17,4 +17,5 @@ digraph SCADMaxxFeatureDependencies {
   editing [label="10 Interactive source edits (postponed)", color=gray, fontcolor=gray, URL="1_planning/2026-10-03_10_interactive-source-editing/1_exploration.md"];
   analysis [label="13 Agent geometry tools (postponed)", color=gray, fontcolor=gray, URL="1_planning/2026-10-03_13_agent-geometry-analysis/1_exploration.md"];
   keyboard [label="16 Viewport keyboard commands / focus (exploration)", URL="1_planning/2026-10-04_16_viewport-keyboard-commands/1_exploration.md"];
+  ui_consistency [label="Dock titles / Preferences / shortcut presets (in progress)", URL="2_in-progress/2026-10-10_preferences-and-dock-consistency/1_exploration.md"];
 }

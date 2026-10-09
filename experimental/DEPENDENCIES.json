@@ -50,10 +50,12 @@
     },
     "pr-6878": {
       "sourceRef": "refs/experimental-runs/20261005-scadmaxx-all-features/pr-6878",
-      "acceptedHead": "3014fb55405759bfa1871e79f50cbee4c2a2c638",
+      "acceptedHead": "974c2f6f5fe689266ca1a05adf1724eda18f68e4",
       "featureMarker": "3014fb55405759bfa1871e79f50cbee4c2a2c638",
-      "validation": "previous-evidence",
-      "dependencies": {}
+      "validation": "Requested coordinated UI build: focused checks passed; application/desktop validation pending.",
+      "dependencies": {},
+      "sourceKey": "shortcut-presets-local",
+      "ref": "refs/heads/feature/shortcut-presets"
     },
     "pr-6776": {
       "sourceRef": "refs/experimental-runs/20261005-scadmaxx-all-features/pr-6776",
@@ -73,11 +75,12 @@
     "ui-visual-polish": {
       "sourceKey": "ui-visual-polish-local",
       "ref": "refs/heads/codex/ui-visual-polish",
-      "acceptedHead": "e4e9046558d1a836939e63c2d0cc6bd4b353692b",
+      "acceptedHead": "edf27c31cae46383114e6af2cb72284abc788c74",
       "featureMarker": "2217d2c7d54743c93cefb9418b208825168ddc1c",
-      "validation": "Local requested meta fixes and normal forward merges; integration validation in runs/scadmaxx-all-features-2026-10-09_19-45/report.md. Native GUI checks not run; no promotion.",
+      "validation": "Requested coordinated UI build: focused checks passed; application/desktop validation pending.",
       "dependencies": {
-        "pr-6776": "aab4aed030dd61b80c5f850177f2af93e067eb7d"
+        "pr-6776": "aab4aed030dd61b80c5f850177f2af93e067eb7d",
+        "pr-6878": "974c2f6f5fe689266ca1a05adf1724eda18f68e4"
       }
     },
     "annotations": {
@@ -139,12 +142,12 @@
     "vim-editor-mode": {
       "sourceKey": "vim-editor-mode-local",
       "ref": "refs/heads/feature/vim-editor-mode",
-      "acceptedHead": "f6e316ed43dcaa4726520dbee76980015e681ec7",
+      "acceptedHead": "63931fb745856a913609db0c67e21215944b139d",
       "featureMarker": "1c48233689c4582754784c66fd23ed4273d56981",
-      "validation": "owner/consumer evidence in runs/20261006-validation-promotion/report.md",
+      "validation": "Requested coordinated UI build: focused checks passed; application/desktop validation pending.",
       "dependencies": {
         "source-editing-foundation": "0bcafded2a98d98802a8e869e44a658770ebc3b4",
-        "pr-6878": "3014fb55405759bfa1871e79f50cbee4c2a2c638"
+        "pr-6878": "974c2f6f5fe689266ca1a05adf1724eda18f68e4"
       }
     },
     "source-geometry-provenance": {
@@ -175,12 +178,12 @@
     "live-clipping-sections": {
       "sourceKey": "live-clipping-sections-local",
       "ref": "refs/heads/feature/live-clipping-sections",
-      "acceptedHead": "4fe538595c21f4bb32402fb335f7dfd654769a3a",
+      "acceptedHead": "e9c29f8ab55dc8a33f54075612951a871e038997",
       "featureMarker": "06d073f73720a391f5d806911a3d91a27b1ebd4e",
-      "validation": "Local requested meta fixes and normal forward merges; integration validation in runs/scadmaxx-all-features-2026-10-09_19-45/report.md. Native GUI checks not run; no promotion.",
+      "validation": "Requested coordinated UI build: focused checks passed; application/desktop validation pending.",
       "dependencies": {
         "design-object-persistence": "62b512a4ca08296c63b5383a436cc67297476344",
-        "pr-6878": "3014fb55405759bfa1871e79f50cbee4c2a2c638"
+        "pr-6878": "974c2f6f5fe689266ca1a05adf1724eda18f68e4"
       }
     },
     "geometry-services": {
@@ -223,13 +226,13 @@
     "contextual-insertion": {
       "sourceKey": "contextual-insertion-local",
       "ref": "refs/heads/feature/contextual-insertion",
-      "acceptedHead": "6179d853dfb65c342f466a858234a0d410564f43",
+      "acceptedHead": "fe46704704b0091cfc68a387bfd521ed5d94acb5",
       "featureMarker": "b298c802905289b4fb94178d9127c6a8283342b7",
-      "validation": "Local requested meta fixes and normal forward merges; integration validation in runs/scadmaxx-all-features-2026-10-09_19-45/report.md. Native GUI checks not run; no promotion.",
+      "validation": "Requested coordinated UI build: focused checks passed; application/desktop validation pending.",
       "dependencies": {
         "anchors-attachments": "bffbafdc447b6251a4e071e14396b03537eba105",
         "component-provider-adapters": "9d0cb2097efcac6856ae5dafb31a642803ec32d7",
-        "pr-6878": "3014fb55405759bfa1871e79f50cbee4c2a2c638"
+        "pr-6878": "974c2f6f5fe689266ca1a05adf1724eda18f68e4"
       }
     }
   }

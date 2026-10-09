@@ -1,5 +1,15 @@
 # Maintained feature ancestry
 
+## Coordinated UI and shortcut presets, 2026-10-10
+
+PR #6878 is now maintained by `feature/shortcut-presets`, based on the same accepted PR revision.
+Its input identity remains `pr-6878`. UI polish adds that prerequisite alongside PR #6776; Vim,
+cross sections and insertion retain their existing `pr-6878` dependency and merge the new owner
+head forward. Shared Preferences organization groups optional Inspector/Vim controls when present,
+so those owners do not acquire a reverse UI-polish dependency. Customizer disclosure surface changes
+remain in UI polish, preserving the existing feature ancestry. Build-only branding stays in the
+isolated standalone composition and integration, outside reusable owner commits.
+
 ## Background evaluator forward integration, 2026-10-07
 
 Inspector owns consumed-input observation; Customizer owns parameter-definition comparison. Background

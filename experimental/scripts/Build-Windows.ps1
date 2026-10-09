@@ -181,6 +181,9 @@ try {
             $state.dependencyStatusHash = (Get-FileHash (Join-Path $installed 'vcpkg/status')).Hash
         }
         Build {
+            # Finish UI generation before Ninja evaluates indirect consumers of generated headers.
+            # Otherwise a changed Preferences.ui can leave an old class layout in existing objects.
+            Invoke-Logged $cmake @('--build',$Build,'--config','Release','--target','OpenSCADLibInternal_autogen','--parallel',"$Jobs")
             Invoke-Logged $cmake @('--build',$Build,'--config','Release','--parallel',"$Jobs")
             $state.builtSha = $head
         }
