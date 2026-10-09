@@ -121,8 +121,52 @@ class WindowsBudget:
 
     def close(self):
         if self.handle:
-            self.kernel.CloseHandle(self.handle)
-            self.handle = None
+            try:
+                self.terminate_and_wait()
+            finally:
+                self.kernel.CloseHandle(self.handle)
+                self.handle = None
+
+    def terminate_and_wait(self):
+        # TerminateJobObject requests tree termination; waiting only on Popen's parent does not
+        # establish that descendants have released inherited stdout/stderr file handles.
+        kernel = self.kernel
+        kernel.QueryInformationJobObject.argtypes = [wintypes.HANDLE, ctypes.c_int, ctypes.c_void_p,
+                                                     wintypes.DWORD, ctypes.c_void_p]
+        kernel.OpenProcess.argtypes = [wintypes.DWORD, wintypes.BOOL, wintypes.DWORD]
+        kernel.OpenProcess.restype = wintypes.HANDLE
+        kernel.WaitForSingleObject.argtypes = [wintypes.HANDLE, wintypes.DWORD]
+        kernel.WaitForSingleObject.restype = wintypes.DWORD
+        capacity = 64
+        while True:
+            buffer = ctypes.create_string_buffer(8 + ctypes.sizeof(ctypes.c_size_t) * capacity)
+            if kernel.QueryInformationJobObject(self.handle, 3, buffer, len(buffer), None):
+                break
+            if ctypes.get_last_error() != 234:  # ERROR_MORE_DATA
+                raise ctypes.WinError(ctypes.get_last_error())
+            capacity *= 2
+        count = wintypes.DWORD.from_buffer(buffer, 4).value
+        pids = (ctypes.c_size_t * count).from_buffer(buffer, 8)
+        handles = []
+        try:
+            for pid in pids:
+                handle = kernel.OpenProcess(0x100000, False, pid)  # SYNCHRONIZE
+                if handle:
+                    handles.append(handle)
+                elif ctypes.get_last_error() != 87:  # Process already gone
+                    raise ctypes.WinError(ctypes.get_last_error())
+            if not kernel.TerminateJobObject(self.handle, 124):
+                raise ctypes.WinError(ctypes.get_last_error())
+            deadline = time.monotonic() + 10
+            for handle in handles:
+                result = kernel.WaitForSingleObject(handle, max(0, int((deadline - time.monotonic()) * 1000)))
+                if result == 258:
+                    raise RuntimeError("Timed-out suite descendants did not finish terminating")
+                if result != 0:
+                    raise ctypes.WinError(ctypes.get_last_error())
+        finally:
+            for handle in handles:
+                kernel.CloseHandle(handle)
 
 
 def execute(command, cwd, env, timeout, folder, args, quiet=False):
@@ -142,7 +186,7 @@ def execute(command, cwd, env, timeout, folder, args, quiet=False):
                 code = process.wait(timeout=timeout)
                 status = "PASS" if code == 0 else "FAIL"
             except subprocess.TimeoutExpired:
-                budget.kernel.TerminateJobObject(budget.handle, 124)
+                budget.terminate_and_wait()
                 process.wait()
                 code, status = 124, "INCONCLUSIVE"
     except FileNotFoundError as error:

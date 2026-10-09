@@ -30,5 +30,8 @@ Keep concurrent dirty control/skill research outside a release: stage/package fr
 of the committed controls, with frozen stack/source manifests. This run used a detached controls
 composition. Source/build/package evidence: `D:/openscad/runs/scadmaxx-all-features-2026-10-09_22-34`.
 The initial 29c325d package is superseded by the forward-merged title repair eeccd2a7.
-One timeout-harness cleanup race passed all 19 tests on retry. The quick performance run was interrupted
+The timeout-harness cleanup race recurred in the full tools profile. Test-Profiles.py now opens
+handles for job descendants and waits for termination before returning/closing the job, rather than
+waiting only for the Popen parent. All 19 focused cases and the complete tools profile pass after
+this repair; keep the original failure evidence. The quick performance run was interrupted
 by an unrelated MSVC linker; that is incomplete timing evidence, not a performance pass.

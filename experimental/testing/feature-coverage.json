@@ -1,9 +1,9 @@
 {
   "schema": 1,
-  "integration_head": "29c325d9b5ffe12b48a26799b83653288d8fc298",
-  "selection_sha256": "f9e9ff0a90baf8207b0edad9eb75c9800b5461e19d723cb35bcab958021848a9",
-  "dependencies_sha256": "142c175aae4920d7459b2de5e727c71fce58d492f5191ad3a2a08f19345b817f",
-  "detailed_report": "D:\\openscad\\runs\\scadmaxx-all-features-2026-10-09_22-34\\feature-audit\\feature-tests.json",
+  "integration_head": "eeccd2a7bdecaf8a14f820272795e91b3290c0d8",
+  "selection_sha256": "b1b1c9504e73af0382a4081f9870f4cfe8f4d3390549a4162375786e3505ac91",
+  "dependencies_sha256": "f1a37ce4ddc3de3853fa3a576043a16d2bc444e0ea0ef107b7039c1722a42f07",
+  "detailed_report": "D:\\openscad\\runs\\scadmaxx-all-features-2026-10-09_22-34\\feature-audit-final\\feature-tests.json",
   "features": [
     {
       "id": "pr-6878",
@@ -39,7 +39,7 @@
     },
     {
       "id": "ui-visual-polish",
-      "revision": "edf27c31cae46383114e6af2cb72284abc788c74",
+      "revision": "08b0f6e42998467365fe2689661204935b420436",
       "in_integration_ancestry": true,
       "source_ready": false,
       "test_path_count": 6,
