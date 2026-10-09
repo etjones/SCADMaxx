@@ -75,7 +75,7 @@
     "ui-visual-polish": {
       "sourceKey": "ui-visual-polish-local",
       "ref": "refs/heads/codex/ui-visual-polish",
-      "acceptedHead": "edf27c31cae46383114e6af2cb72284abc788c74",
+      "acceptedHead": "08b0f6e42998467365fe2689661204935b420436",
       "featureMarker": "2217d2c7d54743c93cefb9418b208825168ddc1c",
       "validation": "Requested coordinated UI build: focused checks passed; application/desktop validation pending.",
       "dependencies": {

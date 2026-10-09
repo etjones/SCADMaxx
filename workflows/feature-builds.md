@@ -12,6 +12,8 @@ pwsh -NoProfile -File D:/openscad/scadmaxx/experimental/scripts/Apply-FeatureBui
 ```
 
 Then use that feature's existing configuration/deployment recipe and shared dependencies. Build the application with
+Windows configuration must include `-DCMAKE_INSTALL_SYSTEM_RUNTIME_DESTINATION=.` when deploying DLLs beside
+`scadmaxx.exe`; retaining a second MSVC runtime in `bin` causes dependency-scanner conflicts.
 `experimental/scripts/Build-FeatureApplication.ps1 -BuildDirectory <existing-feature-build-directory>`.
 It completes Qt code generation in a separate build invocation before compiling the application. This prevents
 stale indirect consumers of generated UI headers from retaining an old class layout after a branch update.

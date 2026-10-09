@@ -36,3 +36,12 @@ unchanged: publication is not a validation pass. Evidence for the publication an
 The controls repository can be made public later by changing its GitHub visibility. The application
 feature history is already public in the OpenSCAD fork. No GitHub releases, workflow runs, builds or tests
 were requested as part of publication.
+
+## Coordinated UI update, 2026-10-10
+
+The user explicitly authorized necessary pushes for this implementation/build. UI polish, the maintained
+shortcut-preset variant, Vim, cross sections, insertion and integration `scadmaxx-20261006` were pushed
+to both source remotes and verified by exact SHA. Current integration is `eeccd2a7bdecaf8a14f820272795e91b3290c0d8`.
+The source manifest records these updates; temporary standalone build compositions remain local.
+Source publication does not publish ZIPs or turn incomplete performance/desktop coverage into passes.
+Evidence: `D:/openscad/runs/scadmaxx-all-features-2026-10-09_22-34/publication.json`.

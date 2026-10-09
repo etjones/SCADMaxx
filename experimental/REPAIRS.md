@@ -3,6 +3,10 @@
 This catalog preserves narrowly scoped repairs discovered during experimental runs. It does not select features.
 Existing dirty PR worktrees are not a repair library. Only the individually recorded commits below are candidates.
 
+For shared dock titles, Preferences layout, shortcut composition and Windows deployment, see
+[coordinated UI integration](repairs/ui-consistency-integration.md). Preserve owner ancestry and the
+actual Dock visibility-path regression; do not reintroduce default Qt titles during restoration.
+
 For background evaluation entering the complete feature stack, see
 [background evaluation and animation/export overlaps](repairs/background-evaluation-all-features.md).
 The current local run retains normal owner merges and separately records integration repairs and validation.

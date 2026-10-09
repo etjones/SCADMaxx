@@ -17,7 +17,7 @@
   {
     "id": "ui-visual-polish-local",
     "ref": "refs/heads/codex/ui-visual-polish",
-    "revision": "e4e9046558d1a836939e63c2d0cc6bd4b353692b"
+    "revision": "08b0f6e42998467365fe2689661204935b420436"
   },
   {
     "id": "annotations-local",
@@ -42,7 +42,7 @@
   {
     "id": "vim-editor-mode-local",
     "ref": "refs/heads/feature/vim-editor-mode",
-    "revision": "f6e316ed43dcaa4726520dbee76980015e681ec7"
+    "revision": "63931fb745856a913609db0c67e21215944b139d"
   },
   {
     "id": "source-geometry-provenance-local",
@@ -57,7 +57,7 @@
   {
     "id": "live-clipping-sections-local",
     "ref": "refs/heads/feature/live-clipping-sections",
-    "revision": "4fe538595c21f4bb32402fb335f7dfd654769a3a"
+    "revision": "e9c29f8ab55dc8a33f54075612951a871e038997"
   },
   {
     "id": "geometry-services-local",
@@ -82,7 +82,7 @@
   {
     "id": "contextual-insertion-local",
     "ref": "refs/heads/feature/contextual-insertion",
-    "revision": "6179d853dfb65c342f466a858234a0d410564f43"
+    "revision": "fe46704704b0091cfc68a387bfd521ed5d94acb5"
   },
   {
     "id": "geometry-bounds-local",
@@ -92,6 +92,11 @@
   {
     "id": "current-integration",
     "ref": "refs/heads/scadmaxx-20261006",
-    "revision": "f4f87a8eea11172037c459dd5ae9848b566fd044"
+    "revision": "eeccd2a7bdecaf8a14f820272795e91b3290c0d8"
+  },
+  {
+    "id": "shortcut-presets-local",
+    "ref": "refs/heads/feature/shortcut-presets",
+    "revision": "974c2f6f5fe689266ca1a05adf1724eda18f68e4"
   }
 ]
