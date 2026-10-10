@@ -226,7 +226,7 @@ Uncomment after adding the full-size image; keep the same file in href and src.
 
 ### Object literals and comprehensions — [#6081](https://github.com/openscad/openscad/pull/6081)
 
-[Usage and examples](docs/language-objects.md)
+For usage and examples, [see here](docs/language-objects.md).
 
 <a href="docs/screenshots/objects.png"><img align="left" hspace="16" width="320" src="docs/screenshots/objects.png" alt="A short object-literal example and its evaluated output."></a>
 
@@ -238,7 +238,7 @@ Uncomment after adding the full-size image; keep the same file in href and src.
 
 ### Native Customizer attributes — [#6642 variant](https://github.com/openscad/openscad/pull/6642)
 
-[Usage and examples](docs/language-customizer-attributes.md)
+For usage and examples, [see here](docs/language-customizer-attributes.md).
 
 <a href="docs/screenshots/customizer-attributes.png"><img align="right" hspace="16" width="320" src="docs/screenshots/customizer-attributes.png" alt="A reactive Customizer example beside the attribute declaration that drives it."></a>
 
@@ -250,7 +250,7 @@ Uncomment after adding the full-size image; keep the same file in href and src.
 
 ### Parts, assemblies and components
 
-[Usage and examples](docs/language-parts-assemblies.md)
+For usage and examples, [see here](docs/language-parts-assemblies.md).
 
 <a href="docs/screenshots/parts-assemblies.png"><img align="left" hspace="16" width="320" src="docs/screenshots/parts-assemblies.png" alt="An assembly with named components in the Model tree and selected-part parameters visible."></a>
 
@@ -263,7 +263,7 @@ Uncomment after adding the full-size image; keep the same file in href and src.
 
 ### Anchors and attachments
 
-[Usage and examples](docs/language-anchors-attachments.md)
+For usage and examples, [see here](docs/language-anchors-attachments.md).
 
 <a href="docs/screenshots/anchors-attachments.png"><img align="right" hspace="16" width="320" src="docs/screenshots/anchors-attachments.png" alt="Two components attached through named anchors, with reference and placement controls visible."></a>
 
@@ -276,7 +276,7 @@ Uncomment after adding the full-size image; keep the same file in href and src.
 
 ### Geometry bounds - [selected from #4478](https://github.com/openscad/openscad/pull/4478)
 
-[Usage and examples](docs/language-geometry-bounds.md)
+For usage and examples, [see here](docs/language-geometry-bounds.md).
 
 - Capture a shape with `{{ ... }}` and query it from SCAD code using `geometry_bounds()`.
 - Read its bounding-box `min`, `max`, `size`, and `center` as ordinary object members.
@@ -285,9 +285,9 @@ Uncomment after adding the full-size image; keep the same file in href and src.
 
 ## Installation
 
-Only Windows builds are provided at the moment. If there is demand, I can look into doing cross platform builds. If you
-are on another platform and want to build it yourself, you can also tell your agent to clone this repo and execute the
-procedures described.
+Only Windows builds are provided at the moment, download [here](https://github.com/roel-v/SCADMaxx/releases). If there
+is demand, I can look into doing cross platform builds. If you are on another platform and want to build it yourself,
+you can also tell your agent to clone this repo and execute the procedures described.
 
 Builds are date-based, there is no regular release schedule. Have suggestions for patches or functionality that would
 fit in an experimental build like this? File an issue.
