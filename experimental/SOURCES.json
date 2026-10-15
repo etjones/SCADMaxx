@@ -311,5 +311,18 @@
     "localCommitRecord": "runs/scadmaxx-all-features-2026-10-09_22-34/report.md (workspace relative)",
     "integratedValidationHead": "659f5abf0e8959bc03c62155b436b1b6b44a8aca",
     "integratedValidationEvidence": "runs/scadmaxx-all-features-2026-10-09_22-34/report.md (workspace relative); ordinary correctness, tools, focused surface/preset and all four native visual suites pass. Timing interrupted by unrelated compilation; full native feature sequence and clean-machine portability unverified."
+  },
+  "step-export-local": {
+    "repository": "https://github.com/etjones/openscad.git",
+    "ref": "refs/heads/feature/step-export",
+    "ready": false,
+    "pendingReason": "Not yet built or validated in a SCADMaxx composition; needs OpenCASCADE 7.8 in the Windows vcpkg dependency set and a clean forward merge onto the current stack. Branch is 4 commits behind upstream master and still carries Windows CI diagnostic commits.",
+    "localHead": "789fa91b89c695e23ec4d080fb96f14663e631e3",
+    "acceptedHead": "789fa91b89c695e23ec4d080fb96f14663e631e3",
+    "validatedHead": null,
+    "promotedHead": null,
+    "integration": "merge",
+    "handoff": "doc/step-export.md in the source branch",
+    "validationEvidence": null
   }
 }

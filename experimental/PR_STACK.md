@@ -55,6 +55,7 @@ It defines source synchronization and the handoff required when each feature bec
 | 22 | pr-6964 | pr | https://github.com/openscad/openscad/pull/6964 | b2455385cc04818579fe73f628fdac6c608513c6 | merge | none declared | GIF/APNG/MJPEG animation export including #6963, plus parallel worker processes |
 | 23 | pr-6951 | pr | https://github.com/openscad/openscad/pull/6951 | d072ffc145acfd7bc6f75fde875f979ad7abc796 | merge | none declared | Transparent PNG export and optional transparent viewport compositing |
 | 24 | pr-7091 | pr | https://github.com/openscad/openscad/pull/7091 | f281f9226d046d6e34c5619c3ed4294e5832e2d3 | merge | none declared | Preserve model colors in SVG, PDF and DXF exports |
+| 25 | step-export | feature | step-export-local | 789fa91b89c695e23ec4d080fb96f14663e631e3 | merge | none declared | Built-in STEP export through an OpenCASCADE B-rep evaluator; awaiting SCADMaxx build and validation |
 
 Background evaluation was selected on 2026-10-07. Its source entry remains `ready: false` until the local source
 passes validation and the reviewed revision is explicitly promoted to the declared build-input repository.
